@@ -1,0 +1,202 @@
+# ================================================================
+#  Mukti Portal — Production-Grade .gitignore
+#  Last updated: 2026-05-16
+#  DO NOT REMOVE ANY SECTION — each section has a purpose.
+# ================================================================
+
+# ----------------------------------------------------------------
+#  1. Environment & Secrets  (MOST CRITICAL)
+# ----------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.local
+
+# Firebase / GCP Service Account Keys
+serviceAccountKey.json
+firebase-adminsdk*.json
+gcp-service-account*.json
+google-credentials*.json
+application_default_credentials.json
+
+# Google Cloud / AWS / Azure credential files
+*.adc.json
+credentials.json
+.aws/
+.azure/
+.gcloud/
+
+# Certificate & Key files
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.pfx
+*.der
+*.csr
+*.jks
+id_rsa
+id_ed25519
+id_ecdsa
+*.ppk
+
+# JWT / OAuth secrets
+jwt_secret*
+oauth_secret*
+client_secret*.json
+
+# ----------------------------------------------------------------
+#  2. Dependencies
+# ----------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.virtualenv/
+
+# ----------------------------------------------------------------
+#  3. Build & Dist Output
+# ----------------------------------------------------------------
+dist/
+dist-ssr/
+build/
+out/
+.next/
+.nuxt/
+.svelte-kit/
+*.tsbuildinfo
+
+# ----------------------------------------------------------------
+#  4. Logs & Debug Files
+# ----------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local build output / debug artifacts (DO NOT COMMIT)
+build_log.txt
+tsc_output.txt
+strict_tsc_output.txt
+frontend_errors.txt
+backend_errors.txt
+lint_results.txt
+lint_remaining.txt
+lint_results.json
+
+# ----------------------------------------------------------------
+#  5. Testing & Coverage
+# ----------------------------------------------------------------
+coverage/
+*.lcov
+.nyc_output/
+
+# ----------------------------------------------------------------
+#  6. Data Files & Local Storage
+# ----------------------------------------------------------------
+# Backend local JSON data (contains real user/request data)
+backend/data/
+backend/secrets/
+
+# Databases
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+
+# Sample / generated datasets (contains PII mock data)
+ml-service/sample_ml_dataset.csv
+
+# ----------------------------------------------------------------
+#  7. Uploads & Media
+# ----------------------------------------------------------------
+uploads/
+public/uploads/
+tmp/
+temp/
+
+# ----------------------------------------------------------------
+#  8. Office & Binary Documents
+# ----------------------------------------------------------------
+*.pdf
+*.docx
+*.doc
+*.xlsx
+*.xls
+*.pptx
+*.ppt
+*.zip
+*.rar
+*.tar.gz
+*.7z
+
+# ----------------------------------------------------------------
+#  9. IDE & Editor Directories
+# ----------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+
+# ----------------------------------------------------------------
+#  10. OS-Generated Files
+# ----------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ----------------------------------------------------------------
+#  11. Miscellaneous Temp & Purge Scripts
+# ----------------------------------------------------------------
+temp_*
+purge_*
+debug_*
+*.bak
+*.backup
+*.old
+*.orig
+*.swp
+*.tmp
+
+# ----------------------------------------------------------------
+#  12. Python ML Service — Model Artifacts
+# ----------------------------------------------------------------
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+*.pt
+*.pth
+model_weights/
+saved_models/
