@@ -4,15 +4,13 @@
 
 ### 🛡️ Digital Trust Infrastructure for Informal Workers
 
-<p>
 <b>Transforming verified daily work into digital identity, reputation, and alternative credit proof.</b>
-</p>
 
-<br/>
+<br/><br/>
 
-<img src="./assets/images/architecture-overview.png" width="82%" alt="Mukti Portal Architecture"/>
+<img src="./assets/images/architecture-overview.png" width="70%" alt="Mukti Portal Architecture"/>
 
-<br/>
+<br/><br/>
 
 <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white"/>
 <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black"/>
@@ -23,125 +21,127 @@
 
 🏆 Built for <b>VYOMA 2026 – National Level Prototype Competition</b>
 
+
 ✨ <b>Not Just a Platform — A Digital Trust Ecosystem</b>
 
 </div>
 
 ---
 
-# 🌍 Problem Statement
+## 🌍 Problem Statement
 
-Millions of informal workers such as plumbers, electricians, maids, delivery workers, cleaners, and daily wage earners perform genuine work every day, yet their contribution remains digitally invisible.
+Millions of informal workers work daily but still lack digital recognition and financial credibility because their work history is not officially verified.
 
-Despite working consistently, they still struggle because traditional systems fail to recognize informal labor as verifiable proof of credibility.
+As a result, they face:
 
-As a result:
+- ❌ No trusted work history
+- ❌ No digital reputation
+- ❌ No financial visibility
+- ❌ Limited access to loans and formal credit systems
 
-❌ No verified work history  
-❌ No trusted digital reputation  
-❌ No structured income records  
-❌ No financial visibility  
-❌ Limited access to loans and formal credit systems  
-
-Most workers still depend on word-of-mouth trust, making it difficult to build long-term financial stability and professional credibility.
-
-> 🧠 Informal workers lack a trusted digital identity backed by verified work proof.
+> 🧠 Informal workers lack a trusted digital identity backed by verified work records.
 
 ---
 
-# 💡 Solution Approach
+## 💡 Solution Approach
 
-Mukti Portal is designed as a trust-building infrastructure that converts verified daily work into structured digital credibility.
+**Mukti Portal** converts verified daily work into digital identity and trust-based credibility.
 
-Instead of simply storing job records, the platform continuously builds a worker’s digital trust profile through real-world verification signals.
+### 🔄 How It Works
 
-### 🔄 Core Flow
-
-- Workers complete jobs
-- Customers validate completed work
-- The system verifies authenticity
-- Verified activities become trust signals
-- Trust signals generate digital reputation
+1. Workers complete jobs.
+2. Customers verify the completed work.
+3. The system validates authenticity.
+4. Verified work generates trust signals.
 
 This enables:
 
-✅ Verified Work History  
-✅ Dynamic Trust Score  
-✅ Reputation Analytics  
-✅ Alternative Credit Proof  
-✅ Financial Visibility for Informal Workers  
+- ✅ Verified Work History
+- ✅ Dynamic Trust Score
+- ✅ Reputation Analytics
+- ✅ Alternative Credit Proof
 
 > 🚀 Turning everyday labor into trusted digital identity.
 
 ---
 
-# 🔥 System Workflow
+## 🔥 System Workflow
 
 <div align="center">
 
-<img src="./assets/images/system-flow.png" width="76%" alt="Mukti Portal Workflow"/>
+<img src="./assets/images/system-flow.png" width="70%" alt="Mukti Portal Workflow"/>
 
+</div>
 
-# 🏗️ Core Architecture
+---
+<div align="center">
+
+## 🏗️ Core Architecture
 
 <table>
-
 <tr>
 
-<td width="33%">
+<td align="center" width="33%" valign="top">
 
-## 👤 Identity Layer
-- Worker Profiles
-- Customer Accounts
-- Role Management
+### 👤 Identity Layer
 
-</td>
-
-<td width="33%">
-
-## 🔐 Verification Layer
-- QR Validation
-- Fraud Prevention
-- Secure Verification
+Worker Profiles  
+Customer Accounts  
+Role Management  
 
 </td>
 
-<td width="33%">
+<td align="center" width="33%" valign="top">
 
-## 🧠 Trust Layer
-- Trust Scoring
-- Reputation Analytics
-- Financial Insights
+### 🔐 Verification Layer
+
+QR Validation  
+Fraud Prevention  
+Secure Verification  
+
+</td>
+
+<td align="center" width="33%" valign="top">
+
+### 🧠 Trust Layer
+
+Trust Scoring  
+Reputation Analytics  
+Financial Insights  
 
 </td>
 
 </tr>
-
 </table>
+
+</div>
 
 ---
 
-# ✨ Key Features
+<div align="center">
+
+## ✨ Key Features
 
 <table>
-
 <tr>
 
-<td width="50%">
+<td align="center" width="50%" valign="top">
 
 ### 📲 Worker Dashboard
-- Activity tracking
-- Trust score monitoring
-- Reputation insights
+
+Activity Tracking  
+Trust Score Monitoring  
+Reputation Insights  
 
 </td>
 
-<td width="50%">
+<td align="center" width="50%" valign="top">
 
 ### 🔳 QR Verification
-- Real-time validation
-- Fake-proof workflow
-- Secure confirmations
+
+Real-Time Validation  
+Fake-Proof Workflow  
+Secure Confirmations  
 
 </td>
 
@@ -149,93 +149,99 @@ This enables:
 
 <tr>
 
-<td width="50%">
+<td align="center" width="50%" valign="top">
 
 ### 📈 Trust Intelligence
-- Reliability scoring
-- Repeat customer analytics
-- Reputation growth tracking
+
+Reliability Scoring  
+Repeat Customer Analytics  
+Reputation Growth Tracking  
 
 </td>
 
-<td width="50%">
+<td align="center" width="50%" valign="top">
 
 ### 📄 Work Reports
-- Verified work records
-- Monthly analytics
-- Credit-ready reports
+
+Verified Work Records  
+Monthly Analytics  
+Credit-Ready Reports  
 
 </td>
 
 </tr>
-
 </table>
+
+</div>
 
 ---
 
-# ⚡ Technology Stack
+<div align="center">
+
+## ⚡ Technology Stack
 
 <table>
-
 <tr>
 
-<td width="33%">
+<td align="center" width="33%" valign="top">
 
-## 🎨 Frontend
-- React
-- TypeScript
-- Tailwind CSS
-- Shadcn UI
+### 🎨 Frontend
 
-</td>
-
-<td width="33%">
-
-## ⚙️ Backend
-- Node.js
-- Express.js
-- Firebase
-- PDFKit
+React  
+TypeScript  
+Tailwind CSS  
+Shadcn UI  
 
 </td>
 
-<td width="33%">
+<td align="center" width="33%" valign="top">
 
-## 🤖 Intelligence
-- Python Flask
-- NLP Processing
-- Fraud Detection
+### ⚙️ Backend
+
+Node.js  
+Express.js  
+Firebase  
+PDFKit  
+
+</td>
+
+<td align="center" width="33%" valign="top">
+
+### 🤖 Intelligence
+
+Python Flask  
+NLP Processing  
+Fraud Detection  
 
 </td>
 
 </tr>
-
 </table>
 
----
-
-# 🔐 Security
-
-✅ Role-Based Access Control  
-✅ QR Expiration Validation  
-✅ Fraud Detection Mechanisms  
-✅ Secure Firebase Authentication  
-✅ Protected APIs & Data Access  
+</div>
 
 ---
+## 🔐 Security
 
-# 📚 Documentation
+- ✅ Role-Based Access Control
+- ✅ QR Expiration Validation
+- ✅ Fraud Detection Mechanisms
+- ✅ Secure Firebase Authentication
+- ✅ Protected APIs & Data Access
+
+---
+
+## 📚 Documentation
 
 | File | Purpose |
-|------|----------|
-| [`RUN.md`](./RUN.md) | Setup & execution guide |
+|---|---|
+| [`RUN.md`](./RUN.md) | Setup and execution guide |
 | [`.env.example`](./.env.example) | Frontend environment template |
 | [`backend/.env.example`](./backend/.env.example) | Backend environment template |
 
 ---
-</div>
 
-# 👨‍💻 Contributors
+## 👨‍💻 Contributors
 
 - Shivashankar Mali
 - Swapnil Patil
@@ -250,11 +256,7 @@ This enables:
 
 💡 Engineering innovation focused on solving real-world social and financial inclusion challenges.
 
-</div>
-
----
-
-<div align="center">
+<br/>
 
 ## ⭐ Support the Vision
 
