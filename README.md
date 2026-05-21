@@ -248,30 +248,14 @@ Unlike traditional service platforms, Mukti Portal focuses on transforming infor
 
 ---
 
-# 🌟 Impact
-
-```text
-Daily Work
-    ↓
-Verified Jobs
-    ↓
-Trust Signals
-    ↓
-Digital Reputation
-    ↓
-Financial Inclusion
-````
-
 ---
 
 <div align="center">
 
-# 🏆 Vision
+## ⭐ If you found this project valuable, consider giving it a Star!
 
-### “Empowering informal workers through trusted digital identity.”
+### 🚀 Support the Vision • Share the Project • Empower Digital Trust
 
-🚀 Real-World Infrastructure
-🛡️ Trust-Based Ecosystem
-📈 Financial Inclusion Platform
+💡 Every contribution and share helps build a stronger ecosystem for informal workers.
 
 </div>
