@@ -2,10 +2,10 @@
 
 # 🚀 Mukti Portal
 
-### 🛡️ Trust Infrastructure for Informal Workers
+### 🛡️ Digital Trust Infrastructure for Informal Workers
 
 <p>
-<b>Converting daily work into verified digital identity, trust score, and financial credibility.</b>
+<b>Transforming verified daily work into digital identity, reputation, and alternative credit proof.</b>
 </p>
 
 <br/>
@@ -20,6 +20,8 @@
 <img src="https://img.shields.io/badge/AI-Powered-blueviolet?style=for-the-badge"/>
 
 <br/><br/>
+
+🏆 Built for <b>VYOMA 2026 – National Level Prototype Competition</b>
 
 ✨ <b>Not Just a Platform — A Digital Trust Ecosystem</b>
 
@@ -41,43 +43,39 @@ As a result:
 ❌ No financial visibility  
 ❌ Limited access to loans and formal credit systems  
 
-Most workers depend entirely on word-of-mouth trust, making it difficult to build long-term financial stability or professional recognition.
+Most workers still depend on word-of-mouth trust, making it difficult to build long-term financial stability and professional credibility.
 
-Current platforms mainly focus on service booking, but they fail to solve the core issue:
-
-> 🧠 **Informal workers lack a trusted digital identity backed by verified work proof.**
+> 🧠 Informal workers lack a trusted digital identity backed by verified work proof.
 
 ---
 
 # 💡 Solution Approach
 
-Mukti Portal is designed as a trust-building infrastructure that converts daily verified work into structured digital credibility.
+Mukti Portal is designed as a trust-building infrastructure that converts verified daily work into structured digital credibility.
 
-Instead of simply storing job records, the platform creates a continuously growing digital trust profile for every worker.
+Instead of simply storing job records, the platform continuously builds a worker’s digital trust profile through real-world verification signals.
 
-The workflow is simple yet powerful:
+### 🔄 Core Flow
 
 - Workers complete jobs
-- Customers validate the work
+- Customers validate completed work
 - The system verifies authenticity
 - Verified activities become trust signals
 - Trust signals generate digital reputation
 
-This enables the platform to create:
+This enables:
 
 ✅ Verified Work History  
 ✅ Dynamic Trust Score  
 ✅ Reputation Analytics  
-✅ Credit-Ready Work Reports  
+✅ Alternative Credit Proof  
 ✅ Financial Visibility for Informal Workers  
-
-Unlike traditional service platforms, Mukti Portal focuses on transforming informal labor into trusted digital proof that can eventually support financial inclusion and alternative credit evaluation.
 
 > 🚀 Turning everyday labor into trusted digital identity.
 
 ---
 
-# 🔥 Workflow
+# 🔥 System Workflow
 
 <div align="center">
 
@@ -91,7 +89,7 @@ Unlike traditional service platforms, Mukti Portal focuses on transforming infor
 | 🔳 | QR Proof Generation |
 | 👤 | Customer Validation |
 | 🛡️ | Verification Engine |
-| 📊 | Trust Signal Creation |
+| 📊 | Trust Signal Generation |
 | 📄 | Digital Work Reports |
 
 ---
@@ -107,7 +105,7 @@ Unlike traditional service platforms, Mukti Portal focuses on transforming infor
 ## 👤 Identity Layer
 - Worker Profiles
 - Customer Accounts
-- Role Access
+- Role Management
 
 </td>
 
@@ -116,7 +114,7 @@ Unlike traditional service platforms, Mukti Portal focuses on transforming infor
 ## 🔐 Verification Layer
 - QR Validation
 - Fraud Prevention
-- Secure Confirmation
+- Secure Verification
 
 </td>
 
@@ -144,9 +142,9 @@ Unlike traditional service platforms, Mukti Portal focuses on transforming infor
 <td width="50%">
 
 ### 📲 Worker Dashboard
-- Activity insights
-- Trust monitoring
-- Reputation growth
+- Activity tracking
+- Trust score monitoring
+- Reputation insights
 
 </td>
 
@@ -154,7 +152,7 @@ Unlike traditional service platforms, Mukti Portal focuses on transforming infor
 
 ### 🔳 QR Verification
 - Real-time validation
-- Fake-proof prevention
+- Fake-proof workflow
 - Secure confirmations
 
 </td>
@@ -166,18 +164,18 @@ Unlike traditional service platforms, Mukti Portal focuses on transforming infor
 <td width="50%">
 
 ### 📈 Trust Intelligence
-- Rating analysis
-- Repeat customer tracking
 - Reliability scoring
+- Repeat customer analytics
+- Reputation growth tracking
 
 </td>
 
 <td width="50%">
 
 ### 📄 Work Reports
-- Verified records
+- Verified work records
 - Monthly analytics
-- Income estimation
+- Credit-ready reports
 
 </td>
 
@@ -230,32 +228,49 @@ Unlike traditional service platforms, Mukti Portal focuses on transforming infor
 
 # 🔐 Security
 
-✅ Role-Based Access  
+✅ Role-Based Access Control  
 ✅ QR Expiration Validation  
-✅ Fraud Detection  
+✅ Fraud Detection Mechanisms  
 ✅ Secure Firebase Authentication  
-✅ Protected APIs  
+✅ Protected APIs & Data Access  
 
 ---
 
-# 📚 Project Documentation
+# 📚 Documentation
 
 | File | Purpose |
 |------|----------|
-| [`RUN.md`](./RUN.md) | Project setup & execution guide |
+| [`RUN.md`](./RUN.md) | Setup & execution guide |
 | [`.env.example`](./.env.example) | Frontend environment template |
 | [`backend/.env.example`](./backend/.env.example) | Backend environment template |
 
 ---
 
+# 👨‍💻 Contributors
+
+- Shivashankar Mali
+- Swapnil Patil
+- Pratiksha Patil
+- Parag Pawar
+
 ---
 
 <div align="center">
 
-## ⭐ If you found this project valuable, consider giving it a Star!
+## 🏆 VYOMA 2026 – National Level Prototype Competition
 
-### 🚀 Support the Vision • Share the Project • Empower Digital Trust
+💡 Engineering innovation focused on solving real-world social and financial inclusion challenges.
 
-💡 Every contribution and share helps build a stronger ecosystem for informal workers.
+</div>
+
+---
+
+<div align="center">
+
+## ⭐ Support the Vision
+
+### Empower Digital Trust • Enable Financial Inclusion • Recognize Informal Work
+
+If you found this project meaningful, consider giving it a ⭐ on GitHub.
 
 </div>
