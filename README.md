@@ -2,23 +2,26 @@
 
 # 🚀 Mukti Portal
 
-### 🛡️ Digital Trust Infrastructure for Informal Workers
+### 🛡️ Trust Infrastructure for Informal Workers
 
 <p>
-<b>Turning daily work into verified identity, trust score, and financial visibility.</b>
+<b>Converting daily work into verified digital identity, trust score, and financial credibility.</b>
 </p>
 
 <br/>
 
-<img src="assets/images/architecture-overview.png" width="82%" alt="Mukti Portal Architecture"/>
+<img src="./assets/images/architecture-overview.png" width="82%" alt="Mukti Portal Architecture"/>
+
+<br/>
+
+<img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white"/>
+<img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/AI-Powered-blueviolet?style=for-the-badge"/>
 
 <br/><br/>
 
-<img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white"/>
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
-<img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black"/>
-<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/AI%20Powered-Trust%20Engine-blueviolet?style=for-the-badge"/>
+✨ <b>Not Just a Platform — A Digital Trust Ecosystem</b>
 
 </div>
 
@@ -26,82 +29,108 @@
 
 # 🌍 Problem Statement
 
-Millions of workers perform real jobs daily but still lack:
+Millions of informal workers such as plumbers, electricians, maids, delivery workers, cleaners, and daily wage earners perform genuine work every day, yet their contribution remains digitally invisible.
 
-❌ Verified work proof  
-❌ Digital reputation  
-❌ Financial credibility  
-❌ Structured work history  
+Despite working consistently, they still struggle because traditional systems fail to recognize informal labor as verifiable proof of credibility.
 
-Traditional systems ignore informal workers.
+As a result:
+
+❌ No verified work history  
+❌ No trusted digital reputation  
+❌ No structured income records  
+❌ No financial visibility  
+❌ Limited access to loans and formal credit systems  
+
+Most workers depend entirely on word-of-mouth trust, making it difficult to build long-term financial stability or professional recognition.
+
+Current platforms mainly focus on service booking, but they fail to solve the core issue:
+
+> 🧠 **Informal workers lack a trusted digital identity backed by verified work proof.**
 
 ---
 
-# 💡 Solution
+# 💡 Solution Approach
 
-Mukti Portal converts verified work into:
+Mukti Portal is designed as a trust-building infrastructure that converts daily verified work into structured digital credibility.
 
-✅ Digital Identity  
-✅ Trust Score  
-✅ Verified Job History  
+Instead of simply storing job records, the platform creates a continuously growing digital trust profile for every worker.
+
+The workflow is simple yet powerful:
+
+- Workers complete jobs
+- Customers validate the work
+- The system verifies authenticity
+- Verified activities become trust signals
+- Trust signals generate digital reputation
+
+This enables the platform to create:
+
+✅ Verified Work History  
+✅ Dynamic Trust Score  
+✅ Reputation Analytics  
 ✅ Credit-Ready Work Reports  
+✅ Financial Visibility for Informal Workers  
 
-> 🧠 *Not just a platform — a Trust Infrastructure.*
+Unlike traditional service platforms, Mukti Portal focuses on transforming informal labor into trusted digital proof that can eventually support financial inclusion and alternative credit evaluation.
+
+> 🚀 Turning everyday labor into trusted digital identity.
 
 ---
 
-# 🔥 Core Workflow
+# 🔥 Workflow
 
 <div align="center">
 
-<img src="assets/images/system-flow.png" width="78%" alt="Mukti Portal System Flow"/>
+<img src="./assets/images/system-flow.png" width="76%" alt="Mukti Portal Workflow"/>
 
 </div>
 
 | Step | Process |
 |------|----------|
-| 👷 | Worker registers |
-| 🔳 | QR proof generated |
-| 👤 | Customer validates work |
-| 🛡️ | System verifies authenticity |
-| 📊 | Trust signals generated |
-| 🧠 | Dynamic trust score calculated |
-| 📄 | Digital work report created |
+| 👷 | Worker Registration |
+| 🔳 | QR Proof Generation |
+| 👤 | Customer Validation |
+| 🛡️ | Verification Engine |
+| 📊 | Trust Signal Creation |
+| 📄 | Digital Work Reports |
 
 ---
 
-# 🏗️ System Architecture
+# 🏗️ Core Architecture
 
 <table>
+
 <tr>
+
 <td width="33%">
 
 ## 👤 Identity Layer
 - Worker Profiles
-- Customer Profiles
+- Customer Accounts
 - Role Access
-- Authentication
 
 </td>
+
 <td width="33%">
 
 ## 🔐 Verification Layer
 - QR Validation
-- Job Confirmation
 - Fraud Prevention
-- Time-Limited Proofs
+- Secure Confirmation
 
 </td>
+
 <td width="33%">
 
 ## 🧠 Trust Layer
-- Trust Score Engine
-- Work Analytics
-- Reputation Building
-- Financial Visibility
+- Trust Scoring
+- Reputation Analytics
+- Financial Insights
 
 </td>
+
 </tr>
+
 </table>
 
 ---
@@ -109,52 +138,61 @@ Mukti Portal converts verified work into:
 # ✨ Key Features
 
 <table>
+
 <tr>
+
 <td width="50%">
 
 ### 📲 Worker Dashboard
-- Work analytics
-- Trust tracking
-- Activity monitoring
+- Activity insights
+- Trust monitoring
 - Reputation growth
 
 </td>
+
 <td width="50%">
 
 ### 🔳 QR Verification
-- Secure validation
-- Real-time confirmation
-- Fake entry prevention
+- Real-time validation
+- Fake-proof prevention
+- Secure confirmations
 
 </td>
+
 </tr>
 
 <tr>
+
 <td width="50%">
 
 ### 📈 Trust Intelligence
 - Rating analysis
-- Repeat customer signals
+- Repeat customer tracking
 - Reliability scoring
 
 </td>
+
 <td width="50%">
 
 ### 📄 Work Reports
-- Verified history
-- Monthly trends
-- Estimated income
+- Verified records
+- Monthly analytics
+- Income estimation
 
 </td>
+
 </tr>
+
 </table>
 
 ---
 
-# ⚡ Tech Stack
+# ⚡ Technology Stack
 
 <table>
+
 <tr>
+
 <td width="33%">
 
 ## 🎨 Frontend
@@ -162,75 +200,55 @@ Mukti Portal converts verified work into:
 - TypeScript
 - Tailwind CSS
 - Shadcn UI
-- Framer Motion
 
 </td>
+
 <td width="33%">
 
 ## ⚙️ Backend
 - Node.js
 - Express.js
-- Firebase Admin
+- Firebase
 - PDFKit
-- Zod Validation
 
 </td>
+
 <td width="33%">
 
 ## 🤖 Intelligence
 - Python Flask
 - NLP Processing
 - Fraud Detection
-- Trust Analytics
 
 </td>
+
 </tr>
+
 </table>
 
 ---
 
-# 🔐 Security Features
+# 🔐 Security
 
 ✅ Role-Based Access  
 ✅ QR Expiration Validation  
-✅ Fraud Detection Logic  
-✅ Secure Firebase Auth  
-✅ Schema Validation  
+✅ Fraud Detection  
+✅ Secure Firebase Authentication  
 ✅ Protected APIs  
 
 ---
 
-# 🚀 Getting Started
+# 📚 Project Documentation
 
-## 📦 Install Dependencies
-
-```bash
-npm install
-````
-
-## ⚙️ Setup Environment
-
-```env
-VITE_FIREBASE_API_KEY=
-VITE_FIREBASE_PROJECT_ID=
-FIREBASE_SERVICE_ACCOUNT=
-```
-
-## ▶️ Run Project
-
-```bash
-npm run dev
-```
-
-## 🚀 Run Full Stack
-
-```bash
-npm run dev:all
-```
+| File | Purpose |
+|------|----------|
+| [`RUN.md`](./RUN.md) | Project setup & execution guide |
+| [`.env.example`](./.env.example) | Frontend environment template |
+| [`backend/.env.example`](./backend/.env.example) | Backend environment template |
 
 ---
 
-# 🌟 Project Impact
+# 🌟 Impact
 
 ```text
 Daily Work
@@ -241,21 +259,19 @@ Trust Signals
     ↓
 Digital Reputation
     ↓
-Financial Visibility
-```
+Financial Inclusion
+````
 
 ---
 
 <div align="center">
 
-# 🏆 Final Vision
+# 🏆 Vision
 
-### “Empowering informal workers with trusted digital identity.”
+### “Empowering informal workers through trusted digital identity.”
 
-<br/>
-
-🚀 Real-World Solution
-🛡️ Trust-Based Infrastructure
+🚀 Real-World Infrastructure
+🛡️ Trust-Based Ecosystem
 📈 Financial Inclusion Platform
 
 </div>
