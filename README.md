@@ -233,6 +233,7 @@ This enables:
 | [`backend/.env.example`](./backend/.env.example) | Backend environment template |
 
 ---
+</div>
 
 # 👨‍💻 Contributors
 
