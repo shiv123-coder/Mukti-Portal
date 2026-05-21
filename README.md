@@ -223,11 +223,19 @@ Fraud Detection
 ---
 ## 🔐 Security
 
-- ✅ Role-Based Access Control
-- ✅ QR Expiration Validation
-- ✅ Fraud Detection Mechanisms
-- ✅ Secure Firebase Authentication
-- ✅ Protected APIs & Data Access
+<div align="center">
+
+| 🔒 Role-Based Access | ⏳ QR Expiration Validation | 🛡️ Fraud Detection |
+|---|---|---|
+| Secure role management | Time-bound QR verification | Fake activity prevention |
+
+<br/>
+
+| 🔐 Firebase Authentication | 🚀 Protected APIs & Data Access |
+|---|---|
+| Secure user authentication | Controlled backend access |
+
+</div>
 
 ---
 
@@ -243,10 +251,12 @@ Fraud Detection
 
 ## 👨‍💻 Contributors
 
-- Shivashankar Mali
-- Swapnil Patil
-- Pratiksha Patil
-- Parag Pawar
+<div align="center">
+
+| Shivashankar Mali | Swapnil Patil | Pratiksha Patil | Parag Pawar |
+|---|---|---|---|
+
+</div>
 
 ---
 
