@@ -1,168 +1,279 @@
-# Mukti-Portal
-**A trust-building system for informal workers that converts daily work into a verified digital identity.**
+<div align="center">
 
-👉 *Not just a platform*  
-👉 *It’s a Trust Infrastructure*
+# Mukti Portal
 
-🎯 **ONE-LINE WORKFLOW:**
-> "Workers generate proof, customers validate it, and our system transforms it into a trusted digital identity."
+### Digital Trust Infrastructure for Informal Workers
 
----
+<p>
+  <b>Transforming daily informal work into verified digital identity, trust records, and credit-ready proof.</b>
+</p>
 
-## 🔁 🔥 COMPLETE WORKFLOW
+<img src="assets/images/architecture-overview.png" alt="Mukti Portal Architecture Overview" width="82%" />
 
-### 1. Worker Onboarding 👷
-- Worker registers using a mobile number.
-- Profile includes: Skill (plumber, maid, etc.) and Location.
-- **System creates a Digital Worker Identity.**
-
-### 2. Worker Dashboard 📊
-- Worker sees: Total verified jobs, Trust score, and Monthly activity.
-- 👉 **This is their digital work reputation.**
-
-### 3. Job Completion → Proof Creation 🔳
-- After completing a job: Worker generates a time-bound QR.
-- 👉 **This QR = "Proof request for this specific job."**
-
-### 4. Customer Interaction (Key Step) 👤
-- Customer logs in and scans the QR.
-- *Customer does NOT generate anything.*
-- 👉 **Only action:** Confirm job & Give rating.
-
-### 5. Trust Validation Layer 🛡️
-- System verifies:
-  - Role = Customer ✅
-  - Not same as worker ✅
-  - QR valid (time-limited) ✅
-- 👉 **Prevents:** Fake entries & Self-verification.
-
-### 6. Data Conversion Engine 📊
-- Every verified job becomes:
-  - Work entry
-  - Timestamped record
-  - Trust signal
-- 👉 **System builds:** Work consistency, Customer reliability, and Rating patterns.
-
-### 7. Trust Score Generation 🧠
-- System calculates: Job frequency, Rating stability, and Repeat customers.
-- 👉 **Output: Dynamic Trust Score.**
-- *"Not just how much you work, but how reliably you work."*
-
-### 8. Credit-Ready Output 📄
-- System generates a 👉 **Digital Work Report**:
-  - Verified job history
-  - Monthly trends
-  - Trust score
-  - Estimated income
-
-### 9. Real-World Use 🏦
-- Banks / lenders can use this as an **Alternative credit proof**.
-- Worker becomes: **Financially visible**.
+</div>
 
 ---
 
-## 🧠 SYSTEM ARCHITECTURE
+## Problem Statement
 
-👉 **Three Core Layers:**
+Millions of informal workers such as plumbers, maids, electricians, cleaners, and daily service providers perform real work every day, but their work history remains undocumented.
 
-1. **Identity Layer**
-   - Worker profile
-   - Customer profile
-2. **Verification Layer**
-   - QR-based job confirmation
-   - Role-based validation
-3. **Trust Layer (Most Important)**
-   - Converts raw data → meaningful insights
-   - Generates: Trust score, Work history
+Because of this, they face major barriers:
 
----
+- No verified proof of completed work
+- No structured income history
+- No digital reputation
+- No trusted record for banks, customers, or institutions
+- Limited access to formal financial services
 
-## 🏗️ Architecture & Flows
-
-### Architecture Overview
-![Mukti Portal Architecture Overview](assets/images/architecture-overview.png)
-
-### User Flow
-![Mukti Portal User Flow](assets/images/user-flow.png)
-
-### Frontend Flow
-![Mukti Portal Frontend Flow](assets/images/frontend-flow.png)
-
-### API Flow
-![Mukti Portal API Flow](assets/images/api-flow.png)
-
-### Auth Flow
-![Mukti Portal Auth Flow](assets/images/auth-flow.png)
-
-### Database Flow
-![Mukti Portal Database Flow](assets/images/database-flow.png)
-
-### Deployment Flow
-![Mukti Portal Deployment Flow](assets/images/deployment-flow.png)
-
-### Security Flow
-![Mukti Portal Security Flow](assets/images/security-flow.png)
+Mukti Portal solves this by converting verified daily work into a trusted digital identity.
 
 ---
 
-## 🔥 WHAT MAKES THIS INNOVATIVE
+## Solution Overview
 
-👉 **"We are not just storing data, we are creating trust signals."**  
-👉 **"We convert informal activity into structured financial identity."**  
-👉 **"This is an alternative credit infrastructure."**  
+Mukti Portal is a trust-building platform where workers generate proof after completing a job, customers validate that proof, and the system converts each verified job into structured trust data.
 
----
+The platform creates:
 
-## 🏆 FINAL IMPACT STATEMENT
-> "Mukti-Portal bridges the gap between informal work and formal financial systems by turning everyday labor into verifiable, trustable digital records."
+- Verified job history
+- Worker trust score
+- Monthly activity insights
+- Customer-backed work validation
+- Credit-ready digital work reports
 
----
-
-## 🛠️ TECHNOLOGY STACK
-
-### 🌐 Frontend (User Interface)
-- **React (TypeScript)**: Core framework for the dynamic dashboard.
-- **Tailwind CSS**: Modern, utility-first styling.
-- **Radix UI / Shadcn**: Professional UI components (Dialogs, Tabs, Toasts).
-- **TanStack Query (React Query)**: Efficient data fetching and real-time sync.
-- **Leaflet**: Interactive maps for location tracking.
-- **Recharts**: Data visualization and analytics dashboards.
-- **Framer Motion**: Smooth micro-animations and transitions.
-- **QR Code System**: Secure identity verification via `qrcode.react` and `jsqr`.
-
-### ⚙️ Backend (API & Logic)
-- **Node.js & Express**: Server-side runtime and web framework.
-- **TypeScript**: Shared type safety across the entire stack.
-- **Firebase Admin SDK**: Secure server-side database and auth management.
-- **PDFKit**: Automated generation of verified work reports.
-
-### 🗄️ Database & Security
-- **Firebase Firestore**: Real-time NoSQL database.
-- **Firebase Auth**: Secure Email/Password and Google authentication.
-- **Firebase Storage**: Hosting for documents and profile media.
-- **Zod**: Strict schema validation for data integrity.
-
-### 🤖 Machine Learning (ML) Service
-- **Python (Flask)**: Microservice for intelligent processing.
-- **NLP (Natural Language Processing)**: Sentiment analysis and skill extraction via `TextBlob`.
-- **Fraud Detection**: Risk scoring engine to identify suspicious patterns.
+> Mukti Portal is not just a service platform.  
+> It is a digital trust infrastructure for informal workers.
 
 ---
 
-## 🚀 Getting Started
+## Core Workflow
 
-To run the project locally:
+<div align="center">
 
-1. **Install Frontend Dependencies**:
-   ```bash
-   npm install
-   ```
+<img src="assets/images/system-flow.png" alt="Mukti Portal System Flow" width="78%" />
 
-2. **Initialize Environment Variables**:
-   Create a `.env` file in the root and `/backend` directories using the provided `.env.example` templates.
+</div>
 
-3. **Start Development Servers**:
-   ```bash
-   # Run both frontend and backend
-   npm run dev:all
-   ```
+### 1. Worker Onboarding
+
+Workers register with basic details such as mobile number, skill, and location.  
+The system creates a digital worker identity.
+
+### 2. Job Proof Creation
+
+After completing a job, the worker generates a time-bound QR proof request.
+
+### 3. Customer Validation
+
+The customer scans the QR and confirms the completed job with a rating.
+
+### 4. Trust Verification
+
+The system validates role, QR validity, and prevents self-verification or fake entries.
+
+### 5. Trust Score Generation
+
+Verified work records are converted into trust signals based on consistency, ratings, and repeat customers.
+
+### 6. Credit-Ready Output
+
+The system generates a digital work report that can support alternative credit evaluation.
+
+---
+
+## Key Features
+
+<table>
+<tr>
+<td width="50%">
+
+### Worker Identity
+- Skill-based worker profile
+- Location mapping
+- Verified work history
+- Digital reputation building
+
+</td>
+<td width="50%">
+
+### QR-Based Verification
+- Time-bound QR proof
+- Customer-side confirmation
+- Self-verification prevention
+- Fake entry reduction
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+### Trust Score Engine
+- Job frequency analysis
+- Rating stability
+- Repeat customer signals
+- Reliability measurement
+
+</td>
+<td width="50%">
+
+### Work Report Generation
+- Verified job records
+- Monthly work trends
+- Estimated income insights
+- Credit-ready documentation
+
+</td>
+</tr>
+</table>
+
+---
+
+## System Architecture
+
+Mukti Portal is structured around three core layers:
+
+### Identity Layer
+
+Manages worker and customer profiles, authentication, and role-based access.
+
+### Verification Layer
+
+Handles QR generation, QR scanning, job confirmation, and validation rules.
+
+### Trust Intelligence Layer
+
+Transforms verified work into trust score, work history, and reportable financial identity.
+
+---
+
+## Technology Stack
+
+<table>
+<tr>
+<td width="33%">
+
+### Frontend
+- React
+- TypeScript
+- Tailwind CSS
+- Shadcn UI
+- Framer Motion
+- Recharts
+- Leaflet
+
+</td>
+<td width="33%">
+
+### Backend
+- Node.js
+- Express.js
+- TypeScript
+- Firebase Admin SDK
+- PDFKit
+- Zod Validation
+
+</td>
+<td width="33%">
+
+### Data & Intelligence
+- Firebase Auth
+- Firestore
+- Firebase Storage
+- Python Flask
+- TextBlob NLP
+- Fraud Risk Scoring
+
+</td>
+</tr>
+</table>
+
+---
+
+## Security & Validation
+
+Mukti Portal includes multiple trust-protection checks:
+
+- Role-based access control
+- Customer-only job confirmation
+- Time-limited QR validation
+- Worker self-confirmation prevention
+- Schema-level input validation
+- Suspicious activity risk detection
+- Secure Firebase authentication
+
+---
+
+## Why This Project Matters
+
+Informal workers often work continuously but remain invisible to formal financial systems. Mukti Portal bridges this gap by converting everyday labor into verifiable digital records.
+
+This enables:
+
+- Better worker credibility
+- Transparent customer validation
+- Stronger digital reputation
+- Alternative credit assessment
+- Financial inclusion for informal workers
+
+---
+
+## Getting Started
+
+### Install Dependencies
+
+```bash
+npm install
+````
+
+### Configure Environment
+
+Create `.env` files using the provided `.env.example` references.
+
+Required configuration may include:
+
+```env
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+FIREBASE_SERVICE_ACCOUNT=
+```
+
+### Run Development Server
+
+```bash
+npm run dev
+```
+
+### Run Full Stack Setup
+
+```bash
+npm run dev:all
+```
+
+---
+
+## Project Impact
+
+Mukti Portal converts informal work into formal digital proof.
+
+It helps workers move from:
+
+```text
+Unverified Work → Verified Job History → Trust Score → Digital Work Report → Financial Visibility
+```
+
+---
+
+<div align="center">
+
+## Final Vision
+
+<b>Mukti Portal empowers informal workers by turning daily verified work into a trusted digital identity.</b>
+
+<br/>
+
+<i>Built as a real-world trust infrastructure, not just a student-level service platform.</i>
+
+</div>
