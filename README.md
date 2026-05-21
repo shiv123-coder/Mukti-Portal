@@ -81,18 +81,6 @@ This enables:
 
 <img src="./assets/images/system-flow.png" width="76%" alt="Mukti Portal Workflow"/>
 
-</div>
-
-| Step | Process |
-|------|----------|
-| 👷 | Worker Registration |
-| 🔳 | QR Proof Generation |
-| 👤 | Customer Validation |
-| 🛡️ | Verification Engine |
-| 📊 | Trust Signal Generation |
-| 📄 | Digital Work Reports |
-
----
 
 # 🏗️ Core Architecture
 
