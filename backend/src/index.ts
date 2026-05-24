@@ -180,6 +180,10 @@ const RegisterSchema = z.object({
 
 // --- ROUTES ---
 
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Welcome to Mukti-Backend Service. The API is running.' });
+});
+
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'Mukti-Backend' });
 });
