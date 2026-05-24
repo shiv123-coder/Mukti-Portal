@@ -201,3 +201,6 @@ debug_*
 *.pth
 model_weights/
 saved_models/
+
+mukti_portal_interview_questions.md
+mukti_portal_links.txt
