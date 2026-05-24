@@ -6,6 +6,13 @@ import random
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        "status": "ok", 
+        "message": "Welcome to Mukti-ML Service. The API is running."
+    })
+
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({"status": "ok", "service": "Mukti-ML"})
