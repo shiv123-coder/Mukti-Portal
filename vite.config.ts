@@ -62,6 +62,20 @@ export default defineConfig(({ mode }) => ({
       },
     }),
   ],
+  build: {
+    target: "esnext",
+    minify: "esbuild",
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "firebase-vendor": ["firebase/app", "firebase/auth", "firebase/firestore"],
+          "ui-vendor": ["lucide-react", "recharts"],
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

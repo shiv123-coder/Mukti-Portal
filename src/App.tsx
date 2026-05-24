@@ -14,6 +14,7 @@ import { toast as sonnerToast } from "sonner";
 import { useEffect, useRef } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import AdminLayout from "@/components/AdminLayout";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Lazy-load pages for better initial performance
 const LoginPage = lazy(() => import("@/pages/LoginPage"));
@@ -145,7 +146,9 @@ const App = () => (
       <LanguageProvider>
         <AuthProvider>
           <BrowserRouter>
-            <MainLayout />
+            <ErrorBoundary>
+              <MainLayout />
+            </ErrorBoundary>
           </BrowserRouter>
         </AuthProvider>
       </LanguageProvider>

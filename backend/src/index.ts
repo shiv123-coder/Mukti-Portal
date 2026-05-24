@@ -4,6 +4,11 @@ import dotenv from 'dotenv';
 import * as admin from 'firebase-admin';
 import axios from 'axios';
 import { z } from 'zod';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import NodeCache from 'node-cache';
+import { verifyToken, requireAdmin, AuthRequest } from './middleware/auth';
+import { globalErrorHandler } from './middleware/errorHandler';
 
 dotenv.config();
 
@@ -12,6 +17,16 @@ const PORT = process.env.PORT || 5000;
 const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://localhost:5001';
 
 const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:8080').split(',').map(o => o.trim());
+
+app.use(helmet());
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  handler: (req, res) => res.status(429).json({ error: 'Too many requests, please try again later.' })
+});
+
+app.use('/api/', apiLimiter);
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -26,6 +41,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
+
+const cache = new NodeCache({ stdTTL: 300 }); // 5 minutes cache
 app.use(express.json());
 
 import fs from 'fs';
@@ -157,7 +174,7 @@ app.get('/health', (req, res) => {
 /**
  * Register Worker / User
  */
-app.post('/api/worker/register', async (req, res) => {
+app.post('/api/worker/register', verifyToken, async (req: AuthRequest, res) => {
   const database = db;
   if (!database) return res.status(503).json({ error: "Backend database not initialized" });
   try {
@@ -182,7 +199,7 @@ app.post('/api/worker/register', async (req, res) => {
   }
 });
 
-app.get('/api/admin/users', async (req, res) => {
+app.get('/api/admin/users', verifyToken, requireAdmin, async (req: AuthRequest, res) => {
   try {
     const allUsers = [...getLocalUsers()];
 
@@ -217,7 +234,7 @@ app.get('/api/admin/users', async (req, res) => {
  * 3. Call ML Service for NLP Analysis
  * 4. Store in Firestore
  */
-app.post('/api/verify', async (req, res) => {
+app.post('/api/verify', verifyToken, async (req: AuthRequest, res) => {
   const database = db;
   if (!database) return res.status(503).json({ error: "Backend database not initialized" });
   try {
@@ -284,7 +301,12 @@ app.post('/api/verify', async (req, res) => {
 /**
  * Get Worker Dashboard Data
  */
-app.get('/api/worker/:id/dashboard', async (req, res) => {
+app.get('/api/worker/:id/dashboard', verifyToken, async (req: AuthRequest, res) => {
+  const cacheKey = `dashboard_${req.params.id}`;
+  const cachedData = cache.get(cacheKey);
+  if (cachedData) {
+    return res.json(cachedData);
+  }
   const database = db;
   if (!database) return res.status(503).json({ error: "Backend database not initialized" });
   try {
@@ -374,7 +396,7 @@ app.get('/api/worker/:id/dashboard', async (req, res) => {
     if (verifications.some(v => v.riskScore > 0.7)) riskIndicators.push("Location inconsistency");
     if (totalJobs > 50 && activeMonths < 2) riskIndicators.push("High review frequency");
 
-    res.json({
+    const responseData = {
       summary: { totalJobs, activeMonths, repeatCustomers },
       performance: { avgRating: Number(avgRating.toFixed(2)), topSkills, issues: [] },
       financial: {
@@ -394,7 +416,9 @@ app.get('/api/worker/:id/dashboard', async (req, res) => {
         fraudRisk,
         riskIndicators
       }
-    });
+    };
+    cache.set(cacheKey, responseData);
+    res.json(responseData);
 
   } catch (err: any) {
     console.error(`Dashboard API Error [Worker: ${req.params.id}]:`, err.message);
@@ -405,7 +429,7 @@ app.get('/api/worker/:id/dashboard', async (req, res) => {
 /**
  * Generate PDF Report (Credit-Ready)
  */
-app.get('/api/worker/:id/report', async (req, res) => {
+app.get('/api/worker/:id/report', verifyToken, async (req: AuthRequest, res) => {
   const database = db;
   if (!database) return res.status(503).json({ error: "Backend database not initialized" });
   try {
@@ -458,7 +482,7 @@ app.get('/api/worker/:id/report', async (req, res) => {
  */
 
 // 1. Create Request (Worker)
-app.post('/api/worker/verify-request', async (req, res) => {
+app.post('/api/worker/verify-request', verifyToken, async (req: AuthRequest, res) => {
   try {
     const { workerId, workerName, workerPhone, workerSkill } = req.body;
     const requestDoc: any = {
@@ -506,7 +530,7 @@ app.post('/api/worker/verify-request', async (req, res) => {
   }
 });
 
-app.get('/api/worker/:workerId/verification-status', async (req, res) => {
+app.get('/api/worker/:workerId/verification-status', verifyToken, async (req: AuthRequest, res) => {
   try {
     const { workerId } = req.params;
     let status = 'none';
@@ -545,7 +569,7 @@ app.get('/api/worker/:workerId/verification-status', async (req, res) => {
 });
 
 // 2. Get Pending Requests (Admin)
-app.get('/api/admin/requests', async (req, res) => {
+app.get('/api/admin/requests', verifyToken, requireAdmin, async (req: AuthRequest, res) => {
   try {
     const allRequests = [...getLocalRequests()];
 
@@ -583,7 +607,7 @@ app.get('/api/admin/requests', async (req, res) => {
 });
 
 // 3. Process Request (Admin)
-app.post('/api/admin/process-request', async (req, res) => {
+app.post('/api/admin/process-request', verifyToken, requireAdmin, async (req: AuthRequest, res) => {
   try {
     const { requestId, workerId, action, source } = req.body; 
     console.log(`[ADMIN-ACTION] Action: ${action}, Request: ${requestId}, Worker: ${workerId}, Source: ${source}`);
@@ -643,7 +667,7 @@ app.post('/api/admin/process-request', async (req, res) => {
 });
 
 // 4. Clear All Requests (Admin)
-app.post('/api/admin/clear-all-requests', async (req, res) => {
+app.post('/api/admin/clear-all-requests', verifyToken, requireAdmin, async (req: AuthRequest, res) => {
   try {
     // 1. Clear Local
     fs.writeFileSync(LOCAL_REQUESTS_PATH, JSON.stringify([], null, 2));
@@ -665,7 +689,7 @@ app.post('/api/admin/clear-all-requests', async (req, res) => {
 });
 
 // 5. Reset All Worker Status (Admin)
-app.post('/api/admin/reset-workers-status', async (req, res) => {
+app.post('/api/admin/reset-workers-status', verifyToken, requireAdmin, async (req: AuthRequest, res) => {
   try {
     if (!db) return res.status(503).json({ error: "Database not connected" });
     
@@ -709,7 +733,7 @@ const saveLocalWorkRequest = (data: any) => {
 };
 
 // 1. Create Work Request (Customer)
-app.post('/api/work-request', async (req, res) => {
+app.post('/api/work-request', verifyToken, async (req: AuthRequest, res) => {
   try {
     const data = req.body;
     console.log('[WORK-REQUEST] New request:', data.service, 'from', data.customerName);
@@ -749,7 +773,7 @@ app.post('/api/work-request', async (req, res) => {
 });
 
 // 2. Get All Work Requests (Worker dashboard feed)
-app.get('/api/work-requests', async (req, res) => {
+app.get('/api/work-requests', verifyToken, async (req: AuthRequest, res) => {
   try {
     const allRequests = [...getLocalWorkRequests()];
 
@@ -783,7 +807,7 @@ app.get('/api/work-requests', async (req, res) => {
 });
 
 // 3. Get Single Work Request by ID (for LiveTracking fallback)
-app.get('/api/work-request/:id', async (req, res) => {
+app.get('/api/work-request/:id', verifyToken, async (req: AuthRequest, res) => {
   try {
     const { id } = req.params;
 
@@ -817,7 +841,7 @@ app.get('/api/work-request/:id', async (req, res) => {
 });
 
 // 4. Accept / Update Work Request (Worker)
-app.put('/api/work-request/:id', async (req, res) => {
+app.put('/api/work-request/:id', verifyToken, async (req: AuthRequest, res) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
@@ -937,6 +961,8 @@ app.get('/api/public-report/:workerId', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch public report data' });
   }
 });
+
+app.use(globalErrorHandler);
 
 app.listen(PORT, () => {
   console.log(`Mukti-Backend running on http://localhost:${PORT}`);
