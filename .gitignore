@@ -8,8 +8,6 @@
 #  1. Environment & Secrets  (MOST CRITICAL)
 # ----------------------------------------------------------------
 .env
-.env.*
-!.env.example
 *.local
 
 # Firebase / GCP Service Account Keys
