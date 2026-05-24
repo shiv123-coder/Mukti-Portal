@@ -114,12 +114,25 @@ let isFirebaseEnabled = false;
 try {
   const projectId = process.env.FIREBASE_PROJECT_ID;
   const credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+  const credentialsJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
 
-  if (projectId && credentialsPath && fs.existsSync(credentialsPath)) {
+  let certPayload: any = null;
+
+  if (credentialsJson) {
+    try {
+      certPayload = JSON.parse(credentialsJson);
+    } catch (e) {
+      console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT_JSON environment variable.');
+    }
+  } else if (credentialsPath && fs.existsSync(credentialsPath)) {
+    certPayload = credentialsPath;
+  }
+
+  if (projectId && certPayload) {
     try {
       if (!admin.apps.length) {
         admin.initializeApp({
-          credential: admin.credential.cert(credentialsPath),
+          credential: admin.credential.cert(certPayload),
           projectId: projectId
         });
       }
@@ -131,7 +144,7 @@ try {
     }
   } else {
     console.warn('⚠️ Service Account missing or invalid. Backend running in LOCAL-MOCK mode.');
-    console.log('   (To enable Firebase, add a valid JSON path to GOOGLE_APPLICATION_CREDENTIALS in .env)');
+    console.log('   (To enable Firebase in production, set FIREBASE_SERVICE_ACCOUNT_JSON to your stringified JSON key)');
   }
 } catch (err: any) {
   console.error('💥 Critical Boot Error:', err.message);

@@ -13,6 +13,7 @@
 *.local
 
 # Firebase / GCP Service Account Keys
+mukti-portal-firebase-adminsdk-fbsvc-7e1fe895ac.json
 serviceAccountKey.json
 firebase-adminsdk*.json
 gcp-service-account*.json
