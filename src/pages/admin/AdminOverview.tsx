@@ -14,8 +14,7 @@ import {
   RotateCcw,
   Download
 } from "lucide-react";
-import { 
-  AreaChart, 
+
 import { useTheme } from "next-themes";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 import { collection, onSnapshot, query, where, getDocs, Timestamp, writeBatch, doc, deleteDoc } from "firebase/firestore";
