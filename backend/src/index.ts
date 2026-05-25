@@ -245,9 +245,9 @@ app.post('/api/auth/google', async (req, res) => {
           status: 'verified',
           isVerifiedByAdmin: true
         };
-        await db.collection('users').doc(userId).set(userDocData);
+        await db.collection('users').doc(userId as string).set(userDocData);
       } else if (userDocData.role !== 'admin') {
-        await db.collection('users').doc(userId).update({ role: 'admin' });
+        await db.collection('users').doc(userId as string).update({ role: 'admin' });
         userDocData.role = 'admin';
       }
     } else {
@@ -269,7 +269,7 @@ app.post('/api/auth/google', async (req, res) => {
       }
     }
 
-    const customToken = await admin.auth().createCustomToken(userId);
+    const customToken = await admin.auth().createCustomToken(userId as string);
 
     res.json({
       exists: true,
