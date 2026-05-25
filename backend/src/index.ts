@@ -981,7 +981,8 @@ app.get('/api/public-report/:workerId', async (req, res) => {
 
 app.use(globalErrorHandler);
 
-if (process.env.NODE_ENV !== 'production') {
+// Only listen if not running on Vercel's serverless environment
+if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Mukti-Backend running on http://localhost:${PORT}`);
   });
