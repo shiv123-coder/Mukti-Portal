@@ -78,7 +78,7 @@ const OnboardingPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full bg-[#020617] text-white">
+    <div className="flex min-h-screen w-full bg-background text-foreground">
       {/* Background Decor */}
       <div className="absolute top-[-20%] left-[-10%] h-[800px] w-[800px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] h-[600px] w-[600px] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
@@ -89,12 +89,12 @@ const OnboardingPage = () => {
             <h1 className="font-serif text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">
               Welcome to Mukti!
             </h1>
-            <p className="mt-2 text-slate-400 font-medium">Let's build your professional profile to start getting jobs.</p>
+            <p className="mt-2 text-muted-foreground font-medium">Let's build your professional profile to start getting jobs.</p>
           </div>
 
-          <div className="bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-8 sm:p-10 rounded-[2rem] shadow-2xl relative overflow-hidden">
+          <div className="bg-slate-900/60 backdrop-blur-2xl border border-border p-8 sm:p-10 rounded-[2rem] shadow-2xl relative overflow-hidden">
             {/* Progress Bar */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-white/5">
+            <div className="absolute top-0 left-0 w-full h-1 bg-secondary">
               <div 
                 className="h-full bg-gradient-to-r from-primary to-orange-400 transition-all duration-500 ease-out"
                 style={{ width: `${(step / 3) * 100}%` }}
@@ -107,7 +107,7 @@ const OnboardingPage = () => {
                   <div className="p-3 bg-primary/10 rounded-xl text-primary"><Briefcase size={24} /></div>
                   <div>
                     <h3 className="text-xl font-bold">What do you do?</h3>
-                    <p className="text-xs text-slate-400">This helps us match you with the right opportunities.</p>
+                    <p className="text-xs text-muted-foreground">This helps us match you with the right opportunities.</p>
                   </div>
                 </div>
 
@@ -121,7 +121,7 @@ const OnboardingPage = () => {
                         value={skill}
                         onChange={(e) => setSkill(e.target.value)}
                         placeholder="e.g. Electrician, Plumber, Cleaner..."
-                        className="w-full rounded-2xl border border-white/10 bg-black/40 pl-11 pr-5 py-4 text-sm text-white outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
                         autoFocus
                       />
                     </div>
@@ -138,7 +138,7 @@ const OnboardingPage = () => {
                         value={experience}
                         onChange={(e) => setExperience(e.target.value ? Number(e.target.value) : "")}
                         placeholder="e.g. 5"
-                        className="w-full rounded-2xl border border-white/10 bg-black/40 pl-11 pr-5 py-4 text-sm text-white outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
                       />
                     </div>
                   </div>
@@ -147,7 +147,7 @@ const OnboardingPage = () => {
                 <button
                   onClick={() => setStep(2)}
                   disabled={!skill || experience === ""}
-                  className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 mt-6"
+                  className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 mt-6"
                 >
                   Next Step
                 </button>
@@ -160,7 +160,7 @@ const OnboardingPage = () => {
                   <div className="p-3 bg-blue-500/10 rounded-xl text-blue-500"><DollarSign size={24} /></div>
                   <div>
                     <h3 className="text-xl font-bold">Pricing & Bio</h3>
-                    <p className="text-xs text-slate-400">Set your rates and tell customers about yourself.</p>
+                    <p className="text-xs text-muted-foreground">Set your rates and tell customers about yourself.</p>
                   </div>
                 </div>
 
@@ -175,7 +175,7 @@ const OnboardingPage = () => {
                         value={rate}
                         onChange={(e) => setRate(e.target.value ? Number(e.target.value) : "")}
                         placeholder="e.g. 300"
-                        className="w-full rounded-2xl border border-white/10 bg-black/40 pl-11 pr-5 py-4 text-sm text-white outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
                         autoFocus
                       />
                     </div>
@@ -190,7 +190,7 @@ const OnboardingPage = () => {
                       value={bio}
                       onChange={(e) => setBio(e.target.value)}
                       placeholder="I am a professional electrician with 5 years of experience in residential wiring..."
-                      className="w-full rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10 min-h-[120px] resize-none"
+                      className="w-full rounded-2xl border border-border bg-card/40 p-5 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10 min-h-[120px] resize-none"
                     />
                   </div>
                 </div>
@@ -198,14 +198,14 @@ const OnboardingPage = () => {
                 <div className="flex gap-3 mt-6">
                   <button
                     onClick={() => setStep(1)}
-                    className="px-6 rounded-2xl bg-white/5 py-4 text-sm font-bold text-white transition-all hover:bg-white/10 active:scale-[0.98]"
+                    className="px-6 rounded-2xl bg-secondary py-4 text-sm font-bold text-foreground transition-all hover:bg-secondary/80 active:scale-[0.98]"
                   >
                     Back
                   </button>
                   <button
                     onClick={() => setStep(3)}
                     disabled={rate === ""}
-                    className="flex-1 rounded-2xl bg-primary py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50"
+                    className="flex-1 rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50"
                   >
                     Next Step
                   </button>
@@ -219,7 +219,7 @@ const OnboardingPage = () => {
                   <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-500"><MapPin size={24} /></div>
                   <div>
                     <h3 className="text-xl font-bold">Where are you?</h3>
-                    <p className="text-xs text-slate-400">Customers will see your general city location.</p>
+                    <p className="text-xs text-muted-foreground">Customers will see your general city location.</p>
                   </div>
                 </div>
 
@@ -233,13 +233,13 @@ const OnboardingPage = () => {
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         placeholder="e.g. Pune, Maharashtra"
-                        className="w-full rounded-2xl border border-white/10 bg-black/40 pl-11 pr-32 py-4 text-sm text-white outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-32 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
                       />
                       <button
                         type="button"
                         onClick={handleDetectLocation}
                         disabled={isDetecting}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl bg-white/5 text-xs font-bold hover:bg-white/10 transition-colors disabled:opacity-50 flex items-center gap-2"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl bg-secondary text-xs font-bold hover:bg-secondary/80 transition-colors disabled:opacity-50 flex items-center gap-2"
                       >
                         {isDetecting ? <Loader2 size={14} className="animate-spin" /> : "Auto Detect"}
                       </button>
@@ -250,14 +250,14 @@ const OnboardingPage = () => {
                 <div className="flex gap-3 mt-8">
                   <button
                     onClick={() => setStep(2)}
-                    className="px-6 rounded-2xl bg-white/5 py-4 text-sm font-bold text-white transition-all hover:bg-white/10 active:scale-[0.98]"
+                    className="px-6 rounded-2xl bg-secondary py-4 text-sm font-bold text-foreground transition-all hover:bg-secondary/80 active:scale-[0.98]"
                   >
                     Back
                   </button>
                   <button
                     onClick={handleSubmit}
                     disabled={!location || loading}
-                    className="flex-1 rounded-2xl bg-emerald-500 py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center"
+                    className="flex-1 rounded-2xl bg-emerald-500 py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center"
                   >
                     {loading ? <Loader2 size={18} className="animate-spin" /> : "Complete Profile & Start"}
                   </button>

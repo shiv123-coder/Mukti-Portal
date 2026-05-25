@@ -12,14 +12,14 @@ import {
   Zap,
   DollarSign
 } from "lucide-react";
-import { useLanguage } from "@/context/LanguageContext";
+
 import { toast } from "sonner";
 import { BASE_RATES } from "@/utils/adminLogic";
 import { db } from "@/lib/firebase";
 import { doc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 
 const AdminSettings = () => {
-  const { t } = useLanguage();
+
   const [config, setConfig] = useState({
     minReviewGap: 7,
     fraudSensitivity: "Medium",
@@ -69,7 +69,7 @@ const AdminSettings = () => {
     <div className="space-y-8 pb-12">
       <div className="flex justify-between items-end">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">{t("admin_sidebar_settings")}</h1>
+          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">Settings</h1>
           <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">Global system parameters & algorithmic thresholds</p>
         </div>
         <div className="flex gap-4">

@@ -5,7 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/context/AuthContext";
-import { LanguageProvider } from "@/context/LanguageContext";
+
 import AppHeader from "@/components/AppHeader";
 import BottomNav from "@/components/BottomNav";
 import { useAuth } from "@/hooks/useAuth";
@@ -146,15 +146,13 @@ const App = () => (
       <Toaster />
       <Sonner />
       <ConnectivityListener />
-      <LanguageProvider>
-        <AuthProvider>
-          <BrowserRouter>
-            <ErrorBoundary>
-              <MainLayout />
-            </ErrorBoundary>
-          </BrowserRouter>
-        </AuthProvider>
-      </LanguageProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <ErrorBoundary>
+            <MainLayout />
+          </ErrorBoundary>
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -1,7 +1,7 @@
 import { Sun, Moon, LogOut, LayoutDashboard, QrCode, FileText, UserCircle, Languages, WifiOff, Bell, ShieldCheck, UserCheck, History, PlusCircle, Trophy, Globe } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
-import { useLanguage } from "@/context/LanguageContext";
+
 import { useOnlineStatus } from "@/hooks/useOnlineStatus";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -25,7 +25,7 @@ const CUSTOMER_NAV = [
 const AppHeader = () => {
   const { user, logout } = useAuth();
   const { isDark, toggle } = useTheme();
-  const { language, setLanguage } = useLanguage();
+
   const isOnline = useOnlineStatus();
   const navigate = useNavigate();
   const location = useLocation();

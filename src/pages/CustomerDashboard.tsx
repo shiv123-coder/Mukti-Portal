@@ -157,7 +157,7 @@ const CustomerDashboard = () => {
              
              <div className="relative z-10 text-center">
                 <div className="mb-6 flex justify-center">
-                   <div className="h-24 w-24 rounded-[2rem] bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-4xl font-black shadow-[0_0_30px_rgba(249,115,22,0.4)] italic">
+                   <div className="h-24 w-24 rounded-[2rem] bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-foreground text-4xl font-black shadow-[0_0_30px_rgba(249,115,22,0.4)] italic">
                       {user.name.charAt(0)}
                    </div>
                 </div>
@@ -297,7 +297,7 @@ const CustomerDashboard = () => {
              <div className="absolute top-0 right-0 h-40 w-40 bg-orange-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
              <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-4">
-                   <div className="p-3 rounded-2xl bg-orange-500 text-white shadow-xl shadow-orange-500/20">
+                   <div className="p-3 rounded-2xl bg-orange-500 text-foreground shadow-xl shadow-orange-500/20">
                       <Award size={24} />
                    </div>
                    <h4 className="text-xl font-black italic tracking-tighter text-foreground uppercase italic">Registry Contribution</h4>

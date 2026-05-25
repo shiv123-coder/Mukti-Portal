@@ -91,9 +91,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full bg-[#020617] text-white selection:bg-primary/30">
+    <div className="flex min-h-screen w-full bg-background text-foreground selection:bg-primary/30">
       {/* LEFT PANE - Brand & Value Prop (Hidden on small screens) */}
-      <div className="hidden lg:flex flex-1 relative overflow-hidden flex-col justify-between p-12 bg-gradient-to-br from-slate-900 to-slate-950 border-r border-white/5">
+      <div className="hidden lg:flex flex-1 relative overflow-hidden flex-col justify-between p-12 bg-gradient-to-br from-secondary to-background border-r border-border">
         <div className="absolute top-[-20%] left-[-10%] h-[800px] w-[800px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
         <div className="absolute bottom-[-10%] right-[-10%] h-[600px] w-[600px] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
         
@@ -101,7 +101,7 @@ const LoginPage = () => {
           <h1 className="font-serif text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">
             MuktiPortal
           </h1>
-          <p className="mt-4 text-lg font-medium text-slate-400 max-w-md">
+          <p className="mt-4 text-lg font-medium text-muted-foreground max-w-md">
             The decentralized trust network connecting skilled informal workers with verified opportunities.
           </p>
         </div>
@@ -155,12 +155,12 @@ const LoginPage = () => {
             </h1>
           </div>
 
-          <div className="bg-slate-900/50 backdrop-blur-2xl border border-white/10 p-8 sm:p-10 rounded-[2rem] shadow-2xl animate-fade-up">
+          <div className="bg-slate-900/50 backdrop-blur-2xl border border-border p-8 sm:p-10 rounded-[2rem] shadow-2xl animate-fade-up">
             
             {authMode === "login" ? (
               <div className="w-full animate-fade-in">
-                <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Welcome back</h2>
-                <p className="text-sm text-slate-400 mb-8 font-medium">Log in to your account to continue.</p>
+                <h2 className="text-3xl font-black text-foreground mb-2 tracking-tight">Welcome back</h2>
+                <p className="text-sm text-muted-foreground mb-8 font-medium">Log in to your account to continue.</p>
                 
                 {loginError && (
                   <div className="mb-6 flex items-center gap-3 rounded-xl bg-red-500/10 border border-red-500/20 p-4 text-sm font-semibold text-red-400 animate-shake">
@@ -180,7 +180,7 @@ const LoginPage = () => {
                         setLoginError("");
                       }}
                       placeholder="Phone number"
-                      className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                      className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
                       autoFocus
                       required
                     />
@@ -198,13 +198,13 @@ const LoginPage = () => {
                         setLoginError("");
                       }}
                       placeholder="Password"
-                      className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                      className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-foreground transition-colors"
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
@@ -213,7 +213,7 @@ const LoginPage = () => {
                   <button
                     type="submit"
                     disabled={loginPhone.length !== 10 || !loginPassword || loadingAction}
-                    className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none mt-2"
+                    className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none mt-2"
                   >
                     {loadingAction ? (
                       <span className="flex items-center justify-center gap-2">
@@ -234,7 +234,7 @@ const LoginPage = () => {
                   type="button"
                   onClick={handleGoogleSignIn}
                   disabled={loadingAction}
-                  className="flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 py-4 text-sm font-bold text-white transition-all hover:bg-white/10 active:scale-[0.98]"
+                  className="flex w-full items-center justify-center gap-3 rounded-2xl border border-border bg-secondary py-4 text-sm font-bold text-foreground transition-all hover:bg-secondary/80 active:scale-[0.98]"
                 >
                   <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
                   Google
@@ -245,33 +245,33 @@ const LoginPage = () => {
                 {signupStep === "role" && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Join Mukti</h2>
-                      <p className="text-sm text-slate-400 font-medium">Select your account type to get started.</p>
+                      <h2 className="text-3xl font-black text-foreground mb-2 tracking-tight">Join Mukti</h2>
+                      <p className="text-sm text-muted-foreground font-medium">Select your account type to get started.</p>
                     </div>
 
                     <button
                       onClick={() => { setRole("worker"); setSignupStep("method"); }}
-                      className="group flex w-full items-center gap-5 rounded-3xl border border-white/10 bg-black/40 p-5 transition-all hover:border-primary/50 hover:bg-primary/5 active:scale-[0.98]"
+                      className="group flex w-full items-center gap-5 rounded-3xl border border-border bg-card/40 p-5 transition-all hover:border-primary/50 hover:bg-primary/5 active:scale-[0.98]"
                     >
-                      <div className="p-4 rounded-2xl bg-gradient-to-br from-primary to-orange-600 text-white shadow-lg group-hover:shadow-primary/50 transition-all">
+                      <div className="p-4 rounded-2xl bg-gradient-to-br from-primary to-orange-600 text-foreground shadow-lg group-hover:shadow-primary/50 transition-all">
                         <Briefcase size={24} />
                       </div>
                       <div className="text-left">
-                        <div className="text-lg font-bold text-white group-hover:text-primary transition-colors">I am a Worker</div>
-                        <div className="text-xs text-slate-400 font-medium mt-1">Find verified jobs & build your reputation.</div>
+                        <div className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">I am a Worker</div>
+                        <div className="text-xs text-muted-foreground font-medium mt-1">Find verified jobs & build your reputation.</div>
                       </div>
                     </button>
                     
                     <button
                       onClick={() => { setRole("customer"); setSignupStep("method"); }}
-                      className="group flex w-full items-center gap-5 rounded-3xl border border-white/10 bg-black/40 p-5 transition-all hover:border-blue-500/50 hover:bg-blue-500/5 active:scale-[0.98]"
+                      className="group flex w-full items-center gap-5 rounded-3xl border border-border bg-card/40 p-5 transition-all hover:border-blue-500/50 hover:bg-blue-500/5 active:scale-[0.98]"
                     >
-                      <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg group-hover:shadow-blue-500/50 transition-all">
+                      <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-foreground shadow-lg group-hover:shadow-blue-500/50 transition-all">
                         <User size={24} />
                       </div>
                       <div className="text-left">
-                        <div className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">I am a Customer</div>
-                        <div className="text-xs text-slate-400 font-medium mt-1">Hire verified professionals securely.</div>
+                        <div className="text-lg font-bold text-foreground group-hover:text-blue-400 transition-colors">I am a Customer</div>
+                        <div className="text-xs text-muted-foreground font-medium mt-1">Hire verified professionals securely.</div>
                       </div>
                     </button>
                   </div>
@@ -280,13 +280,13 @@ const LoginPage = () => {
                 {signupStep === "method" && (
                   <div className="space-y-6 animate-fade-in">
                     <div>
-                      <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Sign up as {role}</h2>
-                      <p className="text-sm text-slate-400 font-medium">Choose how you want to create your account.</p>
+                      <h2 className="text-3xl font-black text-foreground mb-2 tracking-tight">Sign up as {role}</h2>
+                      <p className="text-sm text-muted-foreground font-medium">Choose how you want to create your account.</p>
                     </div>
                     
                     <button
                       onClick={() => setSignupStep("credentials")}
-                      className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98]"
+                      className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98]"
                     >
                       Continue with Phone Number
                     </button>
@@ -301,7 +301,7 @@ const LoginPage = () => {
                       type="button"
                       onClick={handleGoogleSignIn}
                       disabled={loadingAction}
-                      className="flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 py-4 text-sm font-bold text-white transition-all hover:bg-white/10 active:scale-[0.98]"
+                      className="flex w-full items-center justify-center gap-3 rounded-2xl border border-border bg-secondary py-4 text-sm font-bold text-foreground transition-all hover:bg-secondary/80 active:scale-[0.98]"
                     >
                       <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
                       Continue with Google
@@ -312,8 +312,8 @@ const LoginPage = () => {
                 {signupStep === "credentials" && (
                   <div className="space-y-6 animate-fade-in">
                     <div>
-                      <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Create Account</h2>
-                      <p className="text-sm text-slate-400 font-medium">Enter your details to receive an OTP.</p>
+                      <h2 className="text-3xl font-black text-foreground mb-2 tracking-tight">Create Account</h2>
+                      <p className="text-sm text-muted-foreground font-medium">Enter your details to receive an OTP.</p>
                     </div>
 
                     <form onSubmit={handleSignupCredentialsSubmit} className="space-y-4">
@@ -324,7 +324,7 @@ const LoginPage = () => {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                           placeholder="Phone number"
-                          className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                          className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
                           autoFocus
                           required
                         />
@@ -339,13 +339,13 @@ const LoginPage = () => {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="Create Password"
-                          className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                          className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
                           required
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-foreground transition-colors"
                         >
                           {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
@@ -354,7 +354,7 @@ const LoginPage = () => {
                       <button
                         type="submit"
                         disabled={phone.length !== 10 || !password}
-                        className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 mt-2"
+                        className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 mt-2"
                       >
                         Send OTP
                       </button>
@@ -365,8 +365,8 @@ const LoginPage = () => {
                 {signupStep === "otp" && (
                   <div className="space-y-6 animate-fade-in text-center">
                     <div>
-                      <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Verify Phone</h2>
-                      <p className="text-sm text-slate-400 font-medium">We sent a 4-digit code to +91 {phone}</p>
+                      <h2 className="text-3xl font-black text-foreground mb-2 tracking-tight">Verify Phone</h2>
+                      <p className="text-sm text-muted-foreground font-medium">We sent a 4-digit code to +91 {phone}</p>
                     </div>
 
                     <form onSubmit={handleSignupOtpSubmit} className="space-y-6">
@@ -386,7 +386,7 @@ const LoginPage = () => {
                                 (e.target.nextElementSibling as HTMLInputElement).focus();
                               }
                             }}
-                            className="h-14 w-14 rounded-2xl border border-white/10 bg-black/40 text-center text-2xl font-black text-white outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10 focus:bg-black/60"
+                            className="h-14 w-14 rounded-2xl border border-border bg-card/40 text-center text-2xl font-black text-foreground outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10 focus:bg-card/60"
                             autoFocus={i === 0}
                             required
                           />
@@ -398,7 +398,7 @@ const LoginPage = () => {
                       <button
                         type="submit"
                         disabled={otp.length < 4 || loadingAction}
-                        className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50"
+                        className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50"
                       >
                         {loadingAction ? "Verifying..." : "Confirm & Continue"}
                       </button>
@@ -411,7 +411,7 @@ const LoginPage = () => {
 
           <div className="mt-8 text-center text-sm font-medium">
             {authMode === "login" ? (
-              <p className="text-slate-400">
+              <p className="text-muted-foreground">
                 Don't have an account?{" "}
                 <button
                   onClick={() => {
@@ -419,20 +419,20 @@ const LoginPage = () => {
                     setSignupStep("role");
                     setPhone(""); setPassword("");
                   }}
-                  className="font-bold text-white hover:text-primary transition-colors ml-1 underline decoration-white/20 underline-offset-4"
+                  className="font-bold text-foreground hover:text-primary transition-colors ml-1 underline decoration-white/20 underline-offset-4"
                 >
                   Create one now
                 </button>
               </p>
             ) : (
-              <p className="text-slate-400">
+              <p className="text-muted-foreground">
                 Already have an account?{" "}
                 <button
                   onClick={() => {
                     setAuthMode("login");
                     setLoginPhone(""); setLoginPassword(""); setLoginError("");
                   }}
-                  className="font-bold text-white hover:text-primary transition-colors ml-1 underline decoration-white/20 underline-offset-4"
+                  className="font-bold text-foreground hover:text-primary transition-colors ml-1 underline decoration-white/20 underline-offset-4"
                 >
                   Log in here
                 </button>
@@ -444,7 +444,7 @@ const LoginPage = () => {
             <div className="mt-6 flex justify-center text-xs">
               <button
                  onClick={() => { setSignupStep("role"); setPassword(""); setPhone(""); setOtp(""); }}
-                 className="font-bold text-slate-500 hover:text-white transition-colors"
+                 className="font-bold text-slate-500 hover:text-foreground transition-colors"
               >
                  ← Choose a different role
               </button>
