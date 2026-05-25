@@ -85,7 +85,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               const data = docSnap.data();
               const lastOtp = data.lastOtpDate ? (data.lastOtpDate as Timestamp).toDate() : null;
               
-              const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL;
+              const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
+              const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL || firebaseUser.email === `${adminPhone}@mukti.com` || data.phone === adminPhone;
               
               setUser({
                 ...data,
@@ -180,7 +181,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const firebaseUser = result.user;
       const userDocRef = doc(db, "users", firebaseUser.uid);
       const userDoc = await getDoc(userDocRef);
-      const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL;
+      const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
+      const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL || firebaseUser.email === `${adminPhone}@mukti.com`;
       const assignedRole = isAdmin ? "admin" : role;
 
       if (!userDoc.exists()) {
@@ -256,11 +258,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     }
 
+    const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
+    const isAdmin = phone === adminPhone || phoneToEmail(phone) === import.meta.env.VITE_ADMIN_EMAIL;
+    const finalRole = isAdmin ? "admin" : role;
+
     const newUser: any = { 
       id: firebaseUser.uid, 
       phone, 
       name, 
-      role, 
+      role: finalRole, 
       skill, 
       location: location || "Unknown", 
       location_coords: locationCoords || null,
@@ -269,8 +275,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       employerName,
       employerPhone,
       employerVerified: employerPhone ? false : undefined,
-      status: role === "worker" ? "not verified" : undefined,
-      isVerifiedByAdmin: role === "worker" ? false : undefined
+      status: finalRole === "worker" ? "not verified" : undefined,
+      isVerifiedByAdmin: finalRole === "worker" ? false : undefined
     };
     
     // 1. Direct Firestore Write (Primary Source of Truth)
@@ -279,10 +285,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       otpVerified: true,
       lastActive: Timestamp.fromDate(new Date()),
       muktiScore: 0,
-      points: role === "customer" ? 0 : undefined,
-      badges: role === "customer" ? [] : undefined,
-      status: role === "worker" ? "not verified" : undefined,
-      isVerifiedByAdmin: role === "worker" ? false : undefined,
+      points: finalRole === "customer" ? 0 : undefined,
+      badges: finalRole === "customer" ? [] : undefined,
+      status: finalRole === "worker" ? "not verified" : undefined,
+      isVerifiedByAdmin: finalRole === "worker" ? false : undefined,
     });
 
     try {
@@ -305,7 +311,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.warn("Backend sync suppressed:", err);
     }
 
-    setUser({ ...newUser, otpVerified: true, lastActive: new Date(), points: role === "customer" ? 0 : undefined, badges: role === "customer" ? [] : undefined, isDemo: false } as User);
+    setUser({ ...newUser, otpVerified: true, lastActive: new Date(), points: finalRole === "customer" ? 0 : undefined, badges: finalRole === "customer" ? [] : undefined, isDemo: false } as User);
   }
 
   async function updateUser(updates: Partial<User>) {
