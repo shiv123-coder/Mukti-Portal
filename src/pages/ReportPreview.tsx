@@ -229,8 +229,8 @@ const ReportPreview = () => {
   const verifiedPaymentPercentage = totalJobs > 0 ? Math.round((verifiedPaymentsCount / totalJobs) * 100) : 0;
 
   const trustLevel = muktiScore >= 80 ? "HIGH" : muktiScore >= 50 ? "MEDIUM" : "LOW";
-  const trustBg = muktiScore >= 80 ? "bg-emerald-600" : muktiScore >= 50 ? "bg-primary" : "bg-red-600";
-  const trustColor = muktiScore >= 80 ? "text-emerald-500" : muktiScore >= 50 ? "text-primary" : "text-red-500";
+  const trustBg = muktiScore >= 80 ? "bg-success" : muktiScore >= 50 ? "bg-primary" : "bg-destructive";
+  const trustColor = muktiScore >= 80 ? "text-success" : muktiScore >= 50 ? "text-primary" : "text-destructive";
   
   const estimatedYearlyIncome = stats.totalEarnings * (12 / Math.max(1, activeMonths));
 
@@ -280,15 +280,15 @@ const ReportPreview = () => {
 
               <div className="grid grid-cols-2 gap-4 relative z-10">
                 {(isRegularWorker ? [
-                  { label: "Worker Segment", value: "REGULAR", icon: ShieldCheck, color: "text-emerald-500", bg: "bg-emerald-500/10" },
+                  { label: "Worker Segment", value: "REGULAR", icon: ShieldCheck, color: "text-success", bg: "bg-success/10" },
                   { label: "Avg Rating", value: `${avgRating.toFixed(1)}`, icon: Star, color: "text-warning", bg: "bg-warning/10" },
                   { label: "Loyalty Rate", value: `${repeatPercentage}%`, icon: Users, color: "text-accent", bg: "bg-accent/10" },
-                  { label: "Est. Income", value: `₹${estimatedYearlyIncome.toLocaleString("en-IN")}`, icon: IndianRupee, color: "text-emerald-500", bg: "bg-emerald-500/10" }
+                  { label: "Est. Income", value: `₹${estimatedYearlyIncome.toLocaleString("en-IN")}`, icon: IndianRupee, color: "text-success", bg: "bg-success/10" }
                 ] : [
                   { label: "Worker Segment", value: "ONE-TIME", icon: Clock, color: "text-primary", bg: "bg-primary/10" },
                   { label: "Avg Rating", value: `${avgRating.toFixed(1)}`, icon: Star, color: "text-warning", bg: "bg-warning/10" },
                   { label: "Trust Index", value: `${trustLevel}`, icon: ShieldCheck, color: "text-accent", bg: "bg-accent/10" },
-                  { label: "Est. Income", value: `₹${estimatedYearlyIncome.toLocaleString("en-IN")}`, icon: IndianRupee, color: "text-emerald-500", bg: "bg-emerald-500/10" }
+                  { label: "Est. Income", value: `₹${estimatedYearlyIncome.toLocaleString("en-IN")}`, icon: IndianRupee, color: "text-success", bg: "bg-success/10" }
                 ]).map((stat) => (
                   <div key={stat.label} className="rounded-xl border border-border/40 bg-background/30 p-4 transition-all hover:bg-background/60">
                     <div className={`mb-3 flex h-8 w-8 items-center justify-center rounded-lg ${stat.bg} ${stat.color}`}>
@@ -416,7 +416,7 @@ const ReportPreview = () => {
       </div>
 
       {/* 2. PRINT VIEW (Professional Financial Statement - ONLY VISIBLE ON PRINT) */}
-      <div className="hidden print:block w-full bg-card text-black p-0 m-0">
+      <div className="hidden print:block w-full bg-card text-foreground p-0 m-0">
         <div className="bg-card border-0 shadow-none overflow-hidden w-full">
           
           {/* Official Header */}
@@ -427,7 +427,7 @@ const ReportPreview = () => {
                   <Fingerprint size={28} />
                 </div>
                 <div>
-                  <h1 className="text-xl font-black tracking-tighter uppercase leading-none">MuktiPortal</h1>
+                  <h1 className="text-xl font-black tracking-tighter uppercase leading-none">Mukti Portal</h1>
                   <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mt-1">Verified Identity Network</p>
                 </div>
               </div>
@@ -464,7 +464,7 @@ const ReportPreview = () => {
                 </div>
               </div>
               <div className="flex items-center gap-2 rounded-lg bg-emerald-50 border border-emerald-100 px-4 py-2 w-fit">
-                <CheckCircle2 size={16} className="text-emerald-600" />
+                <CheckCircle2 size={16} className="text-success" />
                 <span className="text-[10px] font-black text-emerald-700 uppercase tracking-wider">IDENTITY VERIFIED</span>
               </div>
             </div>
@@ -532,7 +532,7 @@ const ReportPreview = () => {
                <div className="flex items-center gap-2 text-sm font-black uppercase tracking-widest">
                 <AlertCircle size={16} className="text-primary" /> Annual Projection
               </div>
-              <div className="rounded-xl border border-primary bg-orange-50/50 p-5">
+              <div className="rounded-xl border border-primary bg-muted/50 p-5">
                 <div className="text-[10px] font-black text-primary uppercase mb-1">Projected Annual Earnings</div>
                 <div className="text-2xl font-black">₹{estimatedYearlyIncome.toLocaleString("en-IN")}</div>
                 <p className="text-[9px] text-muted-foreground mt-2 italic leading-relaxed">
@@ -541,18 +541,18 @@ const ReportPreview = () => {
               </div>
             </div>
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-emerald-600">
-                <ShieldCheck size={16} className="text-emerald-600" /> Data Verification Checklist
+              <div className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-success">
+                <ShieldCheck size={16} className="text-success" /> Data Verification Checklist
               </div>
               <div className="space-y-2 text-[11px] font-bold text-muted-foreground">
-                <div className="flex items-center gap-2 text-emerald-600">
-                  <CheckCircle2 size={12} className="text-emerald-600" /> OTP Handshake Verified Jobs
+                <div className="flex items-center gap-2 text-success">
+                  <CheckCircle2 size={12} className="text-success" /> OTP Handshake Verified Jobs
                 </div>
-                <div className="flex items-center gap-2 text-emerald-600">
-                  <CheckCircle2 size={12} className="text-emerald-600" /> Peer-to-Peer Reputation Scoring
+                <div className="flex items-center gap-2 text-success">
+                  <CheckCircle2 size={12} className="text-success" /> Peer-to-Peer Reputation Scoring
                 </div>
-                <div className="flex items-center gap-2 text-emerald-600">
-                  <CheckCircle2 size={12} className="text-emerald-600" /> Blockchain-anchored Work Identity
+                <div className="flex items-center gap-2 text-success">
+                  <CheckCircle2 size={12} className="text-success" /> Blockchain-anchored Work Identity
                 </div>
               </div>
             </div>

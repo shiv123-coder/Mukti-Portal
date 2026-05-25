@@ -236,7 +236,7 @@ const LiveTracking = () => {
                   <div className="text-[9px] font-black text-primary mt-1 uppercase tracking-widest">{job.workerSkill}</div>
                 )}
                 <div className="flex items-center gap-3 mt-3">
-                   <div className="flex items-center gap-2 text-[8px] font-black text-emerald-500 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 uppercase tracking-widest">
+                   <div className="flex items-center gap-2 text-[8px] font-black text-success px-3 py-1.5 rounded-full bg-success/10 border border-success/20 uppercase tracking-widest">
                       <ShieldCheck size={12} />
                       TRUST VERIFIED
                    </div>
@@ -260,12 +260,12 @@ const LiveTracking = () => {
                {!showReviewForm ? (
                  <button
                    onClick={() => setShowReviewForm(true)}
-                   className="w-full h-20 rounded-3xl bg-emerald-500 text-primary-foreground font-black uppercase tracking-[0.4em] shadow-2xl shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all text-xs"
+                   className="w-full h-20 rounded-3xl bg-success text-primary-foreground font-black uppercase tracking-[0.4em] shadow-2xl shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all text-xs"
                  >
                   REVIEW & COMPLETE JOB
                  </button>
                ) : (
-                 <div className="p-8 rounded-[2rem] bg-card/5 border border-emerald-500/20 animate-in slide-in-from-bottom-3 duration-300 text-left">
+                 <div className="p-8 rounded-[2rem] bg-card/5 border border-success/20 animate-in slide-in-from-bottom-3 duration-300 text-left">
                    <h4 className="text-sm font-black text-primary-foreground uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
                      <Star size={18} className="text-primary" />
                      Rate This Service
@@ -308,7 +308,7 @@ const LiveTracking = () => {
                      <button
                        onClick={handleComplete}
                        disabled={reviewRating === 0 || isSubmitting}
-                       className="flex-[2] h-14 rounded-2xl bg-emerald-500 text-primary-foreground font-black uppercase tracking-[0.3em] text-[10px] shadow-xl shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-30 flex items-center justify-center gap-3"
+                       className="flex-[2] h-14 rounded-2xl bg-success text-primary-foreground font-black uppercase tracking-[0.3em] text-[10px] shadow-xl shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-30 flex items-center justify-center gap-3"
                      >
                        <Send size={16} />
                        {isSubmitting ? "SUBMITTING..." : "SUBMIT & COMPLETE"}
@@ -322,7 +322,7 @@ const LiveTracking = () => {
            {job.status === "Searching" && (
              <button
                onClick={handleCancel}
-               className="w-full h-20 rounded-3xl bg-card/5 border border-red-500/20 text-red-500 font-black uppercase tracking-[0.4em] hover:bg-red-500/5 transition-all text-[10px]"
+               className="w-full h-20 rounded-3xl bg-card/5 border border-destructive/20 text-destructive font-black uppercase tracking-[0.4em] hover:bg-destructive/5 transition-all text-[10px]"
              >
                 ABORT MISSION
              </button>

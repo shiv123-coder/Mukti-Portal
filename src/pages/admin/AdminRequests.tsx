@@ -198,7 +198,7 @@ const AdminRequests = () => {
         </div>
         <button 
           onClick={handleClearAll}
-          className="h-10 px-6 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-primary-foreground transition-all shadow-lg shadow-red-500/10"
+          className="h-10 px-6 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-[9px] font-black uppercase tracking-widest hover:bg-destructive hover:text-primary-foreground transition-all shadow-lg shadow-red-500/10"
         >
           Purge All Requests
         </button>
@@ -263,7 +263,7 @@ const AdminRequests = () => {
                 <div className="grid grid-cols-2 gap-3">
                   <button 
                     onClick={() => setRejectTarget({ id: req.id, workerId: req.workerId, source: req.source, name: req.workerName })}
-                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-secondary text-muted-foreground border border-border hover:bg-red-500/10 hover:text-red-500 transition-all active:scale-95"
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-secondary text-muted-foreground border border-border hover:bg-destructive/10 hover:text-destructive transition-all active:scale-95"
                   >
                     <XCircle size={16} /> <span className="text-[10px] uppercase tracking-widest">Reject</span>
                   </button>
@@ -288,7 +288,7 @@ const AdminRequests = () => {
       {/* Rejection Reason Modal */}
       {rejectTarget && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center bg-background/50 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="w-full max-w-md bg-card rounded-[2.5rem] border border-red-500/20 p-8 shadow-2xl animate-fade-up">
+          <div className="w-full max-w-md bg-card rounded-[2.5rem] border border-destructive/20 p-8 shadow-2xl animate-fade-up">
             <h3 className="text-xl font-black text-foreground italic tracking-tighter uppercase mb-2">Reject {rejectTarget.name}</h3>
             <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-6">This reason will be shown to the worker</p>
             
@@ -298,7 +298,7 @@ const AdminRequests = () => {
                   key={r}
                   onClick={() => setRejectReason(r)}
                   className={`w-full text-left px-4 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${
-                    rejectReason === r ? 'bg-red-500/10 border-red-500/30 text-red-500' : 'bg-secondary border-border text-muted-foreground hover:text-foreground'
+                    rejectReason === r ? 'bg-destructive/10 border-destructive/30 text-destructive' : 'bg-secondary border-border text-muted-foreground hover:text-foreground'
                   }`}
                 >{r}</button>
               ))}
@@ -309,7 +309,7 @@ const AdminRequests = () => {
               onChange={(e) => setRejectReason(e.target.value)}
               placeholder="Or type a custom reason..."
               rows={2}
-              className="w-full rounded-xl bg-secondary border border-border p-4 text-sm text-foreground font-bold outline-none focus:border-red-500 transition-all resize-none mb-6 placeholder:text-muted-foreground/30 shadow-inner"
+              className="w-full rounded-xl bg-secondary border border-border p-4 text-sm text-foreground font-bold outline-none focus:border-destructive transition-all resize-none mb-6 placeholder:text-muted-foreground/30 shadow-inner"
             />
 
             <div className="grid grid-cols-2 gap-3">
@@ -320,7 +320,7 @@ const AdminRequests = () => {
               <button
                 onClick={() => handleAction(rejectTarget.id, rejectTarget.workerId, "reject", rejectTarget.source, rejectReason)}
                 disabled={!rejectReason}
-                className="py-3 rounded-xl bg-red-500 text-primary-foreground text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-500/20 hover:bg-red-600 transition-all disabled:opacity-30 active:scale-95"
+                className="py-3 rounded-xl bg-destructive text-primary-foreground text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-500/20 hover:bg-destructive transition-all disabled:opacity-30 active:scale-95"
               >Confirm Rejection</button>
             </div>
           </div>

@@ -20,6 +20,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 import { calculateEstimatedIncome, calculateLoanEligibility, getFraudRiskLevel } from "@/utils/adminLogic";
 import { toast } from "sonner";
+import { ExportMenu, ExportColumn } from "@/components/ExportMenu";
 
 const AdminWorkers = () => {
   
@@ -131,6 +132,15 @@ const AdminWorkers = () => {
       setLoading(false);
     }
   };
+  
+  const exportColumns: ExportColumn<User>[] = [
+    { header: "Name", key: "name" },
+    { header: "Phone", key: "phone" },
+    { header: "Skill", key: "skill" },
+    { header: "Location", key: "location" },
+    { header: "Mukti Score", key: "muktiScore" },
+    { header: "Estimated Income", key: (worker) => Math.round(calculateEstimatedIncome(worker, (worker as any).jobCount || 0)) }
+  ];
 
   return (
     <div className="space-y-8 pb-12">
@@ -142,13 +152,16 @@ const AdminWorkers = () => {
         <div className="flex gap-3">
           <button 
             onClick={handleResetAll}
-            className="h-12 px-6 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-[10px] font-black text-red-500 uppercase tracking-widest hover:bg-red-500 hover:text-primary-foreground transition-all shadow-lg shadow-red-500/10"
+            className="h-12 px-6 rounded-xl bg-destructive/10 border border-destructive/20 flex items-center gap-3 text-[10px] font-black text-destructive uppercase tracking-widest hover:bg-destructive hover:text-primary-foreground transition-all shadow-lg shadow-red-500/10"
           >
             Reset All Verifications
           </button>
-          <button className="h-12 px-6 rounded-xl bg-secondary border border-border flex items-center gap-3 text-[10px] font-black text-foreground uppercase tracking-widest hover:bg-secondary/80 transition-all">
-            <Download size={16} /> Export CSV
-          </button>
+          <ExportMenu 
+            data={filteredWorkers} 
+            columns={exportColumns} 
+            filename="Mukti_Workers_Export" 
+            title="Mukti Portal - Workers List" 
+          />
         </div>
       </div>
 
@@ -221,7 +234,7 @@ const AdminWorkers = () => {
                           <div className="flex items-center gap-2">
                             <div className="text-sm font-black text-foreground">{worker.name}</div>
                             {worker.isVerifiedByAdmin && (
-                              <div className="text-emerald-500" title="Admin Verified">
+                              <div className="text-success" title="Admin Verified">
                                 <CheckCircle2 size={12} fill="currentColor" className="fill-emerald-500/20" />
                               </div>
                             )}
@@ -236,8 +249,8 @@ const AdminWorkers = () => {
                     </td>
                     <td className="px-6 py-6 text-center">
                       <div className={`inline-block px-3 py-1 rounded-lg font-black text-sm ${
-                        (worker.muktiScore || 0) > 80 ? 'text-emerald-500 bg-emerald-500/10' : 
-                        (worker.muktiScore || 0) > 50 ? 'text-primary bg-primary/10' : 'text-red-500 bg-red-500/10'
+                        (worker.muktiScore || 0) > 80 ? 'text-success bg-success/10' : 
+                        (worker.muktiScore || 0) > 50 ? 'text-primary bg-primary/10' : 'text-destructive bg-destructive/10'
                       }`}>
                         {worker.muktiScore || 0}
                       </div>
@@ -246,7 +259,7 @@ const AdminWorkers = () => {
                       <div className="flex flex-col items-center justify-center gap-1">
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] font-bold text-muted-foreground uppercase leading-none">{hasRealData ? 'Real:' : 'Est:'}</span>
-                          <span className="text-sm font-black text-emerald-500">₹{Math.round(estIncome).toLocaleString()}</span>
+                          <span className="text-sm font-black text-success">₹{Math.round(estIncome).toLocaleString()}</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] font-bold text-muted-foreground uppercase leading-none">Loan:</span>
@@ -257,10 +270,10 @@ const AdminWorkers = () => {
                     <td className="px-6 py-6">
                       <div className="flex flex-col items-center">
                         <div className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${
-                          risk === 'LOW' ? 'text-emerald-500' : risk === 'MEDIUM' ? 'text-primary' : 'text-red-500'
+                          risk === 'LOW' ? 'text-success' : risk === 'MEDIUM' ? 'text-primary' : 'text-destructive'
                         }`}>
                           <div className={`h-2 w-2 rounded-full ${
-                            risk === 'LOW' ? 'bg-emerald-500' : risk === 'MEDIUM' ? 'bg-primary' : 'bg-red-500'
+                            risk === 'LOW' ? 'bg-success' : risk === 'MEDIUM' ? 'bg-primary' : 'bg-destructive'
                           }`} />
                           {risk} Risk
                         </div>
@@ -270,14 +283,14 @@ const AdminWorkers = () => {
                       <div className="flex justify-center gap-2">
                         <button 
                           onClick={() => handleAction(worker.id, "suspend")}
-                          className="p-2.5 rounded-xl bg-secondary text-muted-foreground hover:text-red-500 hover:bg-red-500/10 transition-all shadow-sm border border-border"
+                          className="p-2.5 rounded-xl bg-secondary text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all shadow-sm border border-border"
                           title="Suspend Account"
                         >
                           <XCircle size={18} />
                         </button>
                         <button 
                           onClick={() => handleAction(worker.id, worker.isVerifiedByAdmin ? "unverify" : "verify")}
-                          className={`p-2.5 rounded-xl transition-all shadow-sm border ${worker.isVerifiedByAdmin ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20 hover:bg-emerald-500/20' : 'bg-secondary text-muted-foreground border-border hover:text-emerald-500 hover:bg-emerald-500/10'}`}
+                          className={`p-2.5 rounded-xl transition-all shadow-sm border ${worker.isVerifiedByAdmin ? 'bg-success/10 text-success border-success/20 hover:bg-success/20' : 'bg-secondary text-muted-foreground border-border hover:text-success hover:bg-success/10'}`}
                           title={worker.isVerifiedByAdmin ? "Revoke Verification" : "Verify Worker"}
                         >
                           <CheckCircle2 size={18} />

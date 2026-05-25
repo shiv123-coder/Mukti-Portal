@@ -38,14 +38,14 @@ const Leaderboard = () => {
   }, []);
 
   const getRankIcon = (rank: number) => {
-    if (rank === 0) return <Crown size={24} className="text-yellow-400 drop-shadow-primary-glow" />;
+    if (rank === 0) return <Crown size={24} className="text-warning drop-shadow-primary-glow" />;
     if (rank === 1) return <Medal size={22} className="text-muted drop-shadow-primary-glow" />;
     if (rank === 2) return <Medal size={20} className="text-primary drop-shadow-primary-glow" />;
     return <span className="text-sm font-black text-muted-foreground w-6 text-center">{rank + 1}</span>;
   };
 
   const getRankBg = (rank: number) => {
-    if (rank === 0) return 'border-yellow-500/30 bg-yellow-500/5 shadow-primary-glow';
+    if (rank === 0) return 'border-warning/30 bg-warning/5 shadow-primary-glow';
     if (rank === 1) return 'border-border/20 bg-slate-400/5';
     if (rank === 2) return 'border-primary/20 bg-primary/5';
     return 'border-border bg-card/[0.02]';
@@ -53,7 +53,7 @@ const Leaderboard = () => {
 
   return (
     <div className="container mx-auto max-w-5xl py-6 md:py-10 pb-24 px-4 relative overflow-hidden">
-      <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-yellow-500/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-warning/5 blur-[120px] pointer-events-none" />
       <div className="absolute top-[40%] right-[-5%] h-[500px] w-[500px] rounded-full bg-primary/5 blur-[150px] pointer-events-none" />
 
       <div className="mb-10 relative z-10">
@@ -94,15 +94,15 @@ const Leaderboard = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <div className="text-sm font-black text-primary-foreground italic tracking-tighter uppercase">{worker.name}</div>
-                  {worker.isVerifiedByAdmin && <ShieldCheck size={14} className="text-emerald-500" />}
+                  {worker.isVerifiedByAdmin && <ShieldCheck size={14} className="text-success" />}
                 </div>
                 <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{worker.skill || 'General'}</div>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <div className={`px-4 py-2 rounded-xl font-black text-lg italic tracking-tighter ${
-                (worker.muktiScore || 0) >= 80 ? 'text-emerald-500 bg-emerald-500/10' :
-                (worker.muktiScore || 0) >= 50 ? 'text-primary bg-primary/10' : 'text-red-500 bg-red-500/10'
+                (worker.muktiScore || 0) >= 80 ? 'text-success bg-success/10' :
+                (worker.muktiScore || 0) >= 50 ? 'text-primary bg-primary/10' : 'text-destructive bg-destructive/10'
               }`}>
                 {Math.round(worker.muktiScore || 0)}
               </div>

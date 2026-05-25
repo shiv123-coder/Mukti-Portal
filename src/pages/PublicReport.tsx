@@ -75,7 +75,7 @@ const PublicReport = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-red-50 flex items-center justify-center p-4">
         <div className="bg-card rounded-2xl shadow-xl p-8 max-w-md text-center border border-red-100">
-          <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+          <AlertCircle className="w-12 h-12 text-destructive mx-auto mb-4" />
           <h2 className="text-xl font-bold text-foreground mb-2">Report Unavailable</h2>
           <p className="text-muted-foreground text-sm mb-4">{error || "Worker snapshot data could not be loaded."}</p>
           <div className="bg-red-50 text-red-700 text-xs p-3 rounded text-left font-mono break-words">
@@ -116,12 +116,12 @@ const PublicReport = () => {
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center font-bold text-lg">M</div>
               <div>
-                <h1 className="font-bold text-lg">MuktiPortal</h1>
+                <h1 className="font-bold text-lg">Mukti Portal</h1>
                 <p className="text-blue-200 text-xs">Worker Trust & Verification Report</p>
               </div>
             </div>
             {isVerified && (
-              <span className="bg-emerald-500 text-primary-foreground text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+              <span className="bg-success text-primary-foreground text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
                 <ShieldCheck size={12} /> VERIFIED
               </span>
             )}
@@ -150,16 +150,16 @@ const PublicReport = () => {
         <div className="grid grid-cols-3 gap-3">
           <div className="bg-card rounded-xl shadow-sm border border-border p-4 text-center">
             <p className="text-xs font-bold text-[#0B3D91] mb-2 uppercase tracking-wide">Mukti Score</p>
-            <p className={`text-3xl font-black ${muktiScore >= 70 ? 'text-emerald-600' : muktiScore >= 40 ? 'text-primary' : 'text-red-500'}`}>{muktiScore}</p>
+            <p className={`text-3xl font-black ${muktiScore >= 70 ? 'text-success' : muktiScore >= 40 ? 'text-primary' : 'text-destructive'}`}>{muktiScore}</p>
             <p className="text-xs text-muted-foreground">/100</p>
           </div>
           <div className="bg-card rounded-xl shadow-sm border border-border p-4 text-center">
             <p className="text-xs font-bold text-[#0B3D91] mb-2 uppercase tracking-wide">Bank Confidence</p>
-            <p className={`text-xl font-black ${confidence === 'HIGH' ? 'text-emerald-600' : confidence === 'MEDIUM' ? 'text-primary' : 'text-red-500'}`}>{confidence}</p>
+            <p className={`text-xl font-black ${confidence === 'HIGH' ? 'text-success' : confidence === 'MEDIUM' ? 'text-primary' : 'text-destructive'}`}>{confidence}</p>
           </div>
           <div className="bg-card rounded-xl shadow-sm border border-border p-4 text-center">
             <p className="text-xs font-bold text-[#0B3D91] mb-2 uppercase tracking-wide">Loan Ready</p>
-            <p className={`text-xl font-black ${muktiScore >= 70 ? 'text-emerald-600' : muktiScore >= 40 ? 'text-primary' : 'text-red-500'}`}>
+            <p className={`text-xl font-black ${muktiScore >= 70 ? 'text-success' : muktiScore >= 40 ? 'text-primary' : 'text-destructive'}`}>
               {muktiScore >= 70 ? "ELIGIBLE" : muktiScore >= 40 ? "MODERATE" : "BUILDING"}
             </p>
           </div>
@@ -169,8 +169,8 @@ const PublicReport = () => {
         <div className="grid grid-cols-4 gap-3">
           {[
             { icon: Briefcase, label: "Total Works", value: totalJobs, color: "text-primary" },
-            { icon: CheckCircle2, label: "Verified", value: totalJobs, color: "text-emerald-600" },
-            { icon: Star, label: "Avg Rating", value: `${avgRating.toFixed(1)}/5`, color: "text-yellow-600" },
+            { icon: CheckCircle2, label: "Verified", value: totalJobs, color: "text-success" },
+            { icon: Star, label: "Avg Rating", value: `${avgRating.toFixed(1)}/5`, color: "text-warning" },
             { icon: Calendar, label: "Months", value: `${activeMonths}mo`, color: "text-muted-foreground" },
           ].map((stat, i) => (
             <div key={i} className="bg-card rounded-xl shadow-sm border border-border p-3 text-center">
@@ -193,7 +193,7 @@ const PublicReport = () => {
             </div>
             <div className="bg-muted rounded-lg p-3 border border-border">
               <p className="text-xs text-muted-foreground mb-1">Repeat Customers</p>
-              <p className="text-base font-bold text-emerald-600">{repeatCustomers}</p>
+              <p className="text-base font-bold text-success">{repeatCustomers}</p>
             </div>
           </div>
         </div>
@@ -212,7 +212,7 @@ const PublicReport = () => {
               { label: "Repeat", ok: trustStack.repeat },
             ].map((item, i) => (
               <div key={i} className="flex flex-col items-center gap-1">
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-primary-foreground text-xs font-bold ${item.ok ? 'bg-emerald-500' : 'bg-red-400'}`}>
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-primary-foreground text-xs font-bold ${item.ok ? 'bg-success' : 'bg-red-400'}`}>
                   {item.ok ? "Y" : "N"}
                 </div>
                 <span className="text-[9px] text-muted-foreground">{item.label}</span>
@@ -244,8 +244,8 @@ const PublicReport = () => {
                         {v.date}
                       </td>
                       <td className="py-2 px-3 text-muted-foreground text-xs">{v.category}</td>
-                      <td className="py-2 px-3 text-yellow-600 font-bold text-xs">{(v.rating || 4).toFixed(1)}/5</td>
-                      <td className="py-2 px-3 text-emerald-600 font-bold text-xs">VERIFIED</td>
+                      <td className="py-2 px-3 text-warning font-bold text-xs">{(v.rating || 4).toFixed(1)}/5</td>
+                      <td className="py-2 px-3 text-success font-bold text-xs">VERIFIED</td>
                     </tr>
                   ))}
                 </tbody>
@@ -259,7 +259,7 @@ const PublicReport = () => {
           <p className="text-[10px] text-muted-foreground leading-relaxed">
             <strong>Disclaimer:</strong> This document is not a credit score and does not replace formal underwriting by financial institutions.
             This report serves as supporting trust data for financial inclusion and informal sector lending.
-            Generated based on user-consented and verified activity through the MuktiPortal platform.
+            Generated based on user-consented and verified activity through the Mukti Portal platform.
             This report is valid for 30 days from the date of issue.
           </p>
           <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
@@ -267,7 +267,7 @@ const PublicReport = () => {
               <Lock size={12} className="text-muted-foreground" />
               <span className="text-[10px] text-muted-foreground">Digitally Verified by Code Storm</span>
             </div>
-            <span className="text-[10px] text-muted-foreground">MuktiPortal</span>
+            <span className="text-[10px] text-muted-foreground">Mukti Portal</span>
           </div>
         </div>
       </div>

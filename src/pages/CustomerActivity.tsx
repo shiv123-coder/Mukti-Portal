@@ -133,11 +133,11 @@ const CustomerActivity = () => {
 
   const getStatusStyle = (status: string) => {
     switch (status) {
-      case "Completed": return "bg-emerald-500/5 text-emerald-500 border-emerald-500/10";
+      case "Completed": return "bg-success/10 text-success border-success/20";
       case "In Progress": return "bg-primary/5 text-primary border-primary/10";
       case "Searching": return "bg-primary/5 text-primary border-primary/10 animate-pulse";
-      case "Accepted": return "bg-emerald-500/5 text-emerald-500 border-emerald-500/10";
-      default: return "bg-yellow-500/5 text-yellow-500 border-yellow-500/10";
+      case "Accepted": return "bg-success/10 text-success border-success/20";
+      default: return "bg-warning/5 text-warning border-warning/10";
     }
   };
 
@@ -199,7 +199,7 @@ const CustomerActivity = () => {
             >
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className={`h-16 w-16 rounded-2xl flex items-center justify-center shrink-0 border transition-all group-hover:scale-110 ${
-                  activity.type === "verification" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/10" : 
+                  activity.type === "verification" ? "bg-success/10 text-success border-success/20" : 
                   activity.status === "In Progress" ? "bg-primary/10 text-primary border-primary/10" :
                   "bg-primary/10 text-primary border-primary/10"
                 }`}>
@@ -212,7 +212,7 @@ const CustomerActivity = () => {
                     <div className="font-black text-xl flex items-center gap-3 text-primary-foreground italic">
                        {activity.service}
                        <span className={`text-[8px] font-black uppercase tracking-[0.3em] px-3 py-1 rounded-full border ${
-                         activity.type === "verification" ? "bg-emerald-500/5 text-emerald-500 border-emerald-500/10" : "bg-primary/5 text-primary border-primary/10"
+                         activity.type === "verification" ? "bg-success/10 text-success border-success/20" : "bg-primary/5 text-primary border-primary/10"
                        }`}>
                          {activity.type}
                        </span>
@@ -284,7 +284,7 @@ const CustomerActivity = () => {
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
               <div className={`h-16 w-16 rounded-2xl flex items-center justify-center shrink-0 border ${
-                selectedActivity.type === "verification" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/10" :
+                selectedActivity.type === "verification" ? "bg-success/10 text-success border-success/20" :
                 selectedActivity.status === "In Progress" ? "bg-primary/10 text-primary border-primary/10" :
                 "bg-primary/10 text-primary border-primary/10"
               }`}>
@@ -315,7 +315,7 @@ const CustomerActivity = () => {
               {selectedActivity.budget && (
                 <div className="p-4 rounded-2xl bg-card/5 border border-border">
                   <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Budget</div>
-                  <div className="text-lg font-black text-emerald-500">{selectedActivity.budget}</div>
+                  <div className="text-lg font-black text-success">{selectedActivity.budget}</div>
                 </div>
               )}
               <div className="p-4 rounded-2xl bg-card/5 border border-border">
@@ -350,7 +350,7 @@ const CustomerActivity = () => {
                   {selectedActivity.workerPhone && (
                     <a 
                       href={`tel:${selectedActivity.workerPhone}`} 
-                      className="h-12 w-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center hover:bg-emerald-500 hover:text-primary-foreground transition-all border border-emerald-500/20"
+                      className="h-12 w-12 rounded-xl bg-success/10 text-success flex items-center justify-center hover:bg-success hover:text-primary-foreground transition-all border border-success/20"
                     >
                       <Phone size={20} />
                     </a>

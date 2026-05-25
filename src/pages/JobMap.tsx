@@ -165,7 +165,7 @@ const JobMap = () => {
                 <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase">Normal</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-red-500 shadow-primary-glow" />
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-destructive shadow-primary-glow" />
                 <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase">Urgent</span>
               </div>
             </div>

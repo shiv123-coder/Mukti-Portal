@@ -105,8 +105,8 @@ const QRScreen = () => {
              <div className="flex items-center justify-center gap-2 mt-1">
                <p className="text-muted-foreground text-[9px] font-black uppercase tracking-[0.4em]">Handshake Protocol Active</p>
                {isGpsLocked && (
-                 <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[8px] font-black uppercase tracking-widest animate-in fade-in zoom-in slide-in-from-right-1 duration-500">
-                    <div className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
+                 <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-success/10 border border-success/20 text-success-foreground text-[8px] font-black uppercase tracking-widest animate-in fade-in zoom-in slide-in-from-right-1 duration-500">
+                    <div className="h-1 w-1 rounded-full bg-success animate-pulse" />
                     GPS Locked
                  </div>
                )}
@@ -137,11 +137,11 @@ const QRScreen = () => {
           </svg>
           
           {/* QR placeholder */}
-          <div className={`flex h-64 w-64 items-center justify-center rounded-[2.5rem] border-2 border-dashed transition-all duration-500 ${isExpired ? "border-red-500/20 bg-red-500/5" : "border-primary/30 bg-primary/5 shadow-[inset_0_0_40px_rgba(249,115,22,0.05)]"}`}>
+          <div className={`flex h-64 w-64 items-center justify-center rounded-[2.5rem] border-2 border-dashed transition-all duration-500 ${isExpired ? "border-destructive/20 bg-destructive/5" : "border-primary/30 bg-primary/5 shadow-[inset_0_0_40px_rgba(249,115,22,0.05)]"}`}>
             {isExpired ? (
               <div className="flex flex-col items-center gap-3">
-                 <AlertCircle size={40} className="text-red-500" />
-                 <div className="text-[10px] font-black text-red-500 uppercase tracking-widest italic">Signal Expired</div>
+                 <AlertCircle size={40} className="text-destructive" />
+                 <div className="text-[10px] font-black text-destructive uppercase tracking-widest italic">Signal Expired</div>
               </div>
             ) : isSyncing ? (
               <div className="flex flex-col items-center gap-4 animate-pulse">
@@ -177,8 +177,8 @@ const QRScreen = () => {
         {/* Timer & Status */}
         <div className="mb-10 flex flex-col items-center gap-2">
            <div className="flex items-center gap-3">
-              <Clock size={20} className={isExpired ? "text-red-500" : "text-primary animate-pulse"} />
-              <span className={`text-4xl font-black tabular-nums tracking-tighter italic ${isExpired ? "text-red-500" : "text-primary-foreground"}`}>
+              <Clock size={20} className={isExpired ? "text-destructive" : "text-primary animate-pulse"} />
+              <span className={`text-4xl font-black tabular-nums tracking-tighter italic ${isExpired ? "text-destructive" : "text-primary-foreground"}`}>
                 {isExpired ? "00:00" : `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`}
               </span>
            </div>

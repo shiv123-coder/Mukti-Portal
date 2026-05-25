@@ -109,8 +109,8 @@ const AdminReviews = () => {
                      {/* NLP Insights Bar */}
                      <div className="mt-8 flex flex-wrap gap-2">
                         <div className={`px-4 py-1.5 rounded-full border flex items-center gap-2 ${
-                          nlp.sentiment === 'positive' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 
-                          'bg-red-500/10 border-red-500/20 text-red-500'
+                          nlp.sentiment === 'positive' ? 'bg-success/10 border-success/20 text-success' : 
+                          'bg-destructive/10 border-destructive/20 text-destructive'
                         }`}>
                            <Sparkles size={12} />
                            <span className="text-[10px] font-black uppercase tracking-[0.2em]">{nlp.sentiment} SENTIMENT</span>
@@ -122,7 +122,7 @@ const AdminReviews = () => {
                            </div>
                         ))}
                         {nlp.issues?.map((issue: string, idx: number) => (
-                           <div key={idx} className="px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 flex items-center gap-2 shadow-primary-glow">
+                           <div key={idx} className="px-4 py-1.5 rounded-full bg-destructive/10 border border-destructive/20 text-destructive flex items-center gap-2 shadow-primary-glow">
                               <AlertCircle size={12} />
                               <span className="text-[10px] font-black uppercase tracking-[0.2em]">{issue}</span>
                            </div>
@@ -132,14 +132,14 @@ const AdminReviews = () => {
 
                   {/* Actions */}
                   <div className="lg:w-48 flex flex-col gap-3 justify-end pt-4 lg:pt-0 border-t lg:border-t-0 lg:border-l border-border lg:pl-8">
-                     <button onClick={() => handleModerate(review.id, "approved")} className="h-12 w-full rounded-xl bg-emerald-500/10 text-emerald-500 font-black text-[10px] uppercase tracking-widest hover:bg-emerald-500 hover:text-primary-foreground transition-all border border-emerald-500/20 active:scale-95">
+                     <button onClick={() => handleModerate(review.id, "approved")} className="h-12 w-full rounded-xl bg-success/10 text-success font-black text-[10px] uppercase tracking-widest hover:bg-success hover:text-primary-foreground transition-all border border-success/20 active:scale-95">
                         Approve
                      </button>
                      <div className="grid grid-cols-2 gap-3">
                         <button onClick={() => handleModerate(review.id, "flagged")} className="h-12 rounded-xl border border-border text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all flex items-center justify-center active:scale-95">
                            <Flag size={18} />
                         </button>
-                        <button onClick={() => handleDelete(review.id)} className="h-12 rounded-xl border border-border text-muted-foreground hover:text-red-500 hover:bg-red-500/10 transition-all flex items-center justify-center active:scale-95">
+                        <button onClick={() => handleDelete(review.id)} className="h-12 rounded-xl border border-border text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all flex items-center justify-center active:scale-95">
                            <Trash2 size={18} />
                         </button>
                      </div>

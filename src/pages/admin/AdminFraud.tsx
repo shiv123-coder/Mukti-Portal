@@ -19,6 +19,7 @@ import { db } from "@/lib/firebase";
 
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import { ExportMenu, ExportColumn } from "@/components/ExportMenu";
 
 const AdminFraud = () => {
   
@@ -129,6 +130,16 @@ const AdminFraud = () => {
     }
   };
 
+  const exportColumns: ExportColumn<any>[] = [
+    { header: "Worker ID", key: "workerId" },
+    { header: "Worker Name", key: "workerName" },
+    { header: "Location", key: "location" },
+    { header: "Mukti Score", key: "muktiScore" },
+    { header: "Rating", key: "rating" },
+    { header: "Status", key: (alert) => alert.fraudAction || "MONITOR" },
+    { header: "Timestamp", key: (alert) => alert.timestamp ? new Date(alert.timestamp.seconds * 1000).toLocaleString() : 'N/A' }
+  ];
+
   return (
     <div className="space-y-8 pb-12">
       <div className="flex flex-col xl:flex-row justify-between xl:items-end gap-6">
@@ -141,18 +152,25 @@ const AdminFraud = () => {
              <ShieldAlert size={14} className="animate-pulse" /> Auto-Suspend Active
            </div>
            
-           <button onClick={handleUnblockAll} className="bg-background border border-border px-5 py-3 rounded-2xl flex items-center gap-2 text-muted-foreground hover:text-emerald-500 hover:border-emerald-500/20 transition-all font-black uppercase text-[10px] tracking-widest active:scale-95">
+           <button onClick={handleUnblockAll} className="bg-background border border-border px-5 py-3 rounded-2xl flex items-center gap-2 text-muted-foreground hover:text-success hover:border-success/20 transition-all font-black uppercase text-[10px] tracking-widest active:scale-95">
               <CheckCircle size={16} /> Unblock All
            </button>
-           <button onClick={handleRemoveAll} className="bg-background border border-border px-5 py-3 rounded-2xl flex items-center gap-2 text-muted-foreground hover:text-red-500 hover:border-red-500/20 transition-all font-black uppercase text-[10px] tracking-widest active:scale-95">
+           <button onClick={handleRemoveAll} className="bg-background border border-border px-5 py-3 rounded-2xl flex items-center gap-2 text-muted-foreground hover:text-destructive hover:border-destructive/20 transition-all font-black uppercase text-[10px] tracking-widest active:scale-95">
               <Trash2 size={16} /> Clear All
            </button>
 
-           <div className="bg-red-500/10 border border-red-500/20 px-6 py-3 rounded-2xl flex items-center gap-3">
-              <AlertTriangle className="text-red-500" size={20} />
-              <div className="text-xl font-black text-red-500">{alerts.filter(a => (a.muktiScore || 100) < 60).length}</div>
+           <div className="bg-destructive/10 border border-destructive/20 px-6 py-3 rounded-2xl flex items-center gap-3">
+              <AlertTriangle className="text-destructive" size={20} />
+              <div className="text-xl font-black text-destructive">{alerts.filter(a => (a.muktiScore || 100) < 60).length}</div>
               <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">High Risk Alerts</div>
            </div>
+           <ExportMenu 
+             data={alerts} 
+             columns={exportColumns} 
+             filename="Mukti_Fraud_Alerts_Export" 
+             title="Mukti Portal - Fraud & Risk Analytics" 
+             subtitle={`Total Records: ${alerts.length}`}
+           />
         </div>
       </div>
 
@@ -162,16 +180,16 @@ const AdminFraud = () => {
             Scanning Transaction Patterns...
           </div>
         ) : alerts.filter(alert => alert.fraudAction !== "ignored").map((alert, i) => (
-          <div key={alert.id} className={`group rounded-[2.5rem] bg-card border ${alert.fraudAction === 'review' ? 'border-primary/50' : alert.fraudAction === 'blocked' ? 'border-red-500/50 opacity-50' : 'border-border'} p-8 hover:border-red-500/20 transition-all shadow-2xl overflow-hidden relative`}>
+          <div key={alert.id} className={`group rounded-[2.5rem] bg-card border ${alert.fraudAction === 'review' ? 'border-primary/50' : alert.fraudAction === 'blocked' ? 'border-destructive/50 opacity-50' : 'border-border'} p-8 hover:border-destructive/20 transition-all shadow-2xl overflow-hidden relative`}>
             {alert.fraudAction && (
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50" />
             )}
             <div className="absolute top-0 right-0 p-8 flex gap-3">
                <div className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border ${
                  alert.fraudAction === 'review' ? 'bg-primary text-primary-foreground border-primary' :
-                 alert.fraudAction === 'blocked' ? 'bg-red-800 text-primary-foreground border-red-800' :
-                 (alert.muktiScore || 100) < 40 ? 'bg-red-500 text-primary-foreground border-red-500' : 
-                 (alert.muktiScore || 100) < 70 ? 'bg-primary text-primary-foreground border-primary' : 'bg-yellow-500 text-primary-foreground border-yellow-500'
+                 alert.fraudAction === 'blocked' ? 'bg-destructive text-destructive-foreground border-destructive' :
+                 (alert.muktiScore || 100) < 40 ? 'bg-destructive text-destructive-foreground border-destructive' : 
+                 (alert.muktiScore || 100) < 70 ? 'bg-primary text-primary-foreground border-primary' : 'bg-warning text-warning-foreground border-warning'
                }`}>
                  {alert.fraudAction === 'review' ? 'UNDER REVIEW' : alert.fraudAction === 'blocked' ? 'BLOCKED' : (alert.muktiScore || 100) < 40 ? 'CRITICAL' : (alert.muktiScore || 100) < 70 ? 'SUSPICIOUS' : 'MONITOR'}
                </div>
@@ -191,28 +209,28 @@ const AdminFraud = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                      <div className="flex items-center gap-3 bg-secondary/50 p-4 rounded-2xl border border-border">
-                        <MapPin size={16} className="text-red-500" />
+                        <MapPin size={16} className="text-destructive" />
                         <div className="space-y-0.5">
                            <div className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none">Location</div>
                            <div className="text-xs font-bold text-foreground/80">{alert.location || 'Unknown'}</div>
                         </div>
                      </div>
                      <div className="flex items-center gap-3 bg-secondary/50 p-4 rounded-2xl border border-border">
-                        <Smartphone size={16} className="text-red-500" />
+                        <Smartphone size={16} className="text-destructive" />
                         <div className="space-y-0.5">
                            <div className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none">Mukti Score</div>
                            <div className="text-xs font-bold text-foreground/80">{alert.muktiScore ?? 'N/A'}</div>
                         </div>
                      </div>
                      <div className="flex items-center gap-3 bg-secondary/50 p-4 rounded-2xl border border-border">
-                        <Clock size={16} className="text-red-500" />
+                        <Clock size={16} className="text-destructive" />
                         <div className="space-y-0.5">
                            <div className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none">Timestamp</div>
                            <div className="text-xs font-bold text-foreground/80">{alert.timestamp ? new Date(alert.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
                         </div>
                      </div>
                      <div className="flex items-center gap-3 bg-secondary/50 p-4 rounded-2xl border border-border">
-                        <MessageSquare size={16} className="text-red-500" />
+                        <MessageSquare size={16} className="text-destructive" />
                         <div className="space-y-0.5">
                            <div className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-none">Rating</div>
                            <div className="text-xs font-bold text-foreground/80">{alert.rating ? `${alert.rating}/5` : 'N/A'}</div>
@@ -226,12 +244,12 @@ const AdminFraud = () => {
                   
                   {alert.fraudAction === 'blocked' ? (
                     <div className="space-y-3">
-                      <div className="w-full h-12 flex items-center justify-center rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 font-black text-[10px] uppercase tracking-widest">
+                      <div className="w-full h-12 flex items-center justify-center rounded-xl bg-destructive/10 text-destructive border border-destructive/20 font-black text-[10px] uppercase tracking-widest">
                         <Slash size={14} className="mr-2" /> SYSTEM BLOCKED
                       </div>
                       <button 
                         onClick={() => handleAction(alert.id, "unblock", alert.workerId)} 
-                        className="w-full h-12 rounded-xl bg-emerald-600 text-primary-foreground font-black text-[10px] uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
+                        className="w-full h-12 rounded-xl bg-success text-primary-foreground font-black text-[10px] uppercase tracking-widest hover:bg-success transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
                       >
                         Unblock Worker
                       </button>
@@ -244,7 +262,7 @@ const AdminFraud = () => {
                         </button>
                       )}
                       <div className="grid grid-cols-2 gap-3">
-                        <button onClick={() => handleAction(alert.id, "block", alert.workerId)} className="h-12 rounded-xl border border-red-500/30 text-red-500 font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-primary-foreground transition-all active:scale-95">
+                        <button onClick={() => handleAction(alert.id, "block", alert.workerId)} className="h-12 rounded-xl border border-destructive/30 text-destructive font-black text-[10px] uppercase tracking-widest hover:bg-destructive hover:text-primary-foreground transition-all active:scale-95">
                           Block Source
                         </button>
                         <button onClick={() => handleAction(alert.id, "ignore", alert.workerId)} className="h-12 rounded-xl border border-border text-muted-foreground font-black text-[10px] uppercase tracking-widest hover:bg-secondary transition-all active:scale-95">
@@ -256,7 +274,7 @@ const AdminFraud = () => {
                   
                   <button 
                     onClick={() => handleAction(alert.id, "delete")} 
-                    className="w-full h-10 flex items-center justify-center gap-2 rounded-xl bg-background border border-border font-bold text-[10px] text-muted-foreground uppercase tracking-widest hover:text-red-500 hover:border-red-500/20 transition-all opacity-50 hover:opacity-100"
+                    className="w-full h-10 flex items-center justify-center gap-2 rounded-xl bg-background border border-border font-bold text-[10px] text-muted-foreground uppercase tracking-widest hover:text-destructive hover:border-destructive/20 transition-all opacity-50 hover:opacity-100"
                   >
                     <Trash2 size={12} /> Clear Alert Record
                   </button>

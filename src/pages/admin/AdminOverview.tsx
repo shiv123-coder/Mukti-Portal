@@ -256,7 +256,7 @@ const AdminOverview = () => {
               <div className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br ${card.color} text-primary-foreground shadow-lg`}>
                 {React.cloneElement(card.icon as React.ReactElement, { size: window.innerWidth < 640 ? 18 : 24 })}
               </div>
-              <div className={`flex items-center gap-0.5 sm:gap-1 text-[8px] sm:text-[10px] font-black ${card.isUp ? 'text-emerald-500' : 'text-red-500'} bg-secondary/50 px-1.5 py-0.5 rounded-lg`}>
+              <div className={`flex items-center gap-0.5 sm:gap-1 text-[8px] sm:text-[10px] font-black ${card.isUp ? 'text-success' : 'text-destructive'} bg-secondary/50 px-1.5 py-0.5 rounded-lg`}>
                 {card.isUp ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
                 {card.trend}
               </div>
@@ -330,7 +330,7 @@ const AdminOverview = () => {
 
           <div className="rounded-[3.5rem] bg-card border border-border p-10 shadow-2xl">
             <div className="mb-8 flex items-center gap-4">
-              <div className="p-3 rounded-2xl bg-red-500/10 text-red-500">
+              <div className="p-3 rounded-2xl bg-destructive/10 text-destructive">
                 <Shield size={20} />
               </div>
               <div>
@@ -339,19 +339,19 @@ const AdminOverview = () => {
               </div>
             </div>
             <div className="space-y-4">
-              <button onClick={() => handleGlobalReset()} className="w-full flex items-center justify-between p-4 rounded-2xl bg-secondary border border-border hover:bg-red-500/10 hover:border-red-500/20 group transition-all">
+              <button onClick={() => handleGlobalReset()} className="w-full flex items-center justify-between p-4 rounded-2xl bg-secondary border border-border hover:bg-destructive/10 hover:border-destructive/20 group transition-all">
                 <div className="flex items-center gap-3">
-                  <RotateCcw size={16} className="text-muted-foreground group-hover:text-red-500" />
+                  <RotateCcw size={16} className="text-muted-foreground group-hover:text-destructive" />
                   <span className="text-[10px] font-black text-foreground uppercase tracking-widest">Reset All Verification</span>
                 </div>
-                <ArrowUpRight size={14} className="text-muted-foreground group-hover:text-red-500" />
+                <ArrowUpRight size={14} className="text-muted-foreground group-hover:text-destructive" />
               </button>
-              <button onClick={handlePurgeRequests} className="w-full flex items-center justify-between p-4 rounded-2xl bg-secondary border border-border hover:bg-red-500/10 hover:border-red-500/20 group transition-all">
+              <button onClick={handlePurgeRequests} className="w-full flex items-center justify-between p-4 rounded-2xl bg-secondary border border-border hover:bg-destructive/10 hover:border-destructive/20 group transition-all">
                 <div className="flex items-center gap-3">
-                  <Trash2 size={16} className="text-muted-foreground group-hover:text-red-500" />
+                  <Trash2 size={16} className="text-muted-foreground group-hover:text-destructive" />
                   <span className="text-[10px] font-black text-foreground uppercase tracking-widest">Purge Request Queue</span>
                 </div>
-                <ArrowUpRight size={14} className="text-muted-foreground group-hover:text-red-500" />
+                <ArrowUpRight size={14} className="text-muted-foreground group-hover:text-destructive" />
               </button>
             </div>
           </div>

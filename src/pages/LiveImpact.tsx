@@ -57,7 +57,7 @@ const LiveImpact = () => {
     <div className="container mx-auto max-w-7xl py-6 md:py-10 pb-24 px-4 relative overflow-hidden">
       <div className="absolute top-[5%] left-[-15%] h-[500px] w-[500px] rounded-full bg-primary/10 blur-[150px] pointer-events-none" />
       <div className="absolute top-[50%] right-[-10%] h-[600px] w-[600px] rounded-full bg-primary/5 blur-[180px] pointer-events-none" />
-      <div className="absolute bottom-[10%] left-[30%] h-[400px] w-[400px] rounded-full bg-emerald-500/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[10%] left-[30%] h-[400px] w-[400px] rounded-full bg-success/10 blur-[120px] pointer-events-none" />
 
       <div className="mb-12 relative z-10 text-center">
         <button onClick={() => navigate(-1)} className="absolute left-0 top-0 flex items-center gap-2 text-muted-foreground hover:text-primary-foreground text-[10px] font-black uppercase tracking-widest transition-colors">
@@ -112,7 +112,7 @@ const LiveImpact = () => {
       <div className="rounded-[2.5rem] bg-background border border-border p-8 md:p-12 text-center relative z-10">
         <div className="text-[10px] font-black text-primary uppercase tracking-[0.4em] mb-4">Our Mission</div>
         <p className="text-lg md:text-xl font-bold text-muted leading-relaxed max-w-2xl mx-auto italic">
-          "Every informal worker deserves a digital identity. Every verified handshake builds a credit-ready future. MuktiPortal bridges the gap between informal labor and financial inclusion."
+          "Every informal worker deserves a digital identity. Every verified handshake builds a credit-ready future. Mukti Portal bridges the gap between informal labor and financial inclusion."
         </p>
       </div>
     </div>

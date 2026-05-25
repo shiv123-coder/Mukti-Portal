@@ -42,6 +42,8 @@ const Leaderboard = lazy(() => import("@/pages/Leaderboard"));
 const LiveImpact = lazy(() => import("@/pages/LiveImpact"));
 const SchemesMatcher = lazy(() => import("@/pages/SchemesMatcher"));
 const JobMap = lazy(() => import("@/pages/JobMap"));
+const AdminJobs = lazy(() => import("@/pages/admin/AdminJobs"));
+const AdminManagement = lazy(() => import("@/pages/admin/AdminManagement"));
 const PublicReport = lazy(() => import("@/pages/PublicReport"));
 
 // Loading fallback component
@@ -102,12 +104,14 @@ const MainLayout = () => {
                         <Route path="dashboard" element={<AdminOverview />} />
                         <Route path="workers" element={<AdminWorkers />} />
                         <Route path="customers" element={<AdminCustomers />} />
+                        <Route path="jobs" element={<AdminJobs />} />
+                        <Route path="management" element={<AdminManagement />} />
                         <Route path="fraud" element={<AdminFraud />} />
                         <Route path="reviews" element={<AdminReviews />} />
                         <Route path="requests" element={<AdminRequests />} />
                         <Route path="worker/:workerId" element={<AdminWorkerDetail />} />
                         <Route path="settings" element={<AdminSettings />} />
-                        {/* Fallback for /admin/analytics etc to dashboard for now */}
+                        {/* Fallback for anything else */}
                         <Route path="*" element={<AdminOverview />} />
                       </Routes>
                     </AdminLayout>

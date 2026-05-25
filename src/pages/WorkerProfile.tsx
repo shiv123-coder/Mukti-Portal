@@ -219,7 +219,7 @@ const WorkerProfile = () => {
               {user.skill && <p className="text-sm font-medium text-muted-foreground mt-1">{user.skill}</p>}
               
               <div className="mt-4 flex items-center justify-center gap-2">
-                <div className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-500">
+                <div className="flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-xs font-semibold text-success">
                   <Shield size={14} /> Verified
                 </div>
               </div>
@@ -291,7 +291,7 @@ const WorkerProfile = () => {
             </motion.div>
             
             <motion.div variants={slideUp} className="card-premium-glow rounded-3xl p-6 text-center col-span-2 md:col-span-1">
-              <div className="mx-auto w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 mb-4">
+              <div className="mx-auto w-12 h-12 bg-success/10 rounded-2xl flex items-center justify-center text-success mb-4">
                 <Shield size={24} />
               </div>
               <div className="text-3xl font-bold text-foreground">
@@ -330,7 +330,7 @@ const WorkerProfile = () => {
                        {(v.rating || v.amount) && (
                          <div className="mt-4 flex items-center gap-4 text-xs font-semibold">
                            {v.rating && <span className="flex items-center gap-1 text-primary"><Star size={14} className="fill-primary" /> {v.rating}.0</span>}
-                           {v.amount && <span className="text-emerald-500">₹{v.amount}</span>}
+                           {v.amount && <span className="text-success">₹{v.amount}</span>}
                          </div>
                        )}
                      </div>

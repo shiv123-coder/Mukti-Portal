@@ -733,13 +733,13 @@ const WorkerDashboard = () => {
           
           {/* Verification Status Badge */}
           <div className="flex flex-col items-start sm:items-end gap-3 shrink-0">
-            <div className={`flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl border ${ (isApproved || user.isVerifiedByAdmin) ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : requestSent ? 'bg-primary/20 border-amber-500/20 text-primary' : 'bg-red-500/10 border-red-500/20 text-red-500'} font-black italic animate-in fade-in slide-in-from-right-4 duration-700`}>
+            <div className={`flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl border ${ (isApproved || user.isVerifiedByAdmin) ? 'bg-success/10 border-success/20 text-success' : requestSent ? 'bg-primary/20 border-amber-500/20 text-primary' : 'bg-destructive/10 border-destructive/20 text-destructive'} font-black italic animate-in fade-in slide-in-from-right-4 duration-700`}>
               {(isApproved || user.isVerifiedByAdmin) ? (
                  <><ShieldCheck size={20} className="drop-shadow-primary-glow" /> <div className="text-left"><div className="text-[8px] uppercase tracking-widest leading-none mb-1 opacity-60">Identity Status</div><div className="text-xs uppercase tracking-tighter">VERIFIED ✔</div></div></>
               ) : requestSent ? (
                  <><Clock size={20} className="animate-pulse" /> <div className="text-left"><div className="text-[8px] uppercase tracking-widest leading-none mb-1 opacity-60">Identity Status</div><div className="text-xs uppercase tracking-tighter">UNDER REVIEW ⏳</div></div></>
               ) : (
-                 <><ShieldAlert size={20} className="text-red-500" /> <div className="text-left"><div className="text-[8px] uppercase tracking-widest leading-none mb-1 opacity-60">Identity Status</div><div className="text-xs uppercase tracking-tighter text-red-500">NOT VERIFIED ❌</div></div></>
+                 <><ShieldAlert size={20} className="text-destructive" /> <div className="text-left"><div className="text-[8px] uppercase tracking-widest leading-none mb-1 opacity-60">Identity Status</div><div className="text-xs uppercase tracking-tighter text-destructive">NOT VERIFIED ❌</div></div></>
               )}
             </div>
             
@@ -747,7 +747,7 @@ const WorkerDashboard = () => {
               <button
                 onClick={handleRequestVerification}
                 disabled={isRequesting || requestSent}
-                className={`text-[9px] font-black px-4 py-2 rounded-xl border transition-all ${requestSent ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500 cursor-default' : 'bg-primary text-foreground border-primary hover:scale-105 active:scale-95 shadow-lg shadow-primary-glow'} uppercase tracking-widest`}
+                className={`text-[9px] font-black px-4 py-2 rounded-xl border transition-all ${requestSent ? 'bg-success/10 border-success/20 text-success cursor-default' : 'bg-primary text-foreground border-primary hover:scale-105 active:scale-95 shadow-lg shadow-primary-glow'} uppercase tracking-widest`}
               >
                 {isRequesting ? "Sending..." : requestSent ? "Request Sent ✔" : "Request Identity Verification"}
               </button>
@@ -798,12 +798,12 @@ const WorkerDashboard = () => {
         )}
         <button
           onClick={() => {
-            const msg = `Check out ${user.name}'s verified work profile on MuktiPortal!\n\n🔧 Skill: ${user.skill || 'Worker'}\n⭐ Mukti Score: ${muktiScore}\n✅ ${isApproved ? 'Admin Verified' : 'Pending Verification'}\n\n🔗 ${window.location.origin}/profile`;
+            const msg = `Check out ${user.name}'s verified work profile on Mukti Portal!\n\n🔧 Skill: ${user.skill || 'Worker'}\n⭐ Mukti Score: ${muktiScore}\n✅ ${isApproved ? 'Admin Verified' : 'Pending Verification'}\n\n🔗 ${window.location.origin}/profile`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
           }}
-          className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-emerald-500/30 transition-all group"
+          className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-success/30 transition-all group"
         >
-          <MessageSquare size={18} className="text-emerald-500 group-hover:scale-110 transition-transform" />
+          <MessageSquare size={18} className="text-success group-hover:scale-110 transition-transform" />
           <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase tracking-widest text-center">WhatsApp</span>
         </button>
         <button
@@ -819,9 +819,9 @@ const WorkerDashboard = () => {
             const feedEl = document.getElementById('tactical-job-feed');
             if (feedEl) feedEl.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="relative flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-purple-500/30 transition-all group"
+          className="relative flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all group"
         >
-          <MapPin size={20} className="text-purple-500 group-hover:scale-110 transition-transform" />
+          <MapPin size={20} className="text-primary group-hover:scale-110 transition-transform" />
           <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">Jobs</span>
           {activeRequests.filter(r => r.status === 'Searching').length > 0 && (
             <span className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full bg-primary text-foreground text-[8px] font-black animate-pulse shadow-lg shadow-primary-glow">
@@ -831,16 +831,16 @@ const WorkerDashboard = () => {
         </button>
         <button
           onClick={() => navigate('/leaderboard')}
-          className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-yellow-500/30 transition-all group"
+          className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-warning/30 transition-all group"
         >
-          <Star size={18} className="text-yellow-500 group-hover:scale-110 transition-transform" />
+          <Star size={18} className="text-warning group-hover:scale-110 transition-transform" />
           <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase tracking-widest text-center">Rank</span>
         </button>
         <button
           onClick={() => navigate('/impact')}
-          className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-pink-500/30 transition-all group"
+          className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all group"
         >
-          <TrendingUp size={18} className="text-pink-500 group-hover:scale-110 transition-transform" />
+          <TrendingUp size={18} className="text-primary group-hover:scale-110 transition-transform" />
           <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase tracking-widest text-center">Impact</span>
         </button>
       </div>
@@ -861,7 +861,7 @@ const WorkerDashboard = () => {
               </div>
             </div>
             {Number(user.workerType) === 0 && user.employerVerified && (
-               <div className="flex items-center gap-1.5 text-[8px] font-black text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/10">
+               <div className="flex items-center gap-1.5 text-[8px] font-black text-success bg-success/10 px-3 py-1 rounded-full border border-success/20">
                   <ShieldCheck size={10} /> VERIFIED
                </div>
             )}
@@ -879,7 +879,7 @@ const WorkerDashboard = () => {
                     <LucideUser size={16} /> Registry Employer
                   </h4>
                   {!user.employerVerified && (
-                    <span className="text-[8px] font-black text-red-500 bg-red-500/10 px-3 py-1 rounded-full border border-red-500/10">PENDING</span>
+                    <span className="text-[8px] font-black text-destructive bg-destructive/10 px-3 py-1 rounded-full border border-destructive/10">PENDING</span>
                   )}
                </div>
                
@@ -902,7 +902,7 @@ const WorkerDashboard = () => {
                    Dispatch Verify Request
                  </button>
                ) : (
-                 <div className="flex items-center gap-3 text-[9px] font-black text-emerald-500 justify-center py-2 uppercase tracking-[0.3em] italic z-10">
+                 <div className="flex items-center gap-3 text-[9px] font-black text-success justify-center py-2 uppercase tracking-[0.3em] italic z-10">
                    <LucideHistory size={14} /> Continuous Log Since Jan 2024
                  </div>
                )}
@@ -953,8 +953,8 @@ const WorkerDashboard = () => {
                     <ShieldCheck size={16} className="text-muted-foreground" /> System Integrity
                   </div>
                   <div className={`text-xs font-black tracking-widest ${
-                    displayData?.trust?.fraudRisk === 'LOW' ? 'text-emerald-500' : 
-                    displayData?.trust?.fraudRisk === 'MEDIUM' ? 'text-primary' : 'text-red-500'
+                    displayData?.trust?.fraudRisk === 'LOW' ? 'text-success' : 
+                    displayData?.trust?.fraudRisk === 'MEDIUM' ? 'text-primary' : 'text-destructive'
                   }`}>
                     {displayData?.trust?.fraudRisk || 'OPTIMAL'}
                   </div>
@@ -962,7 +962,7 @@ const WorkerDashboard = () => {
                {displayData?.trust?.riskIndicators?.length > 0 && (
                  <div className="mt-5 pt-4 border-t border-border space-y-2">
                    {displayData.trust.riskIndicators.map((ri: string, idx: number) => (
-                     <div key={idx} className="text-[8px] font-black text-red-400/80 flex items-center gap-3 bg-red-500/5 px-3 py-2 rounded-xl border border-red-500/10 uppercase tracking-widest">
+                     <div key={idx} className="text-[8px] font-black text-destructive-foreground/80 flex items-center gap-3 bg-destructive/5 px-3 py-2 rounded-xl border border-destructive/10 uppercase tracking-widest">
                        <AlertCircle size={12} /> {ri}
                      </div>
                    ))}
@@ -1062,7 +1062,7 @@ const WorkerDashboard = () => {
                         <div className="flex items-center gap-3 flex-wrap">
                           <div className="text-xl font-black text-foreground italic tracking-tighter uppercase group-hover/card:text-primary transition-colors">{req.service}</div>
                           {req.urgency === "Urgent" && (
-                            <span className="rounded-full bg-red-500/10 px-3 py-1 text-[8px] font-black text-red-500 uppercase tracking-[0.2em] border border-red-500/20">PRIORITY</span>
+                            <span className="rounded-full bg-destructive/10 px-3 py-1 text-[8px] font-black text-destructive uppercase tracking-[0.2em] border border-destructive/20">PRIORITY</span>
                           )}
                           <span className="rounded-full bg-primary/10 px-3 py-1 text-[8px] font-black text-primary uppercase tracking-[0.2em] border border-primary/10">
                              {req.distance} KM
@@ -1123,7 +1123,7 @@ const WorkerDashboard = () => {
                         <MapPin size={12} className="text-primary" /> {req.location}
                       </div>
                       {req.budget && (
-                        <div className="flex items-center gap-2 text-[9px] font-black text-emerald-500 bg-emerald-500/5 px-4 py-2 rounded-xl border border-emerald-500/10">
+                        <div className="flex items-center gap-2 text-[9px] font-black text-success bg-success/10 px-4 py-2 rounded-xl border border-success/20">
                           <Wallet size={12} /> {req.budget}
                         </div>
                       )}
@@ -1254,7 +1254,7 @@ const WorkerDashboard = () => {
                             style={{ width: `${s.demand}%` }}
                           />
                         </div>
-                        <span className="text-[10px] font-black text-emerald-500 w-12 text-right">{s.growth}</span>
+                        <span className="text-[10px] font-black text-success w-12 text-right">{s.growth}</span>
                       </div>
                     );
                   })}
@@ -1367,7 +1367,7 @@ const WorkerDashboard = () => {
                         <MapPin size={12} className="text-primary" /> {job.location}
                       </div>
                       {job.budget && (
-                        <div className="flex items-center gap-2 text-[9px] font-black text-emerald-500 bg-emerald-500/5 px-3 py-1.5 rounded-lg border border-emerald-500/10">
+                        <div className="flex items-center gap-2 text-[9px] font-black text-success bg-success/10 px-3 py-1.5 rounded-lg border border-success/20">
                           <Wallet size={12} /> {job.budget}
                         </div>
                       )}
@@ -1432,7 +1432,7 @@ const WorkerDashboard = () => {
                       <div key={idx} className="flex items-center justify-between p-5 rounded-3xl bg-card/5 border border-border uppercase tracking-tight italic">
                          <div className="text-left">
                             <div className="text-sm font-black text-foreground">{m.month}</div>
-                            <div className="text-[8px] font-black text-emerald-500 mt-1">Confirmed Registry ✓</div>
+                            <div className="text-[8px] font-black text-success mt-1">Confirmed Registry ✓</div>
                          </div>
                          <div className="text-right">
                             <div className="text-sm font-black text-foreground italic">₹{m.salary}</div>
@@ -1510,7 +1510,7 @@ const WorkerDashboard = () => {
             <div className="grid grid-cols-2 gap-3 mb-6">
               <div className="p-4 rounded-2xl bg-card/5 border border-border">
                 <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Budget</div>
-                <div className="text-lg font-black text-emerald-500">{selectedJob.budget || "Negotiable"}</div>
+                <div className="text-lg font-black text-success">{selectedJob.budget || "Negotiable"}</div>
               </div>
               <div className="p-4 rounded-2xl bg-card/5 border border-border">
                 <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Distance</div>
@@ -1539,7 +1539,7 @@ const WorkerDashboard = () => {
             </div>
 
             {selectedJob.urgency === "Urgent" && (
-              <div className="mb-6 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-center text-[10px] font-black text-red-500 uppercase tracking-widest">
+              <div className="mb-6 p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-center text-[10px] font-black text-destructive uppercase tracking-widest">
                 🔴 URGENT REQUEST
               </div>
             )}

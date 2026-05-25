@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
   LayoutDashboard, 
@@ -18,7 +18,9 @@ import {
   BrainCircuit,
   Bell,
   Sun,
-  Moon
+  Moon,
+  Briefcase,
+  Shield
 } from "lucide-react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -41,6 +43,17 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [pendingRequests, setPendingRequests] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
+  const notificationRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+        setShowNotifications(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   React.useEffect(() => {
     if (!user || user.role !== "admin") return;
@@ -79,15 +92,13 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
   const menuItems = [
     { icon: <LayoutDashboard size={20} />, label: "Dashboard", path: "/admin/dashboard" },
-    { icon: <Users size={20} />, label: "Workers", path: "/admin/workers" },
     { icon: <Users size={20} />, label: "Customers", path: "/admin/customers" },
+    { icon: <Users size={20} />, label: "Workers", path: "/admin/workers" },
+    { icon: <Briefcase size={20} />, label: "Jobs", path: "/admin/jobs" },
     { icon: <AlertTriangle size={20} />, label: "Fraud Detection", path: "/admin/fraud" },
-    { icon: <ShieldCheck size={20} />, label: "Verification Requests", path: "/admin/requests" },
     { icon: <MessageSquare size={20} />, label: "Reviews", path: "/admin/reviews" },
-    { icon: <TrendingUp size={20} />, label: "Analytics", path: "/admin/analytics" },
-    { icon: <Wallet size={20} />, label: "Financials", path: "/admin/financials" },
-    { icon: <BrainCircuit size={20} />, label: "ML Hub", path: "/admin/ml" },
     { icon: <Settings size={20} />, label: "Settings", path: "/admin/settings" },
+    { icon: <Shield size={20} />, label: "Admin Management", path: "/admin/management" },
   ];
 
   return (
@@ -104,7 +115,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             <ShieldCheck className="text-primary-foreground" size={24} />
           </div>
           {isSidebarOpen && (
-            <span className="font-black text-foreground tracking-tighter text-xl italic uppercase">MUKTI CTRL</span>
+            <span className="font-black text-foreground tracking-tighter text-xl italic uppercase">MUKTI PORTAL</span>
           )}
         </div>
 
@@ -192,7 +203,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
           <div className="flex items-center gap-6">
             {/* Notification Bell with Above Functionality */}
-            <div className="relative">
+            <div className="relative" ref={notificationRef}>
               <button 
                 onClick={() => setShowNotifications(!showNotifications)}
                 className={`p-2.5 rounded-xl transition-all group relative active:scale-95 ${showNotifications ? 'bg-primary text-primary-foreground shadow-lg' : 'bg-secondary text-muted-foreground border border-border hover:text-foreground hover:bg-secondary/80'}`}
@@ -213,7 +224,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                       {pendingRequests} Pending
                     </span>
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-4 max-h-80 overflow-y-auto custom-scrollbar pr-2">
                     {pendingRequests > 0 ? (
                       <div 
                         onClick={() => {
@@ -239,15 +250,23 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                       </div>
                     )}
                   </div>
-                  <button 
-                    onClick={() => {
-                      setShowNotifications(false);
-                      (window as any).location.href = "/admin/requests";
-                    }}
-                    className="w-full mt-6 py-3 text-[9px] font-black uppercase text-muted-foreground hover:text-primary transition-all tracking-[0.4em] italic border-t border-border pt-4"
-                  >
-                    View Registry Ledger
-                  </button>
+                  <div className="flex gap-2 mt-6 border-t border-border pt-4">
+                    <button 
+                      onClick={() => setPendingRequests(0)}
+                      className="flex-1 py-3 text-[9px] font-black uppercase text-muted-foreground hover:text-foreground transition-all tracking-[0.2em] bg-secondary/50 rounded-xl"
+                    >
+                      Mark Read
+                    </button>
+                    <button 
+                      onClick={() => {
+                        setShowNotifications(false);
+                        (window as any).location.href = "/admin/requests";
+                      }}
+                      className="flex-1 py-3 text-[9px] font-black uppercase text-primary-foreground bg-primary hover:bg-primary/90 transition-all tracking-[0.2em] rounded-xl shadow-md"
+                    >
+                      View All
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -255,10 +274,16 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="h-9 w-9 flex items-center justify-center rounded-xl bg-secondary border border-border text-muted-foreground transition-all hover:text-foreground hover:bg-secondary/80 active:scale-95"
+                className="relative h-10 w-20 rounded-full bg-secondary border border-border p-1 transition-colors hover:border-primary/50 shadow-inner overflow-hidden flex items-center"
                 title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
-                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+                <div className={`absolute top-1 bottom-1 w-8 rounded-full bg-background shadow-md transition-all duration-300 flex items-center justify-center ${theme === 'dark' ? 'left-10 bg-primary/20 text-primary' : 'left-1 text-foreground'}`}>
+                  {theme === "dark" ? <Moon size={14} /> : <Sun size={14} />}
+                </div>
+                <div className="flex w-full justify-between px-2 text-muted-foreground/50 pointer-events-none">
+                  <Sun size={14} />
+                  <Moon size={14} />
+                </div>
               </button>
 
               <button

@@ -977,7 +977,7 @@ const CustomerVerification = () => {
                              </span>
                            ))}
                            {nlpInsights.filter(n => n.sentiment === "positive").length > 0 && (
-                             <span className="text-[8px] font-black uppercase px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/10 italic">
+                             <span className="text-[8px] font-black uppercase px-2 py-1 rounded-md bg-success/10 text-success border border-success/20 italic">
                                Highly Positive
                              </span>
                            )}
@@ -1009,7 +1009,7 @@ const CustomerVerification = () => {
               <div className="rounded-3xl glass p-6 border-border space-y-4">
                  <h4 className="text-sm font-black uppercase tracking-widest text-muted-foreground border-b border-border pb-3 flex items-center justify-between">
                     Live Tracking
-                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
                  </h4>
                  {activeRequests.length > 0 ? (
                     <div className="space-y-3">
@@ -1027,25 +1027,25 @@ const CustomerVerification = () => {
                                  <span className={`p-1 rounded text-[8px] tracking-widest uppercase ${
                                    r.status === 'Accepted' || r.status === 'In Progress' ? 'bg-primary/10 text-primary' :
                                    r.status === 'Searching' ? 'bg-primary/10 text-primary animate-pulse' :
-                                   r.status === 'Pending' ? 'bg-yellow-500/10 text-yellow-500' :
-                                   r.status === 'Completed' ? 'bg-emerald-500/10 text-emerald-500' :
+                                   r.status === 'Pending' ? 'bg-warning/10 text-warning' :
+                                   r.status === 'Completed' ? 'bg-success/10 text-success' :
                                    'bg-primary/10 text-primary'
                                  }`}>{r.status}</span>
                                  <span className="truncate opacity-50 text-[10px]">Near {r.location}</span>
                               </div>
                               {/* Show accepted worker info */}
                               {r.workerName && (
-                                <div className="mt-2 p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
+                                <div className="mt-2 p-3 rounded-xl bg-success/10 border border-success/20">
                                   <div className="flex items-center gap-3">
-                                    <div className="h-8 w-8 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-500 text-sm font-black">
+                                    <div className="h-8 w-8 rounded-xl bg-success/20 flex items-center justify-center text-success text-sm font-black">
                                       {r.workerName.charAt(0)}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                       <div className="text-xs font-black text-primary-foreground truncate">{r.workerName}</div>
-                                      <div className="text-[8px] font-black text-emerald-500 uppercase tracking-widest">Worker Accepted ✓</div>
+                                      <div className="text-[8px] font-black text-success uppercase tracking-widest">Worker Accepted ✓</div>
                                     </div>
                                     {r.workerPhone && (
-                                      <a href={`tel:${r.workerPhone}`} className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-primary-foreground transition-all" onClick={(e) => e.stopPropagation()}>
+                                      <a href={`tel:${r.workerPhone}`} className="p-2 rounded-lg bg-success/10 text-success hover:bg-success hover:text-primary-foreground transition-all" onClick={(e) => e.stopPropagation()}>
                                         <Phone size={14} />
                                       </a>
                                     )}
@@ -1119,7 +1119,7 @@ const CustomerVerification = () => {
                                     {nlpInsights[i] && (
                                       <>
                                         <span className="h-1 w-1 rounded-full bg-card"></span>
-                                        <span className={`${nlpInsights[i].sentiment === 'positive' ? 'text-emerald-500' : 'text-muted-foreground'} italic`}>
+                                        <span className={`${nlpInsights[i].sentiment === 'positive' ? 'text-success' : 'text-muted-foreground'} italic`}>
                                           {nlpInsights[i].sentiment}
                                         </span>
                                       </>
@@ -1131,7 +1131,7 @@ const CustomerVerification = () => {
                               <div className="text-[10px] font-bold text-muted-foreground mb-2 uppercase tracking-widest text-right">
                                  {v.timestamp instanceof Date ? v.timestamp.toLocaleDateString() : "Just now"}
                               </div>
-                              <div className="flex items-center gap-1.5 text-[8px] font-black text-emerald-500 uppercase tracking-[0.2em] bg-emerald-500/5 px-3 py-1 rounded-full border border-emerald-500/10">
+                              <div className="flex items-center gap-1.5 text-[8px] font-black text-success uppercase tracking-[0.2em] bg-success/10 px-3 py-1 rounded-full border border-success/20">
                                  <CheckCircle size={10} /> VERIFIED
                               </div>
                            </div>
@@ -1302,7 +1302,7 @@ const CustomerVerification = () => {
                    />
                 </div>
                 {reqCoords && reqAddress && (
-                  <div className="text-[9px] font-bold text-emerald-500/60 px-2 truncate">
+                  <div className="text-[9px] font-bold text-success/60 px-2 truncate">
                     ✅ GPS Locked: {reqAddress.slice(0, 80)}...
                   </div>
                 )}
@@ -1338,8 +1338,8 @@ const CustomerVerification = () => {
                 <div className="space-y-2">
                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground ml-1">Priority</label>
                    <div className="grid grid-cols-2 gap-1.5 bg-card p-1 rounded-xl border border-border">
-                      <button onClick={() => setReqUrgency("Normal")} className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${reqUrgency === "Normal" ? "bg-card text-black shadow-lg" : "text-muted-foreground hover:text-primary-foreground"}`}>Normal</button>
-                      <button onClick={() => setReqUrgency("Urgent")} className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${reqUrgency === "Urgent" ? "bg-red-500 text-primary-foreground shadow-lg shadow-red-500/20" : "text-muted-foreground hover:text-primary-foreground"}`}>🔴 Urgent</button>
+                      <button onClick={() => setReqUrgency("Normal")} className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${reqUrgency === "Normal" ? "bg-card text-foreground shadow-lg" : "text-muted-foreground hover:text-primary-foreground"}`}>Normal</button>
+                      <button onClick={() => setReqUrgency("Urgent")} className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${reqUrgency === "Urgent" ? "bg-destructive text-primary-foreground shadow-lg shadow-red-500/20" : "text-muted-foreground hover:text-primary-foreground"}`}>🔴 Urgent</button>
                    </div>
                 </div>
               </div>
@@ -1412,7 +1412,7 @@ const CustomerVerification = () => {
                       </div>
                       Work Accomplished
                    </h3>
-                   <div className="px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[9px] font-black uppercase tracking-widest">
+                   <div className="px-4 py-2 rounded-full bg-success/10 border border-success/20 text-success text-[9px] font-black uppercase tracking-widest">
                       ID: { manualCode || "Verified" }
                    </div>
                 </div>
@@ -1442,7 +1442,7 @@ const CustomerVerification = () => {
                       <div className="space-y-4">
                          <div className="flex justify-between items-center px-1">
                             <label className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">Work Evidence (NLP Verified)</label>
-                            <span className={`text-[9px] font-black tracking-widest uppercase ${comment.length >= 10 ? 'text-emerald-500' : 'text-foreground'}`}>
+                            <span className={`text-[9px] font-black tracking-widest uppercase ${comment.length >= 10 ? 'text-success' : 'text-foreground'}`}>
                                {comment.length} / 10 CHARS
                             </span>
                          </div>
@@ -1470,7 +1470,7 @@ const CustomerVerification = () => {
                              </div>
 
                              {comment.length >= 10 && (
-                               <div className="absolute -bottom-4 right-10 px-4 py-1.5 rounded-full bg-background border border-emerald-500/30 text-emerald-500 text-[10px] font-black uppercase tracking-widest shadow-2xl animate-in fade-in flex items-center gap-2">
+                               <div className="absolute -bottom-4 right-10 px-4 py-1.5 rounded-full bg-background border border-success/30 text-success text-[10px] font-black uppercase tracking-widest shadow-2xl animate-in fade-in flex items-center gap-2">
                                   <Sparkles size={10} /> {analyzeReview(comment).sentiment === "positive" ? "🔥 Superior Insight" : "📝 Data Captured"}
                                </div>
                              )}
@@ -1560,8 +1560,8 @@ const CustomerVerification = () => {
                       </div>
 
                       {geoResult ? (
-                        <div className={`p-6 rounded-[2rem] border ${geoResult.isValid ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-red-500/5 border-red-500/20'}`}>
-                           <div className={`text-sm font-black uppercase tracking-widest ${geoResult.isValid ? 'text-emerald-500' : 'text-red-500'}`}>
+                        <div className={`p-6 rounded-[2rem] border ${geoResult.isValid ? 'bg-success/10 border-success/20' : 'bg-destructive/5 border-destructive/20'}`}>
+                           <div className={`text-sm font-black uppercase tracking-widest ${geoResult.isValid ? 'text-success' : 'text-destructive'}`}>
                               {geoResult.isValid ? '✅ LOCATION VERIFIED' : '❌ LOCATION MISMATCH'}
                            </div>
                            <div className="text-[10px] font-bold text-muted-foreground mt-2">
@@ -1640,13 +1640,13 @@ const CustomerVerification = () => {
                      </>
                    ) : (
                      <>
-                       <div className="relative w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden border-4 border-emerald-500/30 shadow-primary-glow">
+                       <div className="relative w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden border-4 border-success/30 shadow-primary-glow">
                           <img src={capturedPhoto} className="w-full h-full object-cover" alt="Captured" />
                           {isDuplicatePhoto && (
-                            <div className="absolute inset-0 bg-red-500/20 flex items-center justify-center">
-                               <div className="p-6 rounded-3xl bg-background/80 border border-red-500/50 text-center">
-                                  <AlertTriangle size={32} className="text-red-500 mx-auto mb-3" />
-                                  <div className="text-sm font-black text-red-400 uppercase tracking-widest">DUPLICATE DETECTED</div>
+                            <div className="absolute inset-0 bg-destructive/20 flex items-center justify-center">
+                               <div className="p-6 rounded-3xl bg-background/80 border border-destructive/50 text-center">
+                                  <AlertTriangle size={32} className="text-destructive mx-auto mb-3" />
+                                  <div className="text-sm font-black text-destructive-foreground uppercase tracking-widest">DUPLICATE DETECTED</div>
                                   <div className="text-[9px] font-bold text-muted-foreground mt-2 max-w-xs">{duplicateReason}</div>
                                </div>
                             </div>
@@ -1655,11 +1655,11 @@ const CustomerVerification = () => {
 
                        {photoHash && (
                          <div className="p-4 rounded-2xl bg-card/5 border border-border flex items-center gap-3">
-                            <ShieldCheck size={16} className="text-emerald-500 shrink-0" />
+                            <ShieldCheck size={16} className="text-success shrink-0" />
                             <div className="text-[9px] font-mono font-bold text-muted-foreground truncate">
                                Hash: {photoHash.slice(0, 16)}...{photoHash.slice(-8)}
                             </div>
-                            <div className={`ml-auto text-[9px] font-black uppercase tracking-widest ${isDuplicatePhoto ? 'text-red-500' : 'text-emerald-500'}`}>
+                            <div className={`ml-auto text-[9px] font-black uppercase tracking-widest ${isDuplicatePhoto ? 'text-destructive' : 'text-success'}`}>
                                {isDuplicatePhoto ? 'FRAUD' : 'UNIQUE'}
                             </div>
                          </div>
@@ -1688,10 +1688,10 @@ const CustomerVerification = () => {
            )}
 
            {step === "done" && (
-              <div className="flex w-full flex-col items-center rounded-[3.5rem] bg-background p-16 text-center border border-emerald-500/30 shadow-2xl relative overflow-hidden group">
+              <div className="flex w-full flex-col items-center rounded-[3.5rem] bg-background p-16 text-center border border-success/30 shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-50" />
-                <div className="mb-10 flex h-28 w-28 items-center justify-center rounded-full bg-emerald-500/10 shadow-inner group-hover:scale-110 transition-transform duration-700">
-                  <CheckCircle size={56} className="text-emerald-500 drop-shadow-primary-glow" />
+                <div className="mb-10 flex h-28 w-28 items-center justify-center rounded-full bg-success/10 shadow-inner group-hover:scale-110 transition-transform duration-700">
+                  <CheckCircle size={56} className="text-success drop-shadow-primary-glow" />
                 </div>
                 <h3 className="mb-4 text-4xl font-black tracking-tighter text-primary-foreground italic uppercase">VERIFIED SUCCESS!</h3>
                 <p className="mb-12 text-sm font-black text-muted-foreground max-w-sm mx-auto uppercase tracking-widest leading-relaxed">
@@ -1716,15 +1716,15 @@ const CustomerVerification = () => {
            )}
 
            {step === "error" && (
-              <div className="flex w-full flex-col items-center rounded-[3.5rem] bg-background p-16 text-center border border-red-500/30 shadow-2xl relative">
-                <div className="mb-10 flex h-28 w-28 items-center justify-center rounded-full bg-red-500/10">
-                  <AlertTriangle size={56} className="text-red-500" />
+              <div className="flex w-full flex-col items-center rounded-[3.5rem] bg-background p-16 text-center border border-destructive/30 shadow-2xl relative">
+                <div className="mb-10 flex h-28 w-28 items-center justify-center rounded-full bg-destructive/10">
+                  <AlertTriangle size={56} className="text-destructive" />
                 </div>
                 <h3 className="mb-4 text-4xl font-black tracking-tighter text-primary-foreground italic uppercase">SECURITY ABORT</h3>
                 <p className="mb-12 text-sm font-black text-muted-foreground max-w-sm mx-auto uppercase tracking-widest leading-relaxed">{errorMsg}</p>
                 <button
                   onClick={handleBack}
-                  className="h-20 w-full rounded-3xl bg-red-500 text-primary-foreground font-black text-[10px] tracking-[0.5em] uppercase transition-all hover:bg-red-600 active:scale-[0.98] shadow-2xl shadow-red-500/30"
+                  className="h-20 w-full rounded-3xl bg-destructive text-primary-foreground font-black text-[10px] tracking-[0.5em] uppercase transition-all hover:bg-destructive active:scale-[0.98] shadow-2xl shadow-red-500/30"
                 >
                   RETRY SYSTEM
                 </button>

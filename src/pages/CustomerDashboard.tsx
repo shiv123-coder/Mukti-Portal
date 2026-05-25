@@ -211,7 +211,7 @@ const CustomerDashboard = () => {
                 <ShieldAlert size={16} className="text-primary" /> Security Intelligence
              </div>
              <div className="space-y-3">
-                <div className="text-[8px] font-black text-emerald-400/80 flex items-center gap-3 bg-emerald-500/5 px-4 py-3 rounded-xl border border-emerald-500/10 uppercase tracking-widest">
+                <div className="text-[8px] font-black text-success-foreground/80 flex items-center gap-3 bg-success/10 px-4 py-3 rounded-xl border border-success/20 uppercase tracking-widest">
                    <CheckCircle2 size={12} /> Account secured with OTP
                 </div>
                 {verifications.length > 5 && (
@@ -264,7 +264,7 @@ const CustomerDashboard = () => {
                 <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3 italic">
                    <MessageSquare size={16} /> 01. Cognitive Insights (NLP)
                 </h4>
-                <div className="flex items-center gap-2 text-[8px] font-black text-emerald-500 uppercase tracking-widest border border-emerald-500/20 px-3 py-1 rounded-full bg-emerald-500/5">
+                <div className="flex items-center gap-2 text-[8px] font-black text-success uppercase tracking-widest border border-success/20 px-3 py-1 rounded-full bg-success/10">
                    Sentiment Velocity: {sentimentRatio.toFixed(0)}% POS
                 </div>
              </div>
@@ -286,7 +286,7 @@ const CustomerDashboard = () => {
                    <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em] pl-1 opacity-70">Detected Friction Points</div>
                    <div className="flex flex-wrap gap-3">
                       {commonIssues.length > 0 ? commonIssues.map(issue => (
-                        <span key={issue} className="px-5 py-2.5 rounded-2xl bg-red-500/10 text-red-500 text-[10px] font-black uppercase tracking-widest border border-red-500/10 shadow-inner">
+                        <span key={issue} className="px-5 py-2.5 rounded-2xl bg-destructive/10 text-destructive text-[10px] font-black uppercase tracking-widest border border-destructive/10 shadow-inner">
                            {issue}
                         </span>
                       )) : (
@@ -350,7 +350,7 @@ const CustomerDashboard = () => {
                               <Star key={i} size={10} className={i < v.rating ? "text-primary fill-primary" : "text-muted-foreground/30"} />
                            ))}
                         </div>
-                        <CheckCircle2 size={18} className="text-emerald-500 opacity-50" />
+                        <CheckCircle2 size={18} className="text-success opacity-50" />
                      </div>
                   </div>
                 )) : (

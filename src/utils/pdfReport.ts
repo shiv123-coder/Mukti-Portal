@@ -4,7 +4,7 @@ import { db } from '../lib/firebase';
 import { doc as firestoreDoc, setDoc } from 'firebase/firestore';
 
 // ============================================================
-// MuktiTech — Formal White Worker Trust & Verification Report
+// Mukti Portal — Formal White Worker Trust & Verification Report
 // Institution-Ready, Lender-Support Document (A4 Format)
 // Clean, Professional, Bank-Grade Design
 // ============================================================
@@ -224,7 +224,7 @@ export const generateCreditReport = async (data: ReportData) => {
 
   doc.setFontSize(14);
   doc.setTextColor(...C.white);
-  doc.text('MuktiTech', M + 12, y + 3.5);
+  doc.text('Mukti Portal', M + 12, y + 3.5);
   doc.setFontSize(6);
   doc.setTextColor(180, 200, 255);
   doc.text('PORTAL', M + 12, y + 7.5);
@@ -475,7 +475,7 @@ export const generateCreditReport = async (data: ReportData) => {
   doc.setFontSize(8);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...C.white);
-  doc.text('MuktiTech - Worker Trust & Verification Report (Continued)', M, 7.5);
+  doc.text('Mukti Portal - Worker Trust & Verification Report (Continued)', M, 7.5);
   doc.setFontSize(6);
   doc.setTextColor(180, 200, 255);
   doc.text(`Report ID: ${rid}`, W - M, 7.5, { align: 'right' });
@@ -610,7 +610,7 @@ export const generateCreditReport = async (data: ReportData) => {
   doc.setFontSize(8);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...C.textDark);
-  doc.text('Digitally Signed by MuktiTech Verification Authority', M + 10, s7Y + 9);
+  doc.text('Digitally Signed by Mukti Portal Verification Authority', M + 10, s7Y + 9);
 
   doc.setFontSize(6);
   doc.setFont('helvetica', 'normal');
@@ -637,7 +637,7 @@ export const generateCreditReport = async (data: ReportData) => {
   doc.setFontSize(5.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...C.textMuted);
-  doc.text('Verification Officer, MuktiTech', W - M - 32, s7Y + 37, { align: 'center' });
+  doc.text('Verification Officer, Mukti Portal', W - M - 32, s7Y + 37, { align: 'center' });
 
   // Verified stamp
   doc.setDrawColor(...C.verified);
@@ -707,9 +707,9 @@ export const generateCreditReport = async (data: ReportData) => {
   const disclaimers = [
     '1.  This document is not a credit score and does not replace formal underwriting by financial institutions.',
     '2.  This report serves as supporting trust data for financial inclusion and informal sector lending.',
-    '3.  Generated based on user-consented and verified activity through the MuktiTech platform.',
-    '4.  Data accuracy depends on the quality of inputs from customers, workers, and verification systems.',
-    '5.  MuktiTech does not guarantee loan approval; this document provides verified performance data.',
+    '3.  Generated based on user-consented and verified activity through the Mukti Portal platform.',
+    '4.  Valid only when verified against the blockchain registry or Mukti Portal live verification URL.',
+    '5.  Mukti Portal does not guarantee loan approval; this document provides verified performance data.',
     '6.  This report is valid for 30 days from the date of issue.',
     '7.  For questions or disputes, contact support@muktitech.in or visit muktitech.in/support.',
   ];
@@ -725,7 +725,7 @@ export const generateCreditReport = async (data: ReportData) => {
   doc.setFontSize(5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...C.textLight);
-  doc.text(`MuktiTech Portal - Worker Trust & Verification Report - ${rid}`, W / 2, H - 10, { align: 'center' });
+  doc.text(`Mukti Portal - Worker Trust & Verification Report - ${rid}`, W / 2, H - 10, { align: 'center' });
   doc.text('Confidential  |  For authorized use only', W / 2, H - 6.5, { align: 'center' });
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...C.textMuted);
@@ -739,12 +739,12 @@ export const generateCreditReport = async (data: ReportData) => {
   doc.setFontSize(5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...C.textLight);
-  doc.text(`MuktiTech Portal - Worker Trust & Verification Report - ${rid}`, W / 2, H - 10, { align: 'center' });
+  doc.text(`Mukti Portal - Worker Trust & Verification Report - ${rid}`, W / 2, H - 10, { align: 'center' });
   doc.text('Confidential  |  For authorized use only', W / 2, H - 6.5, { align: 'center' });
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...C.textMuted);
   doc.text('Page 1 of 2', W - M, H - 6.5, { align: 'right' });
 
   // ── SAVE ──
-  doc.save(`MuktiTech_Trust_Report_${data.workerName.replace(/\s/g, '_')}_${rid}.pdf`);
+  doc.save(`Mukti_Portal_Trust_Report_${data.workerName.replace(/\s/g, '_')}_${rid}.pdf`);
 };

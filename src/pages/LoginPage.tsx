@@ -195,7 +195,7 @@ const LoginPage = () => {
               key={i} 
               className="flex items-start gap-5 group"
             >
-              <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-primary group-hover:bg-primary/20 group-hover:border-primary/30 transition-all">
+              <div className="p-3 rounded-2xl bg-white/5 border border-primary-foreground/10 text-primary group-hover:bg-primary/20 group-hover:border-primary/30 transition-all">
                 <item.icon size={22} />
               </div>
               <div>
@@ -207,7 +207,7 @@ const LoginPage = () => {
         </div>
 
         <div className="relative z-10 text-xs font-bold uppercase tracking-widest text-white/30">
-          © 2026 Mukti Foundation
+          © 2026 Mukti Portal
         </div>
       </div>
 
@@ -340,7 +340,7 @@ const LoginPage = () => {
                     </button>
                     
                     <button onClick={() => { setRole("customer"); setSignupStep("method"); }} className="group flex w-full items-center gap-5 rounded-2xl border border-input bg-background p-5 transition-all hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/5 active:scale-[0.98]">
-                      <div className="p-4 rounded-xl bg-blue-500/10 text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                      <div className="p-4 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
                         <User size={24} />
                       </div>
                       <div className="text-left flex-1">
@@ -410,7 +410,7 @@ const LoginPage = () => {
                         <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider pl-1">Password *</label>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" required />
                         <div className="h-1.5 w-full bg-secondary rounded-full mt-2 overflow-hidden">
-                          <div className={`h-full transition-all duration-300 ${passwordStrength < 40 ? 'bg-destructive' : passwordStrength < 70 ? 'bg-primary' : 'bg-emerald-500'}`} style={{ width: `${passwordStrength}%` }} />
+                          <div className={`h-full transition-all duration-300 ${passwordStrength < 40 ? 'bg-destructive' : passwordStrength < 70 ? 'bg-primary' : 'bg-success'}`} style={{ width: `${passwordStrength}%` }} />
                         </div>
                       </div>
                       
@@ -452,7 +452,7 @@ const LoginPage = () => {
                           ) : (
                             <User className="text-muted-foreground" size={24} />
                           )}
-                          <label className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer text-white">
+                          <label className="absolute inset-0 bg-background/80 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer text-foreground">
                             <Camera size={18} />
                             <input type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
                           </label>

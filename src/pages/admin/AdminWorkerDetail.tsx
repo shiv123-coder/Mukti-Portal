@@ -199,7 +199,7 @@ const AdminWorkerDetail = () => {
   if (!worker) {
     return (
       <div className="flex h-[60vh] items-center justify-center flex-col gap-6 text-center">
-        <AlertTriangle size={48} className="text-red-500" />
+        <AlertTriangle size={48} className="text-destructive" />
         <div>
           <h2 className="text-2xl font-black text-foreground italic uppercase tracking-tighter">
             Worker Not Found
@@ -265,9 +265,9 @@ const AdminWorkerDetail = () => {
         <div
           className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest border ${
             statusColor === "emerald"
-              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+              ? "bg-success/10 text-success-foreground border-success/20"
               : statusColor === "red"
-              ? "bg-red-500/10 text-red-400 border-red-500/20"
+              ? "bg-destructive/10 text-destructive-foreground border-destructive/20"
               : "bg-primary/10 text-primary border-primary/20"
           }`}
         >
@@ -312,7 +312,7 @@ const AdminWorkerDetail = () => {
               <div
                 className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-[9px] font-black uppercase tracking-widest border ${
                   worker.isVerifiedByAdmin
-                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                    ? "bg-success/10 text-success-foreground border-success/20"
                     : "bg-primary/10 text-primary border-primary/20"
                 }`}
               >
@@ -494,7 +494,7 @@ const AdminWorkerDetail = () => {
                   <button
                     onClick={() => setShowRejectPanel(true)}
                     disabled={actionLoading}
-                    className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-secondary text-muted-foreground border border-border hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/20 transition-all text-[11px] font-black uppercase tracking-widest disabled:opacity-40 italic active:scale-95 shadow-sm"
+                    className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-secondary text-muted-foreground border border-border hover:bg-destructive/10 hover:text-destructive-foreground hover:border-destructive/20 transition-all text-[11px] font-black uppercase tracking-widest disabled:opacity-40 italic active:scale-95 shadow-sm"
                   >
                     <XCircle size={18} /> Reject
                   </button>
@@ -504,7 +504,7 @@ const AdminWorkerDetail = () => {
                     className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary-glow hover:scale-[1.02] active:scale-95 transition-all text-[11px] font-black uppercase tracking-widest disabled:opacity-40 italic"
                   >
                     {actionLoading ? (
-                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
                     ) : (
                       <ShieldCheck size={18} />
                     )}{" "}
@@ -529,7 +529,7 @@ const AdminWorkerDetail = () => {
                         onClick={() => setRejectReason(r)}
                         className={`w-full text-left px-4 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${
                           rejectReason === r
-                            ? "bg-red-500/10 border-red-500/30 text-red-400"
+                            ? "bg-destructive/10 border-destructive/30 text-destructive-foreground"
                             : "bg-card/5 border-border text-muted-foreground hover:text-primary-foreground"
                         }`}
                       >
@@ -542,7 +542,7 @@ const AdminWorkerDetail = () => {
                     onChange={(e) => setRejectReason(e.target.value)}
                     placeholder="Or type a custom reason..."
                     rows={2}
-                    className="w-full rounded-xl bg-secondary border border-border p-4 text-sm text-foreground font-bold outline-none focus:border-red-500 transition-all resize-none italic shadow-inner placeholder:text-muted-foreground/30"
+                    className="w-full rounded-xl bg-secondary border border-border p-4 text-sm text-foreground font-bold outline-none focus:border-destructive transition-all resize-none italic shadow-inner placeholder:text-muted-foreground/30"
                   />
                   <div className="grid grid-cols-2 gap-3">
                     <button
@@ -557,7 +557,7 @@ const AdminWorkerDetail = () => {
                     <button
                       onClick={() => handleAction("reject")}
                       disabled={!rejectReason || actionLoading}
-                      className="py-3 rounded-xl bg-red-500 text-primary-foreground text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-500/20 hover:bg-red-600 transition-all disabled:opacity-30 active:scale-95 italic"
+                      className="py-3 rounded-xl bg-destructive text-primary-foreground text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-500/20 hover:bg-destructive transition-all disabled:opacity-30 active:scale-95 italic"
                     >
                       Confirm Rejection
                     </button>
@@ -568,12 +568,12 @@ const AdminWorkerDetail = () => {
           )}
 
           {worker.status === "verified" && (
-            <div className="rounded-[2.5rem] bg-emerald-500/5 border border-emerald-500/20 p-8 flex items-center gap-4 shadow-xl italic">
-              <div className="h-12 w-12 flex items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 shrink-0 shadow-inner">
+            <div className="rounded-[2.5rem] bg-success/10 border border-success/20 p-8 flex items-center gap-4 shadow-xl italic">
+              <div className="h-12 w-12 flex items-center justify-center rounded-2xl bg-success/10 text-success border border-success/20 shrink-0 shadow-inner">
                 <CheckCircle2 size={24} />
               </div>
               <div>
-                <div className="text-sm font-black text-emerald-500 uppercase tracking-tight">
+                <div className="text-sm font-black text-success uppercase tracking-tight">
                   Worker Approved
                 </div>
                 <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest opacity-70">

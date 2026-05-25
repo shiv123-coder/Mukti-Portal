@@ -169,7 +169,7 @@ const AdminSettings = () => {
         {/* Financial Base Rates */}
         <div className="rounded-[2.5rem] bg-card border border-border p-8 shadow-2xl relative flex flex-col overflow-hidden">
            <div className="flex items-center gap-4 mb-8">
-              <div className="p-3 rounded-2xl bg-emerald-600/10 text-emerald-500 shadow-inner">
+              <div className="p-3 rounded-2xl bg-success/10 text-success shadow-inner">
                  <DollarSign size={24} />
               </div>
               <h3 className="text-xl font-black text-foreground italic uppercase">Financial Parameterization</h3>
@@ -180,7 +180,7 @@ const AdminSettings = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                  {Object.entries(config.baseRates).map(([skill, rate]) => (
-                   <div key={skill} className="p-4 rounded-2xl bg-secondary border border-border group hover:border-emerald-500/30 transition-all shadow-sm">
+                   <div key={skill} className="p-4 rounded-2xl bg-secondary border border-border group hover:border-success/30 transition-all shadow-sm">
                       <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-2 italic opacity-60">{skill}</div>
                       <input 
                         type="number" 
@@ -189,17 +189,17 @@ const AdminSettings = () => {
                           ...config, 
                           baseRates: { ...config.baseRates, [skill]: parseInt(e.target.value) || 0 }
                         })}
-                        className="bg-transparent text-xl font-black text-foreground w-full outline-none focus:text-emerald-500 transition-colors"
+                        className="bg-transparent text-xl font-black text-foreground w-full outline-none focus:text-success transition-colors"
                       />
                    </div>
                  ))}
               </div>
            </div>
 
-           <div className="mt-8 p-6 rounded-[2rem] bg-emerald-500/5 border border-emerald-500/10">
+           <div className="mt-8 p-6 rounded-[2rem] bg-success/10 border border-success/20">
               <div className="flex items-center gap-3 mb-2">
-                 <TrendingUp size={18} className="text-emerald-500" />
-                 <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest italic">IMPACT ANALYTICS</span>
+                 <TrendingUp size={18} className="text-success" />
+                 <span className="text-[10px] font-black text-success uppercase tracking-widest italic">IMPACT ANALYTICS</span>
               </div>
               <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider leading-relaxed">Adjusting these rates will globally recalculate the **Loan Eligibility** and **Yield Projections** for over 1,200 informal workers.</p>
            </div>

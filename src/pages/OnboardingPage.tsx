@@ -216,7 +216,7 @@ const OnboardingPage = () => {
             {step === 3 && (
               <div className="animate-fade-in space-y-6">
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-500"><MapPin size={24} /></div>
+                  <div className="p-3 bg-success/10 rounded-xl text-success"><MapPin size={24} /></div>
                   <div>
                     <h3 className="text-xl font-bold">Where are you?</h3>
                     <p className="text-xs text-muted-foreground">Customers will see your general city location.</p>
@@ -257,7 +257,7 @@ const OnboardingPage = () => {
                   <button
                     onClick={handleSubmit}
                     disabled={!location || loading}
-                    className="flex-1 rounded-2xl bg-emerald-500 py-4 text-sm font-bold text-foreground shadow-primary-glow transition-all hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center"
+                    className="flex-1 rounded-2xl bg-success py-4 text-sm font-bold text-foreground shadow-primary-glow transition-all hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center"
                   >
                     {loading ? <Loader2 size={18} className="animate-spin" /> : "Complete Profile & Start"}
                   </button>

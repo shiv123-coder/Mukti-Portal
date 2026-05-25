@@ -41,8 +41,8 @@ const SchemesMatcher = () => {
 
   const categoryIcon = (cat: string) => {
     switch (cat) {
-      case 'loan': return <Banknote size={20} className="text-emerald-500" />;
-      case 'insurance': return <Heart size={20} className="text-red-500" />;
+      case 'loan': return <Banknote size={20} className="text-success" />;
+      case 'insurance': return <Heart size={20} className="text-destructive" />;
       case 'skill': return <GraduationCap size={20} className="text-primary" />;
       case 'pension': return <Landmark size={20} className="text-purple-500" />;
       default: return <ShieldCheck size={20} className="text-primary" />;
@@ -51,8 +51,8 @@ const SchemesMatcher = () => {
 
   const categoryColor = (cat: string) => {
     switch (cat) {
-      case 'loan': return 'border-emerald-500/20 bg-emerald-500/5';
-      case 'insurance': return 'border-red-500/20 bg-red-500/5';
+      case 'loan': return 'border-success/20 bg-success/10';
+      case 'insurance': return 'border-destructive/20 bg-destructive/5';
       case 'skill': return 'border-primary/20 bg-primary/5';
       case 'pension': return 'border-purple-500/20 bg-purple-500/5';
       default: return 'border-primary/20 bg-primary/5';
@@ -61,7 +61,7 @@ const SchemesMatcher = () => {
 
   return (
     <div className="container mx-auto max-w-5xl py-6 md:py-10 pb-24 px-4 relative overflow-hidden">
-      <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-emerald-500/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-success/10 blur-[120px] pointer-events-none" />
       
       <div className="mb-10 relative z-10">
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-[10px] font-black uppercase tracking-widest mb-6 transition-colors">
@@ -76,9 +76,9 @@ const SchemesMatcher = () => {
       </div>
 
       {/* Summary */}
-      <div className="rounded-[2rem] bg-gradient-to-r from-emerald-600/20 to-emerald-500/5 border border-emerald-500/20 p-6 mb-8 relative z-10">
+      <div className="rounded-[2rem] bg-gradient-to-r from-emerald-600/20 to-emerald-500/5 border border-success/20 p-6 mb-8 relative z-10">
         <div className="flex items-center gap-4">
-          <div className="p-3 rounded-2xl bg-emerald-500 text-foreground shadow-lg shadow-emerald-500/20">
+          <div className="p-3 rounded-2xl bg-success text-foreground shadow-lg shadow-emerald-500/20">
             <ShieldCheck size={24} />
           </div>
           <div>

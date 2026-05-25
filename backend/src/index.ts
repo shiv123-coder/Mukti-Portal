@@ -181,11 +181,11 @@ const RegisterSchema = z.object({
 // --- ROUTES ---
 
 app.get('/', (req, res) => {
-  res.json({ status: 'ok', message: 'Welcome to Mukti-Backend Service. The API is running.' });
+  res.json({ status: 'ok', message: 'Welcome to Mukti Portal API Service. The API is running.' });
 });
 
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'Mukti-Backend' });
+  res.json({ status: 'ok', service: 'Mukti Portal API' });
 });
 
 /**
@@ -984,7 +984,7 @@ app.use(globalErrorHandler);
 // Only listen if not running on Vercel's serverless environment
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
-    console.log(`Mukti-Backend running on http://localhost:${PORT}`);
+    console.log(`Mukti Portal API running on http://localhost:${PORT}`);
   });
 }
 

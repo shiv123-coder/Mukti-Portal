@@ -12,51 +12,52 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    /* Indigo-500 Primary */
-    --primary: 243 75% 59%; 
+    /* Premium Cyan/Teal Primary */
+    --primary: 189 94% 43%; 
     --primary-foreground: 0 0% 100%;
-    /* Soft Cyan Secondary */
-    --secondary: 189 94% 43%;
-    --secondary-foreground: 0 0% 100%;
+    /* Subtle slate secondary */
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    /* Subtle zinc border */
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 243 75% 59%;
+    --ring: 189 94% 43%;
     --radius: 0.75rem;
     --success: 142.1 76.2% 36.3%;
     --success-foreground: 0 0% 100%;
-    /* Minimal Orange strictly for warnings */
     --warning: 38 92% 50%;
     --warning-foreground: 48 96% 89%;
   }
 
   .dark {
-    /* Deep Black / Graphite */
-    --background: 240 10% 4%;
+    /* #09090b background */
+    --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    /* Soft glowing cards */
+    /* Deep zinc cards #18181b */
     --card: 240 5% 10%;
     --card-foreground: 0 0% 98%;
     --popover: 240 5% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 243 75% 59%;
+    --primary: 189 94% 43%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 189 94% 43%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
+    /* Subtle zinc border #27272a */
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 243 75% 59%;
+    --ring: 189 94% 43%;
     --success: 142.1 70.6% 45.3%;
     --success-foreground: 144.9 80.4% 10%;
     --warning: 47.9 95.8% 53.1%;
@@ -72,16 +73,16 @@
     @apply bg-background text-foreground antialiased transition-colors duration-500;
     font-family: 'Inter', sans-serif;
     /* Clean light mode background */
-    background-image: radial-gradient(circle at 50% -20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    background-image: radial-gradient(circle at 50% -20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
                       linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px),
                       linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px);
     background-size: 100% 100%, 40px 40px, 40px 40px;
     background-attachment: fixed;
   }
   .dark body {
-    /* Premium dark mode background (Linear inspired) */
+    /* Premium dark mode background */
     background-color: #09090b;
-    background-image: radial-gradient(circle at 50% -20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    background-image: radial-gradient(circle at 50% -20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
                       linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
                       linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
     background-size: 100% 100%, 40px 40px, 40px 40px;

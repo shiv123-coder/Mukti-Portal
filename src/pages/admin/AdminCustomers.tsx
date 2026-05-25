@@ -16,8 +16,8 @@ import { collection, onSnapshot, query, where, doc, updateDoc, getDocs } from "f
 import { db } from "@/lib/firebase";
 import { User } from "@/types/auth";
 import { useAuth } from "@/hooks/useAuth";
-
 import { toast } from "sonner";
+import { ExportMenu, ExportColumn } from "@/components/ExportMenu";
 
 const AdminCustomers = () => {
   
@@ -85,6 +85,15 @@ const AdminCustomers = () => {
     c.phone.includes(searchTerm)
   );
 
+  const exportColumns: ExportColumn<User>[] = [
+    { header: "Customer Name", key: "name" },
+    { header: "Phone", key: "phone" },
+    { header: "Trust Score", key: "trustScore" },
+    { header: "Review Count", key: (customer) => (customer as any).reviewCount || 0 },
+    { header: "Customer Type", key: (customer) => customer.customer_type === 0 ? 'LONG-TERM' : 'OCCASIONAL' },
+    { header: "Device ID", key: (customer) => customer.deviceId || 'NOT_CAPTURED' }
+  ];
+
   return (
     <div className="space-y-8 pb-12">
       <div className="flex justify-between items-end">
@@ -94,8 +103,8 @@ const AdminCustomers = () => {
         </div>
       </div>
 
-      <div className="flex bg-card p-6 rounded-[2rem] border border-border">
-        <div className="relative flex-1">
+      <div className="flex flex-wrap gap-4 bg-card p-6 rounded-[2rem] border border-border items-center">
+        <div className="relative flex-1 min-w-[300px]">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
           <input 
             type="text" 
@@ -105,6 +114,13 @@ const AdminCustomers = () => {
             className="w-full bg-secondary border border-border rounded-xl pl-12 pr-4 py-4 text-sm text-foreground outline-none focus:border-primary transition-all shadow-inner placeholder:text-muted-foreground/30"
           />
         </div>
+        <ExportMenu 
+          data={filteredCustomers} 
+          columns={exportColumns} 
+          filename="Mukti_Customers_Export" 
+          title="Mukti Portal - Customer Trust Directory" 
+          subtitle={`Total Customers: ${filteredCustomers.length}`}
+        />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -116,7 +132,7 @@ const AdminCustomers = () => {
           <div key={customer.id} className="group relative rounded-[2.5rem] bg-card border border-border p-8 hover:border-primary/20 transition-all shadow-2xl overflow-hidden">
             <div className="absolute top-0 right-0 p-4">
                <div className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                 customer.customer_type === 0 ? 'bg-emerald-500/10 text-emerald-500' : 'bg-primary/10 text-primary'
+                 customer.customer_type === 0 ? 'bg-success/10 text-success' : 'bg-primary/10 text-primary'
                }`}>
                  {customer.customer_type === 0 ? 'LONG-TERM' : 'OCCASIONAL'}
                </div>
@@ -139,8 +155,8 @@ const AdminCustomers = () => {
                      <span className="text-[9px] font-black uppercase tracking-widest">Trust Store</span>
                   </div>
                   <div className={`text-xl font-black ${
-                    (customer.trustScore || 0) > 80 ? 'text-emerald-500' : 
-                    (customer.trustScore || 0) > 50 ? 'text-primary' : 'text-red-500'
+                    (customer.trustScore || 0) > 80 ? 'text-success' : 
+                    (customer.trustScore || 0) > 50 ? 'text-primary' : 'text-destructive'
                   }`}>
                     {customer.trustScore || 0}%
                   </div>
@@ -172,13 +188,13 @@ const AdminCustomers = () => {
             <div className="flex gap-3 pt-6 border-t border-border">
               <button 
                 onClick={() => handleAction(customer.id, "trust")}
-                className="flex-1 py-3 bg-emerald-500/10 text-emerald-500 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-primary-foreground transition-all"
+                className="flex-1 py-3 bg-success/10 text-success rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-success hover:text-primary-foreground transition-all"
               >
                 TRUST
               </button>
               <button 
                 onClick={() => handleAction(customer.id, "block")}
-                className="flex-1 py-3 bg-red-500/10 text-red-500 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-primary-foreground transition-all underline decoration-dotted decoration-red-500/30"
+                className="flex-1 py-3 bg-destructive/10 text-destructive rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-destructive hover:text-primary-foreground transition-all underline decoration-dotted decoration-red-500/30"
               >
                 BLOCK
               </button>
