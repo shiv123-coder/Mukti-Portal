@@ -1,6 +1,6 @@
 import { Sun, Moon, LogOut, LayoutDashboard, QrCode, FileText, UserCircle, Languages, WifiOff, Bell, ShieldCheck, UserCheck, History, PlusCircle, Trophy, Globe } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "next-themes";
 
 import { useOnlineStatus } from "@/hooks/useOnlineStatus";
 import { useNavigate, Link, useLocation } from "react-router-dom";
@@ -24,7 +24,8 @@ const CUSTOMER_NAV = [
 
 const AppHeader = () => {
   const { user, logout } = useAuth();
-  const { isDark, toggle } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const isDark = theme === "dark";
 
   const isOnline = useOnlineStatus();
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const AppHeader = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="flex items-center gap-2 transition-opacity hover:opacity-80 active:scale-95 group"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 text-primary-foreground shadow-lg shadow-orange-500/20">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground shadow-lg shadow-primary-glow">
             <span className="text-xl font-black italic">M</span>
           </div>
           <div className="flex flex-col">
@@ -123,7 +124,7 @@ const AppHeader = () => {
                   className={cn(
                     "flex items-center gap-2 rounded-xl px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] transition-all",
                     isActive 
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-orange-500/20 italic" 
+                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary-glow italic" 
                       : isDark 
                         ? "text-muted-foreground hover:text-primary-foreground hover:bg-card/5" 
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary"
@@ -145,7 +146,7 @@ const AppHeader = () => {
                 <span className="text-xs font-black text-foreground italic tracking-tight">{user.name}</span>
                 <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mt-0.5 opacity-70">{user.role}</span>
               </div>
-              <div className="h-9 w-9 overflow-hidden rounded-xl border border-primary/30 bg-secondary shadow-lg shadow-orange-500/10">
+              <div className="h-9 w-9 overflow-hidden rounded-xl border border-primary/30 bg-secondary shadow-lg shadow-primary-glow">
                 {user.photo ? (
                   <img src={user.photo} alt={user.name} className="h-full w-full object-cover" />
                 ) : (
@@ -161,7 +162,7 @@ const AppHeader = () => {
           {/* Language selector removed */}
           
           <button
-            onClick={toggle}
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="h-9 w-9 flex items-center justify-center rounded-xl bg-secondary border border-border text-muted-foreground transition-all hover:text-foreground hover:bg-secondary/80 active:scale-95"
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
@@ -174,7 +175,7 @@ const AppHeader = () => {
                 className={cn(
                   "h-9 w-9 flex items-center justify-center rounded-xl transition-all active:scale-95 relative border",
                   showNotifications 
-                    ? "bg-primary border-primary text-primary-foreground shadow-lg shadow-orange-500/20" 
+                    ? "bg-primary border-primary text-primary-foreground shadow-lg shadow-primary-glow" 
                     : isDark ? "bg-card/5 border-border text-muted-foreground hover:text-primary-foreground" : "bg-secondary border-border text-muted-foreground hover:text-foreground"
                 )}
               >

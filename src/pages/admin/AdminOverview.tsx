@@ -16,19 +16,13 @@ import {
 } from "lucide-react";
 import { 
   AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip
-} from "recharts";
-import { ResponsiveContainer } from "recharts";
+import { useTheme } from "next-themes";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 import { collection, onSnapshot, query, where, getDocs, Timestamp, writeBatch, doc, deleteDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 
-import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -216,7 +210,7 @@ const AdminOverview = () => {
       icon: <Users size={24} />, 
       trend: "LIVE", 
       isUp: true,
-      color: "from-orange-500 to-orange-700" 
+      color: "from-primary to-indigo-600" 
     },
     { 
       label: "Verified Workers", 

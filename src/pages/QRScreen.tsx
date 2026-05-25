@@ -149,7 +149,7 @@ const QRScreen = () => {
                 <div className="text-[9px] font-black text-primary uppercase tracking-[0.3em]">Syncing Handshake...</div>
               </div>
             ) : (
-              <div className="bg-card p-5 rounded-[2rem] shadow-2xl shadow-orange-500/20 transform hover:scale-105 transition-transform duration-500">
+              <div className="bg-card p-5 rounded-[2rem] shadow-2xl shadow-primary-glow transform hover:scale-105 transition-transform duration-500">
                 <QRCodeSVG 
                   value={`${window.location.origin}/verify/${user.id}/${sessionId}`}
                   size={200}
@@ -195,7 +195,7 @@ const QRScreen = () => {
             <button
               onClick={resetQR}
               disabled={qrCount >= MAX_QR_PER_DAY}
-              className="h-20 w-full rounded-3xl bg-primary text-primary-foreground font-black uppercase tracking-[0.4em] shadow-2xl shadow-orange-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-20 flex items-center justify-center gap-3"
+              className="h-20 w-full rounded-3xl bg-primary text-primary-foreground font-black uppercase tracking-[0.4em] shadow-2xl shadow-primary-glow hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-20 flex items-center justify-center gap-3"
             >
               <RefreshCw size={24} />
               TOKEN REGEN
@@ -210,7 +210,7 @@ const QRScreen = () => {
                 <div className="text-lg font-black text-primary-foreground italic tracking-tighter uppercase">{user.name}</div>
                 <div className="text-[10px] font-bold text-primary uppercase tracking-widest mt-1">{user.skill}</div>
              </div>
-             <div className="h-12 w-12 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg shadow-orange-500/20">
+             <div className="h-12 w-12 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg shadow-primary-glow">
                 <ShieldCheck size={28} />
              </div>
           </div>

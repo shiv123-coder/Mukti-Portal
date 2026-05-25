@@ -210,7 +210,7 @@ const AdminWorkerDetail = () => {
         </div>
         <button
           onClick={() => navigate(-1)}
-          className="px-6 py-3 rounded-2xl bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest hover:bg-orange-700 transition-all"
+          className="px-6 py-3 rounded-2xl bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest hover:bg-primary transition-all"
         >
           Go Back
         </button>
@@ -283,7 +283,7 @@ const AdminWorkerDetail = () => {
             <div className="absolute -top-16 -right-16 h-40 w-40 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-all duration-1000" />
 
             <div className="relative mb-6">
-              <div className="h-28 w-28 rounded-[2rem] bg-primary flex items-center justify-center text-5xl font-black text-primary-foreground italic shadow-[0_0_40px_rgba(249,115,22,0.3)] border-4 border-border overflow-hidden">
+              <div className="h-28 w-28 rounded-[2rem] bg-primary flex items-center justify-center text-5xl font-black text-primary-foreground italic shadow-primary-glow border-4 border-border overflow-hidden">
                 {worker.photo ? (
                   <img
                     src={worker.photo}
@@ -501,7 +501,7 @@ const AdminWorkerDetail = () => {
                   <button
                     onClick={() => handleAction("approve")}
                     disabled={actionLoading}
-                    className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-600/20 hover:scale-[1.02] active:scale-95 transition-all text-[11px] font-black uppercase tracking-widest disabled:opacity-40 italic"
+                    className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary-glow hover:scale-[1.02] active:scale-95 transition-all text-[11px] font-black uppercase tracking-widest disabled:opacity-40 italic"
                   >
                     {actionLoading ? (
                       <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -634,7 +634,7 @@ const AdminWorkerDetail = () => {
                           size={12}
                           className={
                             s <= (v.rating || 0)
-                              ? "text-primary fill-orange-500"
+                              ? "text-primary fill-primary"
                               : "text-secondary"
                           }
                         />

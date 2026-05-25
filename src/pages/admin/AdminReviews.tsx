@@ -99,7 +99,7 @@ const AdminReviews = () => {
                      <div className="space-y-4">
                         <div className="flex items-center gap-2">
                            {[...Array(5)].map((_, i) => (
-                             <Star key={i} size={14} className={i < review.rating ? "text-primary fill-orange-500" : "text-secondary"} />
+                             <Star key={i} size={14} className={i < review.rating ? "text-primary fill-primary" : "text-secondary"} />
                            ))}
                            <span className="ml-4 text-[10px] font-black text-muted-foreground uppercase tracking-widest italic opacity-60">Captured {new Date(review.timestamp?.seconds * 1000).toLocaleDateString()}</span>
                         </div>
@@ -122,7 +122,7 @@ const AdminReviews = () => {
                            </div>
                         ))}
                         {nlp.issues?.map((issue: string, idx: number) => (
-                           <div key={idx} className="px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 flex items-center gap-2 shadow-[0_0_15px_rgba(239,68,68,0.1)]">
+                           <div key={idx} className="px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 flex items-center gap-2 shadow-primary-glow">
                               <AlertCircle size={12} />
                               <span className="text-[10px] font-black uppercase tracking-[0.2em]">{issue}</span>
                            </div>

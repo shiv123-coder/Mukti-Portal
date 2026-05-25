@@ -53,62 +53,71 @@ const PageLoader = () => (
 
 const queryClient = new QueryClient();
 
+import { useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { PageTransition } from "./components/PageTransition";
+
 const MainLayout = () => {
   const { user } = useAuth();
   const showBottomNav = !!user;
-  
+  const location = useLocation();
+
   return (
     <>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen overflow-hidden relative">
         {user?.role !== "admin" && <AppHeader />}
         <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<LoginPage />} />
-            
-            {/* Worker Routes */}
-            <Route path="/onboarding" element={<ProtectedRoute allowedRoles={["worker"]}><OnboardingPage /></ProtectedRoute>} />
-            <Route path="/dashboard" element={<ProtectedRoute allowedRoles={["worker"]}><WorkerDashboard /></ProtectedRoute>} />
-            <Route path="/profile" element={<ProtectedRoute allowedRoles={["worker"]}><WorkerProfile /></ProtectedRoute>} />
-            <Route path="/qr" element={<ProtectedRoute allowedRoles={["worker"]}><QRScreen /></ProtectedRoute>} />
-            <Route path="/schemes" element={<ProtectedRoute allowedRoles={["worker"]}><SchemesMatcher /></ProtectedRoute>} />
-            <Route path="/jobs/map" element={<ProtectedRoute allowedRoles={["worker"]}><JobMap /></ProtectedRoute>} />
-            
-            {/* Customer Routes */}
-            <Route path="/customer" element={<ProtectedRoute allowedRoles={["customer"]}><CustomerDashboard /></ProtectedRoute>} />
-            <Route path="/verify/:workerId?/:jobId?" element={<ProtectedRoute allowedRoles={["customer"]}><CustomerVerification /></ProtectedRoute>} />
-            <Route path="/activity" element={<ProtectedRoute allowedRoles={["customer"]}><CustomerActivity /></ProtectedRoute>} />
-            <Route path="/tracking/:jobId" element={<ProtectedRoute allowedRoles={["customer"]}><LiveTracking /></ProtectedRoute>} />
-            <Route path="/verify/job-complete/:jobId" element={<ProtectedRoute allowedRoles={["customer"]}><LiveTracking /></ProtectedRoute>} />
-            <Route path="/report" element={<ProtectedRoute allowedRoles={["worker", "customer"]}><ReportPreview /></ProtectedRoute>} />
-            <Route path="/employer-verify/:workerId" element={<ProtectedRoute allowedRoles={["customer"]}><EmployerVerificationPage /></ProtectedRoute>} />
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<PageTransition><LoginPage /></PageTransition>} />
+              
+              {/* Worker Routes */}
+              <Route path="/onboarding" element={<ProtectedRoute allowedRoles={["worker"]}><PageTransition><OnboardingPage /></PageTransition></ProtectedRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute allowedRoles={["worker"]}><PageTransition><WorkerDashboard /></PageTransition></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute allowedRoles={["worker"]}><PageTransition><WorkerProfile /></PageTransition></ProtectedRoute>} />
+              <Route path="/qr" element={<ProtectedRoute allowedRoles={["worker"]}><PageTransition><QRScreen /></PageTransition></ProtectedRoute>} />
+              <Route path="/schemes" element={<ProtectedRoute allowedRoles={["worker"]}><PageTransition><SchemesMatcher /></PageTransition></ProtectedRoute>} />
+              <Route path="/jobs/map" element={<ProtectedRoute allowedRoles={["worker"]}><PageTransition><JobMap /></PageTransition></ProtectedRoute>} />
+              
+              {/* Customer Routes */}
+              <Route path="/customer" element={<ProtectedRoute allowedRoles={["customer"]}><PageTransition><CustomerDashboard /></PageTransition></ProtectedRoute>} />
+              <Route path="/verify/:workerId?/:jobId?" element={<ProtectedRoute allowedRoles={["customer"]}><PageTransition><CustomerVerification /></PageTransition></ProtectedRoute>} />
+              <Route path="/activity" element={<ProtectedRoute allowedRoles={["customer"]}><PageTransition><CustomerActivity /></PageTransition></ProtectedRoute>} />
+              <Route path="/tracking/:jobId" element={<ProtectedRoute allowedRoles={["customer"]}><PageTransition><LiveTracking /></PageTransition></ProtectedRoute>} />
+              <Route path="/verify/job-complete/:jobId" element={<ProtectedRoute allowedRoles={["customer"]}><PageTransition><LiveTracking /></PageTransition></ProtectedRoute>} />
+              <Route path="/report" element={<ProtectedRoute allowedRoles={["worker", "customer"]}><PageTransition><ReportPreview /></PageTransition></ProtectedRoute>} />
+              <Route path="/employer-verify/:workerId" element={<ProtectedRoute allowedRoles={["customer"]}><PageTransition><EmployerVerificationPage /></PageTransition></ProtectedRoute>} />
 
-            {/* Public Routes */}
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="/impact" element={<LiveImpact />} />
-            <Route path="/report/public/:reportId" element={<PublicReport />} />
+              {/* Public Routes */}
+              <Route path="/leaderboard" element={<PageTransition><Leaderboard /></PageTransition>} />
+              <Route path="/impact" element={<PageTransition><LiveImpact /></PageTransition>} />
+              <Route path="/report/public/:reportId" element={<PageTransition><PublicReport /></PageTransition>} />
 
-            {/* Admin Routes */}
-            <Route path="/admin/*" element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminLayout>
-                  <Routes>
-                    <Route path="dashboard" element={<AdminOverview />} />
-                    <Route path="workers" element={<AdminWorkers />} />
-                    <Route path="customers" element={<AdminCustomers />} />
-                    <Route path="fraud" element={<AdminFraud />} />
-                    <Route path="reviews" element={<AdminReviews />} />
-                    <Route path="requests" element={<AdminRequests />} />
-                    <Route path="worker/:workerId" element={<AdminWorkerDetail />} />
-                    <Route path="settings" element={<AdminSettings />} />
-                    {/* Fallback for /admin/analytics etc to dashboard for now */}
-                    <Route path="*" element={<AdminOverview />} />
-                  </Routes>
-                </AdminLayout>
-              </ProtectedRoute>
-            } />
+              {/* Admin Routes */}
+              <Route path="/admin/*" element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <PageTransition>
+                    <AdminLayout>
+                      <Routes>
+                        <Route path="dashboard" element={<AdminOverview />} />
+                        <Route path="workers" element={<AdminWorkers />} />
+                        <Route path="customers" element={<AdminCustomers />} />
+                        <Route path="fraud" element={<AdminFraud />} />
+                        <Route path="reviews" element={<AdminReviews />} />
+                        <Route path="requests" element={<AdminRequests />} />
+                        <Route path="worker/:workerId" element={<AdminWorkerDetail />} />
+                        <Route path="settings" element={<AdminSettings />} />
+                        {/* Fallback for /admin/analytics etc to dashboard for now */}
+                        <Route path="*" element={<AdminOverview />} />
+                      </Routes>
+                    </AdminLayout>
+                  </PageTransition>
+                </ProtectedRoute>
+              } />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+            </Routes>
+          </AnimatePresence>
         </Suspense>
         {showBottomNav && user?.role !== "admin" && <BottomNav />}
       </div>
@@ -140,21 +149,25 @@ const ConnectivityListener = () => {
   return null;
 };
 
+import { ThemeProvider } from "next-themes";
+
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <ConnectivityListener />
-      <AuthProvider>
-        <BrowserRouter>
-          <ErrorBoundary>
-            <MainLayout />
-          </ErrorBoundary>
-        </BrowserRouter>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <ConnectivityListener />
+        <AuthProvider>
+          <BrowserRouter>
+            <ErrorBoundary>
+              <MainLayout />
+            </ErrorBoundary>
+          </BrowserRouter>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;

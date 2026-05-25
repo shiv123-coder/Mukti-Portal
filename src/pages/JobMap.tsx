@@ -161,11 +161,11 @@ const JobMap = () => {
             </div>
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-primary shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-primary shadow-primary-glow" />
                 <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase">Normal</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-red-500 shadow-primary-glow" />
                 <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase">Urgent</span>
               </div>
             </div>

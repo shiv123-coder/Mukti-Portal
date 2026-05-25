@@ -346,7 +346,7 @@ const ReportPreview = () => {
                 }
               }}
               disabled={!(user.isVerifiedByAdmin || isApproved || isDemoWorker)}
-              className={`group flex h-14 sm:h-16 w-full items-center justify-center gap-3 rounded-2xl font-black text-primary-foreground shadow-xl transition-all ${(user.isVerifiedByAdmin || isApproved || isDemoWorker) ? 'bg-gradient-to-r from-orange-500 to-orange-600 shadow-orange-500/25 hover:opacity-90 active:scale-[0.98]' : 'bg-card cursor-not-allowed opacity-50'}`}
+              className={`group flex h-14 sm:h-16 w-full items-center justify-center gap-3 rounded-2xl font-black text-primary-foreground shadow-xl transition-all ${(user.isVerifiedByAdmin || isApproved || isDemoWorker) ? 'bg-gradient-primary shadow-primary-glow hover:opacity-90 active:scale-[0.98]' : 'bg-card cursor-not-allowed opacity-50'}`}
             >
               {(user.isVerifiedByAdmin || isApproved || isDemoWorker) ? <Download size={22} className="group-hover:translate-y-0.5 transition-transform" /> : <Lock size={22} />}
               {(user.isVerifiedByAdmin || isApproved || isDemoWorker) ? "GENERATE OFFICIAL REPORT" : "REPORT LOCKED"}
@@ -532,7 +532,7 @@ const ReportPreview = () => {
                <div className="flex items-center gap-2 text-sm font-black uppercase tracking-widest">
                 <AlertCircle size={16} className="text-primary" /> Annual Projection
               </div>
-              <div className="rounded-xl border border-orange-100 bg-orange-50/50 p-5">
+              <div className="rounded-xl border border-primary bg-orange-50/50 p-5">
                 <div className="text-[10px] font-black text-primary uppercase mb-1">Projected Annual Earnings</div>
                 <div className="text-2xl font-black">₹{estimatedYearlyIncome.toLocaleString("en-IN")}</div>
                 <p className="text-[9px] text-muted-foreground mt-2 italic leading-relaxed">
@@ -578,7 +578,7 @@ const ReportPreview = () => {
            <div className="w-full max-w-sm bg-background p-10 rounded-[3rem] border border-primary/20 shadow-3xl text-center space-y-8 animate-in zoom-in-95 duration-500">
               <div className="relative mx-auto w-24 h-24 flex items-center justify-center">
                  <div className="absolute inset-0 bg-primary/10 rounded-full animate-ping" />
-                 <div className="relative h-20 w-20 rounded-3xl bg-primary text-primary-foreground flex items-center justify-center shadow-2xl shadow-orange-500/40">
+                 <div className="relative h-20 w-20 rounded-3xl bg-primary text-primary-foreground flex items-center justify-center shadow-2xl shadow-primary-glow">
                     <Lock size={40} strokeWidth={2.5} />
                  </div>
               </div>

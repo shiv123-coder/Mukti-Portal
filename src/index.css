@@ -12,10 +12,12 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 24.6 95% 53.1%;
+    /* Indigo-500 Primary */
+    --primary: 243 75% 59%; 
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    /* Soft Cyan Secondary */
+    --secondary: 189 94% 43%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 240 4.8% 95.9%;
@@ -24,25 +26,28 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 24.6 95% 53.1%;
+    --ring: 243 75% 59%;
     --radius: 0.75rem;
     --success: 142.1 76.2% 36.3%;
     --success-foreground: 0 0% 100%;
+    /* Minimal Orange strictly for warnings */
     --warning: 38 92% 50%;
     --warning-foreground: 48 96% 89%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    /* Deep Black / Graphite */
+    --background: 240 10% 4%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 5%;
+    /* Soft glowing cards */
+    --card: 240 5% 10%;
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 5%;
+    --popover: 240 5% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 24.6 95% 53.1%;
+    --primary: 243 75% 59%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 189 94% 43%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
@@ -51,7 +56,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 24.6 95% 53.1%;
+    --ring: 243 75% 59%;
     --success: 142.1 70.6% 45.3%;
     --success-foreground: 144.9 80.4% 10%;
     --warning: 47.9 95.8% 53.1%;
@@ -66,19 +71,21 @@
   body {
     @apply bg-background text-foreground antialiased transition-colors duration-500;
     font-family: 'Inter', sans-serif;
-    /* Clean light mode background with subtle grid */
-    background-image: linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
+    /* Clean light mode background */
+    background-image: radial-gradient(circle at 50% -20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                      linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
     background-attachment: fixed;
   }
   .dark body {
     /* Premium dark mode background (Linear inspired) */
     background-color: #09090b;
-    background-image: radial-gradient(circle at 50% -20%, rgba(249, 115, 22, 0.15) 0%, transparent 50%),
+    background-image: radial-gradient(circle at 50% -20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
                       linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
                       linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
     background-size: 100% 100%, 40px 40px, 40px 40px;
+    background-attachment: fixed;
   }
   h1, h2, h3, h4 {
     @apply tracking-tight font-semibold;
@@ -87,19 +94,25 @@
 
 @layer utilities {
   .glass {
-    @apply bg-background/70 backdrop-blur-xl border border-border shadow-sm;
+    @apply bg-background/70 backdrop-blur-xl border border-border shadow-sm transition-colors duration-500;
   }
   .card-premium {
     @apply bg-card border border-border shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/20;
   }
   .card-premium-glow {
-    @apply bg-card border border-border transition-all duration-300 hover:shadow-[0_0_30px_rgba(249,115,22,0.15)] hover:border-primary/30;
+    @apply bg-card border border-border transition-all duration-300 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)] hover:border-primary/30;
   }
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/70;
   }
   .text-gradient-primary {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-orange-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-400;
+  }
+  .bg-gradient-primary {
+    @apply bg-gradient-to-br from-primary to-indigo-600 text-primary-foreground shadow-lg shadow-primary/20;
+  }
+  .shadow-primary-glow {
+    @apply shadow-[0_0_20px_rgba(99,102,241,0.2)];
   }
 }
 

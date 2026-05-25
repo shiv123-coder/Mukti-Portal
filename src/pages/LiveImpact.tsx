@@ -42,12 +42,12 @@ const LiveImpact = () => {
   }, []);
 
   const impactCards = [
-    { icon: Users, label: 'Workers Onboarded', value: stats.totalWorkers, color: 'from-orange-500 to-orange-600', shadow: 'shadow-orange-500/30' },
+    { icon: Users, label: 'Workers Onboarded', value: stats.totalWorkers, color: 'from-primary to-indigo-600', shadow: 'shadow-primary-glow' },
     { icon: ShieldCheck, label: 'Identity Verified', value: stats.verifiedWorkers, color: 'from-emerald-500 to-emerald-600', shadow: 'shadow-emerald-500/30' },
     { icon: Users, label: 'Customers Active', value: stats.totalCustomers, color: 'from-blue-500 to-blue-600', shadow: 'shadow-blue-500/30' },
     { icon: Briefcase, label: 'Work Verifications', value: stats.totalVerifications, color: 'from-purple-500 to-purple-600', shadow: 'shadow-purple-500/30' },
     { icon: TrendingUp, label: 'Verification Requests', value: stats.totalRequests, color: 'from-pink-500 to-pink-600', shadow: 'shadow-pink-500/30' },
-    { icon: Star, label: 'Avg Mukti Score', value: stats.avgScore, color: 'from-yellow-500 to-orange-500', shadow: 'shadow-yellow-500/30' },
+    { icon: Star, label: 'Avg Mukti Score', value: stats.avgScore, color: 'from-yellow-500 to-indigo-600', shadow: 'shadow-primary-glow' },
   ];
 
   // Estimate credit unlocked: verified workers × avg income estimate
@@ -77,7 +77,7 @@ const LiveImpact = () => {
 
       {/* Hero Stat */}
       <div className="relative z-10 mb-10">
-        <div className="rounded-[3rem] bg-gradient-to-br from-orange-600 to-orange-400 p-8 sm:p-10 md:p-14 text-center shadow-2xl shadow-orange-500/20 relative overflow-hidden">
+        <div className="rounded-[3rem] bg-gradient-primary p-8 sm:p-10 md:p-14 text-center shadow-2xl shadow-primary-glow relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent)] pointer-events-none" />
           <div className="relative z-10">
             <div className="text-[10px] font-black text-primary-foreground/70 uppercase tracking-[0.5em] mb-3">Estimated Credit Unlocked</div>

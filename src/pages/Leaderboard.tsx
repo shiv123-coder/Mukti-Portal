@@ -38,14 +38,14 @@ const Leaderboard = () => {
   }, []);
 
   const getRankIcon = (rank: number) => {
-    if (rank === 0) return <Crown size={24} className="text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.6)]" />;
-    if (rank === 1) return <Medal size={22} className="text-muted drop-shadow-[0_0_8px_rgba(203,213,225,0.4)]" />;
-    if (rank === 2) return <Medal size={20} className="text-primary drop-shadow-[0_0_8px_rgba(251,146,60,0.4)]" />;
+    if (rank === 0) return <Crown size={24} className="text-yellow-400 drop-shadow-primary-glow" />;
+    if (rank === 1) return <Medal size={22} className="text-muted drop-shadow-primary-glow" />;
+    if (rank === 2) return <Medal size={20} className="text-primary drop-shadow-primary-glow" />;
     return <span className="text-sm font-black text-muted-foreground w-6 text-center">{rank + 1}</span>;
   };
 
   const getRankBg = (rank: number) => {
-    if (rank === 0) return 'border-yellow-500/30 bg-yellow-500/5 shadow-[0_0_30px_rgba(250,204,21,0.1)]';
+    if (rank === 0) return 'border-yellow-500/30 bg-yellow-500/5 shadow-primary-glow';
     if (rank === 1) return 'border-border/20 bg-slate-400/5';
     if (rank === 2) return 'border-primary/20 bg-primary/5';
     return 'border-border bg-card/[0.02]';
@@ -61,7 +61,7 @@ const Leaderboard = () => {
           <ArrowLeft size={14} /> Back
         </button>
         <div className="flex items-center gap-4">
-          <div className="p-3 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 text-primary-foreground shadow-xl shadow-orange-500/20">
+          <div className="p-3 rounded-2xl bg-gradient-primary text-primary-foreground shadow-xl shadow-primary-glow">
             <Trophy size={28} strokeWidth={3} />
           </div>
           <div>

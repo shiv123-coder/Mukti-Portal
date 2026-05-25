@@ -269,7 +269,7 @@ const AdminRequests = () => {
                   </button>
                   <button 
                     onClick={() => handleAction(req.id, req.workerId, "approve", req.source)}
-                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-primary-foreground shadow-lg shadow-orange-600/20 hover:scale-[1.02] active:scale-95 transition-all"
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary-glow hover:scale-[1.02] active:scale-95 transition-all"
                   >
                     <ShieldCheck size={16} /> <span className="text-[10px] uppercase tracking-widest">Approve</span>
                   </button>

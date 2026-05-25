@@ -162,7 +162,7 @@ const CustomerDashboard = () => {
              
              <div className="relative z-10 text-center">
                 <div className="mb-6 flex justify-center">
-                   <div className="h-24 w-24 rounded-[2rem] bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-foreground text-4xl font-black shadow-[0_0_30px_rgba(249,115,22,0.4)] italic">
+                   <div className="h-24 w-24 rounded-[2rem] bg-gradient-primary flex items-center justify-center text-foreground text-4xl font-black shadow-primary-glow italic">
                       {user.name.charAt(0)}
                    </div>
                 </div>
@@ -185,7 +185,7 @@ const CustomerDashboard = () => {
                    </div>
                    <div className="h-3 w-full bg-secondary rounded-full overflow-hidden border border-border p-0.5 shadow-inner">
                       <div 
-                         className="h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(249,115,22,0.5)]"
+                         className="h-full bg-gradient-primary rounded-full transition-all duration-1000 shadow-primary-glow"
                          style={{ width: `${trustScore}%` }}
                       />
                    </div>
@@ -231,7 +231,7 @@ const CustomerDashboard = () => {
           
           {/* Quick Actions Bar */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
-             <button onClick={() => navigate("/verify")} className="group flex items-center justify-between p-6 rounded-[2rem] bg-gradient-to-r from-orange-600 to-orange-400 text-foreground shadow-2xl hover:scale-[1.02] transition-all active:scale-[0.98]">
+             <button onClick={() => navigate("/verify")} className="group flex items-center justify-between p-6 rounded-[2rem] bg-gradient-primary text-foreground shadow-2xl hover:scale-[1.02] transition-all active:scale-[0.98]">
                 <div className="flex items-center gap-4">
                    <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-card/20 backdrop-blur-md">
                       <PlusCircle size={window.innerWidth < 640 ? 20 : 28} />
@@ -302,7 +302,7 @@ const CustomerDashboard = () => {
              <div className="absolute top-0 right-0 h-40 w-40 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
              <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-4">
-                   <div className="p-3 rounded-2xl bg-primary text-foreground shadow-xl shadow-orange-500/20">
+                   <div className="p-3 rounded-2xl bg-primary text-foreground shadow-xl shadow-primary-glow">
                       <Award size={24} />
                    </div>
                    <h4 className="text-xl font-black italic tracking-tighter text-foreground uppercase italic">Registry Contribution</h4>
@@ -347,7 +347,7 @@ const CustomerDashboard = () => {
                      <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} size={10} className={i < v.rating ? "text-primary fill-orange-500" : "text-muted-foreground/30"} />
+                              <Star key={i} size={10} className={i < v.rating ? "text-primary fill-primary" : "text-muted-foreground/30"} />
                            ))}
                         </div>
                         <CheckCircle2 size={18} className="text-emerald-500 opacity-50" />

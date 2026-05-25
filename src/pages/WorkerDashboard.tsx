@@ -669,7 +669,7 @@ const WorkerDashboard = () => {
   const showChart = true; 
 
   const stats = [
-    { icon: ShieldCheck, label: "Mukti Score", value: displayLoading ? "..." : (muktiScore || "0"), color: "text-primary", extraClass: "col-span-2 border-primary/30 bg-primary/5 shadow-[0_0_15px_rgba(249,115,22,0.15)]" },
+    { icon: ShieldCheck, label: "Mukti Score", value: displayLoading ? "..." : (muktiScore || "0"), color: "text-primary", extraClass: "col-span-2 border-primary/30 bg-primary/5 shadow-primary-glow" },
     { icon: Briefcase, label: "Total Jobs", value: displayData?.summary?.totalJobs || verifications.length, color: "text-primary" },
     { icon: Star, label: "Avg Rating", value: avgRating.toFixed(1), color: "text-warning" },
     { icon: Users, label: "Repeat Clients", value: displayData?.summary?.repeatCustomers || 0, color: "text-primary" },
@@ -733,9 +733,9 @@ const WorkerDashboard = () => {
           
           {/* Verification Status Badge */}
           <div className="flex flex-col items-start sm:items-end gap-3 shrink-0">
-            <div className={`flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl border ${ (isApproved || user.isVerifiedByAdmin) ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : requestSent ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' : 'bg-red-500/10 border-red-500/20 text-red-500'} font-black italic animate-in fade-in slide-in-from-right-4 duration-700`}>
+            <div className={`flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl border ${ (isApproved || user.isVerifiedByAdmin) ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : requestSent ? 'bg-primary/20 border-amber-500/20 text-primary' : 'bg-red-500/10 border-red-500/20 text-red-500'} font-black italic animate-in fade-in slide-in-from-right-4 duration-700`}>
               {(isApproved || user.isVerifiedByAdmin) ? (
-                 <><ShieldCheck size={20} className="drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]" /> <div className="text-left"><div className="text-[8px] uppercase tracking-widest leading-none mb-1 opacity-60">Identity Status</div><div className="text-xs uppercase tracking-tighter">VERIFIED ✔</div></div></>
+                 <><ShieldCheck size={20} className="drop-shadow-primary-glow" /> <div className="text-left"><div className="text-[8px] uppercase tracking-widest leading-none mb-1 opacity-60">Identity Status</div><div className="text-xs uppercase tracking-tighter">VERIFIED ✔</div></div></>
               ) : requestSent ? (
                  <><Clock size={20} className="animate-pulse" /> <div className="text-left"><div className="text-[8px] uppercase tracking-widest leading-none mb-1 opacity-60">Identity Status</div><div className="text-xs uppercase tracking-tighter">UNDER REVIEW ⏳</div></div></>
               ) : (
@@ -747,7 +747,7 @@ const WorkerDashboard = () => {
               <button
                 onClick={handleRequestVerification}
                 disabled={isRequesting || requestSent}
-                className={`text-[9px] font-black px-4 py-2 rounded-xl border transition-all ${requestSent ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500 cursor-default' : 'bg-primary text-foreground border-primary hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20'} uppercase tracking-widest`}
+                className={`text-[9px] font-black px-4 py-2 rounded-xl border transition-all ${requestSent ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500 cursor-default' : 'bg-primary text-foreground border-primary hover:scale-105 active:scale-95 shadow-lg shadow-primary-glow'} uppercase tracking-widest`}
               >
                 {isRequesting ? "Sending..." : requestSent ? "Request Sent ✔" : "Request Identity Verification"}
               </button>
@@ -824,7 +824,7 @@ const WorkerDashboard = () => {
           <MapPin size={20} className="text-purple-500 group-hover:scale-110 transition-transform" />
           <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">Jobs</span>
           {activeRequests.filter(r => r.status === 'Searching').length > 0 && (
-            <span className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full bg-primary text-foreground text-[8px] font-black animate-pulse shadow-lg shadow-orange-500/40">
+            <span className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full bg-primary text-foreground text-[8px] font-black animate-pulse shadow-lg shadow-primary-glow">
               {activeRequests.filter(r => r.status === 'Searching').length}
             </span>
           )}
@@ -897,7 +897,7 @@ const WorkerDashboard = () => {
                {!user.employerVerified ? (
                  <button 
                    onClick={() => toast.info("Encryption link dispatched to employer unit.")}
-                   className="w-full h-16 rounded-2xl bg-primary text-foreground font-black uppercase tracking-[0.3em] shadow-xl shadow-orange-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all relative z-10 text-[10px]"
+                   className="w-full h-16 rounded-2xl bg-primary text-foreground font-black uppercase tracking-[0.3em] shadow-xl shadow-primary-glow hover:scale-[1.02] active:scale-[0.98] transition-all relative z-10 text-[10px]"
                  >
                    Dispatch Verify Request
                  </button>
@@ -913,12 +913,12 @@ const WorkerDashboard = () => {
               className="group flex w-full h-24 items-center gap-6 rounded-[2rem] bg-card p-6 shadow-2xl transition-all border border-primary/20 hover:border-primary/40 active:scale-[0.98] opacity-0 animate-fade-up overflow-hidden relative font-black italic"
               style={{ animationDelay: "80ms" }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-600 to-orange-400 text-foreground shadow-xl shadow-orange-500/40 group-hover:rotate-12 transition-transform duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-primary text-foreground shadow-xl shadow-primary-glow group-hover:rotate-12 transition-transform duration-500">
                 <QrCode size={24} strokeWidth={3} />
               </div>
               <div className="text-left">
-                <span className="block text-lg font-black text-foreground tracking-tighter uppercase">{t('generateQR')}</span>
+                <span className="block text-lg font-black text-foreground tracking-tighter uppercase">Generate QR</span>
                 <span className="block text-[9px] font-black uppercase text-muted-foreground tracking-[0.2em] mt-1 opacity-60">Deploy Handshake Token</span>
               </div>
             </button>
@@ -944,7 +944,7 @@ const WorkerDashboard = () => {
             <div className="rounded-[2rem] bg-card p-6 border border-border shadow-inner font-black italic">
                <div className="flex items-center justify-between mb-5 border-b border-border pb-4">
                   <div className="text-[9px] font-black uppercase text-muted-foreground tracking-[0.3em] flex items-center gap-3 opacity-60">
-                    <Star size={16} className="text-primary fill-orange-500" /> Mukti Index
+                    <Star size={16} className="text-primary fill-primary" /> Mukti Index
                   </div>
                   <div className="text-3xl font-black text-primary tracking-tighter">{Math.round(muktiScore)}</div>
                </div>
@@ -996,14 +996,14 @@ const WorkerDashboard = () => {
             <div className="mb-8 flex flex-col gap-6 relative z-10 italic">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 text-foreground">
-                  <div className="p-2.5 rounded-xl bg-primary text-foreground shadow-xl shadow-orange-500/20">
+                  <div className="p-2.5 rounded-xl bg-primary text-foreground shadow-xl shadow-primary-glow">
                     <Wrench size={22} strokeWidth={3} />
                   </div>
                   <span className="text-xl font-black uppercase tracking-tighter">Tactical Job Feed</span>
                 </div>
                 <button 
                   onClick={() => setShowFilters(!showFilters)}
-                  className={`flex items-center gap-3 px-5 py-2.5 rounded-2xl text-[10px] font-black tracking-[0.2em] uppercase transition-all border ${showFilters ? "bg-primary border-primary text-foreground shadow-xl shadow-orange-500/20" : "bg-secondary text-muted-foreground border-border hover:text-foreground"}`}
+                  className={`flex items-center gap-3 px-5 py-2.5 rounded-2xl text-[10px] font-black tracking-[0.2em] uppercase transition-all border ${showFilters ? "bg-primary border-primary text-foreground shadow-xl shadow-primary-glow" : "bg-secondary text-muted-foreground border-border hover:text-foreground"}`}
                 >
                   <Search size={14} />
                   {showFilters ? "CLOSE FILTERS" : "OPEN SCANNER"}
@@ -1213,7 +1213,7 @@ const WorkerDashboard = () => {
                     <div className="flex justify-between items-start mb-2">
                        <div>
                         <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em] mb-2">Optimal EMI</div>
-                        <div className="text-2xl font-black text-foreground italic tracking-tighter shadow-[0_0_20px_rgba(255,255,255,0.05)]">₹{displayData?.loan?.safeEMI || 0}/MO</div>
+                        <div className="text-2xl font-black text-foreground italic tracking-tighter shadow-primary-glow">₹{displayData?.loan?.safeEMI || 0}/MO</div>
                        </div>
                        <div className="text-right">
                         <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em] mb-2">Facility Range</div>
@@ -1250,7 +1250,7 @@ const WorkerDashboard = () => {
                         </div>
                         <div className="flex-1 h-3 bg-card/5 rounded-full overflow-hidden border border-border">
                           <div
-                            className={`h-full rounded-full transition-all duration-1000 ${isYourSkill ? 'bg-gradient-to-r from-orange-600 to-orange-400' : 'bg-gradient-to-r from-blue-600 to-blue-400'}`}
+                            className={`h-full rounded-full transition-all duration-1000 ${isYourSkill ? 'bg-gradient-primary' : 'bg-gradient-to-r from-blue-600 to-blue-400'}`}
                             style={{ width: `${s.demand}%` }}
                           />
                         </div>
@@ -1271,7 +1271,7 @@ const WorkerDashboard = () => {
             <div className="rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl opacity-0 animate-fade-up relative overflow-hidden group hover:border-primary/20 transition-all font-black" style={{ animationDelay: "260ms" }}>
               <div className="mb-8 flex items-center justify-between text-base font-black text-foreground relative z-10 italic">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-primary text-foreground shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
+                  <div className="p-2 rounded-xl bg-primary text-foreground shadow-xl shadow-primary-glow group-hover:scale-110 transition-transform">
                     <TrendingUp size={20} strokeWidth={3} />
                   </div>
                   <span className="uppercase tracking-tighter text-lg">System Pulse Cycle</span>
@@ -1305,7 +1305,7 @@ const WorkerDashboard = () => {
                             <div className="bg-card border border-primary/20 p-4 rounded-[2rem] shadow-3xl animate-in zoom-in-95 backdrop-blur-2xl">
                               <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.4em] mb-2 italic">{data.month} Log</div>
                               <div className="flex items-center gap-3">
-                                <div className="h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(249,115,22,1)]" />
+                                <div className="h-2 w-2 rounded-full bg-primary shadow-primary-glow" />
                                 <div className="text-lg font-black text-foreground italic tracking-tighter uppercase">{payload[0].value} Handshakes</div>
                               </div>
                             </div>
@@ -1384,7 +1384,7 @@ const WorkerDashboard = () => {
                     {expandedJobQR === job.id && (
                       <div className="mt-4 p-6 rounded-2xl bg-card/5 border border-primary/10 flex flex-col items-center gap-4 animate-in zoom-in-95 duration-300">
                         <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em]">Customer Scans This To Complete Job</div>
-                        <div className="bg-card p-4 rounded-2xl shadow-2xl shadow-orange-500/20">
+                        <div className="bg-card p-4 rounded-2xl shadow-2xl shadow-primary-glow">
                           <QRCodeSVG
                             value={`${window.location.origin}/verify/job-complete/${job.id}`}
                             size={180}
@@ -1438,7 +1438,7 @@ const WorkerDashboard = () => {
                             <div className="text-sm font-black text-foreground italic">₹{m.salary}</div>
                             <div className="flex items-center gap-1 mt-1 justify-end">
                                {[...Array(5)].map((_, i) => (
-                                  <Star key={i} size={8} className={i < m.performance ? "text-primary fill-orange-500" : "text-foreground"} />
+                                  <Star key={i} size={8} className={i < m.performance ? "text-primary fill-primary" : "text-foreground"} />
                                ))}
                             </div>
                          </div>
@@ -1545,7 +1545,7 @@ const WorkerDashboard = () => {
             )}
 
             <button 
-              className="w-full h-20 rounded-[2rem] bg-primary text-foreground font-black uppercase tracking-[0.4em] text-xs shadow-3xl shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="w-full h-20 rounded-[2rem] bg-primary text-foreground font-black uppercase tracking-[0.4em] text-xs shadow-3xl shadow-primary-glow hover:scale-[1.02] active:scale-[0.98] transition-all"
               onClick={async () => {
                 if (selectedJob.id.startsWith("demo")) {
                    const updated = activeRequests.map(r => r.id === selectedJob.id ? { ...r, status: "In Progress" as any, workerId: user.id } : r);

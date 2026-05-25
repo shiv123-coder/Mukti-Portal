@@ -149,7 +149,7 @@ const CustomerActivity = () => {
        <div className="mb-10 flex items-center justify-between relative z-10">
           <div>
             <h2 className="text-3xl font-black italic tracking-tighter text-primary-foreground flex items-center gap-4 uppercase">
-              <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
+              <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary-glow">
                 <History size={28} />
               </div>
               My Activity
@@ -179,7 +179,7 @@ const CustomerActivity = () => {
                key={t}
                onClick={() => setFilterType(t as any)}
                className={`px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all ${
-                 filterType === t ? "bg-primary text-primary-foreground shadow-lg shadow-orange-500/20" : "text-muted-foreground hover:text-primary-foreground"
+                 filterType === t ? "bg-primary text-primary-foreground shadow-lg shadow-primary-glow" : "text-muted-foreground hover:text-primary-foreground"
                }`}
              >
                {t}
@@ -378,7 +378,7 @@ const CustomerActivity = () => {
                   setSelectedActivity(null);
                   navigate(`/tracking/${selectedActivity.id}`);
                 }}
-                className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-[0.4em] text-[10px] shadow-xl shadow-orange-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all mb-4"
+                className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-[0.4em] text-[10px] shadow-xl shadow-primary-glow hover:scale-[1.02] active:scale-[0.98] transition-all mb-4"
               >
                 Track Request
               </button>

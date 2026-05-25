@@ -24,7 +24,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/hooks/useAuth";
 
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -36,7 +36,7 @@ interface AdminLayoutProps {
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const { user, logout } = useAuth();
 
-  const { isDark, toggle } = useTheme();
+  const { theme, setTheme } = useTheme();
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [pendingRequests, setPendingRequests] = useState(0);
@@ -78,16 +78,16 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   }, [user]);
 
   const menuItems = [
-    { icon: <LayoutDashboard size={20} />, label: t("admin_sidebar_home"), path: "/admin/dashboard" },
-    { icon: <Users size={20} />, label: t("admin_sidebar_workers"), path: "/admin/workers" },
-    { icon: <Users size={20} />, label: t("admin_sidebar_customers"), path: "/admin/customers" },
-    { icon: <AlertTriangle size={20} />, label: t("admin_sidebar_fraud"), path: "/admin/fraud" },
+    { icon: <LayoutDashboard size={20} />, label: "Dashboard", path: "/admin/dashboard" },
+    { icon: <Users size={20} />, label: "Workers", path: "/admin/workers" },
+    { icon: <Users size={20} />, label: "Customers", path: "/admin/customers" },
+    { icon: <AlertTriangle size={20} />, label: "Fraud Detection", path: "/admin/fraud" },
     { icon: <ShieldCheck size={20} />, label: "Verification Requests", path: "/admin/requests" },
-    { icon: <MessageSquare size={20} />, label: t("admin_sidebar_reviews"), path: "/admin/reviews" },
-    { icon: <TrendingUp size={20} />, label: t("admin_sidebar_analytics"), path: "/admin/analytics" },
-    { icon: <Wallet size={20} />, label: t("admin_sidebar_financials"), path: "/admin/financials" },
-    { icon: <BrainCircuit size={20} />, label: t("admin_sidebar_ml"), path: "/admin/ml" },
-    { icon: <Settings size={20} />, label: t("admin_sidebar_settings"), path: "/admin/settings" },
+    { icon: <MessageSquare size={20} />, label: "Reviews", path: "/admin/reviews" },
+    { icon: <TrendingUp size={20} />, label: "Analytics", path: "/admin/analytics" },
+    { icon: <Wallet size={20} />, label: "Financials", path: "/admin/financials" },
+    { icon: <BrainCircuit size={20} />, label: "ML Hub", path: "/admin/ml" },
+    { icon: <Settings size={20} />, label: "Settings", path: "/admin/settings" },
   ];
 
   return (
@@ -100,7 +100,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         )}
       >
         <div className="p-6 flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-orange-600/20">
+          <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary-glow">
             <ShieldCheck className="text-primary-foreground" size={24} />
           </div>
           {isSidebarOpen && (
@@ -115,7 +115,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               to={item.path}
               className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all group active:scale-95 ${
                 location.pathname === item.path 
-                ? 'bg-primary text-primary-foreground shadow-lg shadow-orange-600/20 italic' 
+                ? 'bg-primary text-primary-foreground shadow-lg shadow-primary-glow italic' 
                 : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
               }`}
             >
@@ -131,7 +131,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           {/* Admin Profile - Downside */}
           {isSidebarOpen && (
             <div className="flex items-center gap-4 px-2">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center font-black text-primary-foreground shadow-lg italic shadow-orange-600/20">
+              <div className="h-10 w-10 rounded-full bg-gradient-primary flex items-center justify-center font-black text-primary-foreground shadow-lg italic shadow-primary-glow">
                 {user?.name?.[0]}
               </div>
               <div className="flex flex-col min-w-0">
@@ -254,11 +254,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             
             <div className="flex items-center gap-3">
               <button
-                onClick={toggle}
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="h-9 w-9 flex items-center justify-center rounded-xl bg-secondary border border-border text-muted-foreground transition-all hover:text-foreground hover:bg-secondary/80 active:scale-95"
-                title={isDark ? "Switch to Bright Mode" : "Switch to Deep Galaxy"}
+                title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
-                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
               </button>
 
               <button

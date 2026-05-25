@@ -174,7 +174,7 @@ const AdminWorkers = () => {
           <option value="Electrician">Electrician</option>
           <option value="Plumber">Plumber</option>
         </select>
-        <button className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-black text-[10px] uppercase tracking-widest shadow-lg shadow-orange-600/20 active:scale-95 transition-transform">
+        <button className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary-glow active:scale-95 transition-transform">
           Apply Filters
         </button>
       </div>

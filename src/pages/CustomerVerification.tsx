@@ -923,7 +923,7 @@ const CustomerVerification = () => {
                  <div className="relative z-10">
                     <div className="mb-4 flex justify-center">
                        <div className="relative">
-                          <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-primary-foreground text-3xl font-black shadow-[0_0_20px_rgba(249,115,22,0.4)]">
+                          <div className="h-20 w-20 rounded-3xl bg-gradient-primary flex items-center justify-center text-primary-foreground text-3xl font-black shadow-primary-glow">
                              {user.name.charAt(0)}
                           </div>
                           <div className="absolute -bottom-2 -right-2 p-1.5 rounded-xl bg-card border border-primary/30 text-primary shadow-lg">
@@ -950,7 +950,7 @@ const CustomerVerification = () => {
                        </div>
                        <div className="h-2 w-full bg-card rounded-full overflow-hidden border border-border">
                           <div 
-                             className="h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full transition-all duration-1000"
+                             className="h-full bg-gradient-primary rounded-full transition-all duration-1000"
                              style={{ width: `${trustScore}%` }}
                           />
                        </div>
@@ -1068,7 +1068,7 @@ const CustomerVerification = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <button
                   onClick={() => setStep("request")}
-                  className="group relative flex flex-col items-center justify-center gap-3 rounded-[2.5rem] bg-gradient-to-br from-orange-400 to-orange-600 p-6 sm:p-10 text-primary-foreground shadow-2xl shadow-orange-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
+                  className="group relative flex flex-col items-center justify-center gap-3 rounded-[2.5rem] bg-gradient-primary p-6 sm:p-10 text-primary-foreground shadow-2xl shadow-primary-glow transition-all hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 w-48 h-48 bg-card/10 rounded-full -mr-24 -mt-24 blur-3xl group-hover:scale-150 transition-transform duration-700" />
                   <div className="relative z-10 p-3 sm:p-5 rounded-2xl bg-card/20 backdrop-blur-md">
@@ -1115,7 +1115,7 @@ const CustomerVerification = () => {
                               <div className="text-left">
                                  <div className="text-base font-black text-primary-foreground">{v.workerName || "Worker"}</div>
                                  <div className="text-[10px] font-bold text-muted-foreground flex items-center gap-2 mt-1 uppercase tracking-tight">
-                                    {v.service || "Home Service"} • <Star className="text-primary fill-orange-400" size={10} /> <span className="text-primary">{v.rating}</span>
+                                    {v.service || "Home Service"} • <Star className="text-primary fill-primary" size={10} /> <span className="text-primary">{v.rating}</span>
                                     {nlpInsights[i] && (
                                       <>
                                         <span className="h-1 w-1 rounded-full bg-card"></span>
@@ -1156,7 +1156,7 @@ const CustomerVerification = () => {
               <ArrowLeft size={24} />
            </button>
            
-           <div className="relative w-full max-w-[340px] aspect-[3/4] rounded-[3rem] border-4 border-primary overflow-hidden shadow-[0_0_60px_rgba(249,115,22,0.3)] bg-background">
+           <div className="relative w-full max-w-[340px] aspect-[3/4] rounded-[3rem] border-4 border-primary overflow-hidden shadow-primary-glow bg-background">
               <video ref={videoRef} autoPlay playsInline className="absolute inset-0 w-full h-full object-cover opacity-80" />
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                  <div className="w-56 h-56 border-2 border-dashed border-primary/50 rounded-[2rem] animate-[pulse_2s_infinite]" />
@@ -1187,7 +1187,7 @@ const CustomerVerification = () => {
                  <button 
                    onClick={handleCodeVerify}
                    disabled={manualCode.length !== 6 || isSearchingCode}
-                   className="w-full py-5 rounded-[1.5rem] bg-primary text-primary-foreground font-black uppercase tracking-widest text-xs hover:bg-primary active:scale-[0.98] transition-all disabled:opacity-20 shadow-xl shadow-orange-500/20"
+                   className="w-full py-5 rounded-[1.5rem] bg-primary text-primary-foreground font-black uppercase tracking-widest text-xs hover:bg-primary active:scale-[0.98] transition-all disabled:opacity-20 shadow-xl shadow-primary-glow"
                  >
                    {isSearchingCode ? "FETCHING DATA..." : "VERIFY ID NOW"}
                  </button>
@@ -1201,7 +1201,7 @@ const CustomerVerification = () => {
           <div className="w-full max-w-2xl bg-background rounded-[3rem] shadow-2xl overflow-hidden border border-border animate-fade-up">
             <div className="p-8 pb-5 flex items-center justify-between border-b border-border bg-card/[0.02]">
                <h3 className="text-xl font-black tracking-tight text-primary-foreground flex items-center gap-3 italic uppercase">
-                  <div className="p-2.5 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
+                  <div className="p-2.5 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary-glow">
                     <Wrench size={20} />
                   </div>
                   Request a Worker
@@ -1225,7 +1225,7 @@ const CustomerVerification = () => {
                       onClick={() => setReqService(cat.value)}
                       className={`flex flex-col items-center gap-2 p-3 rounded-2xl border text-center transition-all ${
                         reqService === cat.value
-                          ? "bg-primary/10 border-primary/30 text-primary shadow-lg shadow-orange-500/10"
+                          ? "bg-primary/10 border-primary/30 text-primary shadow-lg shadow-primary-glow"
                           : "bg-card/5 border-border text-muted-foreground hover:text-primary-foreground hover:border-border"
                       }`}
                     >
@@ -1260,7 +1260,7 @@ const CustomerVerification = () => {
                       onClick={() => { setReqBudget(b); setReqBudgetCustom(""); }}
                       className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
                         reqBudget === b && !reqBudgetCustom
-                          ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-orange-500/20"
+                          ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary-glow"
                           : "bg-card/5 border-border text-muted-foreground hover:text-primary-foreground"
                       }`}
                     >
@@ -1371,7 +1371,7 @@ const CustomerVerification = () => {
               <button
                 onClick={handleRequestSubmit}
                 disabled={!reqService || !reqDescription || !reqLocation || isSubmittingRequest}
-                className="w-full py-5 rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-primary-foreground text-xs font-black uppercase tracking-[0.3em] shadow-2xl shadow-orange-500/30 hover:shadow-orange-500/50 transition-all active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-3"
+                className="w-full py-5 rounded-2xl bg-gradient-primary text-primary-foreground text-xs font-black uppercase tracking-[0.3em] shadow-2xl shadow-primary-glow hover:shadow-primary-glow transition-all active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-3"
               >
                 {isSubmittingRequest ? <><Clock size={16} className="animate-spin" /> Posting...</> : <>Find Best Specialist <ArrowRight size={18} /></>}
               </button>
@@ -1386,7 +1386,7 @@ const CustomerVerification = () => {
               <div className="absolute inset-0 animate-[ping_3s_infinite] rounded-full bg-primary/10" />
               <div className="absolute inset-4 animate-[ping_2s_infinite] rounded-full bg-primary/20" />
               <div className="absolute inset-8 animate-[ping_1.5s_infinite] rounded-full bg-primary/30" />
-              <div className="relative flex h-36 w-36 items-center justify-center rounded-[3rem] bg-primary text-primary-foreground shadow-[0_0_80px_rgba(249,115,22,0.5)]">
+              <div className="relative flex h-36 w-36 items-center justify-center rounded-[3rem] bg-primary text-primary-foreground shadow-primary-glow">
                  <Wrench size={56} className="animate-spin duration-500" style={{ animationDuration: '3s' }} />
               </div>
            </div>
@@ -1407,7 +1407,7 @@ const CustomerVerification = () => {
              <div className="w-full bg-background rounded-[3rem] shadow-2xl border border-border overflow-hidden">
                 <div className="p-10 pb-6 flex items-center justify-between border-b border-border bg-card/[0.02]">
                    <h3 className="text-2xl font-black text-primary-foreground italic uppercase flex items-center gap-4">
-                      <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
+                      <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary-glow">
                          <CheckCircle2 size={24} />
                       </div>
                       Work Accomplished
@@ -1459,7 +1459,7 @@ const CustomerVerification = () => {
                              <div className="absolute top-4 right-6 flex items-center gap-3">
                                 <button 
                                   onClick={toggleRecording}
-                                  className={`p-2.5 rounded-xl border transition-all ${isRecording ? 'bg-primary text-primary-foreground border-primary shadow-[0_0_15px_rgba(249,115,22,0.4)] animate-pulse' : 'bg-card/5 text-muted-foreground border-border hover:text-primary hover:border-primary/30 font-black italic'}`}
+                                  className={`p-2.5 rounded-xl border transition-all ${isRecording ? 'bg-primary text-primary-foreground border-primary shadow-primary-glow animate-pulse' : 'bg-card/5 text-muted-foreground border-border hover:text-primary hover:border-primary/30 font-black italic'}`}
                                 >
                                    <Mic size={18} />
                                 </button>
@@ -1527,7 +1527,7 @@ const CustomerVerification = () => {
                    <button
                      onClick={handleSubmit}
                      disabled={rating === 0 || isVerifyingLocation || (otpSent && otpCode.length < 4) || (comment.length < 10)}
-                     className={`h-20 w-full rounded-3xl bg-gradient-to-br ${otpSent ? 'from-emerald-500 to-teal-600 shadow-emerald-500/30' : 'from-orange-500 to-orange-600 shadow-orange-500/40'} font-black text-primary-foreground shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm`}
+                     className={`h-20 w-full rounded-3xl bg-gradient-to-br ${otpSent ? 'from-emerald-500 to-teal-600 shadow-emerald-500/30' : 'from-primary to-indigo-600 shadow-primary-glow'} font-black text-primary-foreground shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm`}
                    >
                      {isVerifyingLocation ? <><Clock size={20} className="animate-spin" /> VERIFYING GPS...</> : otpSent ? "NEXT: GEO VERIFY" : <>NEXT: SECURE AUTH <ArrowRight size={20} /></>}
                    </button>
@@ -1539,7 +1539,7 @@ const CustomerVerification = () => {
               <div className="w-full bg-background rounded-[3rem] shadow-2xl border border-border overflow-hidden animate-in fade-in duration-500">
                 <div className="p-10 pb-6 flex items-center justify-between border-b border-border bg-card/[0.02]">
                    <h3 className="text-2xl font-black text-primary-foreground italic uppercase flex items-center gap-4">
-                      <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
+                      <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary-glow">
                          <Crosshair size={24} />
                       </div>
                       Geo Verification
@@ -1554,7 +1554,7 @@ const CustomerVerification = () => {
                       <div className="relative mx-auto h-40 w-40 flex items-center justify-center">
                          <div className={`absolute inset-0 rounded-full ${isCheckingGeo ? 'animate-[ping_2s_infinite]' : ''} bg-primary/10`} />
                          <div className={`absolute inset-4 rounded-full ${isCheckingGeo ? 'animate-[ping_1.5s_infinite]' : ''} bg-primary/20`} />
-                         <div className="relative h-20 w-20 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-[0_0_40px_rgba(249,115,22,0.4)]">
+                         <div className="relative h-20 w-20 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-primary-glow">
                             {isCheckingGeo ? <Clock size={36} className="animate-spin" /> : geoResult?.isValid ? <ShieldCheck size={36} /> : <Crosshair size={36} />}
                          </div>
                       </div>
@@ -1582,7 +1582,7 @@ const CustomerVerification = () => {
                      <button
                        onClick={handleGeoValidation}
                        disabled={isCheckingGeo}
-                       className="h-20 w-full rounded-3xl bg-gradient-to-br from-orange-500 to-orange-600 font-black text-primary-foreground shadow-2xl shadow-orange-500/40 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm"
+                       className="h-20 w-full rounded-3xl bg-gradient-primary font-black text-primary-foreground shadow-2xl shadow-primary-glow transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm"
                      >
                        {isCheckingGeo ? <><Clock size={20} className="animate-spin" /> TRIANGULATING POSITION...</> : <><Crosshair size={20} /> VERIFY MY LOCATION</>}
                      </button>
@@ -1602,7 +1602,7 @@ const CustomerVerification = () => {
               <div className="w-full bg-background rounded-[3rem] shadow-2xl border border-border overflow-hidden animate-in fade-in duration-500">
                 <div className="p-10 pb-6 flex items-center justify-between border-b border-border bg-card/[0.02]">
                    <h3 className="text-2xl font-black text-primary-foreground italic uppercase flex items-center gap-4">
-                      <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
+                      <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary-glow">
                          <Camera size={24} />
                       </div>
                       Photo Verification
@@ -1615,7 +1615,7 @@ const CustomerVerification = () => {
                 <div className="p-10 space-y-6">
                    {!capturedPhoto ? (
                      <>
-                       <div className="relative w-full aspect-[4/3] rounded-[2.5rem] border-4 border-primary/30 overflow-hidden bg-background shadow-[0_0_40px_rgba(249,115,22,0.15)]">
+                       <div className="relative w-full aspect-[4/3] rounded-[2.5rem] border-4 border-primary/30 overflow-hidden bg-background shadow-primary-glow">
                           <video ref={photoVideoRef} autoPlay playsInline className="absolute inset-0 w-full h-full object-cover" />
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                              <div className="w-48 h-48 border-2 border-dashed border-primary/40 rounded-[2rem] animate-[pulse_2s_infinite]" />
@@ -1627,7 +1627,7 @@ const CustomerVerification = () => {
                           <button
                             onClick={handleCapturePhoto}
                             disabled={isCapturing}
-                            className="py-5 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-widest text-xs shadow-lg shadow-orange-500/30 hover:bg-primary transition-all active:scale-[0.98] disabled:opacity-40 flex items-center justify-center gap-3"
+                            className="py-5 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-widest text-xs shadow-lg shadow-primary-glow hover:bg-primary transition-all active:scale-[0.98] disabled:opacity-40 flex items-center justify-center gap-3"
                           >
                             {isCapturing ? <Clock size={16} className="animate-spin" /> : <Camera size={16} />}
                             {isCapturing ? "CAPTURING..." : "CAPTURE"}
@@ -1640,7 +1640,7 @@ const CustomerVerification = () => {
                      </>
                    ) : (
                      <>
-                       <div className="relative w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden border-4 border-emerald-500/30 shadow-[0_0_40px_rgba(16,185,129,0.15)]">
+                       <div className="relative w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden border-4 border-emerald-500/30 shadow-primary-glow">
                           <img src={capturedPhoto} className="w-full h-full object-cover" alt="Captured" />
                           {isDuplicatePhoto && (
                             <div className="absolute inset-0 bg-red-500/20 flex items-center justify-center">
@@ -1691,7 +1691,7 @@ const CustomerVerification = () => {
               <div className="flex w-full flex-col items-center rounded-[3.5rem] bg-background p-16 text-center border border-emerald-500/30 shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-50" />
                 <div className="mb-10 flex h-28 w-28 items-center justify-center rounded-full bg-emerald-500/10 shadow-inner group-hover:scale-110 transition-transform duration-700">
-                  <CheckCircle size={56} className="text-emerald-500 drop-shadow-[0_0_20px_rgba(16,185,129,0.6)]" />
+                  <CheckCircle size={56} className="text-emerald-500 drop-shadow-primary-glow" />
                 </div>
                 <h3 className="mb-4 text-4xl font-black tracking-tighter text-primary-foreground italic uppercase">VERIFIED SUCCESS!</h3>
                 <p className="mb-12 text-sm font-black text-muted-foreground max-w-sm mx-auto uppercase tracking-widest leading-relaxed">
@@ -1702,7 +1702,7 @@ const CustomerVerification = () => {
                      <div className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] mb-2">CREDIT AWARDED</div>
                      <div className="text-3xl font-black text-primary tracking-tighter">+{earnedPoints} MUKTI PTS</div>
                   </div>
-                  <div className="h-16 w-16 rounded-3xl bg-primary text-primary-foreground flex items-center justify-center shadow-2xl shadow-orange-500/40">
+                  <div className="h-16 w-16 rounded-3xl bg-primary text-primary-foreground flex items-center justify-center shadow-2xl shadow-primary-glow">
                      <Award size={32} />
                   </div>
                 </div>

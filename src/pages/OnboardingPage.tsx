@@ -86,7 +86,7 @@ const OnboardingPage = () => {
       <div className="flex-1 flex flex-col items-center justify-center p-6 relative z-10">
         <div className="w-full max-w-xl">
           <div className="text-center mb-10">
-            <h1 className="font-serif text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">
+            <h1 className="font-serif text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-600">
               Welcome to Mukti!
             </h1>
             <p className="mt-2 text-muted-foreground font-medium">Let's build your professional profile to start getting jobs.</p>
@@ -96,7 +96,7 @@ const OnboardingPage = () => {
             {/* Progress Bar */}
             <div className="absolute top-0 left-0 w-full h-1 bg-secondary">
               <div 
-                className="h-full bg-gradient-to-r from-primary to-orange-400 transition-all duration-500 ease-out"
+                className="h-full bg-gradient-to-r from-primary to-indigo-600 transition-all duration-500 ease-out"
                 style={{ width: `${(step / 3) * 100}%` }}
               />
             </div>
@@ -147,7 +147,7 @@ const OnboardingPage = () => {
                 <button
                   onClick={() => setStep(2)}
                   disabled={!skill || experience === ""}
-                  className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 mt-6"
+                  className="w-full rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-primary-glow transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 mt-6"
                 >
                   Next Step
                 </button>
@@ -205,7 +205,7 @@ const OnboardingPage = () => {
                   <button
                     onClick={() => setStep(3)}
                     disabled={rate === ""}
-                    className="flex-1 rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50"
+                    className="flex-1 rounded-2xl bg-primary py-4 text-sm font-bold text-foreground shadow-primary-glow transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50"
                   >
                     Next Step
                   </button>
@@ -257,7 +257,7 @@ const OnboardingPage = () => {
                   <button
                     onClick={handleSubmit}
                     disabled={!location || loading}
-                    className="flex-1 rounded-2xl bg-emerald-500 py-4 text-sm font-bold text-foreground shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center"
+                    className="flex-1 rounded-2xl bg-emerald-500 py-4 text-sm font-bold text-foreground shadow-primary-glow transition-all hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center"
                   >
                     {loading ? <Loader2 size={18} className="animate-spin" /> : "Complete Profile & Start"}
                   </button>

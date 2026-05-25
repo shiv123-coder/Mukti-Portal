@@ -135,7 +135,7 @@ const PublicReport = () => {
         {/* Worker Info */}
         <div className="bg-card rounded-xl shadow-sm border border-border p-5">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-14 h-14 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-primary-foreground text-2xl font-bold shadow-md">
+            <div className="w-14 h-14 bg-gradient-primary rounded-xl flex items-center justify-center text-primary-foreground text-2xl font-bold shadow-md">
               {workerName.charAt(0).toUpperCase()}
             </div>
             <div>

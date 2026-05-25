@@ -76,7 +76,7 @@ const AdminSettings = () => {
           <button onClick={handleReset} className="h-12 px-6 rounded-xl bg-secondary border border-border flex items-center gap-3 text-[10px] font-black text-muted-foreground uppercase tracking-widest hover:bg-secondary/80 transition-all active:scale-95">
             <RotateCcw size={16} /> Reset Default
           </button>
-          <button onClick={handleSave} className="h-12 px-8 rounded-xl bg-primary text-primary-foreground flex items-center gap-3 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-orange-600/20 hover:scale-[1.02] active:scale-95 transition-all italic">
+          <button onClick={handleSave} className="h-12 px-8 rounded-xl bg-primary text-primary-foreground flex items-center gap-3 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary-glow hover:scale-[1.02] active:scale-95 transition-all italic">
             <Save size={16} /> Save Changes
           </button>
         </div>

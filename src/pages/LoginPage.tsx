@@ -169,7 +169,7 @@ const LoginPage = () => {
         
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-8">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-orange-600 text-white shadow-lg shadow-primary/20">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-indigo-600 text-white shadow-lg shadow-primary/20">
               <span className="text-2xl font-black italic">M</span>
             </div>
             <h1 className="font-serif text-3xl font-black tracking-tighter text-white">Mukti</h1>
@@ -216,7 +216,7 @@ const LoginPage = () => {
         <div className="w-full max-w-[440px] z-10">
           
           <div className="lg:hidden flex items-center gap-2 mb-10 justify-center">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-orange-600 text-white shadow-lg shadow-primary/20">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-indigo-600 text-white shadow-lg shadow-primary/20">
               <span className="text-xl font-black italic">M</span>
             </div>
             <h1 className="font-serif text-2xl font-black tracking-tighter text-foreground">Mukti</h1>
@@ -410,7 +410,7 @@ const LoginPage = () => {
                         <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider pl-1">Password *</label>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" required />
                         <div className="h-1.5 w-full bg-secondary rounded-full mt-2 overflow-hidden">
-                          <div className={`h-full transition-all duration-300 ${passwordStrength < 40 ? 'bg-destructive' : passwordStrength < 70 ? 'bg-orange-500' : 'bg-emerald-500'}`} style={{ width: `${passwordStrength}%` }} />
+                          <div className={`h-full transition-all duration-300 ${passwordStrength < 40 ? 'bg-destructive' : passwordStrength < 70 ? 'bg-primary' : 'bg-emerald-500'}`} style={{ width: `${passwordStrength}%` }} />
                         </div>
                       </div>
                       
@@ -503,7 +503,7 @@ const LoginPage = () => {
 
                 {signupStep === "otp" && (
                   <div className="space-y-6 text-center py-4">
-                    <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary border border-primary/20 shadow-[0_0_30px_rgba(249,115,22,0.2)]">
+                    <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary border border-primary/20 shadow-primary-glow">
                       <ShieldCheck size={32} />
                     </div>
                     <div>
@@ -537,7 +537,7 @@ const LoginPage = () => {
 
                       {loginError && <p className="text-destructive text-sm font-semibold">{loginError}</p>}
 
-                      <button type="submit" disabled={otp.length < 4 || loadingAction} className="w-full rounded-xl bg-primary text-primary-foreground py-4 text-base font-bold shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50">
+                      <button type="submit" disabled={otp.length < 4 || loadingAction} className="w-full rounded-xl bg-primary text-primary-foreground py-4 text-base font-bold shadow-primary-glow transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50">
                         {loadingAction ? <Loader2 size={20} className="animate-spin mx-auto" /> : "Complete Registration"}
                       </button>
                     </form>

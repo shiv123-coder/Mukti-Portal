@@ -131,7 +131,7 @@ const LiveTracking = () => {
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
-        <div className="h-16 w-16 animate-spin rounded-full border-4 border-primary border-t-transparent shadow-[0_0_20px_rgba(249,115,22,0.3)]"></div>
+        <div className="h-16 w-16 animate-spin rounded-full border-4 border-primary border-t-transparent shadow-primary-glow"></div>
       </div>
     );
   }
@@ -161,7 +161,7 @@ const LiveTracking = () => {
       <div className="mb-10 flex items-center justify-between relative z-10">
           <div>
             <h1 className="text-3xl font-black italic tracking-tighter text-primary-foreground flex items-center gap-4 uppercase">
-              <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
+              <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary-glow">
                 <Navigation size={28} className="animate-pulse" />
               </div>
               Live Tracking
@@ -179,7 +179,7 @@ const LiveTracking = () => {
         <div className="relative mb-10 flex justify-center">
            <div className="relative h-36 w-36">
               <div className="absolute inset-0 animate-[ping_3s_infinite] rounded-full bg-primary/10 opacity-75" />
-              <div className="relative flex h-36 w-36 items-center justify-center rounded-[3rem] bg-gradient-to-br from-orange-400 to-orange-600 text-primary-foreground shadow-2xl border border-border">
+              <div className="relative flex h-36 w-36 items-center justify-center rounded-[3rem] bg-gradient-primary text-primary-foreground shadow-2xl border border-border">
                  {job.status === "Searching" ? <Navigation size={64} className="animate-[spin_4s_linear_infinite]" /> : 
                   job.status === "In Progress" ? <Wrench size={64} /> :
                   <ShieldCheck size={64} />}
@@ -210,7 +210,7 @@ const LiveTracking = () => {
              return (
                <div key={s.key} className="relative z-10 flex flex-col items-center gap-4">
                  <div className={`h-14 w-14 rounded-2xl border-2 flex items-center justify-center transition-all duration-700 ${
-                   isCurrent ? "bg-primary border-primary text-primary-foreground scale-125 shadow-[0_0_30px_rgba(249,115,22,0.4)]" : 
+                   isCurrent ? "bg-primary border-primary text-primary-foreground scale-125 shadow-primary-glow" : 
                    isActive ? "bg-primary/10 border-primary/30 text-primary" : "bg-background border-border text-foreground"
                  }`}>
                    <s.icon size={24} strokeWidth={isCurrent ? 3 : 2} />
@@ -280,7 +280,7 @@ const LiveTracking = () => {
                            onClick={() => setReviewRating(star)}
                            className={`h-14 w-14 rounded-2xl flex items-center justify-center transition-all ${
                              star <= reviewRating 
-                               ? "bg-primary text-primary-foreground shadow-xl shadow-orange-500/30 scale-110" 
+                               ? "bg-primary text-primary-foreground shadow-xl shadow-primary-glow scale-110" 
                                : "bg-card/5 text-muted-foreground border border-border hover:border-primary/30"
                            }`}
                          >

@@ -276,7 +276,7 @@ const WorkerProfile = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <motion.div variants={slideUp} className="card-premium-glow rounded-3xl p-6 text-center">
               <div className="mx-auto w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-4">
-                <Star size={24} className="fill-orange-500 drop-shadow-sm" />
+                <Star size={24} className="fill-primary drop-shadow-sm" />
               </div>
               <div className="text-3xl font-bold text-foreground">{profileMetrics.performance.avgRating}</div>
               <div className="text-xs font-semibold text-muted-foreground mt-1">Rating</div>
@@ -329,7 +329,7 @@ const WorkerProfile = () => {
                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{v.description || "Completed professional service."}</p>
                        {(v.rating || v.amount) && (
                          <div className="mt-4 flex items-center gap-4 text-xs font-semibold">
-                           {v.rating && <span className="flex items-center gap-1 text-orange-500"><Star size={14} className="fill-orange-500" /> {v.rating}.0</span>}
+                           {v.rating && <span className="flex items-center gap-1 text-primary"><Star size={14} className="fill-primary" /> {v.rating}.0</span>}
                            {v.amount && <span className="text-emerald-500">₹{v.amount}</span>}
                          </div>
                        )}

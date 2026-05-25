@@ -25,7 +25,7 @@ const StarRating = ({
             size={size}
             className={
               star <= value
-                ? "fill-orange-400 text-primary drop-shadow-[0_0_8px_rgba(251,146,60,0.4)]"
+                ? "fill-primary text-primary drop-shadow-primary-glow"
                 : "text-foreground"
             }
           />

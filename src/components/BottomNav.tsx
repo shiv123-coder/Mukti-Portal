@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { LayoutDashboard, QrCode, FileText, UserCircle, History, PlusCircle, Wallet, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "next-themes";
 
 const WORKER_NAV = [
   { path: "/dashboard", label: "Home", icon: LayoutDashboard },
@@ -19,10 +19,12 @@ const CUSTOMER_NAV = [
 ];
 
 const BottomNav = () => {
+  const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const { isDark, toggle } = useTheme();
+  const [scrolled, setScrolled] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const isDark = theme === "dark";
 
   if (!user) return null;
 
@@ -48,7 +50,7 @@ const BottomNav = () => {
                 "flex items-center justify-center rounded-2xl p-2.5 transition-all duration-500",
                 isActive ? "bg-primary/10 shadow-[inset_0_0_20px_rgba(249,115,22,0.1)] border border-primary/20" : "bg-transparent border border-transparent"
               )}>
-                <item.icon size={24} strokeWidth={isActive ? 3 : 2} className={isActive ? "drop-shadow-[0_0_8px_rgba(249,115,22,0.4)]" : ""} />
+                <item.icon size={24} strokeWidth={isActive ? 3 : 2} className={isActive ? "drop-shadow-primary-glow" : ""} />
               </div>
               <span className={cn(
                 "text-[8px] font-black uppercase tracking-[0.2em] transition-all duration-500 italic",
@@ -57,13 +59,13 @@ const BottomNav = () => {
                 {item.label}
               </span>
               {isActive && (
-                <span className="absolute -bottom-2 h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_12px_rgba(249,115,22,1)] animate-in fade-in zoom-in duration-500" />
+                <span className="absolute -bottom-2 h-1.5 w-1.5 rounded-full bg-primary shadow-primary-glow animate-in fade-in zoom-in duration-500" />
               )}
             </button>
           );
         })}
         <button
-          onClick={toggle}
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="relative flex flex-col items-center justify-center gap-1.5 px-3 py-2 transition-all duration-500 ease-out active:scale-90 text-muted-foreground hover:text-foreground"
         >
           <div className="flex items-center justify-center rounded-2xl p-2.5 transition-all duration-500 bg-transparent border border-transparent">
