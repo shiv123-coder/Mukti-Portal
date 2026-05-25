@@ -290,7 +290,7 @@ const AdminOverview = () => {
                 <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#ffffff05" : "#00000005"} vertical={false} />
                 <XAxis dataKey="name" stroke={isDark ? "#475569" : "#94a3b8"} fontSize={10} fontWeight="bold" axisLine={false} tickLine={false} tickMargin={10} />
                 <YAxis stroke={isDark ? "#475569" : "#94a3b8"} fontSize={10} fontWeight="bold" axisLine={false} tickLine={false} tickMargin={10} />
-                <Tooltip 
+                <RechartsTooltip 
                   contentStyle={{ 
                     backgroundColor: isDark ? '#0f172a' : '#ffffff', 
                     border: isDark ? '1px solid #ffffff10' : '1px solid #e2e8f0', 
