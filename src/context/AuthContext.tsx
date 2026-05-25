@@ -7,6 +7,10 @@ import {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   signOut,
+  GoogleAuthProvider,
+  signInWithCredential,
+  EmailAuthProvider,
+  linkWithCredential
 } from "firebase/auth";
 import { 
   doc, 
@@ -63,53 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     }, 5000);
 
-    // 1. Check for Custom Google Session First
-    const googleSessionId = localStorage.getItem("mukti_google_session");
-    if (googleSessionId) {
-      clearTimeout(timeoutId);
-      const userDocRef = doc(db, "users", googleSessionId);
-      
-      const syncGoogleUser = async () => {
-        try {
-          const docSnap = await getDoc(userDocRef);
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            const lastOtp = data.lastOtpDate ? (data.lastOtpDate as Timestamp).toDate() : null;
-            
-            setUser({
-              ...data,
-              id: googleSessionId,
-              isDemo: false,
-              lastActive: data.lastActive ? (data.lastActive as Timestamp).toDate() : new Date(),
-              lastOtpDate: lastOtp,
-            } as User);
-          } else {
-            localStorage.removeItem("mukti_google_session");
-            setUser(null);
-          }
-        } catch (err) {
-          console.warn("Google session fetch failed", err);
-          setUser(null);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      syncGoogleUser();
-
-      const unsubscribeUser = onSnapshot(userDocRef, (docSnap) => {
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setUser(prev => prev ? { ...prev, ...data } : { ...data, id: googleSessionId } as User);
-        }
-      }, (err) => {
-        console.warn("Google user profile sync listener inhibited:", err.message);
-      });
-
-      return () => unsubscribeUser();
-    }
-
-    // 2. Fallback to Firebase Auth for standard Email/Password users
+    // Listen to Firebase Auth
     const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
       clearTimeout(timeoutId);
       if (firebaseUser) {
@@ -216,95 +174,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signInWithGoogle(role: UserRole, accessToken: string) {
     try {
-      const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-        headers: { Authorization: `Bearer ${accessToken}` }
-      });
-      if (!res.ok) throw new Error("Failed to fetch Google profile");
-      const googleUser = await res.json();
-      const googleId = googleUser.sub;
+      const credential = GoogleAuthProvider.credential(null, accessToken);
+      const result = await signInWithCredential(auth, credential);
+      const firebaseUser = result.user;
 
-      let userDocData = null;
-      let userId = null;
+      const userDocRef = doc(db, "users", firebaseUser.uid);
+      const docSnap = await getDoc(userDocRef);
 
-      try {
-        // 1. Check if an old account exists where the document ID is the googleId
-        const oldDocRef = doc(db, "users", googleId);
-        const oldDocSnap = await getDoc(oldDocRef);
+      if (docSnap.exists()) {
+        const userDocData = docSnap.data();
         
-        if (oldDocSnap.exists()) {
-          userDocData = oldDocSnap.data();
-          userId = googleId;
-        } else {
-          // 2. Query by googleId field (new accounts)
-          const qGoogleId = query(collection(db, "users"), where("googleId", "==", googleId));
-          const snapGoogleId = await getDocs(qGoogleId);
-          if (!snapGoogleId.empty) {
-            userDocData = snapGoogleId.docs[0].data();
-            userId = snapGoogleId.docs[0].id;
-          } else {
-            // 3. Try to match by email
-            const qEmail = query(collection(db, "users"), where("email", "==", googleUser.email));
-            const snapEmail = await getDocs(qEmail);
-            if (!snapEmail.empty) {
-              userDocData = snapEmail.docs[0].data();
-              userId = snapEmail.docs[0].id;
-              // Link googleId for future
-              await updateDoc(doc(db, "users", userId), { googleId });
-            }
-          }
+        const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
+        const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL || firebaseUser.email === `${adminPhone}@mukti.com`;
+        
+        if (isAdmin && userDocData.role !== "admin") {
+          await updateDoc(doc(db, "users", firebaseUser.uid), { role: "admin" });
+          userDocData.role = "admin";
         }
-      } catch (docError: any) {
-        if (docError.code === 'unavailable' || docError.message?.includes('offline')) {
-          console.warn("Firestore is offline. Returning profile data to prevent crash.");
-          return {
-            exists: false,
-            googleId,
-            email: googleUser.email,
-            name: googleUser.name,
-            picture: googleUser.picture
-          };
-        }
-        throw docError;
+
+        setUser({ 
+          ...userDocData, 
+          id: firebaseUser.uid, 
+          isDemo: false,
+          lastActive: userDocData.lastActive ? (userDocData.lastActive as Timestamp).toDate() : new Date(),
+        } as User);
+        return { exists: true };
       }
 
-      if (!userDocData || !userId) {
-        // User does NOT exist. Return data to UI to prefill onboarding form.
-        return {
-          exists: false,
-          googleId,
-          email: googleUser.email,
-          name: googleUser.name,
-          picture: googleUser.picture
-        };
-      }
-      
-      // Existing user found -> Log them in!
-      const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
-      const isAdmin = googleUser.email === import.meta.env.VITE_ADMIN_EMAIL || googleUser.email === `${adminPhone}@mukti.com`;
-      
-      if (isAdmin && userDocData.role !== "admin") {
-        await updateDoc(doc(db, "users", userId), { role: "admin" });
-        userDocData.role = "admin";
-      }
-
-      setUser({ 
-        ...userDocData, 
-        id: userId, 
-        isDemo: false,
-        lastActive: userDocData.lastActive ? (userDocData.lastActive as Timestamp).toDate() : new Date(),
-      } as User);
-      
-      // Save session locally bypassing Firebase Auth
-      localStorage.setItem("mukti_google_session", userId);
-      return { exists: true };
+      // User does NOT exist. Return data to UI to prefill onboarding form.
+      return {
+        exists: false,
+        googleId: firebaseUser.uid,
+        email: firebaseUser.email,
+        name: firebaseUser.displayName,
+        picture: firebaseUser.photoURL
+      };
 
     } catch (error: any) {
+      console.error("Google Sign In Error:", error);
       throw error;
     }
   }
 
   async function signup(userData: Partial<User>, password?: string) {
-    let firebaseUser;
+    let firebaseUser = auth.currentUser;
     
     if (!userData.phone || !userData.role || !userData.name) {
       throw new Error("Missing required fields for signup");
@@ -312,8 +225,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     try {
       if (!password) throw new Error("Password is required for signup");
-      const result = await createUserWithEmailAndPassword(auth, phoneToEmail(userData.phone), password);
-      firebaseUser = result.user;
+      const email = phoneToEmail(userData.phone);
+      
+      if (firebaseUser) {
+        // User is currently logged in via Google. Link the Phone credential.
+        const credential = EmailAuthProvider.credential(email, password);
+        try {
+          const result = await linkWithCredential(firebaseUser, credential);
+          firebaseUser = result.user;
+        } catch (linkErr: any) {
+          if (linkErr.code === 'auth/email-already-in-use' || linkErr.code === 'auth/credential-already-in-use') {
+             throw new Error("Phone number already registered. Please go to Log In.");
+          }
+          throw linkErr;
+        }
+      } else {
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        firebaseUser = result.user;
+      }
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
         if (!password) throw new Error("Password is required");
@@ -352,10 +281,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await setDoc(doc(db, "users", firebaseUser.uid), firestoreUser);
       console.log("✅ Firestore registration successful");
-      if (userData.googleId) {
-        // Automatically save a local google session to act identical to a standard google login in future
-        localStorage.setItem("mukti_google_session", firebaseUser.uid);
-      }
     } catch (err) {
       console.error("❌ Firestore registration failed:", err);
     }
