@@ -6,8 +6,6 @@ import {
   onAuthStateChanged, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
-  signInWithCredential,
-  GoogleAuthProvider,
   signOut,
 } from "firebase/auth";
 import { 
@@ -56,13 +54,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [initError, setInitError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Demo sessions are disabled in production
-
     // --- Vercel Reliability Hotfix: Loading Safety Timeout ---
     const timeoutId = setTimeout(() => {
       if (loading) {
         console.warn("Auth initialization timed out (5s). Forcing load sequence...");
-        // Check for missing config which is the #1 cause for Vercel hangs
         if (!import.meta.env.VITE_FIREBASE_API_KEY) {
           setInitError("Firebase Config Missing: Please add VITE_FIREBASE_API_KEY to Vercel Environment Variables.");
         }
@@ -70,13 +65,58 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     }, 5000);
 
+    // 1. Check for Custom Google Session First
+    const googleSessionId = localStorage.getItem("mukti_google_session");
+    if (googleSessionId) {
+      clearTimeout(timeoutId);
+      const userDocRef = doc(db, "users", googleSessionId);
+      
+      const syncGoogleUser = async () => {
+        try {
+          const docSnap = await getDoc(userDocRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            const lastOtp = data.lastOtpDate ? (data.lastOtpDate as Timestamp).toDate() : null;
+            
+            setUser({
+              ...data,
+              id: googleSessionId,
+              isDemo: false,
+              lastActive: data.lastActive ? (data.lastActive as Timestamp).toDate() : new Date(),
+              lastOtpDate: lastOtp,
+            } as User);
+          } else {
+            localStorage.removeItem("mukti_google_session");
+            setUser(null);
+          }
+        } catch (err) {
+          console.warn("Google session fetch failed", err);
+          setUser(null);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      syncGoogleUser();
+
+      const unsubscribeUser = onSnapshot(userDocRef, (docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setUser(prev => prev ? { ...prev, ...data } : { ...data, id: googleSessionId } as User);
+        }
+      }, (err) => {
+        console.warn("Google user profile sync listener inhibited:", err.message);
+      });
+
+      return () => unsubscribeUser();
+    }
+
+    // 2. Fallback to Firebase Auth for standard Email/Password users
     const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
       clearTimeout(timeoutId);
       if (firebaseUser) {
-        // If we have a firebase user, clear demo session
         localStorage.removeItem("mukti_demo_user");
         
-        // Real-time listener for user profile (with initial getDoc for robustness)
         const userDocRef = doc(db, "users", firebaseUser.uid);
         
         const syncUser = async () => {
@@ -117,17 +157,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
 
         return () => unsubscribeUser();
-      } else if (!localStorage.getItem("mukti_demo_user")) {
-        // Only set null if no demo user exists
+      } else if (!localStorage.getItem("mukti_demo_user") && !localStorage.getItem("mukti_google_session")) {
         setUser(null);
         setLoading(false);
       } else {
         setLoading(false);
       }
     });
+
     return () => {
       clearTimeout(timeoutId);
-      unsubscribeAuth();
+      if (unsubscribeAuth) unsubscribeAuth();
     };
   }, []);
 
@@ -178,12 +218,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signInWithGoogle(role: UserRole, accessToken: string) {
     try {
-      const credential = GoogleAuthProvider.credential(null, accessToken);
-      const result = await signInWithCredential(auth, credential);
-      const firebaseUser = result.user;
-      const userDocRef = doc(db, "users", firebaseUser.uid);
+      const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+      if (!res.ok) throw new Error("Failed to fetch Google profile");
+      const googleUser = await res.json();
+      const googleId = googleUser.sub;
+
+      const userDocRef = doc(db, "users", googleId);
       const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
-      const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL || firebaseUser.email === `${adminPhone}@mukti.com`;
+      const isAdmin = googleUser.email === import.meta.env.VITE_ADMIN_EMAIL || googleUser.email === `${adminPhone}@mukti.com`;
       const assignedRole = isAdmin ? "admin" : role;
 
       let userDoc;
@@ -193,14 +237,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (docError.code === 'unavailable' || docError.message?.includes('offline')) {
           console.warn("Firestore is offline. Using auth profile as fallback.");
           setUser({
-            id: firebaseUser.uid,
-            phone: firebaseUser.phoneNumber || "Google User",
-            email: firebaseUser.email,
-            name: firebaseUser.displayName || "Google User",
+            id: googleId,
+            phone: "Google User",
+            email: googleUser.email,
+            name: googleUser.name || "Google User",
             role: assignedRole,
             isDemo: false,
             lastActive: new Date(),
+            photo: googleUser.picture
           } as User);
+          localStorage.setItem("mukti_google_session", googleId);
           return;
         }
         throw docError;
@@ -208,9 +254,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (!userDoc.exists()) {
         const newUser: any = {
-          phone: firebaseUser.phoneNumber || "Google User",
-          email: firebaseUser.email,
-          name: firebaseUser.displayName || "Google User",
+          phone: "Google User",
+          email: googleUser.email,
+          name: googleUser.name || "Google User",
           role: assignedRole,
           status: assignedRole === "worker" ? "not verified" : undefined,
           isVerifiedByAdmin: assignedRole === "worker" ? false : undefined,
@@ -219,20 +265,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           lastActive: new Date(),
           points: assignedRole === "customer" ? 0 : undefined,
           badges: assignedRole === "customer" ? [] : undefined,
+          photo: googleUser.picture
         };
         await setDoc(userDocRef, cleanObject({
           ...newUser,
           lastActive: Timestamp.fromDate(new Date()),
         }));
 
-        setUser({ ...newUser, id: firebaseUser.uid, isDemo: false } as User);
+        setUser({ ...newUser, id: googleId, isDemo: false } as User);
       } else {
         const data = userDoc.data();
         if (isAdmin) {
           await updateDoc(userDocRef, { role: "admin" });
           setUser({ 
             ...data, 
-            id: firebaseUser.uid, 
+            id: googleId, 
             role: "admin", 
             isDemo: false,
             lastActive: data.lastActive ? (data.lastActive as Timestamp).toDate() : new Date(),
@@ -240,12 +287,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } else {
           setUser({ 
             ...data, 
-            id: firebaseUser.uid, 
+            id: googleId, 
             isDemo: false,
             lastActive: data.lastActive ? (data.lastActive as Timestamp).toDate() : new Date(),
           } as User);
         }
       }
+      
+      // Save session locally bypassing Firebase Auth
+      localStorage.setItem("mukti_google_session", googleId);
+
     } catch (error: any) {
       throw error;
     }
@@ -362,6 +413,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function logout() {
     await signOut(auth);
     localStorage.removeItem("mukti_demo_user");
+    localStorage.removeItem("mukti_google_session");
     setUser(null);
   }
 
