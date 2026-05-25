@@ -4,7 +4,14 @@ export type WorkerType = 0 | 1; // 0 = Fixed, 1 = Mobile
 export interface User {
   id: string;
   phone: string;
+  email?: string;
   name: string;
+  username?: string;
+  gender?: string;
+  dob?: string;
+  organization?: string;
+  bio?: string;
+  socialLinks?: string[];
   role: UserRole;
   workerType?: WorkerType;
   skill?: string;
@@ -25,10 +32,9 @@ export interface User {
   deviceId?: string;
   lastOtpDate?: Date;
   trustScore?: number;
-  customer_type?: 0 | 1; // 0 = Regular (Monthly), 1 = One-time (Dynamic)
+  customer_type?: 0 | 1;
   isVerifiedByAdmin?: boolean;
   experienceYears?: number;
   hourlyRate?: number;
-  bio?: string;
   isProfileComplete?: boolean;
 }

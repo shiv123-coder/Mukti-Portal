@@ -12,8 +12,8 @@ import StarRating from "@/components/StarRating";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { db } from "@/lib/firebase";
 import { collection, query, onSnapshot, orderBy, Timestamp, doc, updateDoc, addDoc, getDocs, serverTimestamp, where } from "firebase/firestore";
-
 import { generateCreditReport } from "@/utils/pdfReport";
+import { BackButton } from "@/components/BackButton";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
@@ -694,6 +694,10 @@ const WorkerDashboard = () => {
       {/* Background Orbs */}
       <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
       <div className="absolute top-[40%] right-[-5%] h-[500px] w-[500px] rounded-full bg-primary/5 blur-[150px] pointer-events-none" />
+
+      <div className="mb-6 relative z-10">
+        <BackButton label="Go Back" fallbackPath="/" />
+      </div>
 
       {/* Greeting */}
       <div className="mb-10 opacity-0 animate-fade-up relative z-10" style={{ animationDelay: "0ms" }}>

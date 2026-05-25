@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,35 +7,25 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 220 10% 10%;
-
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 220 10% 10%;
-
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 10% 10%;
-
+    --popover-foreground: 240 10% 3.9%;
     --primary: 24.6 95% 53.1%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 35 100% 96%;
-    --secondary-foreground: 24.6 95% 53.1%;
-
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 8% 46%;
-
-    --accent: 220 14% 96%;
-    --accent-foreground: 220 10% 10%;
-
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
     --ring: 24.6 95% 53.1%;
-
-    --radius: 1rem;
-
+    --radius: 0.75rem;
     --success: 142.1 76.2% 36.3%;
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
@@ -43,34 +33,25 @@
   }
 
   .dark {
-    --background: 220 10% 4%;
-    --foreground: 220 10% 95%;
-
-    --card: 220 10% 6%;
-    --card-foreground: 220 10% 95%;
-
-    --popover: 220 10% 6%;
-    --popover-foreground: 220 10% 95%;
-
-    --primary: 30 100% 55%;
-    --primary-foreground: 220 10% 4%;
-
-    --secondary: 220 10% 10%;
-    --secondary-foreground: 220 10% 95%;
-
-    --muted: 220 10% 10%;
-    --muted-foreground: 220 10% 65%;
-
-    --accent: 220 10% 12%;
-    --accent-foreground: 220 10% 95%;
-
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 24.6 95% 53.1%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 220 10% 95%;
-
-    --border: 220 10% 15%;
-    --input: 220 10% 15%;
-    --ring: 30 100% 55%;
-    
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 24.6 95% 53.1%;
     --success: 142.1 70.6% 45.3%;
     --success-foreground: 144.9 80.4% 10%;
     --warning: 47.9 95.8% 53.1%;
@@ -82,69 +63,43 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground antialiased transition-colors duration-500;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-image: radial-gradient(at 0% 0%, hsla(24, 95%, 53%, 0.05) 0px, transparent 50%),
-                      radial-gradient(at 100% 0%, hsla(220, 10%, 50%, 0.03) 0px, transparent 50%);
+    font-family: 'Inter', sans-serif;
+    /* Clean light mode background with subtle grid */
+    background-image: linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
     background-attachment: fixed;
   }
-
   .dark body {
-    background-image: radial-gradient(at 0% 0%, hsla(30, 100%, 55%, 0.08) 0px, transparent 50%),
-                      radial-gradient(at 100% 0%, hsla(220, 10%, 15%, 0.1) 0px, transparent 50%);
+    /* Premium dark mode background (Linear inspired) */
+    background-color: #09090b;
+    background-image: radial-gradient(circle at 50% -20%, rgba(249, 115, 22, 0.15) 0%, transparent 50%),
+                      linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
   }
-
   h1, h2, h3, h4 {
-    @apply tracking-tight;
-    text-wrap: balance;
-  }
-
-  p {
-    text-wrap: pretty;
+    @apply tracking-tight font-semibold;
   }
 }
 
 @layer utilities {
-  .card-shadow {
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 0 3px rgba(0,0,0,0.02);
-  }
-  .dark .card-shadow {
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-  .card-shadow-hover {
-    box-shadow: 0 8px 30px -4px rgba(0, 100, 255, 0.08), 0 0 5px rgba(0,100,255,0.03);
-    transform: translateY(-2px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .dark .card-shadow-hover {
-    box-shadow: 0 8px 30px -4px rgba(0, 150, 255, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
-  }
-  
-  /* Glassmorphism helpers */
   .glass {
-    @apply bg-white/70 dark:bg-card/60 backdrop-blur-lg border border-slate-200 dark:border-white/5 shadow-lg;
+    @apply bg-background/70 backdrop-blur-xl border border-border shadow-sm;
   }
-  
-  /* Smooth scale click effect */
-  .btn-scale {
-    @apply transition-transform active:scale-95 duration-200;
+  .card-premium {
+    @apply bg-card border border-border shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/20;
   }
-}
-
-@media print {
-  .print-hidden,
-  [role="status"],
-  nav,
-  header,
-  footer:not(.print-footer) {
-    display: none !important;
+  .card-premium-glow {
+    @apply bg-card border border-border transition-all duration-300 hover:shadow-[0_0_30px_rgba(249,115,22,0.15)] hover:border-primary/30;
   }
-  
-  body {
-    background: white !important;
-    background-image: none !important;
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/70;
+  }
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-orange-400;
   }
 }
 

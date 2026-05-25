@@ -18,16 +18,13 @@ import {
   arrayUnion,
   Timestamp,
   serverTimestamp,
-  collection,
-  addDoc
-} from "firebase/firestore";
 import { User, UserRole, WorkerType } from "@/types/auth";
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (phone: string, password?: string) => Promise<void>;
-  signup: (phone: string, role: UserRole, name: string, password?: string, skill?: string, location?: string, photo?: string, workerType?: WorkerType, employerName?: string, employerPhone?: string, locationCoords?: {lat: number, lng: number}) => Promise<void>;
+  signup: (userData: Partial<User>, password?: string) => Promise<void>;
   signInWithGoogle: (role: UserRole, accessToken: string) => Promise<void>;
   updateUser: (updates: Partial<User>) => Promise<void>;
   addPoints: (amount: number, badgeStr?: string) => Promise<void>;
@@ -302,29 +299,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  async function signup(
-    phone: string, 
-    role: UserRole, 
-    name: string, 
-    password?: string, 
-    skill?: string, 
-    location?: string, 
-    photo?: string,
-    workerType?: WorkerType,
-    employerName?: string,
-    employerPhone?: string,
-    locationCoords?: {lat: number, lng: number}
-  ) {
+  async function signup(userData: Partial<User>, password?: string) {
     let firebaseUser;
+    
+    if (!userData.phone || !userData.role || !userData.name) {
+      throw new Error("Missing required fields for signup");
+    }
+
     try {
       if (!password) throw new Error("Password is required for signup");
-      const result = await createUserWithEmailAndPassword(auth, phoneToEmail(phone), password);
+      const result = await createUserWithEmailAndPassword(auth, phoneToEmail(userData.phone), password);
       firebaseUser = result.user;
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
-        // Just log them in instead of failing
         if (!password) throw new Error("Password is required");
-        const result = await signInWithEmailAndPassword(auth, phoneToEmail(phone), password);
+        const result = await signInWithEmailAndPassword(auth, phoneToEmail(userData.phone), password);
         firebaseUser = result.user;
       } else {
         throw err;
@@ -332,30 +321,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
-    const isAdmin = phone === adminPhone || phoneToEmail(phone) === import.meta.env.VITE_ADMIN_EMAIL;
-    const finalRole = isAdmin ? "admin" : role;
+    const isAdmin = userData.phone === adminPhone || phoneToEmail(userData.phone) === import.meta.env.VITE_ADMIN_EMAIL;
+    const finalRole = isAdmin ? "admin" : userData.role;
 
-    const newUser: any = { 
-      id: firebaseUser.uid, 
-      phone, 
-      name, 
-      role: finalRole, 
-      skill, 
-      location: location || "Unknown", 
-      location_coords: locationCoords || null,
-      photo, 
-      workerType,
-      employerName,
-      employerPhone,
-      employerVerified: employerPhone ? false : undefined,
-      status: finalRole === "worker" ? "not verified" : undefined,
-      isVerifiedByAdmin: finalRole === "worker" ? false : undefined,
-      isProfileComplete: finalRole === "customer" || finalRole === "admin"
-    };
-    
-    // 1. Direct Firestore Write (Primary Source of Truth)
     const firestoreUser = cleanObject({
-      ...newUser,
+      ...userData,
+      id: firebaseUser.uid,
+      role: finalRole,
       otpVerified: true,
       lastActive: Timestamp.fromDate(new Date()),
       muktiScore: 0,
@@ -363,30 +335,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       badges: finalRole === "customer" ? [] : undefined,
       status: finalRole === "worker" ? "not verified" : undefined,
       isVerifiedByAdmin: finalRole === "worker" ? false : undefined,
-      isProfileComplete: finalRole === "customer" || finalRole === "admin"
+      isProfileComplete: true // Mark as true since they filled out the massive form
     });
 
     try {
       await setDoc(doc(db, "users", firebaseUser.uid), firestoreUser);
-      
       console.log("✅ Firestore registration successful");
     } catch (err) {
       console.error("❌ Firestore registration failed:", err);
-      // If Firestore fails, we have a critical problem, but we'll try to continue
     }
 
-    // 2. Backend Notification (For local backups/ML)
     try {
       fetch(`${API_BASE_URL}/api/worker/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser),
+        body: JSON.stringify(firestoreUser),
       }).catch(err => console.warn("Backend sync failed (non-critical):", err));
     } catch (err) {
       console.warn("Backend sync suppressed:", err);
     }
 
-    setUser({ ...newUser, otpVerified: true, lastActive: new Date(), points: finalRole === "customer" ? 0 : undefined, badges: finalRole === "customer" ? [] : undefined, isDemo: false } as User);
+    setUser({ ...firestoreUser, isDemo: false } as User);
   }
 
   async function updateUser(updates: Partial<User>) {
