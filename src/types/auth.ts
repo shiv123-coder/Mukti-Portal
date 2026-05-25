@@ -37,4 +37,5 @@ export interface User {
   experienceYears?: number;
   hourlyRate?: number;
   isProfileComplete?: boolean;
+  googleId?: string;
 }

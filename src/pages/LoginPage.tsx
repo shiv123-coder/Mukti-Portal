@@ -46,6 +46,7 @@ const LoginPage = () => {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
   const [otp, setOtp] = useState("");
+  const [googleId, setGoogleId] = useState<string | null>(null);
   
   const { user, login, signup, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
@@ -66,7 +67,19 @@ const LoginPage = () => {
   const handleGoogleSignInSuccess = async (tokenResponse: any) => {
     try {
       setLoadingAction(true);
-      await signInWithGoogle(role, tokenResponse.access_token);
+      const res = await signInWithGoogle(role, tokenResponse.access_token);
+      if (res && res.exists === false) {
+        // User does not exist, prefill onboarding form
+        setName(res.name || "");
+        setEmail(res.email || "");
+        setGoogleId(res.googleId);
+        if (res.picture) {
+           setAvatarPreview(res.picture);
+        }
+        setAuthMode("signup");
+        setSignupStep("details");
+        setLoadingAction(false);
+      }
     } catch (err: any) {
       console.error("Google Sign-In Error:", err);
       setLoadingAction(false);
@@ -137,6 +150,7 @@ const LoginPage = () => {
         organization: organization || undefined,
         bio: bio || undefined,
         location: address || undefined,
+        googleId: googleId || undefined,
       };
 
       await signup(userData, password);
