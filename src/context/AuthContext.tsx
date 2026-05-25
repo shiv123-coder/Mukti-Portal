@@ -21,6 +21,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { User, UserRole, WorkerType } from "@/types/auth";
+import { logActivity } from "@/utils/activityLogger";
 
 interface AuthContextType {
   user: User | null;
@@ -167,6 +168,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
       }
     }
+    const data = userDoc.exists() ? userDoc.data() : { role: 'user', name: 'User' };
+      
+      await logActivity({
+        title: `${data.role === 'admin' ? 'Admin' : 'User'} Login`,
+        description: `${data.name || 'User'} logged in successfully.`,
+        type: 'Auth',
+        priority: 'info'
+      });
+    }
   }
 
   async function signInWithGoogle(role: UserRole, accessToken: string) {
@@ -191,6 +201,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           isDemo: false,
           lastActive: new Date(),
         } as User);
+        
+        await logActivity({
+          title: `${resData.role === 'admin' ? 'Admin' : 'User'} Login (Google)`,
+          description: `${resData.user.name || 'User'} logged in via Google.`,
+          type: 'Auth',
+          priority: 'info'
+        });
+
         return { exists: true, user: resData.user, role: resData.role };
       }
 

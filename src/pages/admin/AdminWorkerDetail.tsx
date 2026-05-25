@@ -32,7 +32,7 @@ import {
   updateDoc,
   Timestamp,
 } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { db, auth } from "@/lib/firebase";
 import { toast } from "sonner";
 import { calculateTrustScore } from "@/utils/trustEngine";
 import { calculateIncomeStats } from "@/utils/financial";
@@ -157,9 +157,13 @@ const AdminWorkerDetail = () => {
 
       // Backend notify (optional)
       try {
+        const token = await auth.currentUser?.getIdToken();
         await fetch(`${API_BASE_URL}/api/admin/process-request`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}` 
+          },
           body: JSON.stringify({ workerId, action, reason: rejectReason }),
         });
       } catch (_) {}

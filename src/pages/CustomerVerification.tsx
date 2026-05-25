@@ -11,7 +11,7 @@ import { queueOfflineReview, syncOfflineReviews, getOfflineQueueCount } from "@/
 import { useOnlineStatus } from "@/hooks/useOnlineStatus";
 import { getCurrentPosition, validateProximity, GeoValidationResult } from "@/utils/geoValidator";
 import { hashImage, checkDuplicate, captureFromVideo, compressImage } from "@/utils/imageHasher";
-import { db } from "@/lib/firebase";
+import { db, auth } from "@/lib/firebase";
 import { parseBudgetToAmount } from "@/utils/financial";
 import { 
   collection, 
@@ -833,9 +833,13 @@ const CustomerVerification = () => {
             ...payload,
             createdAt: new Date().toISOString(), // serverTimestamp() doesn't work in JSON
           };
+          const token = await auth.currentUser?.getIdToken();
           const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || "http://localhost:5000"}/api/work-request`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}` 
+            },
             body: JSON.stringify(backendPayload),
           });
           if (res.ok) {

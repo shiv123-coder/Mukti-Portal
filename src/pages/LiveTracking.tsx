@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { db } from "@/lib/firebase";
+import { db, auth } from "@/lib/firebase";
 import { doc, onSnapshot, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import { 
   ArrowLeft, 
@@ -61,7 +61,12 @@ const LiveTracking = () => {
       setLoading(false);
     }, (error) => {
       console.warn("LiveTracking: Firestore error, trying backend...", error.message);
-      fetch(`${API_BASE_URL}/api/work-request/${jobId}`)
+      auth.currentUser?.getIdToken().then(token => {
+        fetch(`${API_BASE_URL}/api/work-request/${jobId}`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        })
         .then(res => res.json())
         .then(data => {
           if (data && data.id) {
@@ -73,6 +78,7 @@ const LiveTracking = () => {
           toast.error("Cannot load job details");
           setLoading(false);
         });
+      });
     });
 
     return () => unsub();
@@ -96,9 +102,13 @@ const LiveTracking = () => {
     } catch (err) {
       // Backend fallback
       try {
+        const token = await auth.currentUser?.getIdToken();
         await fetch(`${API_BASE_URL}/api/work-request/${job.id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify({ 
             status: "Completed", 
             rating: reviewRating, 

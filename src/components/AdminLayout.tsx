@@ -25,6 +25,7 @@ import {
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/hooks/useAuth";
+import AdminNotificationPanel from "./admin/AdminNotificationPanel";
 
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
@@ -57,37 +58,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
   React.useEffect(() => {
     if (!user || user.role !== "admin") return;
-    
-    // Switch from backend polling to real-time Firestore listeners (Self-Healing)
-    const qReqs = query(collection(db, "verification_requests"), where("status", "==", "pending"));
-    const qUsers = query(collection(db, "users"), where("status", "==", "pending"));
-
-    let reqsCount = 0;
-    let usersCount = 0;
-    const pendingUsersIds: string[] = [];
-
-    const unsubReqs = onSnapshot(qReqs, (snap) => {
-      reqsCount = snap.size;
-      const ids = snap.docs.map(d => d.data().workerId);
-      updateTotal(reqsCount, usersCount, ids);
-    });
-
-    const unsubUsers = onSnapshot(qUsers, (snap) => {
-      const docs = snap.docs;
-      usersCount = docs.length;
-      updateTotal(reqsCount, usersCount, []); // We'll deduplicate in the helper
-    });
-
-    const updateTotal = (r: number, u: number, activeWorkerIds: string[]) => {
-      // Simple approximation: use the larger of the two or a merged count if we had all IDs
-      // For the badge, we just want to ensure it's not zero if someone is pending
-      setPendingRequests(Math.max(r, u)); 
-    };
-
-    return () => {
-      unsubReqs();
-      unsubUsers();
-    };
+    // Unread count is now managed by AdminNotificationPanel and passed up via onUnreadCountChange
   }, [user]);
 
   const menuItems = [
@@ -202,7 +173,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           </div>
 
           <div className="flex items-center gap-6">
-            {/* Notification Bell with Above Functionality */}
+            {/* Real-time Notification Bell */}
             <div className="relative" ref={notificationRef}>
               <button 
                 onClick={() => setShowNotifications(!showNotifications)}
@@ -217,57 +188,10 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               </button>
 
               {showNotifications && (
-                <div className="absolute right-0 mt-4 w-80 rounded-[2.5rem] bg-card border border-border shadow-3xl p-6 animate-in fade-in slide-in-from-top-4 duration-300 z-50 backdrop-blur-2xl">
-                  <div className="flex items-center justify-between mb-6">
-                    <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-foreground italic">Registry Protocol</h4>
-                    <span className="text-[8px] font-black text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/10 uppercase">
-                      {pendingRequests} Pending
-                    </span>
-                  </div>
-                  <div className="space-y-4 max-h-80 overflow-y-auto custom-scrollbar pr-2">
-                    {pendingRequests > 0 ? (
-                      <div 
-                        onClick={() => {
-                          setShowNotifications(false);
-                          (window as any).location.href = "/admin/requests";
-                        }}
-                        className="flex gap-4 p-4 rounded-2xl bg-secondary border border-border transition-all hover:border-primary/20 group cursor-pointer"
-                      >
-                        <div className="p-2.5 rounded-xl bg-primary/10 text-primary h-fit group-hover:scale-110 transition-transform">
-                          <ShieldCheck size={16} />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="font-black text-sm text-foreground italic truncate uppercase tracking-tighter">Verification Needed</div>
-                          <div className="text-[10px] font-bold text-muted-foreground mt-1 uppercase leading-relaxed opacity-70">
-                            {pendingRequests} workers awaiting registry approval.
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="py-12 text-center bg-secondary/20 rounded-3xl border border-dashed border-border">
-                        <Bell size={32} className="mx-auto text-muted-foreground mb-4 opacity-30" />
-                        <p className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.4em] italic">No active system signals</p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex gap-2 mt-6 border-t border-border pt-4">
-                    <button 
-                      onClick={() => setPendingRequests(0)}
-                      className="flex-1 py-3 text-[9px] font-black uppercase text-muted-foreground hover:text-foreground transition-all tracking-[0.2em] bg-secondary/50 rounded-xl"
-                    >
-                      Mark Read
-                    </button>
-                    <button 
-                      onClick={() => {
-                        setShowNotifications(false);
-                        (window as any).location.href = "/admin/requests";
-                      }}
-                      className="flex-1 py-3 text-[9px] font-black uppercase text-primary-foreground bg-primary hover:bg-primary/90 transition-all tracking-[0.2em] rounded-xl shadow-md"
-                    >
-                      View All
-                    </button>
-                  </div>
-                </div>
+                <AdminNotificationPanel 
+                  onClose={() => setShowNotifications(false)} 
+                  onUnreadCountChange={setPendingRequests} 
+                />
               )}
             </div>
             

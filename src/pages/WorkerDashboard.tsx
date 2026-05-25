@@ -10,7 +10,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { toast } from "sonner";
 import StarRating from "@/components/StarRating";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
-import { db } from "@/lib/firebase";
+import { db, auth } from "@/lib/firebase";
 import { collection, query, onSnapshot, orderBy, Timestamp, doc, updateDoc, addDoc, getDocs, serverTimestamp, where } from "firebase/firestore";
 import { generateCreditReport } from "@/utils/pdfReport";
 import { BackButton } from "@/components/BackButton";
@@ -236,9 +236,13 @@ const WorkerDashboard = () => {
         console.warn("Direct collection write blocked. Falling back to backend...");
         
         // 3. Fallback to backend for the collection record
+        const token = await auth.currentUser?.getIdToken();
         const response = await fetch(`${API_BASE_URL}/api/worker/verify-request`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify(data),
         });
         
@@ -530,7 +534,12 @@ const WorkerDashboard = () => {
         ]);
       } else {
         // Try backend API as fallback for real workers
-        fetch(`${API_BASE_URL}/api/work-requests`)
+        auth.currentUser?.getIdToken().then(token => {
+          fetch(`${API_BASE_URL}/api/work-requests`, {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          })
           .then(res => res.json())
           .then(data => {
             if (Array.isArray(data) && data.length > 0) {
@@ -538,6 +547,7 @@ const WorkerDashboard = () => {
             }
           })
           .catch(() => setActiveRequests([]));
+        });
       }
     });
 
@@ -1093,9 +1103,13 @@ const WorkerDashboard = () => {
                                   } catch (fbErr) {
                                     console.warn("Direct Firestore update failed, trying backend...", fbErr);
                                     try {
+                                      const token = await auth.currentUser?.getIdToken();
                                       await fetch(`${API_BASE_URL}/api/work-request/${req.id}`, {
                                         method: "PUT",
-                                        headers: { "Content-Type": "application/json" },
+                                        headers: { 
+                                          "Content-Type": "application/json",
+                                          "Authorization": `Bearer ${token}`
+                                        },
                                         body: JSON.stringify({ 
                                           status: "In Progress", 
                                           workerId: user.id, 
@@ -1567,9 +1581,13 @@ const WorkerDashboard = () => {
                    } catch (fbErr) {
                      console.warn("Direct Firestore update failed, trying backend...", fbErr);
                      try {
+                       const token = await auth.currentUser?.getIdToken();
                        await fetch(`${API_BASE_URL}/api/work-request/${selectedJob.id}`, {
                          method: "PUT",
-                         headers: { "Content-Type": "application/json" },
+                         headers: { 
+                           "Content-Type": "application/json",
+                           "Authorization": `Bearer ${token}`
+                         },
                          body: JSON.stringify({ status: "In Progress", workerId: user.id, workerName: user.name, workerPhone: user.phone || "", workerSkill: user.skill || "" })
                        });
                        setSelectedJob(null);

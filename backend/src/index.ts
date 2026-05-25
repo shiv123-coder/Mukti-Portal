@@ -9,6 +9,7 @@ import rateLimit from 'express-rate-limit';
 import NodeCache from 'node-cache';
 import { verifyToken, requireAdmin, AuthRequest } from './middleware/auth';
 import { globalErrorHandler } from './middleware/errorHandler';
+import { logAdminNotification } from './utils/logger';
 
 dotenv.config();
 
@@ -304,6 +305,17 @@ app.post('/api/worker/register', verifyToken, async (req: AuthRequest, res) => {
 
     await userRef.set(newUser);
     saveLocalUser(newUser);
+
+    // Log Notification
+    await logAdminNotification({
+      title: `New ${data.role} Registration`,
+      description: `${data.name} has registered as a ${data.role}.`,
+      type: 'Users',
+      priority: 'info',
+      userId: data.id,
+      userRole: data.role
+    });
+
     res.json({ success: true, user: newUser });
   } catch (err) {
     console.error("Register Error:", err);
@@ -764,6 +776,16 @@ app.post('/api/admin/process-request', verifyToken, requireAdmin, async (req: Au
           }
         }
         console.log(`[FIREBASE-ADMIN] Successfully updated user ${workerId}`);
+
+        // Log Notification
+        await logAdminNotification({
+          title: `Worker ${action === 'approve' ? 'Approved' : 'Rejected'}`,
+          description: `Admin processed verification for worker ${workerId}. Action: ${action.toUpperCase()}`,
+          type: 'Users',
+          priority: action === 'approve' ? 'success' : 'danger',
+          userId: workerId,
+          userRole: 'worker'
+        });
       } catch (fbErr: any) {
         console.error('[FIREBASE-ADMIN-ERROR]:', fbErr.message);
         // We DON'T throw here so the response can still return success (local only)
@@ -877,6 +899,16 @@ app.post('/api/work-request', verifyToken, async (req: AuthRequest, res) => {
       console.log('✅ Work request saved locally:', result.id);
     }
 
+    // Log Notification
+    await logAdminNotification({
+      title: 'New Job Posted',
+      description: `${data.customerName || 'A customer'} posted a new job for ${data.service}.`,
+      type: 'Jobs',
+      priority: 'info',
+      userId: data.customerId,
+      userRole: 'customer'
+    });
+
     res.json({ success: true, ...result });
   } catch (err: any) {
     console.error('[WORK-REQUEST-ERROR]:', err.message);
@@ -978,6 +1010,18 @@ app.put('/api/work-request/:id', verifyToken, async (req: AuthRequest, res) => {
       const requests = getLocalWorkRequests();
       const updated = requests.map((r: any) => r.id === id ? { ...r, ...updateData } : r);
       fs.writeFileSync(LOCAL_WORK_REQUESTS_PATH, JSON.stringify(updated, null, 2));
+    }
+
+    // Log Notification if status changed
+    if (updateData.status) {
+      await logAdminNotification({
+        title: `Job ${updateData.status}`,
+        description: `Job ${id} status changed to ${updateData.status} by ${updateData.workerName || 'Worker'}.`,
+        type: 'Jobs',
+        priority: updateData.status === 'Completed' ? 'success' : (updateData.status === 'Accepted' ? 'info' : 'warning'),
+        userId: updateData.workerId,
+        userRole: 'worker'
+      });
     }
 
     res.json({ success: true, message: 'Work request updated' });

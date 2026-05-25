@@ -23,7 +23,7 @@ import {
   deleteDoc,
   getDoc
 } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { db, auth } from "@/lib/firebase";
 import { toast } from "sonner";
 
 
@@ -152,9 +152,13 @@ const AdminRequests = () => {
 
       // ===== SECONDARY: Notify backend for local data cleanup =====
       try {
+        const token = await auth.currentUser?.getIdToken();
         await fetch(`${API_BASE_URL}/api/admin/process-request`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}` 
+          },
           body: JSON.stringify({ requestId, workerId, action, source, reason }),
         });
       } catch (_) {
@@ -175,8 +179,10 @@ const AdminRequests = () => {
     if (!window.confirm("ARE YOU SURE? This will permanently delete ALL verification requests from the database!")) return;
     
     try {
+      const token = await auth.currentUser?.getIdToken();
       const response = await fetch(`${API_BASE_URL}/api/admin/clear-all-requests`, {
         method: "POST",
+        headers: { "Authorization": `Bearer ${token}` }
       });
 
       if (!response.ok) throw new Error("Failed to clear requests");
