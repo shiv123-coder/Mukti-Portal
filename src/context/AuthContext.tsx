@@ -7,10 +7,7 @@ import {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   signOut,
-  GoogleAuthProvider,
-  signInWithCredential,
-  EmailAuthProvider,
-  linkWithCredential
+  signInWithCustomToken
 } from "firebase/auth";
 import { 
   doc, 
@@ -174,40 +171,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signInWithGoogle(role: UserRole, accessToken: string) {
     try {
-      const credential = GoogleAuthProvider.credential(null, accessToken);
-      const result = await signInWithCredential(auth, credential);
-      const firebaseUser = result.user;
+      const response = await fetch(`${API_BASE_URL}/api/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accessToken, selectedRole: role })
+      });
 
-      const userDocRef = doc(db, "users", firebaseUser.uid);
-      const docSnap = await getDoc(userDocRef);
+      const resData = await response.json();
 
-      if (docSnap.exists()) {
-        const userDocData = docSnap.data();
-        
-        const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
-        const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL || firebaseUser.email === `${adminPhone}@mukti.com`;
-        
-        if (isAdmin && userDocData.role !== "admin") {
-          await updateDoc(doc(db, "users", firebaseUser.uid), { role: "admin" });
-          userDocData.role = "admin";
-        }
-
-        setUser({ 
-          ...userDocData, 
-          id: firebaseUser.uid, 
-          isDemo: false,
-          lastActive: userDocData.lastActive ? (userDocData.lastActive as Timestamp).toDate() : new Date(),
-        } as User);
-        return { exists: true };
+      if (!response.ok) {
+        throw new Error(resData.error || "Failed to authenticate with Google");
       }
 
-      // User does NOT exist. Return data to UI to prefill onboarding form.
+      if (resData.exists) {
+        await signInWithCustomToken(auth, resData.customToken);
+
+        setUser({ 
+          ...resData.user, 
+          isDemo: false,
+          lastActive: new Date(),
+        } as User);
+        return { exists: true, user: resData.user, role: resData.role };
+      }
+
       return {
         exists: false,
-        googleId: firebaseUser.uid,
-        email: firebaseUser.email,
-        name: firebaseUser.displayName,
-        picture: firebaseUser.photoURL
+        ...resData.googleData
       };
 
     } catch (error: any) {
@@ -217,7 +206,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function signup(userData: Partial<User>, password?: string) {
-    let firebaseUser = auth.currentUser;
+    let firebaseUser;
     
     if (!userData.phone || !userData.role || !userData.name) {
       throw new Error("Missing required fields for signup");
@@ -227,22 +216,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!password) throw new Error("Password is required for signup");
       const email = phoneToEmail(userData.phone);
       
-      if (firebaseUser) {
-        // User is currently logged in via Google. Link the Phone credential.
-        const credential = EmailAuthProvider.credential(email, password);
-        try {
-          const result = await linkWithCredential(firebaseUser, credential);
-          firebaseUser = result.user;
-        } catch (linkErr: any) {
-          if (linkErr.code === 'auth/email-already-in-use' || linkErr.code === 'auth/credential-already-in-use') {
-             throw new Error("Phone number already registered. Please go to Log In.");
-          }
-          throw linkErr;
-        }
-      } else {
-        const result = await createUserWithEmailAndPassword(auth, email, password);
-        firebaseUser = result.user;
-      }
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      firebaseUser = result.user;
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
         if (!password) throw new Error("Password is required");

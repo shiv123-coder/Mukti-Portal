@@ -189,6 +189,86 @@ app.get('/health', (req, res) => {
 });
 
 /**
+ * Google Auth Verification Proxy
+ */
+app.post('/api/auth/google', async (req, res) => {
+  const { accessToken, selectedRole } = req.body;
+  if (!accessToken) return res.status(400).json({ error: "Missing access token" });
+
+  try {
+    const googleRes = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const googleUser = googleRes.data;
+    const googleId = googleUser.sub;
+    const email = googleUser.email;
+
+    if (!db) return res.status(503).json({ error: "Database not connected" });
+    
+    let userDocData: any = null;
+    let userId: string | null = null;
+
+    const exactDoc = await db.collection('users').doc(googleId).get();
+    if (exactDoc.exists) {
+      userDocData = exactDoc.data();
+      userId = googleId;
+    } else {
+      const qGoogleId = await db.collection('users').where('googleId', '==', googleId).get();
+      if (!qGoogleId.empty) {
+        userDocData = qGoogleId.docs[0].data();
+        userId = qGoogleId.docs[0].id;
+      } else {
+        const qEmail = await db.collection('users').where('email', '==', email).get();
+        if (!qEmail.empty) {
+          userDocData = qEmail.docs[0].data();
+          userId = qEmail.docs[0].id;
+          await db.collection('users').doc(userId).update({ googleId });
+        }
+      }
+    }
+
+    const adminPhone = process.env.VITE_ADMIN_PHONE || '9999999999';
+    const adminEmail = process.env.VITE_ADMIN_EMAIL || 'admin@mukti.com';
+    const isAdmin = email === adminEmail || email === `${adminPhone}@mukti.com` || userDocData?.phone === adminPhone || userDocData?.role === 'admin';
+
+    if (!userDocData || !userId) {
+      return res.json({
+        exists: false,
+        onboardingRequired: true,
+        googleData: {
+          googleId,
+          email,
+          name: googleUser.name,
+          picture: googleUser.picture
+        }
+      });
+    }
+
+    let finalRole = userDocData.role;
+    if (isAdmin) {
+      if (finalRole !== 'admin') {
+        await db.collection('users').doc(userId).update({ role: 'admin' });
+        finalRole = 'admin';
+      }
+    } else if (selectedRole && finalRole !== selectedRole && finalRole !== 'both') {
+      return res.status(403).json({ error: `Account does not have access to the '${selectedRole}' role.` });
+    }
+
+    const customToken = await admin.auth().createCustomToken(userId);
+
+    res.json({
+      exists: true,
+      customToken,
+      role: finalRole,
+      user: { ...userDocData, id: userId, role: finalRole }
+    });
+  } catch (err: any) {
+    console.error('Google Auth Error:', err.message);
+    res.status(500).json({ error: "Failed to authenticate with Google" });
+  }
+});
+
+/**
  * Register Worker / User
  */
 app.post('/api/worker/register', verifyToken, async (req: AuthRequest, res) => {

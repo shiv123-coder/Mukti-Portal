@@ -96,7 +96,8 @@ const LoginPage = () => {
   const handleGoogleSignInSuccess = async (tokenResponse: any) => {
     try {
       setLoadingAction(true);
-      const res = await signInWithGoogle(role, tokenResponse.access_token);
+      const currentRole = authMode === "login" ? selectedLoginRole : role;
+      const res = await signInWithGoogle(currentRole || "worker", tokenResponse.access_token);
       if (res && res.exists === false) {
         // User does not exist, prefill onboarding form
         setName(res.name || "");
@@ -107,6 +108,7 @@ const LoginPage = () => {
         }
         setAuthMode("signup");
         setSignupStep("details");
+        setRole(currentRole || "worker");
         setLoadingAction(false);
       }
     } catch (err: any) {
