@@ -247,6 +247,9 @@ Fraud Detection
 | [`.env.example`](./.env.example) | Frontend environment template |
 | [`backend/.env.example`](./backend/.env.example) | Backend environment template |
 
+### 🔑 Note on Verification (OTP)
+For testing and demo purposes, the SMS verification step in the signup process uses a static code. Please enter **`1234`** when prompted for the 4-digit secure code to proceed.
+
 ---
 
 ## 👨‍💻 Contributors

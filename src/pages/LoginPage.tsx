@@ -118,34 +118,37 @@ const LoginPage = () => {
 
   const handleSignupOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (otp.length === 4) {
-      setLoadingAction(true);
-      try {
-        // Construct user data
-        const userData: any = {
-          role,
-          phone,
-          name,
-          username,
-          email,
-          gender: gender || undefined,
-          dob: dob || undefined,
-          organization: organization || undefined,
-          bio: bio || undefined,
-          location: address || undefined,
-        };
+    if (otp !== "1234") {
+      setLoginError("Invalid verification code. Please enter 1234.");
+      return;
+    }
+    
+    setLoadingAction(true);
+    try {
+      // Construct user data
+      const userData: any = {
+        role,
+        phone,
+        name,
+        username,
+        email,
+        gender: gender || undefined,
+        dob: dob || undefined,
+        organization: organization || undefined,
+        bio: bio || undefined,
+        location: address || undefined,
+      };
 
-        await signup(userData, password);
+      await signup(userData, password);
 
-        // If avatar is selected, upload it after signup creates the account
-        // Wait, signup sets user context and triggers redirect. Let's upload before redirect if possible,
-        // or we handle upload inside the profile edit page.
-        // Actually, if we use signup it logs us in immediately, so we can upload the photo right after.
-        
-      } catch (err: any) {
-        setLoadingAction(false);
-        setLoginError(`Signup failed: ${err.message}`);
-      }
+      // If avatar is selected, upload it after signup creates the account
+      // Wait, signup sets user context and triggers redirect. Let's upload before redirect if possible,
+      // or we handle upload inside the profile edit page.
+      // Actually, if we use signup it logs us in immediately, so we can upload the photo right after.
+      
+    } catch (err: any) {
+      setLoadingAction(false);
+      setLoginError(`Signup failed: ${err.message}`);
     }
   };
 
