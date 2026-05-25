@@ -16,12 +16,12 @@ import {
 } from "lucide-react";
 import { collection, onSnapshot, query, where, doc, updateDoc, orderBy, limit } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { useLanguage } from "@/context/LanguageContext";
+
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
 const AdminFraud = () => {
-  const { t } = useLanguage();
+  
   const [alerts, setAlerts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -133,7 +133,7 @@ const AdminFraud = () => {
     <div className="space-y-8 pb-12">
       <div className="flex flex-col xl:flex-row justify-between xl:items-end gap-6">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">{t("admin_sidebar_fraud")}</h1>
+          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">Fraud Prevention</h1>
           <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">Real-time anomaly detection & security enforcement</p>
         </div>
         <div className="flex flex-wrap gap-4 items-center">

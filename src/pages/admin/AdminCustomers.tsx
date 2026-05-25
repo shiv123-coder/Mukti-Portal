@@ -16,11 +16,11 @@ import { collection, onSnapshot, query, where, doc, updateDoc, getDocs } from "f
 import { db } from "@/lib/firebase";
 import { User } from "@/types/auth";
 import { useAuth } from "@/hooks/useAuth";
-import { useLanguage } from "@/context/LanguageContext";
+
 import { toast } from "sonner";
 
 const AdminCustomers = () => {
-  const { t } = useLanguage();
+  
   const [customers, setCustomers] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
@@ -89,7 +89,7 @@ const AdminCustomers = () => {
     <div className="space-y-8 pb-12">
       <div className="flex justify-between items-end">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">{t("admin_sidebar_customers")}</h1>
+          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">Customers</h1>
           <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">Customer behavior oversight & trust integrity monitoring</p>
         </div>
       </div>

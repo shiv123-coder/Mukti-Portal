@@ -27,7 +27,7 @@ import { collection, onSnapshot, query, where, getDocs, Timestamp, writeBatch, d
 import { db } from "@/lib/firebase";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
-import { useLanguage } from "@/context/LanguageContext";
+
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
 
@@ -36,7 +36,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000
 // All data now comes from real-time Firebase listeners (no hardcoded demo data)
 
 const AdminOverview = () => {
-  const { t } = useLanguage();
+  
   const { user } = useAuth();
   const { isDark } = useTheme();
   
@@ -203,7 +203,7 @@ const AdminOverview = () => {
 
   const statCards = [
     { 
-      label: t("total_workers"), 
+      label: "Total Workers", 
       value: stats.totalWorkers, 
       icon: <Briefcase size={24} />, 
       trend: "LIVE", 
@@ -211,7 +211,7 @@ const AdminOverview = () => {
       color: "from-blue-600 to-indigo-700"
     },
     { 
-      label: t("total_customers"), 
+      label: "Total Customers", 
       value: stats.totalCustomers, 
       icon: <Users size={24} />, 
       trend: "LIVE", 
@@ -235,7 +235,7 @@ const AdminOverview = () => {
       color: "from-purple-600 to-violet-700"
     },
     { 
-      label: t("fraud_alerts"), 
+      label: "Fraud Alerts", 
       value: Math.floor(stats.totalReviews * 0.05), 
       icon: <ShieldAlert size={24} />, 
       trend: "AUTO", 
@@ -248,7 +248,7 @@ const AdminOverview = () => {
   return (
     <div className="space-y-8 pb-12">
       <div className="flex flex-col gap-1">
-        <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">{t("system_overview")}</h1>
+        <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">System Overview</h1>
         <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">Real-time registry monitoring & deep analytics active</p>
       </div>
 

@@ -17,12 +17,12 @@ import { collection, onSnapshot, query, where, doc, updateDoc, getDocs, writeBat
 import { db } from "@/lib/firebase";
 import { User } from "@/types/auth";
 import { useAuth } from "@/hooks/useAuth";
-import { useLanguage } from "@/context/LanguageContext";
+
 import { calculateEstimatedIncome, calculateLoanEligibility, getFraudRiskLevel } from "@/utils/adminLogic";
 import { toast } from "sonner";
 
 const AdminWorkers = () => {
-  const { t } = useLanguage();
+  
   const [workers, setWorkers] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterSkill, setFilterSkill] = useState("All");
@@ -136,7 +136,7 @@ const AdminWorkers = () => {
     <div className="space-y-8 pb-12">
       <div className="flex justify-between items-end">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">{t("admin_sidebar_workers")}</h1>
+          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">Workers</h1>
           <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">Registry workforce management & financial profiling</p>
         </div>
         <div className="flex gap-3">

@@ -16,13 +16,13 @@ import {
 } from "lucide-react";
 import { collection, onSnapshot, query, orderBy, limit, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { useLanguage } from "@/context/LanguageContext";
+
 import { useAuth } from "@/hooks/useAuth";
 import { analyzeReview } from "@/utils/nlpProcessor";
 import { toast } from "sonner";
 
 const AdminReviews = () => {
-  const { t } = useLanguage();
+  
   const { user: currentUser } = useAuth();
   const isDemo = currentUser?.isDemo;
   
@@ -56,7 +56,7 @@ const AdminReviews = () => {
     <div className="space-y-8 pb-12">
       <div className="flex justify-between items-end">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">{t("admin_sidebar_reviews")}</h1>
+          <h1 className="text-4xl font-black text-foreground italic tracking-tighter uppercase">Reviews</h1>
           <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">NLP-enriched content moderation & quality control</p>
         </div>
       </div>

@@ -25,12 +25,12 @@ import {
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { toast } from "sonner";
-import { useLanguage } from "@/context/LanguageContext";
+
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
 const AdminRequests = () => {
-  const { t } = useLanguage();
+  
   const navigate = useNavigate();
   const [requests, setRequests] = useState<any[]>([]);
   const [explicitRequests, setExplicitRequests] = useState<any[]>([]);
