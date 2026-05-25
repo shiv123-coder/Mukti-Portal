@@ -193,6 +193,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           role: assignedRole,
           status: assignedRole === "worker" ? "not verified" : undefined,
           isVerifiedByAdmin: assignedRole === "worker" ? false : undefined,
+          isProfileComplete: assignedRole === "customer" || assignedRole === "admin",
           otpVerified: true,
           lastActive: new Date(),
           points: assignedRole === "customer" ? 0 : undefined,
@@ -276,7 +277,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       employerPhone,
       employerVerified: employerPhone ? false : undefined,
       status: finalRole === "worker" ? "not verified" : undefined,
-      isVerifiedByAdmin: finalRole === "worker" ? false : undefined
+      isVerifiedByAdmin: finalRole === "worker" ? false : undefined,
+      isProfileComplete: finalRole === "customer" || finalRole === "admin"
     };
     
     // 1. Direct Firestore Write (Primary Source of Truth)
@@ -289,6 +291,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       badges: finalRole === "customer" ? [] : undefined,
       status: finalRole === "worker" ? "not verified" : undefined,
       isVerifiedByAdmin: finalRole === "worker" ? false : undefined,
+      isProfileComplete: finalRole === "customer" || finalRole === "admin"
     });
 
     try {

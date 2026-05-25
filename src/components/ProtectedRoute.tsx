@@ -33,6 +33,17 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
     return <Navigate to={redirectPath} replace />;
   }
 
+  // Intercept workers who haven't completed their professional onboarding
+  if (user.role === "worker" && !user.isProfileComplete && location.pathname !== "/onboarding") {
+    return <Navigate to="/onboarding" replace />;
+  }
+
+  // Prevent users with complete profiles from accessing the onboarding page
+  if (location.pathname === "/onboarding" && user.isProfileComplete) {
+    const redirectPath = user.role === "worker" ? "/dashboard" : "/customer";
+    return <Navigate to={redirectPath} replace />;
+  }
+
   return <>{children}</>;
 };
 

@@ -20,6 +20,7 @@ import LoginPage from "@/pages/LoginPage";
 import WorkerDashboard from "@/pages/WorkerDashboard";
 import CustomerDashboard from "@/pages/CustomerDashboard";
 import AdminOverview from "@/pages/admin/AdminOverview";
+import OnboardingPage from "@/pages/OnboardingPage";
 
 // Lazy-load secondary pages for better initial performance
 const WorkerProfile = lazy(() => import("@/pages/WorkerProfile"));
@@ -65,6 +66,7 @@ const MainLayout = () => {
             <Route path="/" element={<LoginPage />} />
             
             {/* Worker Routes */}
+            <Route path="/onboarding" element={<ProtectedRoute allowedRoles={["worker"]}><OnboardingPage /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute allowedRoles={["worker"]}><WorkerDashboard /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute allowedRoles={["worker"]}><WorkerProfile /></ProtectedRoute>} />
             <Route path="/qr" element={<ProtectedRoute allowedRoles={["worker"]}><QRScreen /></ProtectedRoute>} />
