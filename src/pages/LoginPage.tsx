@@ -394,6 +394,7 @@ const LoginPage = () => {
                   Continue with Google
                 </button>
               </motion.div>
+              )
             ) : (
               <motion.div 
                 key={`signup-${signupStep}`}
