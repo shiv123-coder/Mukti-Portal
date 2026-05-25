@@ -18,6 +18,7 @@ import {
   arrayUnion,
   Timestamp,
   serverTimestamp,
+} from "firebase/firestore";
 import { User, UserRole, WorkerType } from "@/types/auth";
 
 interface AuthContextType {
