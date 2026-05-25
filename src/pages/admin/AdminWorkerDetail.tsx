@@ -188,7 +188,7 @@ const AdminWorkerDetail = () => {
   if (loading) {
     return (
       <div className="flex h-[60vh] items-center justify-center flex-col gap-4">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-orange-500 border-t-transparent" />
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
         <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">
           Loading Worker Profile...
         </p>
@@ -210,7 +210,7 @@ const AdminWorkerDetail = () => {
         </div>
         <button
           onClick={() => navigate(-1)}
-          className="px-6 py-3 rounded-2xl bg-orange-600 text-white text-[10px] font-black uppercase tracking-widest hover:bg-orange-700 transition-all"
+          className="px-6 py-3 rounded-2xl bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest hover:bg-orange-700 transition-all"
         >
           Go Back
         </button>
@@ -268,7 +268,7 @@ const AdminWorkerDetail = () => {
               ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
               : statusColor === "red"
               ? "bg-red-500/10 text-red-400 border-red-500/20"
-              : "bg-orange-500/10 text-orange-400 border-orange-500/20"
+              : "bg-primary/10 text-primary border-primary/20"
           }`}
         >
           {statusLabel}
@@ -280,10 +280,10 @@ const AdminWorkerDetail = () => {
         <div className="lg:col-span-4 flex flex-col gap-6">
           {/* Avatar Card */}
           <div className="relative rounded-[2.5rem] bg-card border border-border p-10 flex flex-col items-center text-center overflow-hidden shadow-2xl group">
-            <div className="absolute -top-16 -right-16 h-40 w-40 bg-orange-500/5 rounded-full blur-3xl group-hover:bg-orange-500/10 transition-all duration-1000" />
+            <div className="absolute -top-16 -right-16 h-40 w-40 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-all duration-1000" />
 
             <div className="relative mb-6">
-              <div className="h-28 w-28 rounded-[2rem] bg-orange-500 flex items-center justify-center text-5xl font-black text-white italic shadow-[0_0_40px_rgba(249,115,22,0.3)] border-4 border-white/10 overflow-hidden">
+              <div className="h-28 w-28 rounded-[2rem] bg-primary flex items-center justify-center text-5xl font-black text-primary-foreground italic shadow-[0_0_40px_rgba(249,115,22,0.3)] border-4 border-border overflow-hidden">
                 {worker.photo ? (
                   <img
                     src={worker.photo}
@@ -294,7 +294,7 @@ const AdminWorkerDetail = () => {
                   (worker.name || "?").charAt(0)
                 )}
               </div>
-              <div className="absolute -bottom-2 -right-2 p-2.5 rounded-xl bg-secondary border border-orange-500/30 text-orange-500 shadow-xl italic font-black">
+              <div className="absolute -bottom-2 -right-2 p-2.5 rounded-xl bg-secondary border border-primary/30 text-primary shadow-xl italic font-black">
                 <Award size={18} />
               </div>
             </div>
@@ -303,7 +303,7 @@ const AdminWorkerDetail = () => {
               {worker.name || "Unknown"}
             </h2>
             {worker.skill && (
-              <span className="mt-1 text-[10px] font-black text-orange-400 uppercase tracking-[0.3em] italic">
+              <span className="mt-1 text-[10px] font-black text-primary uppercase tracking-[0.3em] italic">
                 {worker.skill}
               </span>
             )}
@@ -313,7 +313,7 @@ const AdminWorkerDetail = () => {
                 className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-[9px] font-black uppercase tracking-widest border ${
                   worker.isVerifiedByAdmin
                     ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                    : "bg-orange-500/10 text-orange-400 border-orange-500/20"
+                    : "bg-primary/10 text-primary border-primary/20"
                 }`}
               >
                 {worker.isVerifiedByAdmin ? (
@@ -350,7 +350,7 @@ const AdminWorkerDetail = () => {
                   key={item.label}
                   className="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-secondary transition-all group border border-transparent hover:border-border italic"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500 border border-orange-500/10 shrink-0 group-hover:scale-110 transition-transform shadow-inner">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/10 shrink-0 group-hover:scale-110 transition-transform shadow-inner">
                     <item.icon size={16} />
                   </div>
                   <div className="min-w-0">
@@ -375,13 +375,13 @@ const AdminWorkerDetail = () => {
             {/* 01. ACTIVITY LOG */}
             <div className="rounded-[2.5rem] bg-card border border-border p-8 shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                 <History size={40} className="text-orange-500" />
+                 <History size={40} className="text-primary" />
               </div>
               <div className="flex items-center gap-2 mb-6">
-                 <div className="h-5 w-5 rounded-full bg-orange-500/20 flex items-center justify-center">
-                    <div className="h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+                 <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
+                    <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
                  </div>
-                 <span className="text-[10px] font-black text-orange-500 uppercase tracking-[0.3em] font-serif italic">01. Activity Log</span>
+                 <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] font-serif italic">01. Activity Log</span>
               </div>
               
               <div className="flex justify-between items-end">
@@ -405,13 +405,13 @@ const AdminWorkerDetail = () => {
             {/* 02. PRECISION METRICS */}
             <div className="rounded-[2.5rem] bg-card border border-border p-8 shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                 <Shield size={40} className="text-orange-500" />
+                 <Shield size={40} className="text-primary" />
               </div>
               <div className="flex items-center gap-2 mb-6">
-                 <div className="h-5 w-5 rounded-full bg-orange-500/20 flex items-center justify-center">
-                    <div className="h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+                 <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
+                    <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
                  </div>
-                 <span className="text-[10px] font-black text-orange-500 uppercase tracking-[0.3em] font-serif italic">02. Precision Metrics</span>
+                 <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] font-serif italic">02. Precision Metrics</span>
               </div>
 
               <div className="flex justify-between items-center">
@@ -435,13 +435,13 @@ const AdminWorkerDetail = () => {
             {/* 03. CAPITAL PROFILE */}
             <div className="rounded-[2.5rem] bg-card border border-border p-8 shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                 <TrendingUp size={40} className="text-orange-500" />
+                 <TrendingUp size={40} className="text-primary" />
               </div>
               <div className="flex items-center gap-2 mb-6">
-                 <div className="h-5 w-5 rounded-full bg-orange-500/20 flex items-center justify-center">
-                    <div className="h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+                 <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
+                    <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
                  </div>
-                 <span className="text-[10px] font-black text-orange-500 uppercase tracking-[0.3em] font-serif italic">03. Capital Profile</span>
+                 <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] font-serif italic">03. Capital Profile</span>
               </div>
 
               <div className="space-y-4">
@@ -460,13 +460,13 @@ const AdminWorkerDetail = () => {
             {/* 04. CREDIT ELIGIBILITY */}
             <div className="rounded-[2.5rem] bg-card border border-border p-8 shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                 <BadgeCheck size={40} className="text-orange-500" />
+                 <BadgeCheck size={40} className="text-primary" />
               </div>
               <div className="flex items-center gap-2 mb-6">
-                 <div className="h-5 w-5 rounded-full bg-orange-500/20 flex items-center justify-center">
-                    <div className="h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+                 <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
+                    <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
                  </div>
-                 <span className="text-[10px] font-black text-orange-500 uppercase tracking-[0.3em] font-serif italic">04. Credit Eligibility</span>
+                 <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] font-serif italic">04. Credit Eligibility</span>
               </div>
 
               <div className="flex justify-between items-end">
@@ -476,7 +476,7 @@ const AdminWorkerDetail = () => {
                 </div>
                 <div className="text-right space-y-1">
                    <div className="text-[9px] font-black text-muted-foreground uppercase tracking-widest opacity-60 italic">Facility Range</div>
-                   <div className="text-2xl font-black text-orange-500 italic tracking-tighter">₹{workerMetrics.income.loanRange.min} - ₹{workerMetrics.income.loanRange.max}</div>
+                   <div className="text-2xl font-black text-primary italic tracking-tighter">₹{workerMetrics.income.loanRange.min} - ₹{workerMetrics.income.loanRange.max}</div>
                 </div>
               </div>
             </div>
@@ -501,7 +501,7 @@ const AdminWorkerDetail = () => {
                   <button
                     onClick={() => handleAction("approve")}
                     disabled={actionLoading}
-                    className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-orange-600 text-white shadow-lg shadow-orange-600/20 hover:scale-[1.02] active:scale-95 transition-all text-[11px] font-black uppercase tracking-widest disabled:opacity-40 italic"
+                    className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-600/20 hover:scale-[1.02] active:scale-95 transition-all text-[11px] font-black uppercase tracking-widest disabled:opacity-40 italic"
                   >
                     {actionLoading ? (
                       <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -513,7 +513,7 @@ const AdminWorkerDetail = () => {
                 </div>
               ) : (
                 <div className="space-y-4 animate-in fade-in duration-300">
-                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">
                     Select or type a rejection reason
                   </p>
                   <div className="space-y-2">
@@ -530,7 +530,7 @@ const AdminWorkerDetail = () => {
                         className={`w-full text-left px-4 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${
                           rejectReason === r
                             ? "bg-red-500/10 border-red-500/30 text-red-400"
-                            : "bg-white/5 border-white/5 text-slate-400 hover:text-white"
+                            : "bg-card/5 border-border text-muted-foreground hover:text-primary-foreground"
                         }`}
                       >
                         {r}
@@ -557,7 +557,7 @@ const AdminWorkerDetail = () => {
                     <button
                       onClick={() => handleAction("reject")}
                       disabled={!rejectReason || actionLoading}
-                      className="py-3 rounded-xl bg-red-500 text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-500/20 hover:bg-red-600 transition-all disabled:opacity-30 active:scale-95 italic"
+                      className="py-3 rounded-xl bg-red-500 text-primary-foreground text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-500/20 hover:bg-red-600 transition-all disabled:opacity-30 active:scale-95 italic"
                     >
                       Confirm Rejection
                     </button>
@@ -586,7 +586,7 @@ const AdminWorkerDetail = () => {
           {/* ── Work History ── */}
           <div className="rounded-[2.5rem] bg-card border border-border shadow-2xl overflow-hidden">
             <div className="px-8 py-5 border-b border-border bg-secondary/30 flex items-center gap-3 italic">
-              <History size={16} className="text-orange-500" />
+              <History size={16} className="text-primary" />
               <span className="font-black text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                 Work History
               </span>
@@ -609,7 +609,7 @@ const AdminWorkerDetail = () => {
                     key={v.id}
                     className="flex items-center gap-4 px-8 py-5 hover:bg-secondary/50 transition-all font-black italic"
                   >
-                    <div className="h-10 w-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center border border-orange-500/10 shrink-0 shadow-inner">
+                    <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center border border-primary/10 shrink-0 shadow-inner">
                       <Briefcase size={16} />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -623,7 +623,7 @@ const AdminWorkerDetail = () => {
                           month: "short",
                           year: "numeric",
                         }) || "N/A"}
-                        {v.workerSkill && <span className="text-orange-500/70">· {v.workerSkill}</span>}
+                        {v.workerSkill && <span className="text-primary/70">· {v.workerSkill}</span>}
                       </div>
                       {v.comment && <div className="text-[10px] text-muted-foreground italic truncate mt-0.5 opacity-50">"{v.comment}"</div>}
                     </div>
@@ -634,7 +634,7 @@ const AdminWorkerDetail = () => {
                           size={12}
                           className={
                             s <= (v.rating || 0)
-                              ? "text-orange-500 fill-orange-500"
+                              ? "text-primary fill-orange-500"
                               : "text-secondary"
                           }
                         />

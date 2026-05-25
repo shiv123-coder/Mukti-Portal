@@ -229,8 +229,8 @@ const ReportPreview = () => {
   const verifiedPaymentPercentage = totalJobs > 0 ? Math.round((verifiedPaymentsCount / totalJobs) * 100) : 0;
 
   const trustLevel = muktiScore >= 80 ? "HIGH" : muktiScore >= 50 ? "MEDIUM" : "LOW";
-  const trustBg = muktiScore >= 80 ? "bg-emerald-600" : muktiScore >= 50 ? "bg-orange-500" : "bg-red-600";
-  const trustColor = muktiScore >= 80 ? "text-emerald-500" : muktiScore >= 50 ? "text-orange-500" : "text-red-500";
+  const trustBg = muktiScore >= 80 ? "bg-emerald-600" : muktiScore >= 50 ? "bg-primary" : "bg-red-600";
+  const trustColor = muktiScore >= 80 ? "text-emerald-500" : muktiScore >= 50 ? "text-primary" : "text-red-500";
   
   const estimatedYearlyIncome = stats.totalEarnings * (12 / Math.max(1, activeMonths));
 
@@ -346,13 +346,13 @@ const ReportPreview = () => {
                 }
               }}
               disabled={!(user.isVerifiedByAdmin || isApproved || isDemoWorker)}
-              className={`group flex h-14 sm:h-16 w-full items-center justify-center gap-3 rounded-2xl font-black text-white shadow-xl transition-all ${(user.isVerifiedByAdmin || isApproved || isDemoWorker) ? 'bg-gradient-to-r from-orange-500 to-orange-600 shadow-orange-500/25 hover:opacity-90 active:scale-[0.98]' : 'bg-slate-800 cursor-not-allowed opacity-50'}`}
+              className={`group flex h-14 sm:h-16 w-full items-center justify-center gap-3 rounded-2xl font-black text-primary-foreground shadow-xl transition-all ${(user.isVerifiedByAdmin || isApproved || isDemoWorker) ? 'bg-gradient-to-r from-orange-500 to-orange-600 shadow-orange-500/25 hover:opacity-90 active:scale-[0.98]' : 'bg-card cursor-not-allowed opacity-50'}`}
             >
               {(user.isVerifiedByAdmin || isApproved || isDemoWorker) ? <Download size={22} className="group-hover:translate-y-0.5 transition-transform" /> : <Lock size={22} />}
               {(user.isVerifiedByAdmin || isApproved || isDemoWorker) ? "GENERATE OFFICIAL REPORT" : "REPORT LOCKED"}
             </button>
             {!(user.isVerifiedByAdmin || isApproved || isDemoWorker) && (
-              <p className="text-[10px] font-black text-orange-500/60 text-center uppercase tracking-widest italic animate-pulse">
+              <p className="text-[10px] font-black text-primary/60 text-center uppercase tracking-widest italic animate-pulse">
                 Verification required for official export
               </p>
             )}
@@ -416,30 +416,30 @@ const ReportPreview = () => {
       </div>
 
       {/* 2. PRINT VIEW (Professional Financial Statement - ONLY VISIBLE ON PRINT) */}
-      <div className="hidden print:block w-full bg-white text-black p-0 m-0">
-        <div className="bg-white border-0 shadow-none overflow-hidden w-full">
+      <div className="hidden print:block w-full bg-card text-black p-0 m-0">
+        <div className="bg-card border-0 shadow-none overflow-hidden w-full">
           
           {/* Official Header */}
-          <div className="p-10 border-b-4 border-orange-500 flex justify-between items-start bg-slate-50">
+          <div className="p-10 border-b-4 border-primary flex justify-between items-start bg-muted">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-12 w-12 bg-orange-500 rounded-lg flex items-center justify-center text-white">
+                <div className="h-12 w-12 bg-primary rounded-lg flex items-center justify-center text-primary-foreground">
                   <Fingerprint size={28} />
                 </div>
                 <div>
                   <h1 className="text-xl font-black tracking-tighter uppercase leading-none">MuktiPortal</h1>
-                  <p className="text-[10px] font-bold text-orange-600 uppercase tracking-[0.2em] mt-1">Verified Identity Network</p>
+                  <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mt-1">Verified Identity Network</p>
                 </div>
               </div>
               <h2 className="text-2xl font-black uppercase tracking-tight mb-1">Financial Data Report</h2>
-              <p className="text-sm font-semibold text-slate-500 italic">Peer-Verified Alternative Work Record</p>
+              <p className="text-sm font-semibold text-muted-foreground italic">Peer-Verified Alternative Work Record</p>
             </div>
             <div className="text-right flex flex-col items-end pt-2">
-              <div className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-[10px] font-bold text-slate-600 uppercase mb-4">
+              <div className="rounded-md border border-border bg-card px-3 py-1.5 text-[10px] font-bold text-muted-foreground uppercase mb-4">
                 Verified Document • {new Date().toLocaleDateString()}
               </div>
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Report Ref:</p>
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Report Ref:</p>
                 <p className="text-xs font-mono font-bold">MPR-{user.id.slice(0, 8).toUpperCase()}</p>
               </div>
             </div>
@@ -449,17 +449,17 @@ const ReportPreview = () => {
           <div className="p-10 grid grid-cols-2 gap-10">
             <div className="space-y-6">
               <div className="space-y-1">
-                <label className="text-[10px] font-black text-orange-600 uppercase tracking-widest">Worker Identity</label>
+                <label className="text-[10px] font-black text-primary uppercase tracking-widest">Worker Identity</label>
                 <h3 className="text-3xl font-black">{user.name}</h3>
-                <p className="text-base font-bold text-slate-500">{user.skill || "Skill Not Specified"}</p>
+                <p className="text-base font-bold text-muted-foreground">{user.skill || "Skill Not Specified"}</p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Location</p>
+                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Location</p>
                   <p className="text-sm font-bold">{user.location || "Patna, Bihar"}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Member Since</p>
+                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Member Since</p>
                   <p className="text-sm font-bold">Oct 2025</p>
                 </div>
               </div>
@@ -470,13 +470,13 @@ const ReportPreview = () => {
             </div>
 
             {/* Trust Score Visual */}
-            <div className="rounded-2xl border-2 border-slate-100 bg-slate-50/30 p-8 flex flex-col items-center justify-center text-center">
-              <label className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Trust Score Index</label>
+            <div className="rounded-2xl border-2 border-border bg-muted/30 p-8 flex flex-col items-center justify-center text-center">
+              <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-4">Trust Score Index</label>
               <div className="relative mb-4">
-                <div className="text-4xl font-black text-orange-600">{trustScore}</div>
-                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">SCORE</div>
+                <div className="text-4xl font-black text-primary">{trustScore}</div>
+                <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">SCORE</div>
               </div>
-              <div className={`text-sm font-black tracking-widest px-6 py-1.5 rounded-full ${trustBg} text-white`}>
+              <div className={`text-sm font-black tracking-widest px-6 py-1.5 rounded-full ${trustBg} text-primary-foreground`}>
                   {trustLevel} TRUST
               </div>
             </div>
@@ -485,11 +485,11 @@ const ReportPreview = () => {
           {/* Stats Summary Table */}
           <div className="px-10 pb-10">
             <div className="mb-6 flex items-center gap-2 text-sm font-black uppercase tracking-widest">
-              <TrendingUp size={16} className="text-orange-600" /> {isRegularWorker ? "Consistent Business Record" : "Work History Statement"}
+              <TrendingUp size={16} className="text-primary" /> {isRegularWorker ? "Consistent Business Record" : "Work History Statement"}
             </div>
-            <div className="overflow-x-auto rounded-xl border border-slate-200">
+            <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full min-w-[600px] sm:min-w-0 text-left text-sm">
-                <thead className="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b">
+                <thead className="bg-muted text-[10px] font-black text-muted-foreground uppercase tracking-widest border-b">
                   <tr>
                     <th className="px-6 py-4">Month/Year</th>
                     <th className="px-6 py-4">{isRegularWorker ? "Handshake Status" : "Jobs"}</th>
@@ -514,7 +514,7 @@ const ReportPreview = () => {
                     </tr>
                   ))}
                 </tbody>
-                <tfoot className="bg-slate-900 text-white font-black uppercase">
+                <tfoot className="bg-card text-primary-foreground font-black uppercase">
                   <tr>
                     <td className="px-6 py-4">{user.workerType === 0 ? "Cumulative History" : "6-Month Summary"}</td>
                     <td className="px-6 py-4">{user.workerType === 0 ? "14 Months" : `${totalJobs} Jobs`}</td>
@@ -530,12 +530,12 @@ const ReportPreview = () => {
           <div className="px-6 sm:px-10 pb-10 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
             <div className="space-y-4">
                <div className="flex items-center gap-2 text-sm font-black uppercase tracking-widest">
-                <AlertCircle size={16} className="text-orange-500" /> Annual Projection
+                <AlertCircle size={16} className="text-primary" /> Annual Projection
               </div>
               <div className="rounded-xl border border-orange-100 bg-orange-50/50 p-5">
-                <div className="text-[10px] font-black text-orange-600 uppercase mb-1">Projected Annual Earnings</div>
+                <div className="text-[10px] font-black text-primary uppercase mb-1">Projected Annual Earnings</div>
                 <div className="text-2xl font-black">₹{estimatedYearlyIncome.toLocaleString("en-IN")}</div>
-                <p className="text-[9px] text-slate-500 mt-2 italic leading-relaxed">
+                <p className="text-[9px] text-muted-foreground mt-2 italic leading-relaxed">
                   Based on verified work consistency and current market rates for {user.skill}.
                 </p>
               </div>
@@ -544,7 +544,7 @@ const ReportPreview = () => {
               <div className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-emerald-600">
                 <ShieldCheck size={16} className="text-emerald-600" /> Data Verification Checklist
               </div>
-              <div className="space-y-2 text-[11px] font-bold text-slate-600">
+              <div className="space-y-2 text-[11px] font-bold text-muted-foreground">
                 <div className="flex items-center gap-2 text-emerald-600">
                   <CheckCircle2 size={12} className="text-emerald-600" /> OTP Handshake Verified Jobs
                 </div>
@@ -559,15 +559,15 @@ const ReportPreview = () => {
           </div>
 
           {/* Footer Note */}
-          <div className="p-8 bg-slate-900 text-white flex justify-between items-end">
+          <div className="p-8 bg-card text-primary-foreground flex justify-between items-end">
             <div className="space-y-2">
               <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Generated by Mukti System Interface</p>
-              <p className="text-[8px] max-w-sm text-slate-400 leading-relaxed uppercase">
+              <p className="text-[8px] max-w-sm text-muted-foreground leading-relaxed uppercase">
                 DISCLAIMER: This document serves as an alternative financial record for the informal sector. It is not an official bank statement. 
                 System ID: {new Date().getTime()}
               </p>
             </div>
-            <div className="text-[9px] font-mono text-blue-400">TIMESTAMP: {new Date().toISOString()}</div>
+            <div className="text-[9px] font-mono text-primary">TIMESTAMP: {new Date().toISOString()}</div>
           </div>
         </div>
       </div>
@@ -575,30 +575,30 @@ const ReportPreview = () => {
       {/* Locked Overlay for Unverified Users */}
       {!(user.isVerifiedByAdmin || isApproved || isDemoWorker) && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-background/20 backdrop-blur-[12px] print:hidden">
-           <div className="w-full max-w-sm bg-slate-950 p-10 rounded-[3rem] border border-orange-500/20 shadow-3xl text-center space-y-8 animate-in zoom-in-95 duration-500">
+           <div className="w-full max-w-sm bg-background p-10 rounded-[3rem] border border-primary/20 shadow-3xl text-center space-y-8 animate-in zoom-in-95 duration-500">
               <div className="relative mx-auto w-24 h-24 flex items-center justify-center">
-                 <div className="absolute inset-0 bg-orange-500/10 rounded-full animate-ping" />
-                 <div className="relative h-20 w-20 rounded-3xl bg-orange-500 text-white flex items-center justify-center shadow-2xl shadow-orange-500/40">
+                 <div className="absolute inset-0 bg-primary/10 rounded-full animate-ping" />
+                 <div className="relative h-20 w-20 rounded-3xl bg-primary text-primary-foreground flex items-center justify-center shadow-2xl shadow-orange-500/40">
                     <Lock size={40} strokeWidth={2.5} />
                  </div>
               </div>
               <div className="space-y-3">
-                 <h3 className="text-2xl font-black text-white italic tracking-tighter uppercase">Report Restricted</h3>
-                 <p className="text-xs font-black text-slate-500 uppercase tracking-widest leading-loose italic px-2">
+                 <h3 className="text-2xl font-black text-primary-foreground italic tracking-tighter uppercase">Report Restricted</h3>
+                 <p className="text-xs font-black text-muted-foreground uppercase tracking-widest leading-loose italic px-2">
                     Official financial statements are generated only after admin identity verification.
                  </p>
               </div>
-              <div className="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-                 <div className="text-[10px] font-black text-orange-500 uppercase tracking-widest italic flex items-center justify-center gap-2">
+              <div className="p-5 rounded-2xl bg-card/5 border border-border space-y-2">
+                 <div className="text-[10px] font-black text-primary uppercase tracking-widest italic flex items-center justify-center gap-2">
                     <Clock size={12} /> Status: Under Review
                  </div>
-                 <div className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-relaxed">
+                 <div className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-relaxed">
                     Check back after 24-48 hours
                  </div>
               </div>
               <button 
                 onClick={() => navigate("/dashboard")}
-                className="w-full h-16 rounded-2xl bg-white/5 border border-white/5 text-white font-black uppercase tracking-[0.4em] text-[10px] hover:bg-white/10 transition-all"
+                className="w-full h-16 rounded-2xl bg-card/5 border border-border text-primary-foreground font-black uppercase tracking-[0.4em] text-[10px] hover:bg-card/10 transition-all"
               >
                  Return to Dashboard
               </button>

@@ -136,11 +136,11 @@ const JobMap = () => {
       {/* Top Bar */}
       <div className="absolute top-0 left-0 right-0 z-[1000] p-4">
         <div className="flex items-center justify-between">
-          <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-slate-950/90 backdrop-blur-xl border border-white/10 text-white text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 transition-all">
+          <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-background/90 backdrop-blur-xl border border-border text-primary-foreground text-[10px] font-black uppercase tracking-widest hover:bg-card transition-all">
             <ArrowLeft size={14} /> Back
           </button>
-          <div className="px-4 py-2 rounded-2xl bg-slate-950/90 backdrop-blur-xl border border-white/10 text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
-            <Navigation size={14} className="text-orange-500" />
+          <div className="px-4 py-2 rounded-2xl bg-background/90 backdrop-blur-xl border border-border text-[10px] font-black text-primary-foreground uppercase tracking-widest flex items-center gap-2">
+            <Navigation size={14} className="text-primary" />
             {jobs.length} Jobs Nearby
           </div>
         </div>
@@ -151,22 +151,22 @@ const JobMap = () => {
 
       {/* Bottom Info */}
       <div className="absolute bottom-16 sm:bottom-20 left-3 right-3 sm:left-4 sm:right-4 z-[1000]">
-        <div className="rounded-[2rem] bg-slate-950/95 backdrop-blur-xl border border-white/10 p-5 sm:p-6 shadow-2xl">
+        <div className="rounded-[2rem] bg-background/95 backdrop-blur-xl border border-border p-5 sm:p-6 shadow-2xl">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-center sm:text-left">
-              <div className="text-[7px] sm:text-[9px] font-black text-slate-600 uppercase tracking-[0.3em]">Job Radar Active</div>
-              <div className="text-base sm:text-lg font-black text-white italic tracking-tighter uppercase">
+              <div className="text-[7px] sm:text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em]">Job Radar Active</div>
+              <div className="text-base sm:text-lg font-black text-primary-foreground italic tracking-tighter uppercase">
                 {jobs.length} open requests
               </div>
             </div>
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
-                <span className="text-[7px] sm:text-[8px] font-black text-slate-500 uppercase">Normal</span>
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-primary shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase">Normal</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
-                <span className="text-[7px] sm:text-[8px] font-black text-slate-500 uppercase">Urgent</span>
+                <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase">Urgent</span>
               </div>
             </div>
           </div>

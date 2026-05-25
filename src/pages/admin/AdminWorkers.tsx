@@ -142,7 +142,7 @@ const AdminWorkers = () => {
         <div className="flex gap-3">
           <button 
             onClick={handleResetAll}
-            className="h-12 px-6 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-[10px] font-black text-red-500 uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/10"
+            className="h-12 px-6 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-[10px] font-black text-red-500 uppercase tracking-widest hover:bg-red-500 hover:text-primary-foreground transition-all shadow-lg shadow-red-500/10"
           >
             Reset All Verifications
           </button>
@@ -161,20 +161,20 @@ const AdminWorkers = () => {
             placeholder="Search by name or skill..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-secondary border border-border rounded-xl pl-12 pr-4 py-3 text-sm text-foreground outline-none focus:border-orange-500 transition-all placeholder:text-muted-foreground/50"
+            className="w-full bg-secondary border border-border rounded-xl pl-12 pr-4 py-3 text-sm text-foreground outline-none focus:border-primary transition-all placeholder:text-muted-foreground/50"
           />
         </div>
         <select 
           value={filterSkill}
           onChange={(e) => setFilterSkill(e.target.value)}
-          className="bg-secondary border border-border rounded-xl px-4 py-3 text-sm text-foreground outline-none focus:border-orange-500 min-w-[150px] font-bold uppercase tracking-wider"
+          className="bg-secondary border border-border rounded-xl px-4 py-3 text-sm text-foreground outline-none focus:border-primary min-w-[150px] font-bold uppercase tracking-wider"
         >
           <option value="All">All Skills</option>
           <option value="Maid">Maid</option>
           <option value="Electrician">Electrician</option>
           <option value="Plumber">Plumber</option>
         </select>
-        <button className="px-6 py-3 rounded-xl bg-orange-600 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-orange-600/20 active:scale-95 transition-transform">
+        <button className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-black text-[10px] uppercase tracking-widest shadow-lg shadow-orange-600/20 active:scale-95 transition-transform">
           Apply Filters
         </button>
       </div>
@@ -197,7 +197,7 @@ const AdminWorkers = () => {
               {loading ? (
                 <tr>
                   <td colSpan={6} className="px-8 py-20 text-center">
-                    <div className="animate-pulse text-slate-500 font-bold uppercase tracking-widest text-[10px]">Synthesizing Worker Registry...</div>
+                    <div className="animate-pulse text-muted-foreground font-bold uppercase tracking-widest text-[10px]">Synthesizing Worker Registry...</div>
                   </td>
                 </tr>
               ) : filteredWorkers.map((worker: any) => {
@@ -237,7 +237,7 @@ const AdminWorkers = () => {
                     <td className="px-6 py-6 text-center">
                       <div className={`inline-block px-3 py-1 rounded-lg font-black text-sm ${
                         (worker.muktiScore || 0) > 80 ? 'text-emerald-500 bg-emerald-500/10' : 
-                        (worker.muktiScore || 0) > 50 ? 'text-orange-500 bg-orange-500/10' : 'text-red-500 bg-red-500/10'
+                        (worker.muktiScore || 0) > 50 ? 'text-primary bg-primary/10' : 'text-red-500 bg-red-500/10'
                       }`}>
                         {worker.muktiScore || 0}
                       </div>
@@ -257,10 +257,10 @@ const AdminWorkers = () => {
                     <td className="px-6 py-6">
                       <div className="flex flex-col items-center">
                         <div className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${
-                          risk === 'LOW' ? 'text-emerald-500' : risk === 'MEDIUM' ? 'text-orange-500' : 'text-red-500'
+                          risk === 'LOW' ? 'text-emerald-500' : risk === 'MEDIUM' ? 'text-primary' : 'text-red-500'
                         }`}>
                           <div className={`h-2 w-2 rounded-full ${
-                            risk === 'LOW' ? 'bg-emerald-500' : risk === 'MEDIUM' ? 'bg-orange-500' : 'bg-red-500'
+                            risk === 'LOW' ? 'bg-emerald-500' : risk === 'MEDIUM' ? 'bg-primary' : 'bg-red-500'
                           }`} />
                           {risk} Risk
                         </div>
@@ -282,7 +282,7 @@ const AdminWorkers = () => {
                         >
                           <CheckCircle2 size={18} />
                         </button>
-                        <button className="p-2.5 rounded-xl bg-secondary text-muted-foreground hover:text-blue-500 hover:bg-blue-500/10 transition-all shadow-sm border border-border">
+                        <button className="p-2.5 rounded-xl bg-secondary text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all shadow-sm border border-border">
                           <ExternalLink size={18} />
                         </button>
                       </div>

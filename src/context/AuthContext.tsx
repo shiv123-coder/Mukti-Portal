@@ -6,7 +6,8 @@ import {
   onAuthStateChanged, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
-  signInWithPopup,
+  signInWithCredential,
+  GoogleAuthProvider,
   signOut,
 } from "firebase/auth";
 import { 
@@ -29,7 +30,7 @@ interface AuthContextType {
   loading: boolean;
   login: (phone: string, password?: string) => Promise<void>;
   signup: (phone: string, role: UserRole, name: string, password?: string, skill?: string, location?: string, photo?: string, workerType?: WorkerType, employerName?: string, employerPhone?: string, locationCoords?: {lat: number, lng: number}) => Promise<void>;
-  signInWithGoogle: (role: UserRole) => Promise<void>;
+  signInWithGoogle: (role: UserRole, accessToken: string) => Promise<void>;
   updateUser: (updates: Partial<User>) => Promise<void>;
   addPoints: (amount: number, badgeStr?: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -175,15 +176,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  async function signInWithGoogle(role: UserRole) {
+  async function signInWithGoogle(role: UserRole, accessToken: string) {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const credential = GoogleAuthProvider.credential(null, accessToken);
+      const result = await signInWithCredential(auth, credential);
       const firebaseUser = result.user;
       const userDocRef = doc(db, "users", firebaseUser.uid);
-      const userDoc = await getDoc(userDocRef);
       const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
       const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL || firebaseUser.email === `${adminPhone}@mukti.com`;
       const assignedRole = isAdmin ? "admin" : role;
+
+      let userDoc;
+      try {
+        userDoc = await getDoc(userDocRef);
+      } catch (docError: any) {
+        if (docError.code === 'unavailable' || docError.message?.includes('offline')) {
+          console.warn("Firestore is offline. Using auth profile as fallback.");
+          setUser({
+            id: firebaseUser.uid,
+            phone: firebaseUser.phoneNumber || "Google User",
+            email: firebaseUser.email,
+            name: firebaseUser.displayName || "Google User",
+            role: assignedRole,
+            isDemo: false,
+            lastActive: new Date(),
+          } as User);
+          return;
+        }
+        throw docError;
+      }
 
       if (!userDoc.exists()) {
         const newUser: any = {
@@ -349,18 +370,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       <div className="flex h-screen w-full items-center justify-center bg-[#020617]">
         <div className="flex flex-col items-center gap-6 max-w-sm px-6 text-center">
           <div className="relative">
-            <div className={`h-16 w-16 animate-spin rounded-full border-4 ${initError ? 'border-red-500/20 border-t-red-500' : 'border-orange-500/20 border-t-orange-500Shadow-[0_0_20px_rgba(249,115,22,0.3)]'}`}></div>
-            <div className={`absolute inset-0 h-16 w-16 animate-pulse rounded-full ${initError ? 'bg-red-500/10' : 'bg-orange-500/10'} blur-xl`}></div>
+            <div className={`h-16 w-16 animate-spin rounded-full border-4 ${initError ? 'border-red-500/20 border-t-red-500' : 'border-primary/20 border-t-orange-500Shadow-[0_0_20px_rgba(249,115,22,0.3)]'}`}></div>
+            <div className={`absolute inset-0 h-16 w-16 animate-pulse rounded-full ${initError ? 'bg-red-500/10' : 'bg-primary/10'} blur-xl`}></div>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <h2 className="text-lg font-black text-white tracking-wider uppercase">MuktiPortal</h2>
-            <p className={`text-[10px] font-bold ${initError ? 'text-red-500' : 'text-slate-500'} uppercase tracking-[0.2em] animate-pulse`}>
+            <h2 className="text-lg font-black text-primary-foreground tracking-wider uppercase">MuktiPortal</h2>
+            <p className={`text-[10px] font-bold ${initError ? 'text-red-500' : 'text-muted-foreground'} uppercase tracking-[0.2em] animate-pulse`}>
               {initError || "Initialising Secure Session"}
             </p>
             {initError && (
               <button 
                 onClick={() => window.location.reload()}
-                className="mt-4 px-6 py-2 rounded-xl bg-white/5 border border-white/10 text-[9px] font-black text-white uppercase tracking-widest hover:bg-white/10 transition-all"
+                className="mt-4 px-6 py-2 rounded-xl bg-card/5 border border-border text-[9px] font-black text-primary-foreground uppercase tracking-widest hover:bg-card/10 transition-all"
               >
                 Retry Connection
               </button>

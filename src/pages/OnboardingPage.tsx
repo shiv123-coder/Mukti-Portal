@@ -81,7 +81,7 @@ const OnboardingPage = () => {
     <div className="flex min-h-screen w-full bg-background text-foreground">
       {/* Background Decor */}
       <div className="absolute top-[-20%] left-[-10%] h-[800px] w-[800px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] h-[600px] w-[600px] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] h-[600px] w-[600px] rounded-full bg-primary/10 blur-[100px] pointer-events-none" />
 
       <div className="flex-1 flex flex-col items-center justify-center p-6 relative z-10">
         <div className="w-full max-w-xl">
@@ -92,7 +92,7 @@ const OnboardingPage = () => {
             <p className="mt-2 text-muted-foreground font-medium">Let's build your professional profile to start getting jobs.</p>
           </div>
 
-          <div className="bg-slate-900/60 backdrop-blur-2xl border border-border p-8 sm:p-10 rounded-[2rem] shadow-2xl relative overflow-hidden">
+          <div className="bg-card/60 backdrop-blur-2xl border border-border p-8 sm:p-10 rounded-[2rem] shadow-2xl relative overflow-hidden">
             {/* Progress Bar */}
             <div className="absolute top-0 left-0 w-full h-1 bg-secondary">
               <div 
@@ -113,24 +113,24 @@ const OnboardingPage = () => {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1 mb-2 block">Primary Skill</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1 mb-2 block">Primary Skill</label>
                     <div className="relative group">
-                      <Target className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors" size={18} />
+                      <Target className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={18} />
                       <input
                         type="text"
                         value={skill}
                         onChange={(e) => setSkill(e.target.value)}
                         placeholder="e.g. Electrician, Plumber, Cleaner..."
-                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
                         autoFocus
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1 mb-2 block">Years of Experience</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1 mb-2 block">Years of Experience</label>
                     <div className="relative group">
-                      <Clock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors" size={18} />
+                      <Clock className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={18} />
                       <input
                         type="number"
                         min="0"
@@ -138,7 +138,7 @@ const OnboardingPage = () => {
                         value={experience}
                         onChange={(e) => setExperience(e.target.value ? Number(e.target.value) : "")}
                         placeholder="e.g. 5"
-                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
                       />
                     </div>
                   </div>
@@ -157,7 +157,7 @@ const OnboardingPage = () => {
             {step === 2 && (
               <div className="animate-fade-in space-y-6">
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="p-3 bg-blue-500/10 rounded-xl text-blue-500"><DollarSign size={24} /></div>
+                  <div className="p-3 bg-primary/10 rounded-xl text-primary"><DollarSign size={24} /></div>
                   <div>
                     <h3 className="text-xl font-bold">Pricing & Bio</h3>
                     <p className="text-xs text-muted-foreground">Set your rates and tell customers about yourself.</p>
@@ -166,31 +166,31 @@ const OnboardingPage = () => {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1 mb-2 block">Hourly Rate (₹)</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1 mb-2 block">Hourly Rate (₹)</label>
                     <div className="relative group">
-                      <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors" size={18} />
+                      <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={18} />
                       <input
                         type="number"
                         min="0"
                         value={rate}
                         onChange={(e) => setRate(e.target.value ? Number(e.target.value) : "")}
                         placeholder="e.g. 300"
-                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
                         autoFocus
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1 mb-2 block flex justify-between">
+                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1 mb-2 block flex justify-between">
                       <span>Short Bio</span>
-                      <span className="text-slate-600 normal-case font-normal">(Optional)</span>
+                      <span className="text-muted-foreground normal-case font-normal">(Optional)</span>
                     </label>
                     <textarea
                       value={bio}
                       onChange={(e) => setBio(e.target.value)}
                       placeholder="I am a professional electrician with 5 years of experience in residential wiring..."
-                      className="w-full rounded-2xl border border-border bg-card/40 p-5 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10 min-h-[120px] resize-none"
+                      className="w-full rounded-2xl border border-border bg-card/40 p-5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10 min-h-[120px] resize-none"
                     />
                   </div>
                 </div>
@@ -225,15 +225,15 @@ const OnboardingPage = () => {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1 mb-2 block">City / Area</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1 mb-2 block">City / Area</label>
                     <div className="relative group">
-                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors" size={18} />
+                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={18} />
                       <input
                         type="text"
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         placeholder="e.g. Pune, Maharashtra"
-                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-32 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-600 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                        className="w-full rounded-2xl border border-border bg-card/40 pl-11 pr-32 py-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
                       />
                       <button
                         type="button"

@@ -725,7 +725,7 @@ const CustomerVerification = () => {
   const toggleRecording = () => {
     setIsRecording(!isRecording);
     if (!isRecording) {
-      toast.success("Voice recognition active...", { icon: <Mic className="animate-pulse text-orange-500" /> });
+      toast.success("Voice recognition active...", { icon: <Mic className="animate-pulse text-primary" /> });
       setTimeout(() => {
         setComment(prev => prev + (prev ? " " : "") + "The worker was very professional and completed the task with high precision.");
         setIsRecording(false);
@@ -908,8 +908,8 @@ const CustomerVerification = () => {
   return (
     <div className="container mx-auto flex flex-col items-center py-4 sm:py-6 md:py-10 px-3 sm:px-4 lg:px-6 relative overflow-hidden min-h-[calc(100vh-4rem)]">
       {/* Background Orbs */}
-      <div className="absolute top-[0%] left-[-20%] h-[400px] w-[400px] rounded-full bg-orange-500/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[-20%] h-[300px] w-[300px] rounded-full bg-orange-500/5 blur-[100px] pointer-events-none" />
+      <div className="absolute top-[0%] left-[-20%] h-[400px] w-[400px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[-20%] h-[300px] w-[300px] rounded-full bg-primary/5 blur-[100px] pointer-events-none" />
 
       {step === "dashboard" && (
         <div className="w-full max-w-7xl space-y-8 opacity-0 animate-fade-up relative z-10" style={{ animationDelay: "100ms" }}>
@@ -917,38 +917,38 @@ const CustomerVerification = () => {
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Left Column: Profile & Status */}
             <div className="w-full lg:w-[320px] space-y-6">
-              <div className="rounded-[2.5rem] bg-slate-950 p-6 border border-white/5 text-center shadow-2xl relative overflow-hidden group">
-                 <div className="absolute -top-24 -right-24 h-48 w-48 bg-orange-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+              <div className="rounded-[2.5rem] bg-background p-6 border border-border text-center shadow-2xl relative overflow-hidden group">
+                 <div className="absolute -top-24 -right-24 h-48 w-48 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
                  
                  <div className="relative z-10">
                     <div className="mb-4 flex justify-center">
                        <div className="relative">
-                          <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-3xl font-black shadow-[0_0_20px_rgba(249,115,22,0.4)]">
+                          <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-primary-foreground text-3xl font-black shadow-[0_0_20px_rgba(249,115,22,0.4)]">
                              {user.name.charAt(0)}
                           </div>
-                          <div className="absolute -bottom-2 -right-2 p-1.5 rounded-xl bg-slate-900 border border-orange-500/30 text-orange-500 shadow-lg">
+                          <div className="absolute -bottom-2 -right-2 p-1.5 rounded-xl bg-card border border-primary/30 text-primary shadow-lg">
                              <Award size={14} />
                           </div>
                        </div>
                     </div>
                     
-                    <h3 className="text-xl font-black text-white">{user.name}</h3>
+                    <h3 className="text-xl font-black text-primary-foreground">{user.name}</h3>
                     <div className="flex flex-col items-center gap-2 mt-3">
                        <div className={`flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${getTrustBadgeColor(trustScore)}`}>
                           {getTrustLevel(trustScore)}
                        </div>
-                       <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">
+                       <div className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
                           {customerType === 0 ? "Regular (Monthly)" : "One-time (Dynamic)"}
                        </div>
                     </div>
 
                     {/* Trust Meter */}
                     <div className="mt-6 space-y-2">
-                       <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">
+                       <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-muted-foreground px-1">
                           <span>Trust Score</span>
-                          <span className="text-orange-500">{trustScore}%</span>
+                          <span className="text-primary">{trustScore}%</span>
                        </div>
-                       <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-white/5">
+                       <div className="h-2 w-full bg-card rounded-full overflow-hidden border border-border">
                           <div 
                              className="h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full transition-all duration-1000"
                              style={{ width: `${trustScore}%` }}
@@ -956,10 +956,10 @@ const CustomerVerification = () => {
                        </div>
                     </div>
 
-                    <div className="mt-6 flex justify-between items-center px-4 py-4 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-sm">
+                    <div className="mt-6 flex justify-between items-center px-4 py-4 rounded-2xl bg-card/5 border border-border backdrop-blur-sm">
                        <div className="text-left">
-                          <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-[#F0A500]">Trust Points (OTP)</div>
-                          <div className="text-2xl font-black text-white">{recentVerifications.length * 10 || 0}</div>
+                          <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest text-[#F0A500]">Trust Points (OTP)</div>
+                          <div className="text-2xl font-black text-primary-foreground">{recentVerifications.length * 10 || 0}</div>
                        </div>
                        <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-[#F0A500]/10 text-[#F0A500] border border-[#F0A500]/20">
                           <ShieldCheck size={18} />
@@ -968,11 +968,11 @@ const CustomerVerification = () => {
 
                      {/* Sentiment Trend */}
                      {nlpInsights.length > 0 && (
-                       <div className="mt-6 p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-left">
-                         <div className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-3">Service Sentiment</div>
+                       <div className="mt-6 p-4 rounded-2xl bg-card/[0.02] border border-border text-left">
+                         <div className="text-[9px] font-black text-muted-foreground uppercase tracking-widest mb-3">Service Sentiment</div>
                          <div className="flex flex-wrap gap-2">
                            {Array.from(new Set(nlpInsights.flatMap(n => n.skills))).slice(0, 3).map(skill => (
-                             <span key={skill} className="text-[8px] font-black uppercase px-2 py-1 rounded-md bg-orange-500/10 text-orange-400 border border-orange-500/10">
+                             <span key={skill} className="text-[8px] font-black uppercase px-2 py-1 rounded-md bg-primary/10 text-primary border border-primary/10">
                                {skill}
                              </span>
                            ))}
@@ -988,26 +988,26 @@ const CustomerVerification = () => {
               </div>
 
               {/* Alerts Card */}
-              <div className="rounded-3xl bg-slate-900/50 p-6 border border-white/5 space-y-4">
-                 <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] flex items-center gap-2">
-                    <AlertTriangle size={14} className="text-orange-500" />
+              <div className="rounded-3xl bg-card/50 p-6 border border-border space-y-4">
+                 <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] flex items-center gap-2">
+                    <AlertTriangle size={14} className="text-primary" />
                     Security Baseline
                  </h4>
                  <div className="space-y-3">
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/5 text-[10px] font-bold text-slate-400 flex items-center gap-3">
-                       <div className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                    <div className="p-3 rounded-xl bg-card/5 border border-border text-[10px] font-bold text-muted-foreground flex items-center gap-3">
+                       <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                        OTP required for new devices
                     </div>
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/5 text-[10px] font-bold text-slate-400 flex items-center gap-3">
-                       <div className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                    <div className="p-3 rounded-xl bg-card/5 border border-border text-[10px] font-bold text-muted-foreground flex items-center gap-3">
+                       <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                        7-day cooldown on same worker
                     </div>
                  </div>
               </div>
 
               {/* Active Jobs */}
-              <div className="rounded-3xl glass p-6 border-white/5 space-y-4">
-                 <h4 className="text-sm font-black uppercase tracking-widest text-slate-400 border-b border-white/5 pb-3 flex items-center justify-between">
+              <div className="rounded-3xl glass p-6 border-border space-y-4">
+                 <h4 className="text-sm font-black uppercase tracking-widest text-muted-foreground border-b border-border pb-3 flex items-center justify-between">
                     Live Tracking
                     <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                  </h4>
@@ -1017,19 +1017,19 @@ const CustomerVerification = () => {
                           <button 
                             key={r.id} 
                             onClick={() => navigate(`/tracking/${r.id}`)}
-                            className="w-full text-left p-4 rounded-2xl bg-slate-900 border border-white/5 hover:border-orange-500/30 transition-all hover:scale-[1.02] group"
+                            className="w-full text-left p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all hover:scale-[1.02] group"
                           >
                              <div className="flex justify-between items-start mb-2">
-                                <div className="font-black text-[10px] uppercase tracking-widest text-orange-500">{r.service}</div>
-                                <Clock size={12} className="text-slate-600" />
+                                <div className="font-black text-[10px] uppercase tracking-widest text-primary">{r.service}</div>
+                                <Clock size={12} className="text-muted-foreground" />
                              </div>
-                              <div className="text-sm font-black flex items-center gap-2 text-white mb-2">
+                              <div className="text-sm font-black flex items-center gap-2 text-primary-foreground mb-2">
                                  <span className={`p-1 rounded text-[8px] tracking-widest uppercase ${
-                                   r.status === 'Accepted' || r.status === 'In Progress' ? 'bg-blue-500/10 text-blue-500' :
-                                   r.status === 'Searching' ? 'bg-orange-500/10 text-orange-500 animate-pulse' :
+                                   r.status === 'Accepted' || r.status === 'In Progress' ? 'bg-primary/10 text-primary' :
+                                   r.status === 'Searching' ? 'bg-primary/10 text-primary animate-pulse' :
                                    r.status === 'Pending' ? 'bg-yellow-500/10 text-yellow-500' :
                                    r.status === 'Completed' ? 'bg-emerald-500/10 text-emerald-500' :
-                                   'bg-blue-500/10 text-blue-500'
+                                   'bg-primary/10 text-primary'
                                  }`}>{r.status}</span>
                                  <span className="truncate opacity-50 text-[10px]">Near {r.location}</span>
                               </div>
@@ -1041,11 +1041,11 @@ const CustomerVerification = () => {
                                       {r.workerName.charAt(0)}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                      <div className="text-xs font-black text-white truncate">{r.workerName}</div>
+                                      <div className="text-xs font-black text-primary-foreground truncate">{r.workerName}</div>
                                       <div className="text-[8px] font-black text-emerald-500 uppercase tracking-widest">Worker Accepted ✓</div>
                                     </div>
                                     {r.workerPhone && (
-                                      <a href={`tel:${r.workerPhone}`} className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white transition-all" onClick={(e) => e.stopPropagation()}>
+                                      <a href={`tel:${r.workerPhone}`} className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-primary-foreground transition-all" onClick={(e) => e.stopPropagation()}>
                                         <Phone size={14} />
                                       </a>
                                     )}
@@ -1057,7 +1057,7 @@ const CustomerVerification = () => {
                     </div>
                  ) : (
                     <div className="py-6 text-center">
-                       <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">No active bookings</p>
+                       <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">No active bookings</p>
                     </div>
                  )}
               </div>
@@ -1068,10 +1068,10 @@ const CustomerVerification = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <button
                   onClick={() => setStep("request")}
-                  className="group relative flex flex-col items-center justify-center gap-3 rounded-[2.5rem] bg-gradient-to-br from-orange-400 to-orange-600 p-6 sm:p-10 text-white shadow-2xl shadow-orange-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
+                  className="group relative flex flex-col items-center justify-center gap-3 rounded-[2.5rem] bg-gradient-to-br from-orange-400 to-orange-600 p-6 sm:p-10 text-primary-foreground shadow-2xl shadow-orange-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
                 >
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24 blur-3xl group-hover:scale-150 transition-transform duration-700" />
-                  <div className="relative z-10 p-3 sm:p-5 rounded-2xl bg-white/20 backdrop-blur-md">
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-card/10 rounded-full -mr-24 -mt-24 blur-3xl group-hover:scale-150 transition-transform duration-700" />
+                  <div className="relative z-10 p-3 sm:p-5 rounded-2xl bg-card/20 backdrop-blur-md">
                     <Plus size={32} className="group-hover:rotate-90 transition-transform duration-500" />
                   </div>
                   <div className="relative z-10 text-center">
@@ -1082,44 +1082,44 @@ const CustomerVerification = () => {
 
                 <button
                   onClick={() => setStep("scan")}
-                  className="group relative flex flex-col items-center justify-center gap-3 rounded-[2.5rem] bg-slate-900 border border-white/10 p-6 sm:p-10 shadow-2xl transition-all hover:bg-slate-800 active:scale-[0.98] overflow-hidden"
+                  className="group relative flex flex-col items-center justify-center gap-3 rounded-[2.5rem] bg-card border border-border p-6 sm:p-10 shadow-2xl transition-all hover:bg-card active:scale-[0.98] overflow-hidden"
                 >
-                  <div className="p-3 sm:p-5 rounded-2xl bg-orange-500/10 text-orange-500 group-hover:scale-110 transition-transform">
+                  <div className="p-3 sm:p-5 rounded-2xl bg-primary/10 text-primary group-hover:scale-110 transition-transform">
                     <Camera size={32} />
                   </div>
                   <div className="text-center">
-                    <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white">SCAN WORKER ID</h3>
-                    <p className="text-[10px] font-bold text-slate-500 mt-2 uppercase tracking-[0.2em]">Verify & Earn Credits</p>
+                    <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-primary-foreground">SCAN WORKER ID</h3>
+                    <p className="text-[10px] font-bold text-muted-foreground mt-2 uppercase tracking-[0.2em]">Verify & Earn Credits</p>
                   </div>
                 </button>
               </div>
 
               {/* Recent History */}
-              <div className="rounded-[2.5rem] bg-slate-950 p-5 sm:p-8 border border-white/5">
+              <div className="rounded-[2.5rem] bg-background p-5 sm:p-8 border border-border">
                  <div className="flex items-center justify-between mb-8">
-                    <h4 className="text-xl font-black tracking-tight text-white flex items-center gap-3">
-                       <History size={24} className="text-orange-500" />
+                    <h4 className="text-xl font-black tracking-tight text-primary-foreground flex items-center gap-3">
+                       <History size={24} className="text-primary" />
                        Recent History
                     </h4>
-                    <Link to="/activity" className="text-[10px] font-black text-orange-500 uppercase tracking-[0.2em] border-b border-orange-500 hover:text-white transition-all">View All</Link>
+                    <Link to="/activity" className="text-[10px] font-black text-primary uppercase tracking-[0.2em] border-b border-primary hover:text-primary-foreground transition-all">View All</Link>
                  </div>
                  
                  <div className="space-y-4">
                     {recentVerifications.length > 0 ? (
                       recentVerifications.map((v, i) => (
-                        <div key={v.id} className="flex items-center justify-between p-5 rounded-[2rem] bg-white/5 border border-white/5 group hover:border-orange-500/20 transition-all">
+                        <div key={v.id} className="flex items-center justify-between p-5 rounded-[2rem] bg-card/5 border border-border group hover:border-primary/20 transition-all">
                            <div className="flex items-center gap-5">
-                              <div className="h-12 w-12 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center text-xl font-black uppercase border border-orange-500/10">
+                              <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-xl font-black uppercase border border-primary/10">
                                  {v.workerName?.charAt(0) || "W"}
                               </div>
                               <div className="text-left">
-                                 <div className="text-base font-black text-white">{v.workerName || "Worker"}</div>
-                                 <div className="text-[10px] font-bold text-slate-500 flex items-center gap-2 mt-1 uppercase tracking-tight">
-                                    {v.service || "Home Service"} • <Star className="text-orange-400 fill-orange-400" size={10} /> <span className="text-orange-400">{v.rating}</span>
+                                 <div className="text-base font-black text-primary-foreground">{v.workerName || "Worker"}</div>
+                                 <div className="text-[10px] font-bold text-muted-foreground flex items-center gap-2 mt-1 uppercase tracking-tight">
+                                    {v.service || "Home Service"} • <Star className="text-primary fill-orange-400" size={10} /> <span className="text-primary">{v.rating}</span>
                                     {nlpInsights[i] && (
                                       <>
-                                        <span className="h-1 w-1 rounded-full bg-slate-800"></span>
-                                        <span className={`${nlpInsights[i].sentiment === 'positive' ? 'text-emerald-500' : 'text-slate-500'} italic`}>
+                                        <span className="h-1 w-1 rounded-full bg-card"></span>
+                                        <span className={`${nlpInsights[i].sentiment === 'positive' ? 'text-emerald-500' : 'text-muted-foreground'} italic`}>
                                           {nlpInsights[i].sentiment}
                                         </span>
                                       </>
@@ -1128,7 +1128,7 @@ const CustomerVerification = () => {
                               </div>
                            </div>
                            <div className="text-right">
-                              <div className="text-[10px] font-bold text-slate-600 mb-2 uppercase tracking-widest text-right">
+                              <div className="text-[10px] font-bold text-muted-foreground mb-2 uppercase tracking-widest text-right">
                                  {v.timestamp instanceof Date ? v.timestamp.toLocaleDateString() : "Just now"}
                               </div>
                               <div className="flex items-center gap-1.5 text-[8px] font-black text-emerald-500 uppercase tracking-[0.2em] bg-emerald-500/5 px-3 py-1 rounded-full border border-emerald-500/10">
@@ -1138,9 +1138,9 @@ const CustomerVerification = () => {
                         </div>
                       ))
                     ) : (
-                      <div className="py-16 text-center bg-white/[0.02] rounded-3xl border border-dashed border-white/5">
-                        <History size={40} className="mx-auto text-slate-800 mb-4" />
-                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">History will appear after your first scan</p>
+                      <div className="py-16 text-center bg-card/[0.02] rounded-3xl border border-dashed border-border">
+                        <History size={40} className="mx-auto text-foreground mb-4" />
+                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">History will appear after your first scan</p>
                       </div>
                     )}
                  </div>
@@ -1151,29 +1151,29 @@ const CustomerVerification = () => {
       )}
 
       {step === "scan" && (
-        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 backdrop-blur-3xl animate-in fade-in duration-500">
-           <button onClick={handleBack} className="absolute top-8 left-8 p-4 rounded-full bg-white/5 text-white hover:bg-white/10 transition-all">
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background/95 backdrop-blur-3xl animate-in fade-in duration-500">
+           <button onClick={handleBack} className="absolute top-8 left-8 p-4 rounded-full bg-card/5 text-primary-foreground hover:bg-card/10 transition-all">
               <ArrowLeft size={24} />
            </button>
            
-           <div className="relative w-full max-w-[340px] aspect-[3/4] rounded-[3rem] border-4 border-orange-500 overflow-hidden shadow-[0_0_60px_rgba(249,115,22,0.3)] bg-black">
+           <div className="relative w-full max-w-[340px] aspect-[3/4] rounded-[3rem] border-4 border-primary overflow-hidden shadow-[0_0_60px_rgba(249,115,22,0.3)] bg-background">
               <video ref={videoRef} autoPlay playsInline className="absolute inset-0 w-full h-full object-cover opacity-80" />
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                 <div className="w-56 h-56 border-2 border-dashed border-orange-500/50 rounded-[2rem] animate-[pulse_2s_infinite]" />
-                 <p className="mt-12 text-orange-500 text-[10px] font-black uppercase tracking-[0.5em] animate-pulse">Scanning QR Signature</p>
+                 <div className="w-56 h-56 border-2 border-dashed border-primary/50 rounded-[2rem] animate-[pulse_2s_infinite]" />
+                 <p className="mt-12 text-primary text-[10px] font-black uppercase tracking-[0.5em] animate-pulse">Scanning QR Signature</p>
               </div>
               <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/50 to-transparent" />
            </div>
 
-           <div className="mt-12 text-center text-white space-y-8 max-w-sm w-full relative z-10 px-6">
+           <div className="mt-12 text-center text-primary-foreground space-y-8 max-w-sm w-full relative z-10 px-6">
               <div className="space-y-2">
                  <h3 className="text-3xl font-black italic tracking-tighter">SECURE HANDSHAKE</h3>
-                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Align worker's dashboard QR in the frame</p>
+                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Align worker's dashboard QR in the frame</p>
               </div>
 
               <div className="relative py-2">
-                 <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/5"></div></div>
-                 <div className="relative flex justify-center text-[10px] uppercase"><span className="bg-black px-4 text-slate-600 font-black tracking-widest">OR ENTER ID CODE</span></div>
+                 <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border"></div></div>
+                 <div className="relative flex justify-center text-[10px] uppercase"><span className="bg-background px-4 text-muted-foreground font-black tracking-widest">OR ENTER ID CODE</span></div>
               </div>
 
               <div className="space-y-4">
@@ -1182,12 +1182,12 @@ const CustomerVerification = () => {
                    value={manualCode}
                    onChange={(e) => setManualCode(e.target.value.toUpperCase().slice(0, 6))}
                    placeholder="000-000"
-                   className="w-full bg-slate-900 border border-white/10 rounded-[1.5rem] py-5 px-6 text-center text-2xl font-black tracking-[0.5em] outline-none focus:border-orange-500 transition-all text-orange-500 placeholder:text-slate-800"
+                   className="w-full bg-card border border-border rounded-[1.5rem] py-5 px-6 text-center text-2xl font-black tracking-[0.5em] outline-none focus:border-primary transition-all text-primary placeholder:text-foreground"
                  />
                  <button 
                    onClick={handleCodeVerify}
                    disabled={manualCode.length !== 6 || isSearchingCode}
-                   className="w-full py-5 rounded-[1.5rem] bg-orange-500 text-white font-black uppercase tracking-widest text-xs hover:bg-orange-600 active:scale-[0.98] transition-all disabled:opacity-20 shadow-xl shadow-orange-500/20"
+                   className="w-full py-5 rounded-[1.5rem] bg-primary text-primary-foreground font-black uppercase tracking-widest text-xs hover:bg-primary active:scale-[0.98] transition-all disabled:opacity-20 shadow-xl shadow-orange-500/20"
                  >
                    {isSearchingCode ? "FETCHING DATA..." : "VERIFY ID NOW"}
                  </button>
@@ -1197,25 +1197,25 @@ const CustomerVerification = () => {
       )}
 
       {step === "request" && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="w-full max-w-2xl bg-slate-950 rounded-[3rem] shadow-2xl overflow-hidden border border-white/10 animate-fade-up">
-            <div className="p-8 pb-5 flex items-center justify-between border-b border-white/5 bg-white/[0.02]">
-               <h3 className="text-xl font-black tracking-tight text-white flex items-center gap-3 italic uppercase">
-                  <div className="p-2.5 rounded-2xl bg-orange-500 text-white shadow-lg shadow-orange-500/20">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background/60 backdrop-blur-xl animate-in fade-in duration-300">
+          <div className="w-full max-w-2xl bg-background rounded-[3rem] shadow-2xl overflow-hidden border border-border animate-fade-up">
+            <div className="p-8 pb-5 flex items-center justify-between border-b border-border bg-card/[0.02]">
+               <h3 className="text-xl font-black tracking-tight text-primary-foreground flex items-center gap-3 italic uppercase">
+                  <div className="p-2.5 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
                     <Wrench size={20} />
                   </div>
                   Request a Worker
                </h3>
-               <button onClick={handleBack} className="p-2.5 rounded-full hover:bg-white/5 text-slate-500 transition-all">
+               <button onClick={handleBack} className="p-2.5 rounded-full hover:bg-card/5 text-muted-foreground transition-all">
                   <X size={22} />
                </button>
             </div>
             
-            <div className="p-8 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar bg-slate-950/50">
+            <div className="p-8 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar bg-background/50">
 
               {/* ── Section 1: Service Type ── */}
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-orange-500 ml-1 flex items-center gap-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-primary ml-1 flex items-center gap-2">
                   <Wrench size={12} /> What Service Do You Need?
                 </label>
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
@@ -1225,8 +1225,8 @@ const CustomerVerification = () => {
                       onClick={() => setReqService(cat.value)}
                       className={`flex flex-col items-center gap-2 p-3 rounded-2xl border text-center transition-all ${
                         reqService === cat.value
-                          ? "bg-orange-500/10 border-orange-500/30 text-orange-500 shadow-lg shadow-orange-500/10"
-                          : "bg-white/5 border-white/5 text-slate-400 hover:text-white hover:border-white/20"
+                          ? "bg-primary/10 border-primary/30 text-primary shadow-lg shadow-orange-500/10"
+                          : "bg-card/5 border-border text-muted-foreground hover:text-primary-foreground hover:border-border"
                       }`}
                     >
                       <span className="text-xl">{cat.icon}</span>
@@ -1238,19 +1238,19 @@ const CustomerVerification = () => {
 
               {/* ── Section 2: Work Description ── */}
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 ml-1">Describe the Work</label>
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground ml-1">Describe the Work</label>
                 <textarea
                   value={reqDescription}
                   onChange={(e) => setReqDescription(e.target.value)}
                   placeholder="e.g. Kitchen tap is leaking badly, need urgent repair..."
                   rows={3}
-                  className="w-full rounded-2xl border border-white/5 bg-slate-900 p-5 text-sm text-white font-medium outline-none focus:border-orange-500 transition-all resize-none placeholder:text-slate-700"
+                  className="w-full rounded-2xl border border-border bg-card p-5 text-sm text-primary-foreground font-medium outline-none focus:border-primary transition-all resize-none placeholder:text-foreground"
                 />
               </div>
 
               {/* ── Section 3: Budget ── */}
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 ml-1 flex items-center gap-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground ml-1 flex items-center gap-2">
                   <Wallet size={12} /> Budget (₹)
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -1260,8 +1260,8 @@ const CustomerVerification = () => {
                       onClick={() => { setReqBudget(b); setReqBudgetCustom(""); }}
                       className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
                         reqBudget === b && !reqBudgetCustom
-                          ? "bg-orange-500 text-white border-orange-500 shadow-lg shadow-orange-500/20"
-                          : "bg-white/5 border-white/5 text-slate-400 hover:text-white"
+                          ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-orange-500/20"
+                          : "bg-card/5 border-border text-muted-foreground hover:text-primary-foreground"
                       }`}
                     >
                       {b}
@@ -1269,13 +1269,13 @@ const CustomerVerification = () => {
                   ))}
                 </div>
                 <div className="relative">
-                  <span className="absolute left-5 top-1/2 -translate-y-1/2 text-orange-500 font-black text-sm">₹</span>
+                  <span className="absolute left-5 top-1/2 -translate-y-1/2 text-primary font-black text-sm">₹</span>
                   <input
                     type="number"
                     value={reqBudgetCustom}
                     onChange={(e) => { setReqBudgetCustom(e.target.value); setReqBudget(""); }}
                     placeholder="Or enter custom amount"
-                    className="w-full rounded-2xl border border-white/5 bg-slate-900 py-4 pl-10 pr-6 text-sm text-white font-black outline-none focus:border-orange-500 transition-all placeholder:text-slate-700"
+                    className="w-full rounded-2xl border border-border bg-card py-4 pl-10 pr-6 text-sm text-primary-foreground font-black outline-none focus:border-primary transition-all placeholder:text-foreground"
                   />
                 </div>
               </div>
@@ -1283,22 +1283,22 @@ const CustomerVerification = () => {
               {/* ── Section 4: Location (Real GPS) ── */}
               <div className="space-y-3">
                 <div className="flex justify-between items-center px-1">
-                   <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 flex items-center gap-2">
+                   <label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground flex items-center gap-2">
                      <MapPin size={12} /> Service Location
                    </label>
-                   <button onClick={handleLocationDetect} className="text-[9px] font-black text-orange-500 uppercase tracking-widest hover:text-white transition-all flex items-center gap-1.5 bg-orange-500/10 px-3 py-1.5 rounded-lg border border-orange-500/20">
+                   <button onClick={handleLocationDetect} className="text-[9px] font-black text-primary uppercase tracking-widest hover:text-primary-foreground transition-all flex items-center gap-1.5 bg-primary/10 px-3 py-1.5 rounded-lg border border-primary/20">
                       {isLocating ? <Clock size={12} className="animate-spin" /> : <Navigation size={12} />}
                       {isLocating ? "DETECTING..." : "📍 USE GPS"}
                    </button>
                 </div>
                 <div className="relative">
-                   <MapPin size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-orange-500" />
+                   <MapPin size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-primary" />
                    <input
                      type="text"
                      value={reqLocation}
                      onChange={(e) => setReqLocation(e.target.value)}
                      placeholder="Auto-detect or type: Kankarbagh, Patna"
-                     className="w-full rounded-2xl border border-white/5 bg-slate-900 py-4 pl-12 pr-6 text-sm text-white font-black outline-none focus:border-orange-500 transition-all placeholder:text-slate-700"
+                     className="w-full rounded-2xl border border-border bg-card py-4 pl-12 pr-6 text-sm text-primary-foreground font-black outline-none focus:border-primary transition-all placeholder:text-foreground"
                    />
                 </div>
                 {reqCoords && reqAddress && (
@@ -1311,22 +1311,22 @@ const CustomerVerification = () => {
               {/* ── Section 5: Date, Time & Urgency ── */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 ml-1 flex items-center gap-1">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground ml-1 flex items-center gap-1">
                     <Clock size={10} /> When
                   </label>
                   <input
                     type="date"
                     value={reqDate}
                     onChange={(e) => setReqDate(e.target.value)}
-                    className="w-full rounded-xl border border-white/5 bg-slate-900 p-3 text-xs text-white font-black outline-none focus:border-orange-500 transition-all"
+                    className="w-full rounded-xl border border-border bg-card p-3 text-xs text-primary-foreground font-black outline-none focus:border-primary transition-all"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 ml-1">Time</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground ml-1">Time</label>
                   <select
                     value={reqTime}
                     onChange={(e) => setReqTime(e.target.value)}
-                    className="w-full rounded-xl border border-white/5 bg-slate-900 p-3 text-xs text-white font-black outline-none focus:border-orange-500 transition-all appearance-none cursor-pointer"
+                    className="w-full rounded-xl border border-border bg-card p-3 text-xs text-primary-foreground font-black outline-none focus:border-primary transition-all appearance-none cursor-pointer"
                   >
                     <option value="Now">Right Now</option>
                     <option value="Morning">Morning (8-12)</option>
@@ -1336,17 +1336,17 @@ const CustomerVerification = () => {
                   </select>
                 </div>
                 <div className="space-y-2">
-                   <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 ml-1">Priority</label>
-                   <div className="grid grid-cols-2 gap-1.5 bg-slate-900 p-1 rounded-xl border border-white/5">
-                      <button onClick={() => setReqUrgency("Normal")} className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${reqUrgency === "Normal" ? "bg-white text-black shadow-lg" : "text-slate-600 hover:text-white"}`}>Normal</button>
-                      <button onClick={() => setReqUrgency("Urgent")} className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${reqUrgency === "Urgent" ? "bg-red-500 text-white shadow-lg shadow-red-500/20" : "text-slate-600 hover:text-white"}`}>🔴 Urgent</button>
+                   <label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground ml-1">Priority</label>
+                   <div className="grid grid-cols-2 gap-1.5 bg-card p-1 rounded-xl border border-border">
+                      <button onClick={() => setReqUrgency("Normal")} className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${reqUrgency === "Normal" ? "bg-card text-black shadow-lg" : "text-muted-foreground hover:text-primary-foreground"}`}>Normal</button>
+                      <button onClick={() => setReqUrgency("Urgent")} className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${reqUrgency === "Urgent" ? "bg-red-500 text-primary-foreground shadow-lg shadow-red-500/20" : "text-muted-foreground hover:text-primary-foreground"}`}>🔴 Urgent</button>
                    </div>
                 </div>
               </div>
 
               {/* ── Section 6: Contact ── */}
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 ml-1 flex items-center gap-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground ml-1 flex items-center gap-2">
                   <User size={12} /> Your Contact Number
                 </label>
                 <input
@@ -1354,16 +1354,16 @@ const CustomerVerification = () => {
                   value={reqPhone}
                   onChange={(e) => setReqPhone(e.target.value)}
                   placeholder="+91 XXXXX XXXXX"
-                  className="w-full rounded-2xl border border-white/5 bg-slate-900 py-4 px-6 text-sm text-white font-black outline-none focus:border-orange-500 transition-all placeholder:text-slate-700"
+                  className="w-full rounded-2xl border border-border bg-card py-4 px-6 text-sm text-primary-foreground font-black outline-none focus:border-primary transition-all placeholder:text-foreground"
                 />
               </div>
             </div>
             
             {/* ── Submit ── */}
-            <div className="p-8 bg-white/5 border-t border-white/5 space-y-3">
+            <div className="p-8 bg-card/5 border-t border-border space-y-3">
               {/* Summary row */}
               {reqService && reqLocation && (
-                <div className="flex items-center justify-between text-[9px] font-black uppercase tracking-widest text-slate-500 px-2">
+                <div className="flex items-center justify-between text-[9px] font-black uppercase tracking-widest text-muted-foreground px-2">
                   <span>{reqService} • {reqUrgency}</span>
                   <span>{reqBudgetCustom ? `₹${reqBudgetCustom}` : reqBudget}</span>
                 </div>
@@ -1371,7 +1371,7 @@ const CustomerVerification = () => {
               <button
                 onClick={handleRequestSubmit}
                 disabled={!reqService || !reqDescription || !reqLocation || isSubmittingRequest}
-                className="w-full py-5 rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xs font-black uppercase tracking-[0.3em] shadow-2xl shadow-orange-500/30 hover:shadow-orange-500/50 transition-all active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-3"
+                className="w-full py-5 rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-primary-foreground text-xs font-black uppercase tracking-[0.3em] shadow-2xl shadow-orange-500/30 hover:shadow-orange-500/50 transition-all active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-3"
               >
                 {isSubmittingRequest ? <><Clock size={16} className="animate-spin" /> Posting...</> : <>Find Best Specialist <ArrowRight size={18} /></>}
               </button>
@@ -1381,33 +1381,33 @@ const CustomerVerification = () => {
       )}
 
       {step === "searching" && (
-        <div className="fixed inset-0 z-[110] flex flex-col items-center justify-center bg-black/98 backdrop-blur-3xl animate-in fade-in duration-500">
+        <div className="fixed inset-0 z-[110] flex flex-col items-center justify-center bg-background/98 backdrop-blur-3xl animate-in fade-in duration-500">
            <div className="relative flex h-72 w-72 items-center justify-center">
-              <div className="absolute inset-0 animate-[ping_3s_infinite] rounded-full bg-orange-500/10" />
-              <div className="absolute inset-4 animate-[ping_2s_infinite] rounded-full bg-orange-500/20" />
-              <div className="absolute inset-8 animate-[ping_1.5s_infinite] rounded-full bg-orange-500/30" />
-              <div className="relative flex h-36 w-36 items-center justify-center rounded-[3rem] bg-orange-500 text-white shadow-[0_0_80px_rgba(249,115,22,0.5)]">
+              <div className="absolute inset-0 animate-[ping_3s_infinite] rounded-full bg-primary/10" />
+              <div className="absolute inset-4 animate-[ping_2s_infinite] rounded-full bg-primary/20" />
+              <div className="absolute inset-8 animate-[ping_1.5s_infinite] rounded-full bg-primary/30" />
+              <div className="relative flex h-36 w-36 items-center justify-center rounded-[3rem] bg-primary text-primary-foreground shadow-[0_0_80px_rgba(249,115,22,0.5)]">
                  <Wrench size={56} className="animate-spin duration-500" style={{ animationDuration: '3s' }} />
               </div>
            </div>
            <div className="mt-16 text-center space-y-4">
-              <h3 className="text-4xl font-black tracking-tighter text-white italic truncate px-4">CONTRACTING PROS...</h3>
-              <p className="text-[10px] font-black text-slate-500 tracking-[0.5em] uppercase animate-pulse">Scanning 5km Radius for Top-Rated Workers</p>
+              <h3 className="text-4xl font-black tracking-tighter text-primary-foreground italic truncate px-4">CONTRACTING PROS...</h3>
+              <p className="text-[10px] font-black text-muted-foreground tracking-[0.5em] uppercase animate-pulse">Scanning 5km Radius for Top-Rated Workers</p>
            </div>
         </div>
       )}
 
       {(step === "form" || step === "geo" || step === "photo" || step === "done" || step === "error") && (
         <div className="w-full max-w-2xl space-y-4 animate-fade-up relative z-10">
-           <button onClick={handleBack} className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-slate-500 hover:text-white transition-all border border-white/5">
+           <button onClick={handleBack} className="flex h-12 w-12 items-center justify-center rounded-2xl bg-card/5 text-muted-foreground hover:text-primary-foreground transition-all border border-border">
               <ArrowLeft size={24} />
            </button>
 
            {step === "form" && (
-             <div className="w-full bg-slate-950 rounded-[3rem] shadow-2xl border border-white/5 overflow-hidden">
-                <div className="p-10 pb-6 flex items-center justify-between border-b border-white/5 bg-white/[0.02]">
-                   <h3 className="text-2xl font-black text-white italic uppercase flex items-center gap-4">
-                      <div className="p-3 rounded-2xl bg-orange-500 text-white shadow-lg shadow-orange-500/20">
+             <div className="w-full bg-background rounded-[3rem] shadow-2xl border border-border overflow-hidden">
+                <div className="p-10 pb-6 flex items-center justify-between border-b border-border bg-card/[0.02]">
+                   <h3 className="text-2xl font-black text-primary-foreground italic uppercase flex items-center gap-4">
+                      <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
                          <CheckCircle2 size={24} />
                       </div>
                       Work Accomplished
@@ -1418,14 +1418,14 @@ const CustomerVerification = () => {
                 </div>
                 
                 <div className="p-10 space-y-10">
-                   <div className="flex items-center gap-6 p-6 rounded-[2.5rem] bg-white/5 border border-white/5">
-                      <div className="h-20 w-20 rounded-3xl bg-orange-500/20 flex items-center justify-center text-orange-500 text-3xl font-black border border-orange-500/10 shadow-inner">
+                   <div className="flex items-center gap-6 p-6 rounded-[2.5rem] bg-card/5 border border-border">
+                      <div className="h-20 w-20 rounded-3xl bg-primary/20 flex items-center justify-center text-primary text-3xl font-black border border-primary/10 shadow-inner">
                          {(currentWorker || workerDemo).name.charAt(0)}
                       </div>
                       <div className="text-left flex-1 min-w-0">
-                         <div className="text-xl font-black text-white truncate">{(currentWorker || workerDemo).name}</div>
-                         <div className="text-sm font-black text-orange-400 uppercase tracking-widest mt-1">{(currentWorker || workerDemo).skill}</div>
-                         <div className="text-[10px] font-bold text-slate-500 mt-2 flex items-center gap-1.5 uppercase">
+                         <div className="text-xl font-black text-primary-foreground truncate">{(currentWorker || workerDemo).name}</div>
+                         <div className="text-sm font-black text-primary uppercase tracking-widest mt-1">{(currentWorker || workerDemo).skill}</div>
+                         <div className="text-[10px] font-bold text-muted-foreground mt-2 flex items-center gap-1.5 uppercase">
                             <MapPin size={12} /> {(currentWorker || workerDemo).location}
                          </div>
                       </div>
@@ -1433,7 +1433,7 @@ const CustomerVerification = () => {
 
                    <div className="space-y-8">
                       <div className="space-y-4 text-center">
-                         <label className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-600">Service Performance</label>
+                         <label className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">Service Performance</label>
                          <div className="flex justify-center scale-[1.6]">
                             <StarRating value={rating} onChange={setRating} />
                          </div>
@@ -1441,8 +1441,8 @@ const CustomerVerification = () => {
 
                       <div className="space-y-4">
                          <div className="flex justify-between items-center px-1">
-                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-600">Work Evidence (NLP Verified)</label>
-                            <span className={`text-[9px] font-black tracking-widest uppercase ${comment.length >= 10 ? 'text-emerald-500' : 'text-slate-700'}`}>
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">Work Evidence (NLP Verified)</label>
+                            <span className={`text-[9px] font-black tracking-widest uppercase ${comment.length >= 10 ? 'text-emerald-500' : 'text-foreground'}`}>
                                {comment.length} / 10 CHARS
                             </span>
                          </div>
@@ -1452,25 +1452,25 @@ const CustomerVerification = () => {
                                onChange={(e) => setComment(e.target.value)}
                                placeholder="Describe the quality, effort and skill..."
                                rows={5}
-                               className={`w-full rounded-[2rem] border ${comment.length > 0 && comment.length < 10 ? 'border-orange-500/30' : 'border-white/5'} bg-slate-900 p-8 pt-12 text-white text-base outline-none transition-all focus:border-orange-500 focus:ring-8 focus:ring-orange-500/5 resize-none font-medium leading-relaxed placeholder:text-slate-800`}
+                               className={`w-full rounded-[2rem] border ${comment.length > 0 && comment.length < 10 ? 'border-primary/30' : 'border-border'} bg-card p-8 pt-12 text-primary-foreground text-base outline-none transition-all focus:border-primary focus:ring-8 focus:ring-primary/5 resize-none font-medium leading-relaxed placeholder:text-foreground`}
                              />
                              
                              {/* AI/Voice Tools */}
                              <div className="absolute top-4 right-6 flex items-center gap-3">
                                 <button 
                                   onClick={toggleRecording}
-                                  className={`p-2.5 rounded-xl border transition-all ${isRecording ? 'bg-orange-500 text-white border-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.4)] animate-pulse' : 'bg-white/5 text-slate-500 border-white/5 hover:text-orange-500 hover:border-orange-500/30 font-black italic'}`}
+                                  className={`p-2.5 rounded-xl border transition-all ${isRecording ? 'bg-primary text-primary-foreground border-primary shadow-[0_0_15px_rgba(249,115,22,0.4)] animate-pulse' : 'bg-card/5 text-muted-foreground border-border hover:text-primary hover:border-primary/30 font-black italic'}`}
                                 >
                                    <Mic size={18} />
                                 </button>
-                                <label className="p-2.5 rounded-xl border bg-white/5 text-slate-500 border-white/5 hover:text-orange-500 hover:border-orange-500/30 transition-all cursor-pointer">
+                                <label className="p-2.5 rounded-xl border bg-card/5 text-muted-foreground border-border hover:text-primary hover:border-primary/30 transition-all cursor-pointer">
                                    <ImageIcon size={18} />
                                    <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                                 </label>
                              </div>
 
                              {comment.length >= 10 && (
-                               <div className="absolute -bottom-4 right-10 px-4 py-1.5 rounded-full bg-slate-950 border border-emerald-500/30 text-emerald-500 text-[10px] font-black uppercase tracking-widest shadow-2xl animate-in fade-in flex items-center gap-2">
+                               <div className="absolute -bottom-4 right-10 px-4 py-1.5 rounded-full bg-background border border-emerald-500/30 text-emerald-500 text-[10px] font-black uppercase tracking-widest shadow-2xl animate-in fade-in flex items-center gap-2">
                                   <Sparkles size={10} /> {analyzeReview(comment).sentiment === "positive" ? "🔥 Superior Insight" : "📝 Data Captured"}
                                </div>
                              )}
@@ -1480,11 +1480,11 @@ const CustomerVerification = () => {
                           {uploadedImages.length > 0 && (
                             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none mt-2">
                                {uploadedImages.map((img, i) => (
-                                 <div key={i} className="relative h-20 w-20 shrink-0 rounded-2xl overflow-hidden border border-white/10 group">
+                                 <div key={i} className="relative h-20 w-20 shrink-0 rounded-2xl overflow-hidden border border-border group">
                                     <img src={img} className="h-full w-full object-cover" />
                                     <button 
                                       onClick={() => setUploadedImages(prev => prev.filter((_, idx) => idx !== i))}
-                                      className="absolute top-1 right-1 p-1 bg-black/60 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                                      className="absolute top-1 right-1 p-1 bg-background/60 text-primary-foreground rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
                                     >
                                        <X size={12} />
                                     </button>
@@ -1495,8 +1495,8 @@ const CustomerVerification = () => {
                       </div>
 
                       {otpSent && (
-                         <div className="p-10 rounded-[2.5rem] bg-orange-500/5 border border-orange-500/10 text-center space-y-8 animate-in zoom-in-95 duration-500">
-                           <div className="text-[10px] font-black text-orange-500 uppercase tracking-[0.5em]">Identity Handshake</div>
+                         <div className="p-10 rounded-[2.5rem] bg-primary/5 border border-primary/10 text-center space-y-8 animate-in zoom-in-95 duration-500">
+                           <div className="text-[10px] font-black text-primary uppercase tracking-[0.5em]">Identity Handshake</div>
                            <div className="flex justify-center gap-4">
                              {[0, 1, 2, 3].map((i) => (
                                <input
@@ -1513,21 +1513,21 @@ const CustomerVerification = () => {
                                       if (val && e.target.nextElementSibling) (e.target.nextElementSibling as HTMLInputElement).focus();
                                     }
                                   }}
-                                  className="h-20 w-16 rounded-2xl border border-white/10 bg-black text-center text-4xl font-black text-white outline-none focus:border-orange-500 transition-all shadow-inner"
+                                  className="h-20 w-16 rounded-2xl border border-border bg-background text-center text-4xl font-black text-primary-foreground outline-none focus:border-primary transition-all shadow-inner"
                                />
                              ))}
                            </div>
-                           <p className="text-[9px] font-black text-slate-700 tracking-[0.3em] uppercase italic">Real-time OTP verification active</p>
+                           <p className="text-[9px] font-black text-foreground tracking-[0.3em] uppercase italic">Real-time OTP verification active</p>
                          </div>
                       )}
                    </div>
                 </div>
                 
-                <div className="p-10 bg-white/5 border-t border-white/5">
+                <div className="p-10 bg-card/5 border-t border-border">
                    <button
                      onClick={handleSubmit}
                      disabled={rating === 0 || isVerifyingLocation || (otpSent && otpCode.length < 4) || (comment.length < 10)}
-                     className={`h-20 w-full rounded-3xl bg-gradient-to-br ${otpSent ? 'from-emerald-500 to-teal-600 shadow-emerald-500/30' : 'from-orange-500 to-orange-600 shadow-orange-500/40'} font-black text-white shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm`}
+                     className={`h-20 w-full rounded-3xl bg-gradient-to-br ${otpSent ? 'from-emerald-500 to-teal-600 shadow-emerald-500/30' : 'from-orange-500 to-orange-600 shadow-orange-500/40'} font-black text-primary-foreground shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm`}
                    >
                      {isVerifyingLocation ? <><Clock size={20} className="animate-spin" /> VERIFYING GPS...</> : otpSent ? "NEXT: GEO VERIFY" : <>NEXT: SECURE AUTH <ArrowRight size={20} /></>}
                    </button>
@@ -1536,15 +1536,15 @@ const CustomerVerification = () => {
            )}
 
            {step === "geo" && (
-              <div className="w-full bg-slate-950 rounded-[3rem] shadow-2xl border border-white/5 overflow-hidden animate-in fade-in duration-500">
-                <div className="p-10 pb-6 flex items-center justify-between border-b border-white/5 bg-white/[0.02]">
-                   <h3 className="text-2xl font-black text-white italic uppercase flex items-center gap-4">
-                      <div className="p-3 rounded-2xl bg-orange-500 text-white shadow-lg shadow-orange-500/20">
+              <div className="w-full bg-background rounded-[3rem] shadow-2xl border border-border overflow-hidden animate-in fade-in duration-500">
+                <div className="p-10 pb-6 flex items-center justify-between border-b border-border bg-card/[0.02]">
+                   <h3 className="text-2xl font-black text-primary-foreground italic uppercase flex items-center gap-4">
+                      <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
                          <Crosshair size={24} />
                       </div>
                       Geo Verification
                    </h3>
-                   <div className="px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[9px] font-black uppercase tracking-widest">
+                   <div className="px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-[9px] font-black uppercase tracking-widest">
                       Step 2 of 3
                    </div>
                 </div>
@@ -1552,9 +1552,9 @@ const CustomerVerification = () => {
                 <div className="p-10 space-y-8">
                    <div className="text-center space-y-4">
                       <div className="relative mx-auto h-40 w-40 flex items-center justify-center">
-                         <div className={`absolute inset-0 rounded-full ${isCheckingGeo ? 'animate-[ping_2s_infinite]' : ''} bg-orange-500/10`} />
-                         <div className={`absolute inset-4 rounded-full ${isCheckingGeo ? 'animate-[ping_1.5s_infinite]' : ''} bg-orange-500/20`} />
-                         <div className="relative h-20 w-20 rounded-full bg-orange-500 flex items-center justify-center text-white shadow-[0_0_40px_rgba(249,115,22,0.4)]">
+                         <div className={`absolute inset-0 rounded-full ${isCheckingGeo ? 'animate-[ping_2s_infinite]' : ''} bg-primary/10`} />
+                         <div className={`absolute inset-4 rounded-full ${isCheckingGeo ? 'animate-[ping_1.5s_infinite]' : ''} bg-primary/20`} />
+                         <div className="relative h-20 w-20 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-[0_0_40px_rgba(249,115,22,0.4)]">
                             {isCheckingGeo ? <Clock size={36} className="animate-spin" /> : geoResult?.isValid ? <ShieldCheck size={36} /> : <Crosshair size={36} />}
                          </div>
                       </div>
@@ -1564,32 +1564,32 @@ const CustomerVerification = () => {
                            <div className={`text-sm font-black uppercase tracking-widest ${geoResult.isValid ? 'text-emerald-500' : 'text-red-500'}`}>
                               {geoResult.isValid ? '✅ LOCATION VERIFIED' : '❌ LOCATION MISMATCH'}
                            </div>
-                           <div className="text-[10px] font-bold text-slate-500 mt-2">
+                           <div className="text-[10px] font-bold text-muted-foreground mt-2">
                               Distance: {geoResult.distance}m {geoResult.isValid ? '(within 100m)' : '(exceeds 100m limit)'}
                            </div>
                         </div>
                       ) : (
                         <div className="space-y-2">
-                           <h4 className="text-lg font-black text-white uppercase tracking-tight">Proximity Check Required</h4>
-                           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">You must be within 100 meters of the worker to verify</p>
+                           <h4 className="text-lg font-black text-primary-foreground uppercase tracking-tight">Proximity Check Required</h4>
+                           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">You must be within 100 meters of the worker to verify</p>
                         </div>
                       )}
                    </div>
                 </div>
 
-                <div className="p-10 bg-white/5 border-t border-white/5">
+                <div className="p-10 bg-card/5 border-t border-border">
                    {!geoResult?.isValid ? (
                      <button
                        onClick={handleGeoValidation}
                        disabled={isCheckingGeo}
-                       className="h-20 w-full rounded-3xl bg-gradient-to-br from-orange-500 to-orange-600 font-black text-white shadow-2xl shadow-orange-500/40 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm"
+                       className="h-20 w-full rounded-3xl bg-gradient-to-br from-orange-500 to-orange-600 font-black text-primary-foreground shadow-2xl shadow-orange-500/40 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm"
                      >
                        {isCheckingGeo ? <><Clock size={20} className="animate-spin" /> TRIANGULATING POSITION...</> : <><Crosshair size={20} /> VERIFY MY LOCATION</>}
                      </button>
                    ) : (
                      <button
                        onClick={() => setStep("photo")}
-                       className="h-20 w-full rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 font-black text-white shadow-2xl shadow-emerald-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm"
+                       className="h-20 w-full rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 font-black text-primary-foreground shadow-2xl shadow-emerald-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm"
                      >
                        NEXT: PHOTO CAPTURE <ArrowRight size={20} />
                      </button>
@@ -1599,15 +1599,15 @@ const CustomerVerification = () => {
            )}
 
            {step === "photo" && (
-              <div className="w-full bg-slate-950 rounded-[3rem] shadow-2xl border border-white/5 overflow-hidden animate-in fade-in duration-500">
-                <div className="p-10 pb-6 flex items-center justify-between border-b border-white/5 bg-white/[0.02]">
-                   <h3 className="text-2xl font-black text-white italic uppercase flex items-center gap-4">
-                      <div className="p-3 rounded-2xl bg-orange-500 text-white shadow-lg shadow-orange-500/20">
+              <div className="w-full bg-background rounded-[3rem] shadow-2xl border border-border overflow-hidden animate-in fade-in duration-500">
+                <div className="p-10 pb-6 flex items-center justify-between border-b border-border bg-card/[0.02]">
+                   <h3 className="text-2xl font-black text-primary-foreground italic uppercase flex items-center gap-4">
+                      <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
                          <Camera size={24} />
                       </div>
                       Photo Verification
                    </h3>
-                   <div className="px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[9px] font-black uppercase tracking-widest">
+                   <div className="px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-[9px] font-black uppercase tracking-widest">
                       Step 3 of 3
                    </div>
                 </div>
@@ -1615,10 +1615,10 @@ const CustomerVerification = () => {
                 <div className="p-10 space-y-6">
                    {!capturedPhoto ? (
                      <>
-                       <div className="relative w-full aspect-[4/3] rounded-[2.5rem] border-4 border-orange-500/30 overflow-hidden bg-black shadow-[0_0_40px_rgba(249,115,22,0.15)]">
+                       <div className="relative w-full aspect-[4/3] rounded-[2.5rem] border-4 border-primary/30 overflow-hidden bg-background shadow-[0_0_40px_rgba(249,115,22,0.15)]">
                           <video ref={photoVideoRef} autoPlay playsInline className="absolute inset-0 w-full h-full object-cover" />
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                             <div className="w-48 h-48 border-2 border-dashed border-orange-500/40 rounded-[2rem] animate-[pulse_2s_infinite]" />
+                             <div className="w-48 h-48 border-2 border-dashed border-primary/40 rounded-[2rem] animate-[pulse_2s_infinite]" />
                           </div>
                           <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black to-transparent" />
                        </div>
@@ -1627,12 +1627,12 @@ const CustomerVerification = () => {
                           <button
                             onClick={handleCapturePhoto}
                             disabled={isCapturing}
-                            className="py-5 rounded-2xl bg-orange-500 text-white font-black uppercase tracking-widest text-xs shadow-lg shadow-orange-500/30 hover:bg-orange-600 transition-all active:scale-[0.98] disabled:opacity-40 flex items-center justify-center gap-3"
+                            className="py-5 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-widest text-xs shadow-lg shadow-orange-500/30 hover:bg-primary transition-all active:scale-[0.98] disabled:opacity-40 flex items-center justify-center gap-3"
                           >
                             {isCapturing ? <Clock size={16} className="animate-spin" /> : <Camera size={16} />}
                             {isCapturing ? "CAPTURING..." : "CAPTURE"}
                           </button>
-                          <label className="py-5 rounded-2xl bg-white/5 border border-white/10 text-slate-400 font-black uppercase tracking-widest text-xs text-center cursor-pointer hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-3">
+                          <label className="py-5 rounded-2xl bg-card/5 border border-border text-muted-foreground font-black uppercase tracking-widest text-xs text-center cursor-pointer hover:text-primary-foreground hover:bg-card/10 transition-all flex items-center justify-center gap-3">
                             <ImageIcon size={16} /> GALLERY
                             <input type="file" className="hidden" accept="image/*" onChange={handlePhotoFromGallery} />
                           </label>
@@ -1644,19 +1644,19 @@ const CustomerVerification = () => {
                           <img src={capturedPhoto} className="w-full h-full object-cover" alt="Captured" />
                           {isDuplicatePhoto && (
                             <div className="absolute inset-0 bg-red-500/20 flex items-center justify-center">
-                               <div className="p-6 rounded-3xl bg-black/80 border border-red-500/50 text-center">
+                               <div className="p-6 rounded-3xl bg-background/80 border border-red-500/50 text-center">
                                   <AlertTriangle size={32} className="text-red-500 mx-auto mb-3" />
                                   <div className="text-sm font-black text-red-400 uppercase tracking-widest">DUPLICATE DETECTED</div>
-                                  <div className="text-[9px] font-bold text-slate-500 mt-2 max-w-xs">{duplicateReason}</div>
+                                  <div className="text-[9px] font-bold text-muted-foreground mt-2 max-w-xs">{duplicateReason}</div>
                                </div>
                             </div>
                           )}
                        </div>
 
                        {photoHash && (
-                         <div className="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-3">
+                         <div className="p-4 rounded-2xl bg-card/5 border border-border flex items-center gap-3">
                             <ShieldCheck size={16} className="text-emerald-500 shrink-0" />
-                            <div className="text-[9px] font-mono font-bold text-slate-500 truncate">
+                            <div className="text-[9px] font-mono font-bold text-muted-foreground truncate">
                                Hash: {photoHash.slice(0, 16)}...{photoHash.slice(-8)}
                             </div>
                             <div className={`ml-auto text-[9px] font-black uppercase tracking-widest ${isDuplicatePhoto ? 'text-red-500' : 'text-emerald-500'}`}>
@@ -1667,7 +1667,7 @@ const CustomerVerification = () => {
 
                        <button
                          onClick={handleRetakePhoto}
-                         className="w-full py-4 rounded-2xl bg-white/5 border border-white/10 text-slate-400 font-black uppercase tracking-widest text-xs hover:text-white transition-all flex items-center justify-center gap-3"
+                         className="w-full py-4 rounded-2xl bg-card/5 border border-border text-muted-foreground font-black uppercase tracking-widest text-xs hover:text-primary-foreground transition-all flex items-center justify-center gap-3"
                        >
                          <RefreshCw size={14} /> RETAKE PHOTO
                        </button>
@@ -1675,11 +1675,11 @@ const CustomerVerification = () => {
                    )}
                 </div>
 
-                <div className="p-10 bg-white/5 border-t border-white/5">
+                <div className="p-10 bg-card/5 border-t border-border">
                    <button
                      onClick={handleFinalSave}
                      disabled={!capturedPhoto || isDuplicatePhoto || isSaving}
-                     className="h-20 w-full rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 font-black text-white shadow-2xl shadow-emerald-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm"
+                     className="h-20 w-full rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 font-black text-primary-foreground shadow-2xl shadow-emerald-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-20 flex items-center justify-center gap-4 uppercase tracking-[0.4em] text-sm"
                    >
                      {isSaving ? <><Clock size={20} className="animate-spin" /> SYNCING TO FIREBASE...</> : <>FINALIZE VERIFICATION <ShieldCheck size={20} /></>}
                    </button>
@@ -1688,27 +1688,27 @@ const CustomerVerification = () => {
            )}
 
            {step === "done" && (
-              <div className="flex w-full flex-col items-center rounded-[3.5rem] bg-slate-950 p-16 text-center border border-emerald-500/30 shadow-2xl relative overflow-hidden group">
+              <div className="flex w-full flex-col items-center rounded-[3.5rem] bg-background p-16 text-center border border-emerald-500/30 shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-50" />
                 <div className="mb-10 flex h-28 w-28 items-center justify-center rounded-full bg-emerald-500/10 shadow-inner group-hover:scale-110 transition-transform duration-700">
                   <CheckCircle size={56} className="text-emerald-500 drop-shadow-[0_0_20px_rgba(16,185,129,0.6)]" />
                 </div>
-                <h3 className="mb-4 text-4xl font-black tracking-tighter text-white italic uppercase">VERIFIED SUCCESS!</h3>
-                <p className="mb-12 text-sm font-black text-slate-500 max-w-sm mx-auto uppercase tracking-widest leading-relaxed">
+                <h3 className="mb-4 text-4xl font-black tracking-tighter text-primary-foreground italic uppercase">VERIFIED SUCCESS!</h3>
+                <p className="mb-12 text-sm font-black text-muted-foreground max-w-sm mx-auto uppercase tracking-widest leading-relaxed">
                   Worker professional data successfully appended to the registry.
                 </p>
-                <div className="mb-12 w-full rounded-[2.5rem] bg-white/5 p-8 border border-white/10 flex items-center justify-between shadow-inner">
+                <div className="mb-12 w-full rounded-[2.5rem] bg-card/5 p-8 border border-border flex items-center justify-between shadow-inner">
                   <div className="text-left">
-                     <div className="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em] mb-2">CREDIT AWARDED</div>
-                     <div className="text-3xl font-black text-orange-500 tracking-tighter">+{earnedPoints} MUKTI PTS</div>
+                     <div className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] mb-2">CREDIT AWARDED</div>
+                     <div className="text-3xl font-black text-primary tracking-tighter">+{earnedPoints} MUKTI PTS</div>
                   </div>
-                  <div className="h-16 w-16 rounded-3xl bg-orange-500 text-white flex items-center justify-center shadow-2xl shadow-orange-500/40">
+                  <div className="h-16 w-16 rounded-3xl bg-primary text-primary-foreground flex items-center justify-center shadow-2xl shadow-orange-500/40">
                      <Award size={32} />
                   </div>
                 </div>
                 <button
                   onClick={handleBack}
-                  className="h-20 w-full rounded-3xl bg-white/5 border border-white/5 font-black text-white text-[10px] tracking-[0.5em] uppercase transition-all hover:bg-white/10 active:scale-[0.98]"
+                  className="h-20 w-full rounded-3xl bg-card/5 border border-border font-black text-primary-foreground text-[10px] tracking-[0.5em] uppercase transition-all hover:bg-card/10 active:scale-[0.98]"
                 >
                   DISMISS & RETURN
                 </button>
@@ -1716,15 +1716,15 @@ const CustomerVerification = () => {
            )}
 
            {step === "error" && (
-              <div className="flex w-full flex-col items-center rounded-[3.5rem] bg-slate-950 p-16 text-center border border-red-500/30 shadow-2xl relative">
+              <div className="flex w-full flex-col items-center rounded-[3.5rem] bg-background p-16 text-center border border-red-500/30 shadow-2xl relative">
                 <div className="mb-10 flex h-28 w-28 items-center justify-center rounded-full bg-red-500/10">
                   <AlertTriangle size={56} className="text-red-500" />
                 </div>
-                <h3 className="mb-4 text-4xl font-black tracking-tighter text-white italic uppercase">SECURITY ABORT</h3>
-                <p className="mb-12 text-sm font-black text-slate-500 max-w-sm mx-auto uppercase tracking-widest leading-relaxed">{errorMsg}</p>
+                <h3 className="mb-4 text-4xl font-black tracking-tighter text-primary-foreground italic uppercase">SECURITY ABORT</h3>
+                <p className="mb-12 text-sm font-black text-muted-foreground max-w-sm mx-auto uppercase tracking-widest leading-relaxed">{errorMsg}</p>
                 <button
                   onClick={handleBack}
-                  className="h-20 w-full rounded-3xl bg-red-500 text-white font-black text-[10px] tracking-[0.5em] uppercase transition-all hover:bg-red-600 active:scale-[0.98] shadow-2xl shadow-red-500/30"
+                  className="h-20 w-full rounded-3xl bg-red-500 text-primary-foreground font-black text-[10px] tracking-[0.5em] uppercase transition-all hover:bg-red-600 active:scale-[0.98] shadow-2xl shadow-red-500/30"
                 >
                   RETRY SYSTEM
                 </button>

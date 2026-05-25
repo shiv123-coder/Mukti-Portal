@@ -43,9 +43,9 @@ const SchemesMatcher = () => {
     switch (cat) {
       case 'loan': return <Banknote size={20} className="text-emerald-500" />;
       case 'insurance': return <Heart size={20} className="text-red-500" />;
-      case 'skill': return <GraduationCap size={20} className="text-blue-500" />;
+      case 'skill': return <GraduationCap size={20} className="text-primary" />;
       case 'pension': return <Landmark size={20} className="text-purple-500" />;
-      default: return <ShieldCheck size={20} className="text-orange-500" />;
+      default: return <ShieldCheck size={20} className="text-primary" />;
     }
   };
 
@@ -53,9 +53,9 @@ const SchemesMatcher = () => {
     switch (cat) {
       case 'loan': return 'border-emerald-500/20 bg-emerald-500/5';
       case 'insurance': return 'border-red-500/20 bg-red-500/5';
-      case 'skill': return 'border-blue-500/20 bg-blue-500/5';
+      case 'skill': return 'border-primary/20 bg-primary/5';
       case 'pension': return 'border-purple-500/20 bg-purple-500/5';
-      default: return 'border-orange-500/20 bg-orange-500/5';
+      default: return 'border-primary/20 bg-primary/5';
     }
   };
 
@@ -64,13 +64,13 @@ const SchemesMatcher = () => {
       <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-emerald-500/5 blur-[120px] pointer-events-none" />
       
       <div className="mb-10 relative z-10">
-        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-500 hover:text-foreground text-[10px] font-black uppercase tracking-widest mb-6 transition-colors">
+        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-[10px] font-black uppercase tracking-widest mb-6 transition-colors">
           <ArrowLeft size={14} /> Back
         </button>
         <h1 className="text-3xl sm:text-4xl font-black italic tracking-tighter text-foreground uppercase">
           Government Schemes
         </h1>
-        <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] mt-2">
+        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] mt-2">
           Matched to your profile • Mukti Score: {muktiScore}
         </p>
       </div>
@@ -104,7 +104,7 @@ const SchemesMatcher = () => {
                     <h3 className="text-lg font-black text-foreground italic tracking-tighter uppercase">
                       {scheme.name}
                     </h3>
-                    <span className="text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-border text-slate-500">
+                    <span className="text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-border text-muted-foreground">
                       {scheme.category}
                     </span>
                   </div>
@@ -133,8 +133,8 @@ const SchemesMatcher = () => {
 
         {matched.length === 0 && (
           <div className="py-20 text-center border border-dashed border-border rounded-[2rem]">
-            <Landmark size={48} className="mx-auto text-slate-800 mb-4 opacity-30" />
-            <p className="text-[10px] font-black text-slate-700 uppercase tracking-widest">
+            <Landmark size={48} className="mx-auto text-foreground mb-4 opacity-30" />
+            <p className="text-[10px] font-black text-foreground uppercase tracking-widest">
               No schemes matched yet. Increase your Mukti Score to unlock more.
             </p>
           </div>

@@ -70,7 +70,7 @@ const AdminReviews = () => {
           const nlp = review.nlp || analyzeReview(review.comment || "");
           
           return (
-            <div key={review.id} className="group rounded-[3rem] bg-card border border-border p-8 hover:border-orange-500/20 transition-all shadow-2xl relative overflow-hidden">
+            <div key={review.id} className="group rounded-[3rem] bg-card border border-border p-8 hover:border-primary/20 transition-all shadow-2xl relative overflow-hidden">
                 <div className="flex flex-col lg:flex-row gap-8">
                   {/* User Info */}
                   <div className="lg:w-64 space-y-4">
@@ -99,7 +99,7 @@ const AdminReviews = () => {
                      <div className="space-y-4">
                         <div className="flex items-center gap-2">
                            {[...Array(5)].map((_, i) => (
-                             <Star key={i} size={14} className={i < review.rating ? "text-orange-500 fill-orange-500" : "text-secondary"} />
+                             <Star key={i} size={14} className={i < review.rating ? "text-primary fill-orange-500" : "text-secondary"} />
                            ))}
                            <span className="ml-4 text-[10px] font-black text-muted-foreground uppercase tracking-widest italic opacity-60">Captured {new Date(review.timestamp?.seconds * 1000).toLocaleDateString()}</span>
                         </div>
@@ -116,7 +116,7 @@ const AdminReviews = () => {
                            <span className="text-[10px] font-black uppercase tracking-[0.2em]">{nlp.sentiment} SENTIMENT</span>
                         </div>
                         {nlp.skills?.map((skill: string, idx: number) => (
-                           <div key={idx} className="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-500 flex items-center gap-2">
+                           <div key={idx} className="px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary flex items-center gap-2">
                               <Wrench size={12} />
                               <span className="text-[10px] font-black uppercase tracking-[0.2em]">{skill}</span>
                            </div>
@@ -132,11 +132,11 @@ const AdminReviews = () => {
 
                   {/* Actions */}
                   <div className="lg:w-48 flex flex-col gap-3 justify-end pt-4 lg:pt-0 border-t lg:border-t-0 lg:border-l border-border lg:pl-8">
-                     <button onClick={() => handleModerate(review.id, "approved")} className="h-12 w-full rounded-xl bg-emerald-500/10 text-emerald-500 font-black text-[10px] uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition-all border border-emerald-500/20 active:scale-95">
+                     <button onClick={() => handleModerate(review.id, "approved")} className="h-12 w-full rounded-xl bg-emerald-500/10 text-emerald-500 font-black text-[10px] uppercase tracking-widest hover:bg-emerald-500 hover:text-primary-foreground transition-all border border-emerald-500/20 active:scale-95">
                         Approve
                      </button>
                      <div className="grid grid-cols-2 gap-3">
-                        <button onClick={() => handleModerate(review.id, "flagged")} className="h-12 rounded-xl border border-border text-muted-foreground hover:text-orange-500 hover:bg-orange-500/10 transition-all flex items-center justify-center active:scale-95">
+                        <button onClick={() => handleModerate(review.id, "flagged")} className="h-12 rounded-xl border border-border text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all flex items-center justify-center active:scale-95">
                            <Flag size={18} />
                         </button>
                         <button onClick={() => handleDelete(review.id)} className="h-12 rounded-xl border border-border text-muted-foreground hover:text-red-500 hover:bg-red-500/10 transition-all flex items-center justify-center active:scale-95">

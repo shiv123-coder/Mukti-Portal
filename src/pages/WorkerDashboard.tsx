@@ -669,8 +669,8 @@ const WorkerDashboard = () => {
   const showChart = true; 
 
   const stats = [
-    { icon: ShieldCheck, label: "Mukti Score", value: displayLoading ? "..." : (muktiScore || "0"), color: "text-orange-500", extraClass: "col-span-2 border-orange-500/30 bg-orange-500/5 shadow-[0_0_15px_rgba(249,115,22,0.15)]" },
-    { icon: Briefcase, label: "Total Jobs", value: displayData?.summary?.totalJobs || verifications.length, color: "text-orange-500" },
+    { icon: ShieldCheck, label: "Mukti Score", value: displayLoading ? "..." : (muktiScore || "0"), color: "text-primary", extraClass: "col-span-2 border-primary/30 bg-primary/5 shadow-[0_0_15px_rgba(249,115,22,0.15)]" },
+    { icon: Briefcase, label: "Total Jobs", value: displayData?.summary?.totalJobs || verifications.length, color: "text-primary" },
     { icon: Star, label: "Avg Rating", value: avgRating.toFixed(1), color: "text-warning" },
     { icon: Users, label: "Repeat Clients", value: displayData?.summary?.repeatCustomers || 0, color: "text-primary" },
     { icon: Clock, label: "Last Active", value: getRelativeTime(user.lastActive), color: "text-muted-foreground" },
@@ -692,8 +692,8 @@ const WorkerDashboard = () => {
   return (
     <div className="container mx-auto max-w-7xl py-4 sm:py-6 md:py-10 pb-24 px-3 sm:px-4 lg:px-6 relative overflow-hidden">
       {/* Background Orbs */}
-      <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-orange-500/5 blur-[120px] pointer-events-none" />
-      <div className="absolute top-[40%] right-[-5%] h-[500px] w-[500px] rounded-full bg-orange-500/5 blur-[150px] pointer-events-none" />
+      <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[40%] right-[-5%] h-[500px] w-[500px] rounded-full bg-primary/5 blur-[150px] pointer-events-none" />
 
       {/* Greeting */}
       <div className="mb-10 opacity-0 animate-fade-up relative z-10" style={{ animationDelay: "0ms" }}>
@@ -704,9 +704,9 @@ const WorkerDashboard = () => {
                            <div className="flex flex-col">
                     <span className="text-2xl font-black text-foreground italic tracking-tighter uppercase">{user?.name || "Worker"}</span>
                     <div className="flex items-center gap-2 mt-1">
-                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-500/10 border border-orange-500/20">
-                        <MapPin size={10} className="text-orange-500" />
-                        <span className="text-[10px] font-black text-orange-500 uppercase tracking-widest">{user.location || "Detecting..."}</span>
+                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary/10 border border-primary/20">
+                        <MapPin size={10} className="text-primary" />
+                        <span className="text-[10px] font-black text-primary uppercase tracking-widest">{user.location || "Detecting..."}</span>
                       </div>
                       <button 
                         onClick={async () => {
@@ -715,7 +715,7 @@ const WorkerDashboard = () => {
                           setIsUpdatingLocation(false);
                         }}
                         disabled={isUpdatingLocation}
-                        className="p-1.5 rounded-lg bg-secondary border border-border text-slate-500 hover:text-foreground transition-all disabled:opacity-50"
+                        className="p-1.5 rounded-lg bg-secondary border border-border text-muted-foreground hover:text-foreground transition-all disabled:opacity-50"
                       >
                          <RotateCw size={10} className={isUpdatingLocation ? "animate-spin" : ""} />
                       </button>
@@ -743,7 +743,7 @@ const WorkerDashboard = () => {
               <button
                 onClick={handleRequestVerification}
                 disabled={isRequesting || requestSent}
-                className={`text-[9px] font-black px-4 py-2 rounded-xl border transition-all ${requestSent ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500 cursor-default' : 'bg-orange-500 text-foreground border-orange-600 hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20'} uppercase tracking-widest`}
+                className={`text-[9px] font-black px-4 py-2 rounded-xl border transition-all ${requestSent ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500 cursor-default' : 'bg-primary text-foreground border-primary hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20'} uppercase tracking-widest`}
               >
                 {isRequesting ? "Sending..." : requestSent ? "Request Sent ✔" : "Request Identity Verification"}
               </button>
@@ -786,9 +786,9 @@ const WorkerDashboard = () => {
               });
               toast.success("Credit Report Downloaded!");
             }}
-            className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-orange-500/30 transition-all group"
+            className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all group"
           >
-            <Lock size={18} className="text-orange-500 group-hover:scale-110 transition-transform" />
+            <Lock size={18} className="text-primary group-hover:scale-110 transition-transform" />
             <span className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase tracking-widest text-center">PDF Report</span>
           </button>
         )}
@@ -804,9 +804,9 @@ const WorkerDashboard = () => {
         </button>
         <button
           onClick={() => navigate('/schemes')}
-          className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-blue-500/30 transition-all group"
+          className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all group"
         >
-          <Briefcase size={20} className="text-blue-500 group-hover:scale-110 transition-transform" />
+          <Briefcase size={20} className="text-primary group-hover:scale-110 transition-transform" />
           <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">Schemes</span>
         </button>
         <button
@@ -820,7 +820,7 @@ const WorkerDashboard = () => {
           <MapPin size={20} className="text-purple-500 group-hover:scale-110 transition-transform" />
           <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">Jobs</span>
           {activeRequests.filter(r => r.status === 'Searching').length > 0 && (
-            <span className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full bg-orange-500 text-foreground text-[8px] font-black animate-pulse shadow-lg shadow-orange-500/40">
+            <span className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full bg-primary text-foreground text-[8px] font-black animate-pulse shadow-lg shadow-orange-500/40">
               {activeRequests.filter(r => r.status === 'Searching').length}
             </span>
           )}
@@ -846,9 +846,9 @@ const WorkerDashboard = () => {
         <div className="flex flex-col gap-6 lg:col-span-4 relative z-10">
           
           {/* Work Mode Indicator */}
-          <div className="rounded-[2rem] bg-card p-5 border border-border flex items-center justify-between opacity-0 animate-fade-up group hover:border-orange-500/30 transition-all font-black italic" style={{ animationDelay: "50ms" }}>
+          <div className="rounded-[2rem] bg-card p-5 border border-border flex items-center justify-between opacity-0 animate-fade-up group hover:border-primary/30 transition-all font-black italic" style={{ animationDelay: "50ms" }}>
             <div className="flex items-center gap-4">
-              <div className={`h-12 w-12 rounded-2xl flex items-center justify-center border transition-all ${isRegularWorker ? "bg-orange-500/10 text-orange-500 border-orange-500/10" : "bg-secondary/50 text-muted-foreground border-border"}`}>
+              <div className={`h-12 w-12 rounded-2xl flex items-center justify-center border transition-all ${isRegularWorker ? "bg-primary/10 text-primary border-primary/10" : "bg-secondary/50 text-muted-foreground border-border"}`}>
                 {isRegularWorker ? <Briefcase size={22} /> : <LucideUser size={22} />}
               </div>
               <div className="text-left">
@@ -866,12 +866,12 @@ const WorkerDashboard = () => {
           {/* Quick Action: QR or Employer Card */}
           {Number(user.workerType) === 0 ? (
             <div 
-              className="group relative flex w-full flex-col gap-5 rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl overflow-hidden opacity-0 animate-fade-up hover:border-orange-500/20 transition-all font-black"
+              className="group relative flex w-full flex-col gap-5 rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl overflow-hidden opacity-0 animate-fade-up hover:border-primary/20 transition-all font-black"
               style={{ animationDelay: "80ms" }}
             >
-               <div className="absolute -top-16 -right-16 h-32 w-32 bg-orange-500/5 rounded-full blur-2xl group-hover:scale-125 transition-transform" />
+               <div className="absolute -top-16 -right-16 h-32 w-32 bg-primary/5 rounded-full blur-2xl group-hover:scale-125 transition-transform" />
                <div className="flex items-center justify-between relative z-10 italic">
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-orange-500 flex items-center gap-3">
+                  <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary flex items-center gap-3">
                     <LucideUser size={16} /> Registry Employer
                   </h4>
                   {!user.employerVerified && (
@@ -893,7 +893,7 @@ const WorkerDashboard = () => {
                {!user.employerVerified ? (
                  <button 
                    onClick={() => toast.info("Encryption link dispatched to employer unit.")}
-                   className="w-full h-16 rounded-2xl bg-orange-500 text-foreground font-black uppercase tracking-[0.3em] shadow-xl shadow-orange-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all relative z-10 text-[10px]"
+                   className="w-full h-16 rounded-2xl bg-primary text-foreground font-black uppercase tracking-[0.3em] shadow-xl shadow-orange-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all relative z-10 text-[10px]"
                  >
                    Dispatch Verify Request
                  </button>
@@ -906,7 +906,7 @@ const WorkerDashboard = () => {
           ) : (
             <button
               onClick={() => navigate("/qr")}
-              className="group flex w-full h-24 items-center gap-6 rounded-[2rem] bg-card p-6 shadow-2xl transition-all border border-orange-500/20 hover:border-orange-500/40 active:scale-[0.98] opacity-0 animate-fade-up overflow-hidden relative font-black italic"
+              className="group flex w-full h-24 items-center gap-6 rounded-[2rem] bg-card p-6 shadow-2xl transition-all border border-primary/20 hover:border-primary/40 active:scale-[0.98] opacity-0 animate-fade-up overflow-hidden relative font-black italic"
               style={{ animationDelay: "80ms" }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
@@ -940,9 +940,9 @@ const WorkerDashboard = () => {
             <div className="rounded-[2rem] bg-card p-6 border border-border shadow-inner font-black italic">
                <div className="flex items-center justify-between mb-5 border-b border-border pb-4">
                   <div className="text-[9px] font-black uppercase text-muted-foreground tracking-[0.3em] flex items-center gap-3 opacity-60">
-                    <Star size={16} className="text-orange-500 fill-orange-500" /> Mukti Index
+                    <Star size={16} className="text-primary fill-orange-500" /> Mukti Index
                   </div>
-                  <div className="text-3xl font-black text-orange-500 tracking-tighter">{Math.round(muktiScore)}</div>
+                  <div className="text-3xl font-black text-primary tracking-tighter">{Math.round(muktiScore)}</div>
                </div>
                <div className="flex items-center justify-between">
                   <div className="text-[9px] font-black uppercase text-muted-foreground tracking-[0.3em] flex items-center gap-3 opacity-60">
@@ -950,7 +950,7 @@ const WorkerDashboard = () => {
                   </div>
                   <div className={`text-xs font-black tracking-widest ${
                     displayData?.trust?.fraudRisk === 'LOW' ? 'text-emerald-500' : 
-                    displayData?.trust?.fraudRisk === 'MEDIUM' ? 'text-orange-400' : 'text-red-500'
+                    displayData?.trust?.fraudRisk === 'MEDIUM' ? 'text-primary' : 'text-red-500'
                   }`}>
                     {displayData?.trust?.fraudRisk || 'OPTIMAL'}
                   </div>
@@ -987,19 +987,19 @@ const WorkerDashboard = () => {
         <div className="flex flex-col gap-6 lg:col-span-8 relative z-10">
 
           {/* Active Job Requests — Visible to ALL workers */}
-          <div id="tactical-job-feed" className="rounded-[2.5rem] bg-card p-8 border border-orange-500/10 shadow-3xl animate-fade-up relative overflow-hidden" style={{ animationDelay: "100ms" }}>
-            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-orange-500/5 rounded-full blur-[100px]" />
+          <div id="tactical-job-feed" className="rounded-[2.5rem] bg-card p-8 border border-primary/10 shadow-3xl animate-fade-up relative overflow-hidden" style={{ animationDelay: "100ms" }}>
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px]" />
             <div className="mb-8 flex flex-col gap-6 relative z-10 italic">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 text-foreground">
-                  <div className="p-2.5 rounded-xl bg-orange-500 text-foreground shadow-xl shadow-orange-500/20">
+                  <div className="p-2.5 rounded-xl bg-primary text-foreground shadow-xl shadow-orange-500/20">
                     <Wrench size={22} strokeWidth={3} />
                   </div>
                   <span className="text-xl font-black uppercase tracking-tighter">Tactical Job Feed</span>
                 </div>
                 <button 
                   onClick={() => setShowFilters(!showFilters)}
-                  className={`flex items-center gap-3 px-5 py-2.5 rounded-2xl text-[10px] font-black tracking-[0.2em] uppercase transition-all border ${showFilters ? "bg-orange-500 border-orange-500 text-foreground shadow-xl shadow-orange-500/20" : "bg-secondary text-muted-foreground border-border hover:text-foreground"}`}
+                  className={`flex items-center gap-3 px-5 py-2.5 rounded-2xl text-[10px] font-black tracking-[0.2em] uppercase transition-all border ${showFilters ? "bg-primary border-primary text-foreground shadow-xl shadow-orange-500/20" : "bg-secondary text-muted-foreground border-border hover:text-foreground"}`}
                 >
                   <Search size={14} />
                   {showFilters ? "CLOSE FILTERS" : "OPEN SCANNER"}
@@ -1014,7 +1014,7 @@ const WorkerDashboard = () => {
                      <select 
                        value={distanceFilter}
                        onChange={(e) => setDistanceFilter(e.target.value)}
-                       className="w-full bg-black/40 border border-border rounded-xl p-3 text-[10px] font-black uppercase tracking-widest text-foreground outline-none"
+                       className="w-full bg-background/40 border border-border rounded-xl p-3 text-[10px] font-black uppercase tracking-widest text-foreground outline-none"
                      >
                        <option value="3">Within 3 km</option>
                        <option value="10">Within 10 km</option>
@@ -1022,24 +1022,24 @@ const WorkerDashboard = () => {
                      </select>
                   </div>
                   <div className="space-y-2">
-                     <label className="text-[9px] font-black uppercase text-slate-500 tracking-[0.3em] pl-1 italic">Vocation</label>
+                     <label className="text-[9px] font-black uppercase text-muted-foreground tracking-[0.3em] pl-1 italic">Vocation</label>
                      <select 
                        value={skillFilter}
                        onChange={(e) => setSkillFilter(e.target.value)}
-                       className="w-full bg-black/40 border border-border rounded-xl p-3 text-[10px] font-black uppercase tracking-widest text-foreground outline-none"
+                       className="w-full bg-background/40 border border-border rounded-xl p-3 text-[10px] font-black uppercase tracking-widest text-foreground outline-none"
                      >
                        <option value="My Skill">Matching My Skills</option>
                        <option value="All">All Categories</option>
                      </select>
                   </div>
                   <div className="space-y-2">
-                     <label className="text-[9px] font-black uppercase text-slate-500 tracking-[0.3em] pl-1 italic">Corespace Search</label>
+                     <label className="text-[9px] font-black uppercase text-muted-foreground tracking-[0.3em] pl-1 italic">Corespace Search</label>
                      <input 
                        type="text"
                        value={searchTerm}
                        onChange={(e) => setSearchTerm(e.target.value)}
                        placeholder="Search..."
-                       className="w-full bg-black/40 border border-border rounded-xl py-3 px-4 text-[10px] font-black uppercase tracking-widest text-foreground outline-none"
+                       className="w-full bg-background/40 border border-border rounded-xl py-3 px-4 text-[10px] font-black uppercase tracking-widest text-foreground outline-none"
                      />
                   </div>
                 </div>
@@ -1050,17 +1050,17 @@ const WorkerDashboard = () => {
                 (showAllRequests ? availableJobs : availableJobs.slice(0, 2)).map((req) => (
                   <div 
                     key={req.id} 
-                    className="rounded-3xl bg-white/5 border border-border p-6 shadow-sm transition-all hover:border-orange-500/30 cursor-pointer group/card"
+                    className="rounded-3xl bg-card/5 border border-border p-6 shadow-sm transition-all hover:border-primary/30 cursor-pointer group/card"
                     onClick={() => setSelectedJob(req)}
                   >
                     <div className="mb-5 flex items-start justify-between">
                       <div className="min-w-0">
                         <div className="flex items-center gap-3 flex-wrap">
-                          <div className="text-xl font-black text-foreground italic tracking-tighter uppercase group-hover/card:text-orange-500 transition-colors">{req.service}</div>
+                          <div className="text-xl font-black text-foreground italic tracking-tighter uppercase group-hover/card:text-primary transition-colors">{req.service}</div>
                           {req.urgency === "Urgent" && (
                             <span className="rounded-full bg-red-500/10 px-3 py-1 text-[8px] font-black text-red-500 uppercase tracking-[0.2em] border border-red-500/20">PRIORITY</span>
                           )}
-                          <span className="rounded-full bg-orange-500/10 px-3 py-1 text-[8px] font-black text-orange-500 uppercase tracking-[0.2em] border border-orange-500/10">
+                          <span className="rounded-full bg-primary/10 px-3 py-1 text-[8px] font-black text-primary uppercase tracking-[0.2em] border border-primary/10">
                              {req.distance} KM
                           </span>
                         </div>
@@ -1068,7 +1068,7 @@ const WorkerDashboard = () => {
                       <div className="flex gap-3">
                         {req.status === "Searching" && (
                           <button 
-                            className="h-12 rounded-xl bg-orange-500 px-6 text-[10px] font-black uppercase tracking-widest text-foreground shadow-xl hover:scale-105 active:scale-95 transition-all"
+                            className="h-12 rounded-xl bg-primary px-6 text-[10px] font-black uppercase tracking-widest text-foreground shadow-xl hover:scale-105 active:scale-95 transition-all"
                             onClick={(e) => {
                               e.stopPropagation();
                               const acceptJob = async () => {
@@ -1113,10 +1113,10 @@ const WorkerDashboard = () => {
                         )}
                       </div>
                     </div>
-                    <div className="mb-5 text-sm font-bold text-slate-400 italic">"{req.description}"</div>
+                    <div className="mb-5 text-sm font-bold text-muted-foreground italic">"{req.description}"</div>
                     <div className="flex flex-wrap items-center gap-3">
-                      <div className="flex items-center gap-2 text-[9px] font-black text-slate-500 bg-white/5 px-4 py-2 rounded-xl border border-border">
-                        <MapPin size={12} className="text-orange-500" /> {req.location}
+                      <div className="flex items-center gap-2 text-[9px] font-black text-muted-foreground bg-card/5 px-4 py-2 rounded-xl border border-border">
+                        <MapPin size={12} className="text-primary" /> {req.location}
                       </div>
                       {req.budget && (
                         <div className="flex items-center gap-2 text-[9px] font-black text-emerald-500 bg-emerald-500/5 px-4 py-2 rounded-xl border border-emerald-500/10">
@@ -1124,7 +1124,7 @@ const WorkerDashboard = () => {
                         </div>
                       )}
                       {(req as any).preferredDate && (
-                        <div className="flex items-center gap-2 text-[9px] font-black text-blue-400 bg-blue-500/5 px-4 py-2 rounded-xl border border-blue-500/10">
+                        <div className="flex items-center gap-2 text-[9px] font-black text-primary bg-primary/5 px-4 py-2 rounded-xl border border-primary/10">
                           <Clock size={12} /> {(req as any).preferredDate}
                         </div>
                       )}
@@ -1132,8 +1132,8 @@ const WorkerDashboard = () => {
                   </div>
                 ))
               ) : (
-                <div className="flex flex-col items-center justify-center py-16 rounded-[2rem] border border-dashed border-border bg-white/[0.02]">
-                  <Clock size={32} className="text-slate-700 mb-5" />
+                <div className="flex flex-col items-center justify-center py-16 rounded-[2rem] border border-dashed border-border bg-card/[0.02]">
+                  <Clock size={32} className="text-foreground mb-5" />
                   <h4 className="text-[10px] font-black text-foreground uppercase tracking-[0.4em]">Listening for signals</h4>
                 </div>
               )}
@@ -1141,43 +1141,43 @@ const WorkerDashboard = () => {
           </div>
           
           {showChart && (
-            <div className="rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl opacity-0 animate-fade-up relative overflow-hidden group hover:border-orange-500/20 transition-all font-black" style={{ animationDelay: "240ms" }}>
+            <div className="rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl opacity-0 animate-fade-up relative overflow-hidden group hover:border-primary/20 transition-all font-black" style={{ animationDelay: "240ms" }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 relative z-10">
                 
                 {/* Section 1: Work Summary */}
                 <div className="space-y-5">
-                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500 flex items-center gap-3 italic">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3 italic">
                     <LucideHistory size={16} /> 01. Activity Log
                   </h3>
                   <div className="grid grid-cols-3 gap-4">
-                    <div className="p-3 sm:p-4 rounded-3xl bg-white/5 border border-border text-center group-hover:bg-white/10 transition-colors shadow-inner">
-                      <div className="text-xl sm:text-2xl font-black text-orange-500 italic tracking-tighter uppercase">{displayData?.summary?.totalJobs || 0}</div>
-                      <div className="text-[7px] sm:text-[8px] font-black text-slate-600 uppercase tracking-[0.2em] mt-1">Units</div>
+                    <div className="p-3 sm:p-4 rounded-3xl bg-card/5 border border-border text-center group-hover:bg-card/10 transition-colors shadow-inner">
+                      <div className="text-xl sm:text-2xl font-black text-primary italic tracking-tighter uppercase">{displayData?.summary?.totalJobs || 0}</div>
+                      <div className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase tracking-[0.2em] mt-1">Units</div>
                     </div>
-                    <div className="p-3 sm:p-4 rounded-3xl bg-white/5 border border-border text-center group-hover:bg-white/10 transition-colors shadow-inner">
-                      <div className="text-xl sm:text-2xl font-black text-orange-500 italic tracking-tighter uppercase">{displayData?.summary?.activeMonths || 0}</div>
-                      <div className="text-[7px] sm:text-[8px] font-black text-slate-600 uppercase tracking-[0.2em] mt-1">Months</div>
+                    <div className="p-3 sm:p-4 rounded-3xl bg-card/5 border border-border text-center group-hover:bg-card/10 transition-colors shadow-inner">
+                      <div className="text-xl sm:text-2xl font-black text-primary italic tracking-tighter uppercase">{displayData?.summary?.activeMonths || 0}</div>
+                      <div className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase tracking-[0.2em] mt-1">Months</div>
                     </div>
-                    <div className="p-3 sm:p-4 rounded-3xl bg-white/5 border border-border text-center group-hover:bg-white/10 transition-colors shadow-inner">
-                      <div className="text-xl sm:text-2xl font-black text-orange-500 italic tracking-tighter uppercase">{displayData?.summary?.repeatCustomers || 0}</div>
-                      <div className="text-[7px] sm:text-[8px] font-black text-slate-600 uppercase tracking-[0.2em] mt-1">Repeat</div>
+                    <div className="p-3 sm:p-4 rounded-3xl bg-card/5 border border-border text-center group-hover:bg-card/10 transition-colors shadow-inner">
+                      <div className="text-xl sm:text-2xl font-black text-primary italic tracking-tighter uppercase">{displayData?.summary?.repeatCustomers || 0}</div>
+                      <div className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase tracking-[0.2em] mt-1">Repeat</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Section 2: Performance Insights */}
                 <div className="space-y-5 font-black italic">
-                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500 flex items-center gap-3 italic">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3 italic">
                     <Star size={16} /> 02. Precision Metrics
                   </h3>
-                  <div className="flex items-center justify-between p-5 rounded-3xl bg-white/5 border border-border shadow-inner">
+                  <div className="flex items-center justify-between p-5 rounded-3xl bg-card/5 border border-border shadow-inner">
                     <div className="flex flex-col">
-                      <div className="text-xl sm:text-2xl font-black text-orange-500 italic tracking-tighter uppercase">{avgRating.toFixed(1)}</div>
-                      <div className="text-[7px] sm:text-[8px] font-black text-slate-600 uppercase tracking-[0.2em] mt-1 italic">Rating Avg</div>
+                      <div className="text-xl sm:text-2xl font-black text-primary italic tracking-tighter uppercase">{avgRating.toFixed(1)}</div>
+                      <div className="text-[7px] sm:text-[8px] font-black text-muted-foreground uppercase tracking-[0.2em] mt-1 italic">Rating Avg</div>
                     </div>
                     <div className="flex flex-wrap gap-2 justify-end max-w-[140px]">
                       {(displayData?.performance?.topSkills || []).map((s: string, i: number) => (
-                        <span key={i} className="text-[8px] font-black bg-orange-500/10 text-orange-500 px-3 py-1 rounded-full border border-orange-500/10 uppercase tracking-widest italic">{s}</span>
+                        <span key={i} className="text-[8px] font-black bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/10 uppercase tracking-widest italic">{s}</span>
                       ))}
                     </div>
                   </div>
@@ -1185,16 +1185,16 @@ const WorkerDashboard = () => {
 
                 {/* Section 3: Financial Profile */}
                 <div className="space-y-5">
-                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500 flex items-center gap-3 italic">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3 italic">
                     <Wallet size={16} /> 03. Capital Profile
                   </h3>
-                  <div className="p-6 rounded-[2rem] bg-orange-500/5 border border-orange-500/10 relative overflow-hidden group/card shadow-2xl">
-                    <div className="absolute top-0 right-0 h-24 w-24 bg-orange-500/10 rounded-full blur-3xl" />
-                    <div className="text-[9px] font-black text-slate-600 uppercase tracking-[0.4em] mb-2 relative z-10">Escrow Projection</div>
+                  <div className="p-6 rounded-[2rem] bg-primary/5 border border-primary/10 relative overflow-hidden group/card shadow-2xl">
+                    <div className="absolute top-0 right-0 h-24 w-24 bg-primary/10 rounded-full blur-3xl" />
+                    <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.4em] mb-2 relative z-10">Escrow Projection</div>
                     <div className="text-2xl sm:text-3xl font-black text-foreground italic tracking-tighter uppercase relative z-10">
                       ₹{displayData?.financial?.incomeRange?.min || 0} – ₹{displayData?.financial?.incomeRange?.max || 0}
                     </div>
-                    <div className="text-[8px] font-black text-orange-400/60 mt-2 italic uppercase tracking-[0.2em] relative z-10">
+                    <div className="text-[8px] font-black text-primary/60 mt-2 italic uppercase tracking-[0.2em] relative z-10">
                       Indexed at ₹{displayData?.financial?.perJobIncome || 0} per unit
                     </div>
                   </div>
@@ -1202,18 +1202,18 @@ const WorkerDashboard = () => {
 
                 {/* Section 5: Loan Eligibility */}
                 <div className="space-y-5">
-                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500 flex items-center gap-3 italic">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3 italic">
                     <ShieldCheck size={16} /> 04. Credit Eligibility
                   </h3>
-                  <div className="p-6 rounded-[2rem] bg-white/5 border border-border shadow-inner overflow-hidden relative">
+                  <div className="p-6 rounded-[2rem] bg-card/5 border border-border shadow-inner overflow-hidden relative">
                     <div className="flex justify-between items-start mb-2">
                        <div>
-                        <div className="text-[9px] font-black text-slate-600 uppercase tracking-[0.3em] mb-2">Optimal EMI</div>
+                        <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em] mb-2">Optimal EMI</div>
                         <div className="text-2xl font-black text-foreground italic tracking-tighter shadow-[0_0_20px_rgba(255,255,255,0.05)]">₹{displayData?.loan?.safeEMI || 0}/MO</div>
                        </div>
                        <div className="text-right">
-                        <div className="text-[9px] font-black text-slate-600 uppercase tracking-[0.3em] mb-2">Facility Range</div>
-                        <div className="text-2xl font-black text-orange-500 italic tracking-tighter">₹{displayData?.loan?.range?.min || 0} – ₹{displayData?.loan?.range?.max || 0}</div>
+                        <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em] mb-2">Facility Range</div>
+                        <div className="text-2xl font-black text-primary italic tracking-tighter">₹{displayData?.loan?.range?.min || 0} – ₹{displayData?.loan?.range?.max || 0}</div>
                        </div>
                     </div>
                   </div>
@@ -1225,10 +1225,10 @@ const WorkerDashboard = () => {
 
           {/* AI Skill Recommendation */}
           {trendingSkills.length > 0 && (
-            <div className="rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl opacity-0 animate-fade-up relative overflow-hidden group hover:border-blue-500/20 transition-all font-black" style={{ animationDelay: "250ms" }}>
-              <div className="absolute -top-20 -right-20 h-40 w-40 bg-blue-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+            <div className="rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl opacity-0 animate-fade-up relative overflow-hidden group hover:border-primary/20 transition-all font-black" style={{ animationDelay: "250ms" }}>
+              <div className="absolute -top-20 -right-20 h-40 w-40 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
               <div className="relative z-10">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500 flex items-center gap-3 italic mb-6">
+                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3 italic mb-6">
                   <Wrench size={16} /> AI Skill Insights
                 </h3>
                 <div className="space-y-4">
@@ -1238,13 +1238,13 @@ const WorkerDashboard = () => {
                       <div key={i} className="flex items-center gap-4">
                         <div className="w-24 flex-shrink-0">
                           <div className="flex items-center gap-2">
-                            <span className={`text-xs font-black italic uppercase tracking-tight ${isYourSkill ? 'text-orange-500' : 'text-foreground'}`}>
+                            <span className={`text-xs font-black italic uppercase tracking-tight ${isYourSkill ? 'text-primary' : 'text-foreground'}`}>
                               {s.skill}
                             </span>
-                            {isYourSkill && <span className="text-[7px] font-black text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded-full border border-orange-500/10">YOU</span>}
+                            {isYourSkill && <span className="text-[7px] font-black text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/10">YOU</span>}
                           </div>
                         </div>
-                        <div className="flex-1 h-3 bg-white/5 rounded-full overflow-hidden border border-border">
+                        <div className="flex-1 h-3 bg-card/5 rounded-full overflow-hidden border border-border">
                           <div
                             className={`h-full rounded-full transition-all duration-1000 ${isYourSkill ? 'bg-gradient-to-r from-orange-600 to-orange-400' : 'bg-gradient-to-r from-blue-600 to-blue-400'}`}
                             style={{ width: `${s.demand}%` }}
@@ -1255,7 +1255,7 @@ const WorkerDashboard = () => {
                     );
                   })}
                 </div>
-                <div className="mt-6 text-[9px] font-bold text-slate-600 italic uppercase tracking-widest">
+                <div className="mt-6 text-[9px] font-bold text-muted-foreground italic uppercase tracking-widest">
                   Based on local demand analysis from {verifications.length + trendingSkills.length} data points
                 </div>
               </div>
@@ -1264,10 +1264,10 @@ const WorkerDashboard = () => {
 
           {/* Chart Card */}
           {showChart && (
-            <div className="rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl opacity-0 animate-fade-up relative overflow-hidden group hover:border-orange-500/20 transition-all font-black" style={{ animationDelay: "260ms" }}>
+            <div className="rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl opacity-0 animate-fade-up relative overflow-hidden group hover:border-primary/20 transition-all font-black" style={{ animationDelay: "260ms" }}>
               <div className="mb-8 flex items-center justify-between text-base font-black text-foreground relative z-10 italic">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-orange-500 text-foreground shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
+                  <div className="p-2 rounded-xl bg-primary text-foreground shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
                     <TrendingUp size={20} strokeWidth={3} />
                   </div>
                   <span className="uppercase tracking-tighter text-lg">System Pulse Cycle</span>
@@ -1298,10 +1298,10 @@ const WorkerDashboard = () => {
                           if (!active || !payload || !payload.length) return null;
                           const data = payload[0].payload;
                           return (
-                            <div className="bg-card border border-orange-500/20 p-4 rounded-[2rem] shadow-3xl animate-in zoom-in-95 backdrop-blur-2xl">
-                              <div className="text-[9px] font-black text-slate-500 uppercase tracking-[0.4em] mb-2 italic">{data.month} Log</div>
+                            <div className="bg-card border border-primary/20 p-4 rounded-[2rem] shadow-3xl animate-in zoom-in-95 backdrop-blur-2xl">
+                              <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.4em] mb-2 italic">{data.month} Log</div>
                               <div className="flex items-center gap-3">
-                                <div className="h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,1)]" />
+                                <div className="h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(249,115,22,1)]" />
                                 <div className="text-lg font-black text-foreground italic tracking-tighter uppercase">{payload[0].value} Handshakes</div>
                               </div>
                             </div>
@@ -1317,9 +1317,9 @@ const WorkerDashboard = () => {
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="flex h-full w-full flex-col items-center justify-center bg-white/[0.02] rounded-[2rem] border border-dashed border-border font-black italic">
-                    <TrendingUp size={48} className="text-slate-800 mb-4 opacity-30" />
-                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-[0.3em]">Historical telemetry pending</span>
+                  <div className="flex h-full w-full flex-col items-center justify-center bg-card/[0.02] rounded-[2rem] border border-dashed border-border font-black italic">
+                    <TrendingUp size={48} className="text-foreground mb-4 opacity-30" />
+                    <span className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em]">Historical telemetry pending</span>
                   </div>
                 )}
               </div>
@@ -1328,59 +1328,59 @@ const WorkerDashboard = () => {
 
           {/* My Active Jobs (In Progress) */}
           {activeRequests.filter(r => r.status === 'In Progress' && r.workerId === user.id).length > 0 && (
-            <div className="rounded-[2.5rem] bg-card p-8 border border-blue-500/10 shadow-3xl opacity-0 animate-fade-up relative overflow-hidden" style={{ animationDelay: "300ms" }}>
-              <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[100px]" />
+            <div className="rounded-[2.5rem] bg-card p-8 border border-primary/10 shadow-3xl opacity-0 animate-fade-up relative overflow-hidden" style={{ animationDelay: "300ms" }}>
+              <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px]" />
               <div className="mb-8 flex items-center justify-between relative z-10 italic">
                 <div className="flex items-center gap-4 text-foreground">
-                  <div className="p-2.5 rounded-xl bg-blue-500 text-foreground shadow-xl shadow-blue-500/20">
+                  <div className="p-2.5 rounded-xl bg-primary text-foreground shadow-xl shadow-blue-500/20">
                     <Briefcase size={22} strokeWidth={3} />
                   </div>
                   <span className="text-xl font-black uppercase tracking-tighter">My Active Jobs</span>
                 </div>
-                <span className="text-[9px] font-black text-blue-400 uppercase tracking-widest bg-blue-500/10 px-4 py-2 rounded-full border border-blue-500/20">
+                <span className="text-[9px] font-black text-primary uppercase tracking-widest bg-primary/10 px-4 py-2 rounded-full border border-primary/20">
                   {activeRequests.filter(r => r.status === 'In Progress' && r.workerId === user.id).length} In Progress
                 </span>
               </div>
               <div className="space-y-6 relative z-10">
                 {activeRequests.filter(r => r.status === 'In Progress' && r.workerId === user.id).map(job => (
-                  <div key={job.id} className="rounded-3xl bg-white/5 border border-border p-6 transition-all hover:border-blue-500/20">
+                  <div key={job.id} className="rounded-3xl bg-card/5 border border-border p-6 transition-all hover:border-primary/20">
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <div className="text-xl font-black text-foreground italic tracking-tighter uppercase">{job.service}</div>
-                        <div className="text-[9px] font-black text-blue-400 uppercase tracking-widest mt-1">In Progress</div>
+                        <div className="text-[9px] font-black text-primary uppercase tracking-widest mt-1">In Progress</div>
                       </div>
                       <button
                         onClick={() => setExpandedJobQR(expandedJobQR === job.id ? null : job.id)}
-                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-500 text-[9px] font-black uppercase tracking-widest hover:bg-orange-500 hover:text-foreground transition-all"
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/20 text-primary text-[9px] font-black uppercase tracking-widest hover:bg-primary hover:text-foreground transition-all"
                       >
                         <QrCode size={14} />
                         {expandedJobQR === job.id ? 'Hide QR' : 'Show QR'}
                       </button>
                     </div>
-                    <div className="text-sm text-slate-400 italic mb-4">"{job.description}"</div>
+                    <div className="text-sm text-muted-foreground italic mb-4">"{job.description}"</div>
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <div className="flex items-center gap-2 text-[9px] font-black text-slate-500 bg-white/5 px-3 py-1.5 rounded-lg border border-border">
-                        <MapPin size={12} className="text-orange-500" /> {job.location}
+                      <div className="flex items-center gap-2 text-[9px] font-black text-muted-foreground bg-card/5 px-3 py-1.5 rounded-lg border border-border">
+                        <MapPin size={12} className="text-primary" /> {job.location}
                       </div>
                       {job.budget && (
                         <div className="flex items-center gap-2 text-[9px] font-black text-emerald-500 bg-emerald-500/5 px-3 py-1.5 rounded-lg border border-emerald-500/10">
                           <Wallet size={12} /> {job.budget}
                         </div>
                       )}
-                      <div className="flex items-center gap-2 text-[9px] font-black text-slate-500 bg-white/5 px-3 py-1.5 rounded-lg border border-border">
-                        <LucideUser size={12} className="text-blue-400" /> {job.customerName || 'Customer'}
+                      <div className="flex items-center gap-2 text-[9px] font-black text-muted-foreground bg-card/5 px-3 py-1.5 rounded-lg border border-border">
+                        <LucideUser size={12} className="text-primary" /> {job.customerName || 'Customer'}
                       </div>
                       {job.customerPhone && (
-                        <a href={`tel:${job.customerPhone}`} className="flex items-center gap-2 text-[9px] font-black text-blue-400 bg-blue-500/5 px-3 py-1.5 rounded-lg border border-blue-500/10 hover:bg-blue-500 hover:text-foreground transition-all">
+                        <a href={`tel:${job.customerPhone}`} className="flex items-center gap-2 text-[9px] font-black text-primary bg-primary/5 px-3 py-1.5 rounded-lg border border-primary/10 hover:bg-primary hover:text-foreground transition-all">
                           <Phone size={12} /> Call Customer
                         </a>
                       )}
                     </div>
                     {/* QR Code Section */}
                     {expandedJobQR === job.id && (
-                      <div className="mt-4 p-6 rounded-2xl bg-white/5 border border-orange-500/10 flex flex-col items-center gap-4 animate-in zoom-in-95 duration-300">
-                        <div className="text-[9px] font-black text-slate-500 uppercase tracking-[0.3em]">Customer Scans This To Complete Job</div>
-                        <div className="bg-white p-4 rounded-2xl shadow-2xl shadow-orange-500/20">
+                      <div className="mt-4 p-6 rounded-2xl bg-card/5 border border-primary/10 flex flex-col items-center gap-4 animate-in zoom-in-95 duration-300">
+                        <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em]">Customer Scans This To Complete Job</div>
+                        <div className="bg-card p-4 rounded-2xl shadow-2xl shadow-orange-500/20">
                           <QRCodeSVG
                             value={`${window.location.origin}/verify/job-complete/${job.id}`}
                             size={180}
@@ -1388,7 +1388,7 @@ const WorkerDashboard = () => {
                             includeMargin={false}
                           />
                         </div>
-                        <div className="text-[8px] font-black text-orange-500 uppercase tracking-widest">Job ID: {job.id.slice(0, 8)}...</div>
+                        <div className="text-[8px] font-black text-primary uppercase tracking-widest">Job ID: {job.id.slice(0, 8)}...</div>
                       </div>
                     )}
                   </div>
@@ -1405,13 +1405,13 @@ const WorkerDashboard = () => {
                 <button 
                   onClick={() => (isApproved || user.isVerifiedByAdmin) ? navigate("/report") : toast.error("Report locked. Admin verification required.")} 
                   disabled={!(isApproved || user.isVerifiedByAdmin)}
-                  className={`text-[9px] font-black flex items-center gap-2 transition-all px-5 py-2 rounded-full border uppercase tracking-widest ${ (isApproved || user.isVerifiedByAdmin) ? 'text-orange-500 bg-orange-500/10 hover:bg-orange-500 hover:text-foreground border-orange-500/10' : 'text-slate-600 bg-white/5 border-border cursor-not-allowed grayscale'}`}
+                  className={`text-[9px] font-black flex items-center gap-2 transition-all px-5 py-2 rounded-full border uppercase tracking-widest ${ (isApproved || user.isVerifiedByAdmin) ? 'text-primary bg-primary/10 hover:bg-primary hover:text-foreground border-primary/10' : 'text-muted-foreground bg-card/5 border-border cursor-not-allowed grayscale'}`}
                 >
                   {!(isApproved || user.isVerifiedByAdmin) && <Lock size={12} />}
                   {(isApproved || user.isVerifiedByAdmin) ? "Expand Report" : "Report Locked 🔒"}
                 </button>
                 {!(isApproved || user.isVerifiedByAdmin) && (
-                  <span className="text-[8px] font-black text-orange-500/60 uppercase tracking-widest animate-pulse italic">Available after admin verification</span>
+                  <span className="text-[8px] font-black text-primary/60 uppercase tracking-widest animate-pulse italic">Available after admin verification</span>
                 )}
               </div>
             </div>
@@ -1425,7 +1425,7 @@ const WorkerDashboard = () => {
                        { month: "February 2024", status: "Verified", salary: "12,400", performance: 5 },
                        { month: "January 2024", status: "Verified", salary: "11,800", performance: 4 },
                    ].map((m, idx) => (
-                      <div key={idx} className="flex items-center justify-between p-5 rounded-3xl bg-white/5 border border-border uppercase tracking-tight italic">
+                      <div key={idx} className="flex items-center justify-between p-5 rounded-3xl bg-card/5 border border-border uppercase tracking-tight italic">
                          <div className="text-left">
                             <div className="text-sm font-black text-foreground">{m.month}</div>
                             <div className="text-[8px] font-black text-emerald-500 mt-1">Confirmed Registry ✓</div>
@@ -1434,38 +1434,38 @@ const WorkerDashboard = () => {
                             <div className="text-sm font-black text-foreground italic">₹{m.salary}</div>
                             <div className="flex items-center gap-1 mt-1 justify-end">
                                {[...Array(5)].map((_, i) => (
-                                  <Star key={i} size={8} className={i < m.performance ? "text-orange-500 fill-orange-500" : "text-slate-800"} />
+                                  <Star key={i} size={8} className={i < m.performance ? "text-primary fill-orange-500" : "text-foreground"} />
                                ))}
                             </div>
                          </div>
                       </div>
-                   )) : <div className="py-12 text-center text-[9px] uppercase tracking-widest text-slate-600">No Registry Record.</div>}
+                   )) : <div className="py-12 text-center text-[9px] uppercase tracking-widest text-muted-foreground">No Registry Record.</div>}
                 </div>
               ) : (
                 // Multi-customer workers: Verification Log
                 verifications.length > 0 ? verifications.slice(0, 5).map((v) => (
                     <div
                       key={v.id}
-                      className="group flex cursor-pointer items-center gap-5 rounded-3xl border border-border p-4 transition-all hover:bg-white/5 hover:border-orange-500/30 font-black italic"
+                      className="group flex cursor-pointer items-center gap-5 rounded-3xl border border-border p-4 transition-all hover:bg-card/5 hover:border-primary/30 font-black italic"
                       onClick={() => setSelectedVerification(v)}
                     >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-secondary text-lg font-black text-orange-500 border border-border">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-secondary text-lg font-black text-primary border border-border">
                         {(v.customerName || "Customer").charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3">
                           <span className="text-sm font-black truncate text-foreground uppercase italic">{v.customerName || "Customer"}</span>
                           {v.isRepeatCustomer && (
-                            <span className="shrink-0 rounded-full bg-orange-500/10 px-3 py-1 text-[8px] font-black uppercase text-orange-500 border border-orange-500/10">Loyal</span>
+                            <span className="shrink-0 rounded-full bg-primary/10 px-3 py-1 text-[8px] font-black uppercase text-primary border border-primary/10">Loyal</span>
                           )}
                         </div>
-                        <div className="mt-1 flex items-center gap-3 text-[9px] font-black text-slate-600 italic">
+                        <div className="mt-1 flex items-center gap-3 text-[9px] font-black text-muted-foreground italic">
                           <span>{v.timestamp.toLocaleDateString()}</span>
                         </div>
                       </div>
-                      <ChevronRight size={18} className="text-orange-500" />
+                      <ChevronRight size={18} className="text-primary" />
                     </div>
-                )) : <div className="py-12 text-center text-[9px] uppercase tracking-widest text-slate-600">No activity log found.</div>
+                )) : <div className="py-12 text-center text-[9px] uppercase tracking-widest text-muted-foreground">No activity log found.</div>
               )}
             </div>
           </div>
@@ -1476,19 +1476,19 @@ const WorkerDashboard = () => {
       {/* Verification Details Modal */}
       {selectedVerification && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setSelectedVerification(null)} />
-          <div className="relative w-full max-w-md bg-card p-8 rounded-[2.5rem] border border-orange-500/20 font-black italic">
-            <button onClick={() => setSelectedVerification(null)} className="absolute top-8 right-8 p-3 hover:bg-white/5 rounded-2xl"><X size={20} className="text-slate-600" /></button>
+          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setSelectedVerification(null)} />
+          <div className="relative w-full max-w-md bg-card p-8 rounded-[2.5rem] border border-primary/20 font-black italic">
+            <button onClick={() => setSelectedVerification(null)} className="absolute top-8 right-8 p-3 hover:bg-card/5 rounded-2xl"><X size={20} className="text-muted-foreground" /></button>
             <div className="flex flex-col items-center mt-6">
-              <div className="h-20 w-20 mb-6 flex items-center justify-center rounded-3xl bg-orange-500 text-foreground text-3xl font-black">{(selectedVerification.customerName || "Customer").charAt(0)}</div>
+              <div className="h-20 w-20 mb-6 flex items-center justify-center rounded-3xl bg-primary text-foreground text-3xl font-black">{(selectedVerification.customerName || "Customer").charAt(0)}</div>
               <h3 className="text-2xl font-black text-foreground uppercase">{selectedVerification.customerName || "Customer"}</h3>
-              <div className="mt-6 bg-white/5 px-6 py-2.5 rounded-2xl border border-border"><span className="text-sm font-black text-orange-500 italic">{selectedVerification.rating}.0 Rating</span></div>
+              <div className="mt-6 bg-card/5 px-6 py-2.5 rounded-2xl border border-border"><span className="text-sm font-black text-primary italic">{selectedVerification.rating}.0 Rating</span></div>
             </div>
-            <div className="mt-10 p-6 rounded-3xl bg-white/5 border border-border">
-              <div className="text-[10px] font-black text-orange-500 uppercase tracking-widest mb-4">Capital Detail</div>
+            <div className="mt-10 p-6 rounded-3xl bg-card/5 border border-border">
+              <div className="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Capital Detail</div>
               <div className="text-3xl font-black text-foreground italic">₹{selectedVerification.amount || "N/A"}</div>
             </div>
-            <button onClick={() => setSelectedVerification(null)} className="mt-10 w-full h-16 rounded-2xl bg-orange-500 text-foreground font-black uppercase tracking-[0.4em] text-[11px]">Close Handshake Detail</button>
+            <button onClick={() => setSelectedVerification(null)} className="mt-10 w-full h-16 rounded-2xl bg-primary text-foreground font-black uppercase tracking-[0.4em] text-[11px]">Close Handshake Detail</button>
           </div>
         </div>
       )}
@@ -1496,40 +1496,40 @@ const WorkerDashboard = () => {
       {/* Job Detail Modal */}
       {selectedJob && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={() => setSelectedJob(null)} />
-          <div className="relative w-full max-w-lg bg-card p-10 rounded-[3rem] border border-orange-500/20 font-black italic">
-            <button onClick={() => setSelectedJob(null)} className="absolute top-10 right-10 p-3 hover:bg-white/5 rounded-2xl"><X size={20} className="text-slate-600" /></button>
+          <div className="absolute inset-0 bg-background/90 backdrop-blur-md" onClick={() => setSelectedJob(null)} />
+          <div className="relative w-full max-w-lg bg-card p-10 rounded-[3rem] border border-primary/20 font-black italic">
+            <button onClick={() => setSelectedJob(null)} className="absolute top-10 right-10 p-3 hover:bg-card/5 rounded-2xl"><X size={20} className="text-muted-foreground" /></button>
             <h3 className="text-4xl font-black text-foreground italic tracking-tighter uppercase mb-6">{selectedJob.service}</h3>
-            <div className="p-6 rounded-[2rem] bg-white/5 border border-border mb-6 italic text-sm text-slate-400">"{selectedJob.description}"</div>
+            <div className="p-6 rounded-[2rem] bg-card/5 border border-border mb-6 italic text-sm text-muted-foreground">"{selectedJob.description}"</div>
             
             {/* Job Details Grid */}
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="p-4 rounded-2xl bg-white/5 border border-border">
-                <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Budget</div>
+              <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Budget</div>
                 <div className="text-lg font-black text-emerald-500">{selectedJob.budget || "Negotiable"}</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white/5 border border-border">
-                <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Distance</div>
-                <div className="text-lg font-black text-orange-500">{selectedJob.distance} km</div>
+              <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Distance</div>
+                <div className="text-lg font-black text-primary">{selectedJob.distance} km</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white/5 border border-border">
-                <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Location</div>
+              <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Location</div>
                 <div className="text-xs font-black text-foreground truncate">{selectedJob.location}</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white/5 border border-border">
-                <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Customer</div>
+              <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Customer</div>
                 <div className="text-xs font-black text-foreground">{selectedJob.customerName || "Anonymous"}</div>
               </div>
               {(selectedJob as any).preferredDate && (
-                <div className="p-4 rounded-2xl bg-white/5 border border-border">
-                  <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Preferred Date</div>
-                  <div className="text-xs font-black text-blue-400">{(selectedJob as any).preferredDate}</div>
+                <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                  <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Preferred Date</div>
+                  <div className="text-xs font-black text-primary">{(selectedJob as any).preferredDate}</div>
                 </div>
               )}
               {(selectedJob as any).preferredTime && (
-                <div className="p-4 rounded-2xl bg-white/5 border border-border">
-                  <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Preferred Time</div>
-                  <div className="text-xs font-black text-blue-400">{(selectedJob as any).preferredTime}</div>
+                <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                  <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Preferred Time</div>
+                  <div className="text-xs font-black text-primary">{(selectedJob as any).preferredTime}</div>
                 </div>
               )}
             </div>
@@ -1541,7 +1541,7 @@ const WorkerDashboard = () => {
             )}
 
             <button 
-              className="w-full h-20 rounded-[2rem] bg-orange-500 text-foreground font-black uppercase tracking-[0.4em] text-xs shadow-3xl shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="w-full h-20 rounded-[2rem] bg-primary text-foreground font-black uppercase tracking-[0.4em] text-xs shadow-3xl shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all"
               onClick={async () => {
                 if (selectedJob.id.startsWith("demo")) {
                    const updated = activeRequests.map(r => r.id === selectedJob.id ? { ...r, status: "In Progress" as any, workerId: user.id } : r);

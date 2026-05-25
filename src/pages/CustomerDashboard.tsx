@@ -114,8 +114,8 @@ const CustomerDashboard = () => {
   return (
     <div className="container mx-auto max-w-7xl py-6 md:py-10 pb-24 px-4 relative overflow-hidden">
       {/* Background Orbs */}
-      <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-orange-500/5 blur-[120px] pointer-events-none" />
-      <div className="absolute top-[40%] right-[-5%] h-[500px] w-[500px] rounded-full bg-orange-500/5 blur-[150px] pointer-events-none" />
+      <div className="absolute top-[5%] left-[-10%] h-[400px] w-[400px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[40%] right-[-5%] h-[500px] w-[500px] rounded-full bg-primary/5 blur-[150px] pointer-events-none" />
 
       {/* Header Area */}
       <div className="mb-10 opacity-0 animate-fade-up relative z-10" style={{ animationDelay: "0ms" }}>
@@ -127,9 +127,9 @@ const CustomerDashboard = () => {
             REGISTRY OVERSIGHT & TRUST CONTROL ACTIVE
           </p>
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-500/10 border border-orange-500/20">
-              <MapPin size={10} className="text-orange-500" />
-              <span className="text-[10px] font-black text-orange-500 uppercase tracking-widest">{user.location || "Detecting..."}</span>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary/10 border border-primary/20">
+              <MapPin size={10} className="text-primary" />
+              <span className="text-[10px] font-black text-primary uppercase tracking-widest">{user.location || "Detecting..."}</span>
             </div>
             <button 
               onClick={async () => {
@@ -153,7 +153,7 @@ const CustomerDashboard = () => {
           
           {/* Section 1: Identity & Classification */}
           <div className="rounded-[2.5rem] bg-card p-6 sm:p-8 border border-border shadow-2xl relative overflow-hidden group">
-             <div className="absolute -top-24 -right-24 h-48 w-48 bg-orange-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+             <div className="absolute -top-24 -right-24 h-48 w-48 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
              
              <div className="relative z-10 text-center">
                 <div className="mb-6 flex justify-center">
@@ -176,7 +176,7 @@ const CustomerDashboard = () => {
                 <div className="mt-8 space-y-3">
                    <div className="flex justify-between text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground px-1 opacity-70">
                       <span>Trust Integrity</span>
-                      <span className="text-orange-500">{trustScore}%</span>
+                      <span className="text-primary">{trustScore}%</span>
                    </div>
                    <div className="h-3 w-full bg-secondary rounded-full overflow-hidden border border-border p-0.5 shadow-inner">
                       <div 
@@ -191,7 +191,7 @@ const CustomerDashboard = () => {
           {/* Section 2: Contribution Metrics */}
           <div className="rounded-[2rem] bg-card p-4 sm:p-6 border border-border shadow-inner grid grid-cols-2 gap-3 sm:gap-4">
              <div className="text-center p-4 rounded-2xl bg-secondary/30 border border-border">
-                <div className="text-2xl font-black text-orange-500 italic tracking-tighter">{verifications.length}</div>
+                <div className="text-2xl font-black text-primary italic tracking-tighter">{verifications.length}</div>
                 <div className="text-[8px] font-black text-muted-foreground uppercase tracking-[0.2em] mt-1 opacity-70">Verified Jobs</div>
              </div>
              <div className="text-center p-4 rounded-2xl bg-secondary/30 border border-border">
@@ -203,14 +203,14 @@ const CustomerDashboard = () => {
           {/* Section 3: Alerts & Warnings */}
           <div className="rounded-[2rem] bg-card p-6 border border-border font-black italic">
              <div className="text-[9px] font-black uppercase text-muted-foreground tracking-[0.3em] mb-4 flex items-center gap-3 opacity-80">
-                <ShieldAlert size={16} className="text-orange-500" /> Security Intelligence
+                <ShieldAlert size={16} className="text-primary" /> Security Intelligence
              </div>
              <div className="space-y-3">
                 <div className="text-[8px] font-black text-emerald-400/80 flex items-center gap-3 bg-emerald-500/5 px-4 py-3 rounded-xl border border-emerald-500/10 uppercase tracking-widest">
                    <CheckCircle2 size={12} /> Account secured with OTP
                 </div>
                 {verifications.length > 5 && (
-                  <div className="text-[8px] font-black text-orange-400/80 flex items-center gap-3 bg-orange-500/5 px-4 py-3 rounded-xl border border-orange-500/10 uppercase tracking-widest">
+                  <div className="text-[8px] font-black text-primary/80 flex items-center gap-3 bg-primary/5 px-4 py-3 rounded-xl border border-primary/10 uppercase tracking-widest">
                     <Info size={12} /> Long-term pattern established
                   </div>
                 )}
@@ -228,7 +228,7 @@ const CustomerDashboard = () => {
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
              <button onClick={() => navigate("/verify")} className="group flex items-center justify-between p-6 rounded-[2rem] bg-gradient-to-r from-orange-600 to-orange-400 text-foreground shadow-2xl hover:scale-[1.02] transition-all active:scale-[0.98]">
                 <div className="flex items-center gap-4">
-                   <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md">
+                   <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-card/20 backdrop-blur-md">
                       <PlusCircle size={window.innerWidth < 640 ? 20 : 28} />
                    </div>
                    <div className="text-left font-black italic">
@@ -239,9 +239,9 @@ const CustomerDashboard = () => {
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
              </button>
 
-             <button onClick={() => navigate("/verify/request")} className="group flex items-center justify-between p-6 rounded-[2rem] bg-card border border-orange-500/20 text-foreground shadow-xl hover:border-orange-500/50 transition-all active:scale-[0.98]">
+             <button onClick={() => navigate("/verify/request")} className="group flex items-center justify-between p-6 rounded-[2rem] bg-card border border-primary/20 text-foreground shadow-xl hover:border-primary/50 transition-all active:scale-[0.98]">
                 <div className="flex items-center gap-4">
-                   <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-orange-500/10 text-orange-500">
+                   <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-primary/10 text-primary">
                       <Search size={window.innerWidth < 640 ? 20 : 28} />
                    </div>
                    <div className="text-left font-black italic">
@@ -256,7 +256,7 @@ const CustomerDashboard = () => {
           {/* NLP Insights Card */}
           <div className="rounded-[2.5rem] bg-card p-8 border border-border shadow-2xl font-black italic">
              <div className="flex items-center justify-between mb-8">
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500 flex items-center gap-3 italic">
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3 italic">
                    <MessageSquare size={16} /> 01. Cognitive Insights (NLP)
                 </h4>
                 <div className="flex items-center gap-2 text-[8px] font-black text-emerald-500 uppercase tracking-widest border border-emerald-500/20 px-3 py-1 rounded-full bg-emerald-500/5">
@@ -269,7 +269,7 @@ const CustomerDashboard = () => {
                    <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em] pl-1 opacity-70">Primary Success Indicators</div>
                    <div className="flex flex-wrap gap-3">
                       {commonWords.length > 0 ? commonWords.map(word => (
-                        <span key={word} className="px-5 py-2.5 rounded-2xl bg-orange-500/10 text-orange-400 text-[10px] font-black uppercase tracking-widest border border-orange-500/10 shadow-inner">
+                        <span key={word} className="px-5 py-2.5 rounded-2xl bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/10 shadow-inner">
                            {word}
                         </span>
                       )) : (
@@ -293,17 +293,17 @@ const CustomerDashboard = () => {
           </div>
 
           {/* Social Contribution Section */}
-          <div className="rounded-[2.5rem] bg-orange-500/5 p-8 border border-orange-500/10 relative overflow-hidden group">
-             <div className="absolute top-0 right-0 h-40 w-40 bg-orange-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
+          <div className="rounded-[2.5rem] bg-primary/5 p-8 border border-primary/10 relative overflow-hidden group">
+             <div className="absolute top-0 right-0 h-40 w-40 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
              <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-4">
-                   <div className="p-3 rounded-2xl bg-orange-500 text-foreground shadow-xl shadow-orange-500/20">
+                   <div className="p-3 rounded-2xl bg-primary text-foreground shadow-xl shadow-orange-500/20">
                       <Award size={24} />
                    </div>
                    <h4 className="text-xl font-black italic tracking-tighter text-foreground uppercase italic">Registry Contribution</h4>
                 </div>
                 <p className="text-sm font-bold text-muted-foreground mb-6 max-w-lg leading-relaxed uppercase tracking-tight italic opacity-80">
-                   "Your verified handshakes empower informal workers to access official credit facilities and government benefits. You've verified <span className="text-orange-500 font-black">{verifications.length} units</span> so far."
+                   "Your verified handshakes empower informal workers to access official credit facilities and government benefits. You've verified <span className="text-primary font-black">{verifications.length} units</span> so far."
                 </p>
                 <div className="flex gap-4">
                    <div className="px-5 py-3 rounded-2xl bg-secondary/50 border border-border text-[9px] font-black text-foreground hover:bg-secondary/80 transition-all cursor-help uppercase tracking-widest">
@@ -322,14 +322,14 @@ const CustomerDashboard = () => {
                 <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground flex items-center gap-3 italic opacity-60">
                    <History size={16} /> 02. Historical Telemetry
                 </h4>
-                <button onClick={() => navigate("/activity")} className="text-[8px] font-black text-orange-500 uppercase tracking-[0.4em] hover:text-foreground transition-all underline underline-offset-4">Expand All</button>
+                <button onClick={() => navigate("/activity")} className="text-[8px] font-black text-primary uppercase tracking-[0.4em] hover:text-foreground transition-all underline underline-offset-4">Expand All</button>
              </div>
              
              <div className="space-y-4">
                 {verifications.length > 0 ? verifications.slice(0, 3).map((v) => (
-                  <div key={v.id} className="flex items-center justify-between p-6 rounded-[2rem] bg-secondary/30 border border-border group hover:border-orange-500/20 transition-all font-black italic">
+                  <div key={v.id} className="flex items-center justify-between p-6 rounded-[2rem] bg-secondary/30 border border-border group hover:border-primary/20 transition-all font-black italic">
                      <div className="flex items-center gap-6">
-                        <div className="h-14 w-14 rounded-2xl bg-secondary border border-border flex items-center justify-center text-xl text-orange-400">
+                        <div className="h-14 w-14 rounded-2xl bg-secondary border border-border flex items-center justify-center text-xl text-primary">
                            {v.workerName?.charAt(0) || "W"}
                         </div>
                         <div className="text-left">
@@ -342,7 +342,7 @@ const CustomerDashboard = () => {
                      <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} size={10} className={i < v.rating ? "text-orange-500 fill-orange-500" : "text-muted-foreground/30"} />
+                              <Star key={i} size={10} className={i < v.rating ? "text-primary fill-orange-500" : "text-muted-foreground/30"} />
                            ))}
                         </div>
                         <CheckCircle2 size={18} className="text-emerald-500 opacity-50" />

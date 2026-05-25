@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { UserRole } from "@/types/auth";
 import { Briefcase, User, AlertCircle, Eye, EyeOff, ShieldCheck, Zap, Sparkles } from "lucide-react";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const LoginPage = () => {
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
@@ -38,19 +39,21 @@ const LoginPage = () => {
     }
   }, [user, navigate, from]);
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignInSuccess = async (tokenResponse: any) => {
     try {
       setLoadingAction(true);
-      await signInWithGoogle(role);
+      await signInWithGoogle(role, tokenResponse.access_token);
     } catch (err: any) {
       console.error("LoginPage Google Sign-In Error:", err);
       setLoadingAction(false);
-      if (err.code === "auth/cancelled-popup-request" || err.code === "auth/popup-closed-by-user") {
-        return;
-      }
       setLoginError(`Google Sign-In failed: ${err.message || "Unknown error"}`);
     }
   };
+
+  const handleGoogleSignIn = useGoogleLogin({
+    onSuccess: handleGoogleSignInSuccess,
+    onError: () => setLoginError("Google Sign-In failed or was cancelled.")
+  });
 
   const handleLoginSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -95,7 +98,7 @@ const LoginPage = () => {
       {/* LEFT PANE - Brand & Value Prop (Hidden on small screens) */}
       <div className="hidden lg:flex flex-1 relative overflow-hidden flex-col justify-between p-12 bg-gradient-to-br from-secondary to-background border-r border-border">
         <div className="absolute top-[-20%] left-[-10%] h-[800px] w-[800px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] h-[600px] w-[600px] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] h-[600px] w-[600px] rounded-full bg-primary/10 blur-[100px] pointer-events-none" />
         
         <div className="relative z-10">
           <h1 className="font-serif text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">
@@ -112,17 +115,17 @@ const LoginPage = () => {
               <ShieldCheck size={24} />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-200">Verified Trust</h3>
-              <p className="text-sm text-slate-500 mt-1">Every worker and employer is cryptographically verified for maximum security.</p>
+              <h3 className="text-xl font-bold text-foreground">Verified Trust</h3>
+              <p className="text-sm text-muted-foreground mt-1">Every worker and employer is cryptographically verified for maximum security.</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
-            <div className="p-3 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-500">
+            <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20 text-primary">
               <Zap size={24} />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-200">Instant Matching</h3>
-              <p className="text-sm text-slate-500 mt-1">Our ML engine connects you with the right opportunities in real-time.</p>
+              <h3 className="text-xl font-bold text-foreground">Instant Matching</h3>
+              <p className="text-sm text-muted-foreground mt-1">Our ML engine connects you with the right opportunities in real-time.</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
@@ -130,13 +133,13 @@ const LoginPage = () => {
               <Sparkles size={24} />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-200">Build Your Reputation</h3>
-              <p className="text-sm text-slate-500 mt-1">Earn badges, points, and unlock premium tiers as you complete jobs.</p>
+              <h3 className="text-xl font-bold text-foreground">Build Your Reputation</h3>
+              <p className="text-sm text-muted-foreground mt-1">Earn badges, points, and unlock premium tiers as you complete jobs.</p>
             </div>
           </div>
         </div>
 
-        <div className="relative z-10 text-xs font-bold uppercase tracking-widest text-slate-600">
+        <div className="relative z-10 text-xs font-bold uppercase tracking-widest text-muted-foreground">
           © 2026 Mukti Foundation
         </div>
       </div>
@@ -155,7 +158,7 @@ const LoginPage = () => {
             </h1>
           </div>
 
-          <div className="bg-slate-900/50 backdrop-blur-2xl border border-border p-8 sm:p-10 rounded-[2rem] shadow-2xl animate-fade-up">
+          <div className="bg-card/50 backdrop-blur-2xl border border-border p-8 sm:p-10 rounded-[2rem] shadow-2xl animate-fade-up">
             
             {authMode === "login" ? (
               <div className="w-full animate-fade-in">
@@ -180,11 +183,11 @@ const LoginPage = () => {
                         setLoginError("");
                       }}
                       placeholder="Phone number"
-                      className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                      className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
                       autoFocus
                       required
                     />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 group-focus-within:text-primary transition-colors">
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground group-focus-within:text-primary transition-colors">
                       +91
                     </span>
                   </div>
@@ -198,13 +201,13 @@ const LoginPage = () => {
                         setLoginError("");
                       }}
                       placeholder="Password"
-                      className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                      className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-foreground transition-colors"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
@@ -225,9 +228,9 @@ const LoginPage = () => {
                 </form>
 
                 <div className="my-8 flex items-center gap-4">
-                  <div className="h-[1px] flex-1 bg-white/10" />
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Or continue with</span>
-                  <div className="h-[1px] flex-1 bg-white/10" />
+                  <div className="h-[1px] flex-1 bg-card/10" />
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Or continue with</span>
+                  <div className="h-[1px] flex-1 bg-card/10" />
                 </div>
 
                 <button
@@ -264,13 +267,13 @@ const LoginPage = () => {
                     
                     <button
                       onClick={() => { setRole("customer"); setSignupStep("method"); }}
-                      className="group flex w-full items-center gap-5 rounded-3xl border border-border bg-card/40 p-5 transition-all hover:border-blue-500/50 hover:bg-blue-500/5 active:scale-[0.98]"
+                      className="group flex w-full items-center gap-5 rounded-3xl border border-border bg-card/40 p-5 transition-all hover:border-primary/50 hover:bg-primary/5 active:scale-[0.98]"
                     >
                       <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-foreground shadow-lg group-hover:shadow-blue-500/50 transition-all">
                         <User size={24} />
                       </div>
                       <div className="text-left">
-                        <div className="text-lg font-bold text-foreground group-hover:text-blue-400 transition-colors">I am a Customer</div>
+                        <div className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">I am a Customer</div>
                         <div className="text-xs text-muted-foreground font-medium mt-1">Hire verified professionals securely.</div>
                       </div>
                     </button>
@@ -292,9 +295,9 @@ const LoginPage = () => {
                     </button>
 
                     <div className="my-6 flex items-center gap-4">
-                      <div className="h-[1px] flex-1 bg-white/10" />
-                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">OR</span>
-                      <div className="h-[1px] flex-1 bg-white/10" />
+                      <div className="h-[1px] flex-1 bg-card/10" />
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">OR</span>
+                      <div className="h-[1px] flex-1 bg-card/10" />
                     </div>
 
                     <button
@@ -324,11 +327,11 @@ const LoginPage = () => {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                           placeholder="Phone number"
-                          className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                          className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
                           autoFocus
                           required
                         />
-                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 group-focus-within:text-primary transition-colors">
+                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground group-focus-within:text-primary transition-colors">
                           +91
                         </span>
                       </div>
@@ -339,13 +342,13 @@ const LoginPage = () => {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="Create Password"
-                          className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                          className="w-full rounded-2xl border border-border bg-card/40 px-5 py-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
                           required
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-foreground transition-colors"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                         >
                           {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
@@ -444,7 +447,7 @@ const LoginPage = () => {
             <div className="mt-6 flex justify-center text-xs">
               <button
                  onClick={() => { setSignupStep("role"); setPassword(""); setPhone(""); setOtp(""); }}
-                 className="font-bold text-slate-500 hover:text-foreground transition-colors"
+                 className="font-bold text-muted-foreground hover:text-foreground transition-colors"
               >
                  ← Choose a different role
               </button>

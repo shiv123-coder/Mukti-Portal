@@ -102,7 +102,7 @@ const AdminCustomers = () => {
             placeholder="Search by name or phone..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-secondary border border-border rounded-xl pl-12 pr-4 py-4 text-sm text-foreground outline-none focus:border-orange-500 transition-all shadow-inner placeholder:text-muted-foreground/30"
+            className="w-full bg-secondary border border-border rounded-xl pl-12 pr-4 py-4 text-sm text-foreground outline-none focus:border-primary transition-all shadow-inner placeholder:text-muted-foreground/30"
           />
         </div>
       </div>
@@ -113,10 +113,10 @@ const AdminCustomers = () => {
             Retrieving Customer Profiles...
           </div>
         ) : filteredCustomers.map((customer) => (
-          <div key={customer.id} className="group relative rounded-[2.5rem] bg-card border border-border p-8 hover:border-orange-500/20 transition-all shadow-2xl overflow-hidden">
+          <div key={customer.id} className="group relative rounded-[2.5rem] bg-card border border-border p-8 hover:border-primary/20 transition-all shadow-2xl overflow-hidden">
             <div className="absolute top-0 right-0 p-4">
                <div className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                 customer.customer_type === 0 ? 'bg-emerald-500/10 text-emerald-500' : 'bg-blue-500/10 text-blue-500'
+                 customer.customer_type === 0 ? 'bg-emerald-500/10 text-emerald-500' : 'bg-primary/10 text-primary'
                }`}>
                  {customer.customer_type === 0 ? 'LONG-TERM' : 'OCCASIONAL'}
                </div>
@@ -140,7 +140,7 @@ const AdminCustomers = () => {
                   </div>
                   <div className={`text-xl font-black ${
                     (customer.trustScore || 0) > 80 ? 'text-emerald-500' : 
-                    (customer.trustScore || 0) > 50 ? 'text-orange-500' : 'text-red-500'
+                    (customer.trustScore || 0) > 50 ? 'text-primary' : 'text-red-500'
                   }`}>
                     {customer.trustScore || 0}%
                   </div>
@@ -172,13 +172,13 @@ const AdminCustomers = () => {
             <div className="flex gap-3 pt-6 border-t border-border">
               <button 
                 onClick={() => handleAction(customer.id, "trust")}
-                className="flex-1 py-3 bg-emerald-500/10 text-emerald-500 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition-all"
+                className="flex-1 py-3 bg-emerald-500/10 text-emerald-500 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-primary-foreground transition-all"
               >
                 TRUST
               </button>
               <button 
                 onClick={() => handleAction(customer.id, "block")}
-                className="flex-1 py-3 bg-red-500/10 text-red-500 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all underline decoration-dotted decoration-red-500/30"
+                className="flex-1 py-3 bg-red-500/10 text-red-500 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-primary-foreground transition-all underline decoration-dotted decoration-red-500/30"
               >
                 BLOCK
               </button>

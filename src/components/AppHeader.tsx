@@ -93,12 +93,12 @@ const AppHeader = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="flex items-center gap-2 transition-opacity hover:opacity-80 active:scale-95 group"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 text-white shadow-lg shadow-orange-500/20">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 text-primary-foreground shadow-lg shadow-orange-500/20">
             <span className="text-xl font-black italic">M</span>
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-black italic leading-none text-foreground tracking-tighter uppercase">Mukti</span>
-            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-orange-500 leading-none mt-1 pl-0.5">Portal</span>
+            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-primary leading-none mt-1 pl-0.5">Portal</span>
           </div>
           {!isOnline && (
             <div className="ml-3 flex items-center gap-1.5 rounded-full bg-red-500/10 px-2 py-0.5 text-[8px] font-black text-red-500 border border-red-500/20 animate-pulse uppercase tracking-widest">
@@ -112,7 +112,7 @@ const AppHeader = () => {
         {user && (
           <nav className={cn(
             "hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-2xl border p-1.5 backdrop-blur-2xl transition-all",
-            isDark ? "bg-card/40 border-border" : "bg-white/90 border-slate-200 shadow-xl shadow-black/5"
+            isDark ? "bg-card/40 border-border" : "bg-card/90 border-border shadow-xl shadow-black/5"
           )}>
             {navItems.map((item) => {
               const isActive = location.pathname === item.path || (item.path === "/verify" && location.pathname.startsWith("/verify") && !location.pathname.includes("request"));
@@ -123,10 +123,10 @@ const AppHeader = () => {
                   className={cn(
                     "flex items-center gap-2 rounded-xl px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] transition-all",
                     isActive 
-                      ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20 italic" 
+                      ? "bg-primary text-primary-foreground shadow-lg shadow-orange-500/20 italic" 
                       : isDark 
-                        ? "text-slate-500 hover:text-white hover:bg-white/5" 
-                        : "text-slate-600 hover:text-foreground hover:bg-secondary"
+                        ? "text-muted-foreground hover:text-primary-foreground hover:bg-card/5" 
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   )}
                 >
                   <item.icon size={16} strokeWidth={isActive ? 3 : 2} />
@@ -145,18 +145,18 @@ const AppHeader = () => {
                 <span className="text-xs font-black text-foreground italic tracking-tight">{user.name}</span>
                 <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mt-0.5 opacity-70">{user.role}</span>
               </div>
-              <div className="h-9 w-9 overflow-hidden rounded-xl border border-orange-500/30 bg-secondary shadow-lg shadow-orange-500/10">
+              <div className="h-9 w-9 overflow-hidden rounded-xl border border-primary/30 bg-secondary shadow-lg shadow-orange-500/10">
                 {user.photo ? (
                   <img src={user.photo} alt={user.name} className="h-full w-full object-cover" />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-orange-500/10 text-orange-500 font-black text-sm italic uppercase">
+                  <div className="flex h-full w-full items-center justify-center bg-primary/10 text-primary font-black text-sm italic uppercase">
                     {user.name.charAt(0)}
                   </div>
                 )}
               </div>
             </div>
           )}
-          <div className="h-6 w-px bg-white/5 hidden sm:block mx-1"></div>
+          <div className="h-6 w-px bg-card/5 hidden sm:block mx-1"></div>
           
           {/* Language selector removed */}
           
@@ -174,13 +174,13 @@ const AppHeader = () => {
                 className={cn(
                   "h-9 w-9 flex items-center justify-center rounded-xl transition-all active:scale-95 relative border",
                   showNotifications 
-                    ? "bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/20" 
-                    : isDark ? "bg-white/5 border-white/10 text-muted-foreground hover:text-white" : "bg-secondary border-border text-muted-foreground hover:text-foreground"
+                    ? "bg-primary border-primary text-primary-foreground shadow-lg shadow-orange-500/20" 
+                    : isDark ? "bg-card/5 border-border text-muted-foreground hover:text-primary-foreground" : "bg-secondary border-border text-muted-foreground hover:text-foreground"
                 )}
               >
                 <Bell size={18} />
                 {notifications.length > 0 && (
-                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-orange-500 border-2 border-card text-[8px] font-black text-white flex items-center justify-center">{notifications.length > 9 ? '9+' : notifications.length}</span>
+                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary border-2 border-card text-[8px] font-black text-primary-foreground flex items-center justify-center">{notifications.length > 9 ? '9+' : notifications.length}</span>
                 )}
               </button>
               
@@ -189,13 +189,13 @@ const AppHeader = () => {
                    <div className="flex items-center justify-between mb-6">
                       <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-foreground italic">Notifications</h4>
                       {notifications.length > 0 && (
-                        <span className="text-[8px] font-black text-orange-500 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/10">{notifications.length.toString().padStart(2, '0')} NEW</span>
+                        <span className="text-[8px] font-black text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/10">{notifications.length.toString().padStart(2, '0')} NEW</span>
                       )}
                    </div>
                    <div className="space-y-4 max-h-72 overflow-y-auto">
                       {notifications.length > 0 ? notifications.slice(0, 5).map(n => (
-                        <div key={n.id} className="flex gap-4 p-4 rounded-2xl bg-secondary/50 border border-border transition-all hover:border-orange-500/20 group">
-                           <div className={`p-2.5 rounded-xl h-fit group-hover:scale-110 transition-transform ${n.type === 'verified' ? 'bg-emerald-500/10 text-emerald-500' : n.type === 'rejected' ? 'bg-red-500/10 text-red-500' : 'bg-orange-500/10 text-orange-500'}`}>
+                        <div key={n.id} className="flex gap-4 p-4 rounded-2xl bg-secondary/50 border border-border transition-all hover:border-primary/20 group">
+                           <div className={`p-2.5 rounded-xl h-fit group-hover:scale-110 transition-transform ${n.type === 'verified' ? 'bg-emerald-500/10 text-emerald-500' : n.type === 'rejected' ? 'bg-red-500/10 text-red-500' : 'bg-primary/10 text-primary'}`}>
                              {n.type === 'verified' ? <ShieldCheck size={16} /> : n.type === 'rejected' ? <Bell size={16} /> : <PlusCircle size={16} />}
                            </div>
                            <div className="min-w-0">
@@ -219,7 +219,7 @@ const AppHeader = () => {
           {user && (
             <button
               onClick={() => { logout(); navigate("/"); }}
-              className="h-9 w-9 flex items-center justify-center rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 transition-all hover:bg-red-500 hover:text-white active:scale-95 shadow-lg shadow-red-500/5 group"
+              className="h-9 w-9 flex items-center justify-center rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 transition-all hover:bg-red-500 hover:text-primary-foreground active:scale-95 shadow-lg shadow-red-500/5 group"
               aria-label="Logout"
             >
               <LogOut size={18} strokeWidth={3} className="group-hover:translate-x-0.5 transition-transform" />

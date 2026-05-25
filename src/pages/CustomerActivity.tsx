@@ -134,8 +134,8 @@ const CustomerActivity = () => {
   const getStatusStyle = (status: string) => {
     switch (status) {
       case "Completed": return "bg-emerald-500/5 text-emerald-500 border-emerald-500/10";
-      case "In Progress": return "bg-blue-500/5 text-blue-500 border-blue-500/10";
-      case "Searching": return "bg-orange-500/5 text-orange-500 border-orange-500/10 animate-pulse";
+      case "In Progress": return "bg-primary/5 text-primary border-primary/10";
+      case "Searching": return "bg-primary/5 text-primary border-primary/10 animate-pulse";
       case "Accepted": return "bg-emerald-500/5 text-emerald-500 border-emerald-500/10";
       default: return "bg-yellow-500/5 text-yellow-500 border-yellow-500/10";
     }
@@ -144,19 +144,19 @@ const CustomerActivity = () => {
   return (
     <div className="container mx-auto max-w-4xl py-6 md:py-12 pb-24 px-4 relative">
        {/* Background Orbs */}
-       <div className="absolute top-0 right-[-10%] h-[300px] w-[300px] rounded-full bg-orange-500/5 blur-[100px] pointer-events-none" />
+       <div className="absolute top-0 right-[-10%] h-[300px] w-[300px] rounded-full bg-primary/5 blur-[100px] pointer-events-none" />
        
        <div className="mb-10 flex items-center justify-between relative z-10">
           <div>
-            <h2 className="text-3xl font-black italic tracking-tighter text-white flex items-center gap-4 uppercase">
-              <div className="p-3 rounded-2xl bg-orange-500 text-white shadow-lg shadow-orange-500/20">
+            <h2 className="text-3xl font-black italic tracking-tighter text-primary-foreground flex items-center gap-4 uppercase">
+              <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-orange-500/20">
                 <History size={28} />
               </div>
               My Activity
             </h2>
-            <p className="text-slate-500 mt-2 font-bold text-[10px] uppercase tracking-widest pl-1">Registry of all your verified transactions</p>
+            <p className="text-muted-foreground mt-2 font-bold text-[10px] uppercase tracking-widest pl-1">Registry of all your verified transactions</p>
           </div>
-          <button onClick={() => navigate(-1)} className="p-3 rounded-2xl bg-white/5 border border-white/10 text-slate-500 hover:text-white transition-all">
+          <button onClick={() => navigate(-1)} className="p-3 rounded-2xl bg-card/5 border border-border text-muted-foreground hover:text-primary-foreground transition-all">
              <ArrowLeft size={24} />
           </button>
       </div>
@@ -164,22 +164,22 @@ const CustomerActivity = () => {
       {/* Filters */}
       <div className="mb-10 flex flex-col md:flex-row gap-5 relative z-10">
         <div className="relative flex-1">
-          <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600" />
+          <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input 
             type="text"
             placeholder="Search service or worker..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-14 pr-6 py-5 rounded-2xl bg-slate-950 border border-white/5 outline-none focus:border-orange-500/50 transition-all font-bold text-white text-sm placeholder:text-slate-800"
+            className="w-full pl-14 pr-6 py-5 rounded-2xl bg-background border border-border outline-none focus:border-primary/50 transition-all font-bold text-primary-foreground text-sm placeholder:text-foreground"
           />
         </div>
-        <div className="flex gap-2 p-1.5 bg-slate-950 rounded-2xl border border-white/5">
+        <div className="flex gap-2 p-1.5 bg-background rounded-2xl border border-border">
            {["all", "verification", "request"].map(t => (
              <button
                key={t}
                onClick={() => setFilterType(t as any)}
                className={`px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all ${
-                 filterType === t ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20" : "text-slate-500 hover:text-white"
+                 filterType === t ? "bg-primary text-primary-foreground shadow-lg shadow-orange-500/20" : "text-muted-foreground hover:text-primary-foreground"
                }`}
              >
                {t}
@@ -194,14 +194,14 @@ const CustomerActivity = () => {
           filtered.map((activity) => (
             <div 
               key={activity.id} 
-              className="rounded-[2.5rem] bg-slate-950 p-6 border border-white/5 transition-all hover:border-orange-500/20 group animate-in slide-in-from-bottom-5 cursor-pointer"
+              className="rounded-[2.5rem] bg-background p-6 border border-border transition-all hover:border-primary/20 group animate-in slide-in-from-bottom-5 cursor-pointer"
               onClick={() => setSelectedActivity(activity)}
             >
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className={`h-16 w-16 rounded-2xl flex items-center justify-center shrink-0 border transition-all group-hover:scale-110 ${
                   activity.type === "verification" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/10" : 
-                  activity.status === "In Progress" ? "bg-blue-500/10 text-blue-500 border-blue-500/10" :
-                  "bg-orange-500/10 text-orange-500 border-orange-500/10"
+                  activity.status === "In Progress" ? "bg-primary/10 text-primary border-primary/10" :
+                  "bg-primary/10 text-primary border-primary/10"
                 }`}>
                   {activity.type === "verification" ? <CheckCircle2 size={32} /> : 
                    activity.status === "In Progress" ? <Wrench size={32} /> : <Clock size={32} />}
@@ -209,48 +209,48 @@ const CustomerActivity = () => {
                 
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-2">
-                    <div className="font-black text-xl flex items-center gap-3 text-white italic">
+                    <div className="font-black text-xl flex items-center gap-3 text-primary-foreground italic">
                        {activity.service}
                        <span className={`text-[8px] font-black uppercase tracking-[0.3em] px-3 py-1 rounded-full border ${
-                         activity.type === "verification" ? "bg-emerald-500/5 text-emerald-500 border-emerald-500/10" : "bg-orange-500/5 text-orange-500 border-orange-500/10"
+                         activity.type === "verification" ? "bg-emerald-500/5 text-emerald-500 border-emerald-500/10" : "bg-primary/5 text-primary border-primary/10"
                        }`}>
                          {activity.type}
                        </span>
                     </div>
-                    <div className="text-[10px] font-black text-slate-600 flex items-center gap-2 uppercase tracking-widest">
+                    <div className="text-[10px] font-black text-muted-foreground flex items-center gap-2 uppercase tracking-widest">
                        <Calendar size={12} />
                        {activity.timestamp.toLocaleDateString()}
                     </div>
                   </div>
                   
                   <div className="flex flex-col md:flex-row md:items-center gap-4 mt-2">
-                    <div className="text-sm font-bold text-slate-400 flex items-center gap-2">
+                    <div className="text-sm font-bold text-muted-foreground flex items-center gap-2">
                        {activity.type === "verification" ? "Verified:" : activity.workerName ? "Worker:" : "Status:"} 
-                       <span className="text-white font-black">{activity.workerName || "Search ongoing"}</span>
+                       <span className="text-primary-foreground font-black">{activity.workerName || "Search ongoing"}</span>
                     </div>
                     {activity.rating && (
-                      <div className="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded-lg">
+                      <div className="flex items-center gap-1.5 bg-card/5 px-2 py-1 rounded-lg">
                         <StarRating value={activity.rating} readonly size={12} />
-                        <span className="text-[10px] font-black text-orange-400">{activity.rating}</span>
+                        <span className="text-[10px] font-black text-primary">{activity.rating}</span>
                       </div>
                     )}
-                    <div className="text-[10px] font-bold text-slate-500 flex items-center gap-1.5 uppercase tracking-tighter">
-                      <MapPin size={12} className="text-orange-500" />
+                    <div className="text-[10px] font-bold text-muted-foreground flex items-center gap-1.5 uppercase tracking-tighter">
+                      <MapPin size={12} className="text-primary" />
                       {activity.location}
                     </div>
                   </div>
 
                   {/* Show worker info for in-progress jobs */}
                   {activity.workerName && activity.status === "In Progress" && (
-                    <div className="mt-3 p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 text-sm font-black">
+                    <div className="mt-3 p-3 rounded-xl bg-primary/5 border border-primary/10 flex items-center gap-3">
+                      <div className="h-8 w-8 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-sm font-black">
                         {activity.workerName.charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs font-black text-white truncate">{activity.workerName}</div>
-                        {activity.workerSkill && <div className="text-[8px] font-black text-blue-400 uppercase tracking-widest">{activity.workerSkill}</div>}
+                        <div className="text-xs font-black text-primary-foreground truncate">{activity.workerName}</div>
+                        {activity.workerSkill && <div className="text-[8px] font-black text-primary uppercase tracking-widest">{activity.workerSkill}</div>}
                       </div>
-                      <div className="text-[8px] font-black text-blue-400 uppercase tracking-widest animate-pulse">Working...</div>
+                      <div className="text-[8px] font-black text-primary uppercase tracking-widest animate-pulse">Working...</div>
                     </div>
                   )}
                 </div>
@@ -262,12 +262,12 @@ const CustomerActivity = () => {
             </div>
           ))
         ) : (
-          <div className="py-24 flex flex-col items-center text-center bg-slate-950 rounded-[3rem] border border-dashed border-white/5 shadow-inner">
-             <div className="h-24 w-24 rounded-full bg-white/5 flex items-center justify-center text-slate-700 mb-6 border border-white/5">
+          <div className="py-24 flex flex-col items-center text-center bg-background rounded-[3rem] border border-dashed border-border shadow-inner">
+             <div className="h-24 w-24 rounded-full bg-card/5 flex items-center justify-center text-foreground mb-6 border border-border">
                <Filter size={48} />
              </div>
-             <h3 className="text-xl font-black text-white italic uppercase tracking-tighter">System Idle</h3>
-             <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em] max-w-xs mt-3 leading-relaxed">No transactions match your current scan parameters.</p>
+             <h3 className="text-xl font-black text-primary-foreground italic uppercase tracking-tighter">System Idle</h3>
+             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.3em] max-w-xs mt-3 leading-relaxed">No transactions match your current scan parameters.</p>
           </div>
         )}
       </div>
@@ -275,24 +275,24 @@ const CustomerActivity = () => {
       {/* Activity Detail Modal */}
       {selectedActivity && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={() => setSelectedActivity(null)} />
-          <div className="relative w-full max-w-lg bg-slate-950 p-8 rounded-[3rem] border border-orange-500/20 font-black italic max-h-[90vh] overflow-y-auto">
-            <button onClick={() => setSelectedActivity(null)} className="absolute top-8 right-8 p-3 hover:bg-white/5 rounded-2xl z-10">
-              <X size={20} className="text-slate-600" />
+          <div className="absolute inset-0 bg-background/90 backdrop-blur-md" onClick={() => setSelectedActivity(null)} />
+          <div className="relative w-full max-w-lg bg-background p-8 rounded-[3rem] border border-primary/20 font-black italic max-h-[90vh] overflow-y-auto">
+            <button onClick={() => setSelectedActivity(null)} className="absolute top-8 right-8 p-3 hover:bg-card/5 rounded-2xl z-10">
+              <X size={20} className="text-muted-foreground" />
             </button>
             
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
               <div className={`h-16 w-16 rounded-2xl flex items-center justify-center shrink-0 border ${
                 selectedActivity.type === "verification" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/10" :
-                selectedActivity.status === "In Progress" ? "bg-blue-500/10 text-blue-500 border-blue-500/10" :
-                "bg-orange-500/10 text-orange-500 border-orange-500/10"
+                selectedActivity.status === "In Progress" ? "bg-primary/10 text-primary border-primary/10" :
+                "bg-primary/10 text-primary border-primary/10"
               }`}>
                 {selectedActivity.type === "verification" ? <CheckCircle2 size={32} /> :
                  selectedActivity.status === "In Progress" ? <Wrench size={32} /> : <Clock size={32} />}
               </div>
               <div>
-                <h3 className="text-2xl font-black text-white uppercase tracking-tighter">{selectedActivity.service}</h3>
+                <h3 className="text-2xl font-black text-primary-foreground uppercase tracking-tighter">{selectedActivity.service}</h3>
                 <div className={`inline-block mt-1 px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border ${getStatusStyle(selectedActivity.status)}`}>
                   {selectedActivity.status}
                 </div>
@@ -301,33 +301,33 @@ const CustomerActivity = () => {
 
             {/* Description */}
             {selectedActivity.description && (
-              <div className="p-5 rounded-2xl bg-white/5 border border-white/5 mb-6 text-sm text-slate-400 italic">
+              <div className="p-5 rounded-2xl bg-card/5 border border-border mb-6 text-sm text-muted-foreground italic">
                 "{selectedActivity.description}"
               </div>
             )}
 
             {/* Details Grid */}
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-                <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Location</div>
-                <div className="text-xs font-black text-white flex items-center gap-2"><MapPin size={12} className="text-orange-500" /> {selectedActivity.location}</div>
+              <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Location</div>
+                <div className="text-xs font-black text-primary-foreground flex items-center gap-2"><MapPin size={12} className="text-primary" /> {selectedActivity.location}</div>
               </div>
               {selectedActivity.budget && (
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-                  <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Budget</div>
+                <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                  <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Budget</div>
                   <div className="text-lg font-black text-emerald-500">{selectedActivity.budget}</div>
                 </div>
               )}
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-                <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Date</div>
-                <div className="text-xs font-black text-white">{selectedActivity.timestamp.toLocaleDateString()}</div>
+              <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Date</div>
+                <div className="text-xs font-black text-primary-foreground">{selectedActivity.timestamp.toLocaleDateString()}</div>
               </div>
               {selectedActivity.rating && (
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-                  <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest mb-1">Rating</div>
+                <div className="p-4 rounded-2xl bg-card/5 border border-border">
+                  <div className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">Rating</div>
                   <div className="flex items-center gap-2">
                     <StarRating value={selectedActivity.rating} readonly size={14} />
-                    <span className="text-lg font-black text-orange-500">{selectedActivity.rating}</span>
+                    <span className="text-lg font-black text-primary">{selectedActivity.rating}</span>
                   </div>
                 </div>
               )}
@@ -335,22 +335,22 @@ const CustomerActivity = () => {
 
             {/* Worker Info Card (for requests with a worker assigned) */}
             {selectedActivity.workerName && (
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 mb-6">
-                <div className="text-[9px] font-black text-orange-500 uppercase tracking-[0.3em] mb-4">Assigned Worker</div>
+              <div className="p-6 rounded-2xl bg-card/5 border border-border mb-6">
+                <div className="text-[9px] font-black text-primary uppercase tracking-[0.3em] mb-4">Assigned Worker</div>
                 <div className="flex items-center gap-4">
-                  <div className="h-14 w-14 rounded-2xl bg-orange-500/20 flex items-center justify-center text-orange-500 text-xl font-black">
+                  <div className="h-14 w-14 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-xl font-black">
                     {selectedActivity.workerName.charAt(0)}
                   </div>
                   <div className="flex-1">
-                    <div className="text-lg font-black text-white italic uppercase tracking-tighter">{selectedActivity.workerName}</div>
+                    <div className="text-lg font-black text-primary-foreground italic uppercase tracking-tighter">{selectedActivity.workerName}</div>
                     {selectedActivity.workerSkill && (
-                      <div className="text-[9px] font-black text-orange-400 uppercase tracking-widest mt-1">{selectedActivity.workerSkill}</div>
+                      <div className="text-[9px] font-black text-primary uppercase tracking-widest mt-1">{selectedActivity.workerSkill}</div>
                     )}
                   </div>
                   {selectedActivity.workerPhone && (
                     <a 
                       href={`tel:${selectedActivity.workerPhone}`} 
-                      className="h-12 w-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all border border-emerald-500/20"
+                      className="h-12 w-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center hover:bg-emerald-500 hover:text-primary-foreground transition-all border border-emerald-500/20"
                     >
                       <Phone size={20} />
                     </a>
@@ -366,7 +366,7 @@ const CustomerActivity = () => {
                   setSelectedActivity(null);
                   navigate(`/tracking/${selectedActivity.id}`);
                 }}
-                className="w-full h-16 rounded-2xl bg-blue-500 text-white font-black uppercase tracking-[0.4em] text-[10px] shadow-xl shadow-blue-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all mb-4"
+                className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-[0.4em] text-[10px] shadow-xl shadow-blue-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all mb-4"
               >
                 Track & Review
               </button>
@@ -378,7 +378,7 @@ const CustomerActivity = () => {
                   setSelectedActivity(null);
                   navigate(`/tracking/${selectedActivity.id}`);
                 }}
-                className="w-full h-16 rounded-2xl bg-orange-500 text-white font-black uppercase tracking-[0.4em] text-[10px] shadow-xl shadow-orange-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all mb-4"
+                className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-[0.4em] text-[10px] shadow-xl shadow-orange-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all mb-4"
               >
                 Track Request
               </button>
@@ -386,7 +386,7 @@ const CustomerActivity = () => {
 
             <button 
               onClick={() => setSelectedActivity(null)}
-              className="w-full h-14 rounded-2xl bg-white/5 border border-white/10 text-slate-400 font-black uppercase tracking-[0.3em] text-[10px] hover:text-white transition-all"
+              className="w-full h-14 rounded-2xl bg-card/5 border border-border text-muted-foreground font-black uppercase tracking-[0.3em] text-[10px] hover:text-primary-foreground transition-all"
             >
               Close
             </button>

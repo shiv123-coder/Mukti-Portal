@@ -260,7 +260,7 @@ const AdminOverview = () => {
           )}>
             <div className={`absolute -right-4 -top-4 h-24 w-24 rounded-full bg-gradient-to-br ${card.color} opacity-10 blur-2xl group-hover:opacity-20 transition-opacity`} />
             <div className="flex justify-between items-start mb-3 sm:mb-4">
-              <div className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br ${card.color} text-white shadow-lg`}>
+              <div className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br ${card.color} text-primary-foreground shadow-lg`}>
                 {React.cloneElement(card.icon as React.ReactElement, { size: window.innerWidth < 640 ? 18 : 24 })}
               </div>
               <div className={`flex items-center gap-0.5 sm:gap-1 text-[8px] sm:text-[10px] font-black ${card.isUp ? 'text-emerald-500' : 'text-red-500'} bg-secondary/50 px-1.5 py-0.5 rounded-lg`}>

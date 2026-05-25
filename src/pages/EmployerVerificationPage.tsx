@@ -107,7 +107,7 @@ const EmployerVerificationPage = () => {
           <div className="glass p-8 rounded-[40px] border-primary/20 shadow-2xl animate-in zoom-in-95 duration-500">
              <div className="flex justify-center mb-6">
                 <div className="h-20 w-20 rounded-[24px] bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
-                   <ShieldCheck size={40} className="text-white" />
+                   <ShieldCheck size={40} className="text-primary-foreground" />
                 </div>
              </div>
              
@@ -186,7 +186,7 @@ const EmployerVerificationPage = () => {
              <button 
                onClick={handleVerify}
                disabled={otp.length < 4 || isVerifying}
-               className="w-full h-16 rounded-[24px] bg-primary text-white font-black uppercase tracking-widest text-sm shadow-xl shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50"
+               className="w-full h-16 rounded-[24px] bg-primary text-primary-foreground font-black uppercase tracking-widest text-sm shadow-xl shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50"
              >
                {isVerifying ? "Verifying..." : "Complete Verification"}
              </button>
@@ -203,7 +203,7 @@ const EmployerVerificationPage = () => {
         {step === "success" && (
           <div className="glass p-10 rounded-[40px] border-success/30 bg-success/5 shadow-2xl text-center animate-in zoom-in-95 duration-500">
              <div className="flex justify-center mb-8">
-                <div className="h-24 w-24 rounded-full bg-success text-white flex items-center justify-center shadow-lg shadow-success/30">
+                <div className="h-24 w-24 rounded-full bg-success text-primary-foreground flex items-center justify-center shadow-lg shadow-success/30">
                    <CheckCircle2 size={56} />
                 </div>
              </div>

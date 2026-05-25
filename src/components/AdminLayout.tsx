@@ -100,8 +100,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         )}
       >
         <div className="p-6 flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-orange-600 flex items-center justify-center shadow-lg shadow-orange-600/20">
-            <ShieldCheck className="text-white" size={24} />
+          <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-orange-600/20">
+            <ShieldCheck className="text-primary-foreground" size={24} />
           </div>
           {isSidebarOpen && (
             <span className="font-black text-foreground tracking-tighter text-xl italic uppercase">MUKTI CTRL</span>
@@ -115,11 +115,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               to={item.path}
               className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all group active:scale-95 ${
                 location.pathname === item.path 
-                ? 'bg-orange-600 text-white shadow-lg shadow-orange-600/20 italic' 
+                ? 'bg-primary text-primary-foreground shadow-lg shadow-orange-600/20 italic' 
                 : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
               }`}
             >
-              <span className={`${location.pathname === item.path ? 'text-white' : 'text-muted-foreground group-hover:text-orange-500 transition-colors'}`}>
+              <span className={`${location.pathname === item.path ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary transition-colors'}`}>
                 {item.icon}
               </span>
               {isSidebarOpen && <span className="font-bold text-sm uppercase tracking-wider">{item.label}</span>}
@@ -131,7 +131,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           {/* Admin Profile - Downside */}
           {isSidebarOpen && (
             <div className="flex items-center gap-4 px-2">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center font-black text-white shadow-lg italic shadow-orange-600/20">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center font-black text-primary-foreground shadow-lg italic shadow-orange-600/20">
                 {user?.name?.[0]}
               </div>
               <div className="flex flex-col min-w-0">
@@ -161,7 +161,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         {/* Overlay for mobile when sidebar is open */}
         {isSidebarOpen && (
           <div 
-            className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm lg:hidden transition-opacity" 
+            className="fixed inset-0 z-[55] bg-background/60 backdrop-blur-sm lg:hidden transition-opacity" 
             onClick={() => setIsSidebarOpen(false)}
           />
         )}
@@ -181,11 +181,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               <Menu size={20} />
             </button>
             <div className="relative group hidden lg:block">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 group-focus-within:text-orange-500 transition-colors" size={18} />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 group-focus-within:text-primary transition-colors" size={18} />
               <input 
                 type="text" 
                 placeholder="Search..."
-                className="bg-secondary border border-border rounded-full pl-12 pr-6 py-2 text-sm outline-none focus:border-orange-500/50 focus:ring-4 focus:ring-orange-500/5 transition-all w-48 sm:w-80 text-foreground font-bold italic shadow-inner"
+                className="bg-secondary border border-border rounded-full pl-12 pr-6 py-2 text-sm outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all w-48 sm:w-80 text-foreground font-bold italic shadow-inner"
               />
             </div>
           </div>
@@ -195,11 +195,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             <div className="relative">
               <button 
                 onClick={() => setShowNotifications(!showNotifications)}
-                className={`p-2.5 rounded-xl transition-all group relative active:scale-95 ${showNotifications ? 'bg-orange-600 text-white shadow-lg' : 'bg-secondary text-muted-foreground border border-border hover:text-foreground hover:bg-secondary/80'}`}
+                className={`p-2.5 rounded-xl transition-all group relative active:scale-95 ${showNotifications ? 'bg-primary text-primary-foreground shadow-lg' : 'bg-secondary text-muted-foreground border border-border hover:text-foreground hover:bg-secondary/80'}`}
               >
                 <Bell size={20} className="group-hover:rotate-12 transition-transform" />
                 {pendingRequests > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-[10px] font-black flex items-center justify-center rounded-full border-2 border-background animate-pulse shadow-lg">
+                  <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-primary-foreground text-[10px] font-black flex items-center justify-center rounded-full border-2 border-background animate-pulse shadow-lg">
                     {pendingRequests}
                   </span>
                 )}
@@ -209,7 +209,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                 <div className="absolute right-0 mt-4 w-80 rounded-[2.5rem] bg-card border border-border shadow-3xl p-6 animate-in fade-in slide-in-from-top-4 duration-300 z-50 backdrop-blur-2xl">
                   <div className="flex items-center justify-between mb-6">
                     <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-foreground italic">Registry Protocol</h4>
-                    <span className="text-[8px] font-black text-orange-500 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/10 uppercase">
+                    <span className="text-[8px] font-black text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/10 uppercase">
                       {pendingRequests} Pending
                     </span>
                   </div>
@@ -220,9 +220,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                           setShowNotifications(false);
                           (window as any).location.href = "/admin/requests";
                         }}
-                        className="flex gap-4 p-4 rounded-2xl bg-secondary border border-border transition-all hover:border-orange-500/20 group cursor-pointer"
+                        className="flex gap-4 p-4 rounded-2xl bg-secondary border border-border transition-all hover:border-primary/20 group cursor-pointer"
                       >
-                        <div className="p-2.5 rounded-xl bg-orange-500/10 text-orange-500 h-fit group-hover:scale-110 transition-transform">
+                        <div className="p-2.5 rounded-xl bg-primary/10 text-primary h-fit group-hover:scale-110 transition-transform">
                           <ShieldCheck size={16} />
                         </div>
                         <div className="min-w-0">
@@ -234,8 +234,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                       </div>
                     ) : (
                       <div className="py-12 text-center bg-secondary/20 rounded-3xl border border-dashed border-border">
-                        <Bell size={32} className="mx-auto text-slate-400 mb-4 opacity-30" />
-                        <p className="text-[9px] font-black text-slate-500 uppercase tracking-[0.4em] italic">No active system signals</p>
+                        <Bell size={32} className="mx-auto text-muted-foreground mb-4 opacity-30" />
+                        <p className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.4em] italic">No active system signals</p>
                       </div>
                     )}
                   </div>
@@ -244,7 +244,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                       setShowNotifications(false);
                       (window as any).location.href = "/admin/requests";
                     }}
-                    className="w-full mt-6 py-3 text-[9px] font-black uppercase text-slate-500 hover:text-orange-500 transition-all tracking-[0.4em] italic border-t border-border pt-4"
+                    className="w-full mt-6 py-3 text-[9px] font-black uppercase text-muted-foreground hover:text-primary transition-all tracking-[0.4em] italic border-t border-border pt-4"
                   >
                     View Registry Ledger
                   </button>
@@ -255,7 +255,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             <div className="flex items-center gap-3">
               <button
                 onClick={toggle}
-                className="h-9 w-9 flex items-center justify-center rounded-xl bg-secondary border border-border text-slate-400 transition-all hover:text-foreground hover:bg-secondary/80 active:scale-95"
+                className="h-9 w-9 flex items-center justify-center rounded-xl bg-secondary border border-border text-muted-foreground transition-all hover:text-foreground hover:bg-secondary/80 active:scale-95"
                 title={isDark ? "Switch to Bright Mode" : "Switch to Deep Galaxy"}
               >
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
@@ -263,7 +263,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
               <button
                 onClick={logout}
-                className="hidden sm:flex h-9 px-4 items-center justify-center gap-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 transition-all hover:bg-red-500 hover:text-white active:scale-95 text-[10px] font-black uppercase tracking-widest"
+                className="hidden sm:flex h-9 px-4 items-center justify-center gap-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 transition-all hover:bg-red-500 hover:text-primary-foreground active:scale-95 text-[10px] font-black uppercase tracking-widest"
               >
                 <LogOut size={16} />
                 Log Out

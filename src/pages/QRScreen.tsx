@@ -94,16 +94,16 @@ const QRScreen = () => {
   return (
     <div className="container mx-auto flex max-w-lg flex-col items-center py-6 md:py-12 pb-24 px-4 relative overflow-hidden">
        {/* Background Orbs */}
-       <div className="absolute top-[10%] left-[-15%] h-[400px] w-[400px] rounded-full bg-orange-500/5 blur-[120px] pointer-events-none" />
+       <div className="absolute top-[10%] left-[-15%] h-[400px] w-[400px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
 
        <div className="mb-10 flex w-full items-center justify-between relative z-10">
-          <button onClick={() => navigate("/dashboard")} className="p-3 rounded-2xl bg-white/5 border border-white/10 text-slate-500 hover:text-white transition-all">
+          <button onClick={() => navigate("/dashboard")} className="p-3 rounded-2xl bg-card/5 border border-border text-muted-foreground hover:text-primary-foreground transition-all">
              <ArrowLeft size={24} />
           </button>
           <div className="text-center flex-1">
-             <h2 className="text-2xl font-black italic tracking-tighter text-white uppercase italic">Verification ID</h2>
+             <h2 className="text-2xl font-black italic tracking-tighter text-primary-foreground uppercase italic">Verification ID</h2>
              <div className="flex items-center justify-center gap-2 mt-1">
-               <p className="text-slate-600 text-[9px] font-black uppercase tracking-[0.4em]">Handshake Protocol Active</p>
+               <p className="text-muted-foreground text-[9px] font-black uppercase tracking-[0.4em]">Handshake Protocol Active</p>
                {isGpsLocked && (
                  <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[8px] font-black uppercase tracking-widest animate-in fade-in zoom-in slide-in-from-right-1 duration-500">
                     <div className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
@@ -114,8 +114,8 @@ const QRScreen = () => {
           </div>
        </div>
 
-      <div className="w-full rounded-[3.5rem] bg-slate-950 p-10 text-center border border-white/5 shadow-2xl relative overflow-hidden group">
-        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-orange-500/5 rounded-full blur-[100px] group-hover:scale-125 transition-transform duration-1000" />
+      <div className="w-full rounded-[3.5rem] bg-background p-10 text-center border border-border shadow-2xl relative overflow-hidden group">
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] group-hover:scale-125 transition-transform duration-1000" />
         
         {/* QR visual */}
         <div className="relative mx-auto mb-10 flex h-72 w-72 items-center justify-center">
@@ -137,7 +137,7 @@ const QRScreen = () => {
           </svg>
           
           {/* QR placeholder */}
-          <div className={`flex h-64 w-64 items-center justify-center rounded-[2.5rem] border-2 border-dashed transition-all duration-500 ${isExpired ? "border-red-500/20 bg-red-500/5" : "border-orange-500/30 bg-orange-500/5 shadow-[inset_0_0_40px_rgba(249,115,22,0.05)]"}`}>
+          <div className={`flex h-64 w-64 items-center justify-center rounded-[2.5rem] border-2 border-dashed transition-all duration-500 ${isExpired ? "border-red-500/20 bg-red-500/5" : "border-primary/30 bg-primary/5 shadow-[inset_0_0_40px_rgba(249,115,22,0.05)]"}`}>
             {isExpired ? (
               <div className="flex flex-col items-center gap-3">
                  <AlertCircle size={40} className="text-red-500" />
@@ -145,11 +145,11 @@ const QRScreen = () => {
               </div>
             ) : isSyncing ? (
               <div className="flex flex-col items-center gap-4 animate-pulse">
-                <RefreshCw size={32} className="text-orange-500 animate-spin" />
-                <div className="text-[9px] font-black text-orange-500 uppercase tracking-[0.3em]">Syncing Handshake...</div>
+                <RefreshCw size={32} className="text-primary animate-spin" />
+                <div className="text-[9px] font-black text-primary uppercase tracking-[0.3em]">Syncing Handshake...</div>
               </div>
             ) : (
-              <div className="bg-white p-5 rounded-[2rem] shadow-2xl shadow-orange-500/20 transform hover:scale-105 transition-transform duration-500">
+              <div className="bg-card p-5 rounded-[2rem] shadow-2xl shadow-orange-500/20 transform hover:scale-105 transition-transform duration-500">
                 <QRCodeSVG 
                   value={`${window.location.origin}/verify/${user.id}/${sessionId}`}
                   size={200}
@@ -163,10 +163,10 @@ const QRScreen = () => {
 
         {!isExpired && (
           <div className="mb-10 animate-in zoom-in-95 duration-700">
-            <div className="text-[9px] font-black text-slate-600 uppercase tracking-[0.5em] mb-4">Transmission Code</div>
+            <div className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.5em] mb-4">Transmission Code</div>
             <div className="flex items-center justify-center gap-2">
               {verificationCode.split("").map((char, i) => (
-                <div key={i} className="h-14 w-11 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-2xl font-black text-orange-500 shadow-inner uppercase tracking-tighter">
+                <div key={i} className="h-14 w-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-2xl font-black text-primary shadow-inner uppercase tracking-tighter">
                   {char}
                 </div>
               ))}
@@ -177,12 +177,12 @@ const QRScreen = () => {
         {/* Timer & Status */}
         <div className="mb-10 flex flex-col items-center gap-2">
            <div className="flex items-center gap-3">
-              <Clock size={20} className={isExpired ? "text-red-500" : "text-orange-500 animate-pulse"} />
-              <span className={`text-4xl font-black tabular-nums tracking-tighter italic ${isExpired ? "text-red-500" : "text-white"}`}>
+              <Clock size={20} className={isExpired ? "text-red-500" : "text-primary animate-pulse"} />
+              <span className={`text-4xl font-black tabular-nums tracking-tighter italic ${isExpired ? "text-red-500" : "text-primary-foreground"}`}>
                 {isExpired ? "00:00" : `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`}
               </span>
            </div>
-           <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-4 leading-relaxed max-w-[240px]">
+           <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mt-4 leading-relaxed max-w-[240px]">
              {isExpired
                ? "Identity pulse timeout. Please regenerate handshake token."
                : "Request customer to authenticate using this signature."
@@ -195,34 +195,34 @@ const QRScreen = () => {
             <button
               onClick={resetQR}
               disabled={qrCount >= MAX_QR_PER_DAY}
-              className="h-20 w-full rounded-3xl bg-orange-500 text-white font-black uppercase tracking-[0.4em] shadow-2xl shadow-orange-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-20 flex items-center justify-center gap-3"
+              className="h-20 w-full rounded-3xl bg-primary text-primary-foreground font-black uppercase tracking-[0.4em] shadow-2xl shadow-orange-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-20 flex items-center justify-center gap-3"
             >
               <RefreshCw size={24} />
               TOKEN REGEN
             </button>
-            <p className="text-[9px] font-black text-slate-700 uppercase tracking-[0.3em] italic">
+            <p className="text-[9px] font-black text-foreground uppercase tracking-[0.3em] italic">
               {MAX_QR_PER_DAY - qrCount} Synchronizations Remaining
             </p>
           </div>
         ) : (
-          <div className="rounded-[2rem] bg-white/5 border border-white/5 p-6 flex items-center justify-between text-left group-hover:border-orange-500/20 transition-all">
+          <div className="rounded-[2rem] bg-card/5 border border-border p-6 flex items-center justify-between text-left group-hover:border-primary/20 transition-all">
              <div>
-                <div className="text-lg font-black text-white italic tracking-tighter uppercase">{user.name}</div>
-                <div className="text-[10px] font-bold text-orange-400 uppercase tracking-widest mt-1">{user.skill}</div>
+                <div className="text-lg font-black text-primary-foreground italic tracking-tighter uppercase">{user.name}</div>
+                <div className="text-[10px] font-bold text-primary uppercase tracking-widest mt-1">{user.skill}</div>
              </div>
-             <div className="h-12 w-12 rounded-2xl bg-orange-500 text-white flex items-center justify-center shadow-lg shadow-orange-500/20">
+             <div className="h-12 w-12 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg shadow-orange-500/20">
                 <ShieldCheck size={28} />
              </div>
           </div>
         )}
       </div>
 
-      <div className="mt-10 rounded-[2rem] border border-dashed border-white/5 p-6 text-center bg-white/[0.02] max-w-sm">
+      <div className="mt-10 rounded-[2rem] border border-dashed border-border p-6 text-center bg-card/[0.02] max-w-sm">
          <div className="flex items-center justify-center gap-3 mb-3">
-            <AlertCircle size={14} className="text-orange-500" />
-            <span className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em]">Safety Protocol 4.0</span>
+            <AlertCircle size={14} className="text-primary" />
+            <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Safety Protocol 4.0</span>
          </div>
-         <p className="text-[9px] font-bold text-slate-600 uppercase leading-relaxed">System cycles tokens every 300s to prevent session hijacking. Keep this screen active during handshake.</p>
+         <p className="text-[9px] font-bold text-muted-foreground uppercase leading-relaxed">System cycles tokens every 300s to prevent session hijacking. Keep this screen active during handshake.</p>
       </div>
     </div>
   );

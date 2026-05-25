@@ -17,6 +17,7 @@ firebase-adminsdk*.json
 gcp-service-account*.json
 google-credentials*.json
 application_default_credentials.json
+client_secret_390381668275-6emiblnhvliqrhod1e543c4stcf6agud.apps.googleusercontent.com.json
 
 # Google Cloud / AWS / Azure credential files
 *.adc.json

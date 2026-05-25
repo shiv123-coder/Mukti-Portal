@@ -6,70 +6,70 @@
 
 @layer base {
   :root {
-    --background: 210 15% 95%; /* Muted light slate */
-    --foreground: 224 71% 4%;
+    --background: 0 0% 100%;
+    --foreground: 220 10% 10%;
 
-    --card: 0 0% 98%;
-    --card-foreground: 224 71% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 10% 10%;
 
-    --popover: 0 0% 98%;
-    --popover-foreground: 224 71% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 10% 10%;
 
-    --primary: 24.6 95% 53.1%; /* Premium Orange */
+    --primary: 24.6 95% 53.1%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 20% 90%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 35 100% 96%;
+    --secondary-foreground: 24.6 95% 53.1%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8% 46%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 220 10% 10%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
     --ring: 24.6 95% 53.1%;
 
-    --radius: 1.25rem;
+    --radius: 1rem;
 
     --success: 142.1 76.2% 36.3%;
-    --success-foreground: 355.7 100% 97.3%;
+    --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
     --warning-foreground: 48 96% 89%;
   }
 
   .dark {
-    --background: 224 71% 4%; /* Near Black Deep Slate */
-    --foreground: 210 40% 98%;
+    --background: 220 10% 4%;
+    --foreground: 220 10% 95%;
 
-    --card: 224 71% 4%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 10% 6%;
+    --card-foreground: 220 10% 95%;
 
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 10% 6%;
+    --popover-foreground: 220 10% 95%;
 
-    --primary: 24.6 95% 53.1%; /* Electric Orange */
-    --primary-foreground: 0 0% 100%;
+    --primary: 30 100% 55%;
+    --primary-foreground: 220 10% 4%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 10% 10%;
+    --secondary-foreground: 220 10% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 10% 10%;
+    --muted-foreground: 220 10% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 220 10% 12%;
+    --accent-foreground: 220 10% 95%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 220 10% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 24.6 95% 53.1%;
+    --border: 220 10% 15%;
+    --input: 220 10% 15%;
+    --ring: 30 100% 55%;
     
     --success: 142.1 70.6% 45.3%;
     --success-foreground: 144.9 80.4% 10%;
@@ -86,16 +86,14 @@
   body {
     @apply bg-background text-foreground antialiased transition-colors duration-500;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    /* Soft mesh gradient background pattern for light mode */
-    background-image: radial-gradient(at 0% 0%, hsla(217, 91%, 60%, 0.05) 0px, transparent 50%),
-                      radial-gradient(at 100% 0%, hsla(280, 80%, 60%, 0.03) 0px, transparent 50%);
+    background-image: radial-gradient(at 0% 0%, hsla(24, 95%, 53%, 0.05) 0px, transparent 50%),
+                      radial-gradient(at 100% 0%, hsla(220, 10%, 50%, 0.03) 0px, transparent 50%);
     background-attachment: fixed;
   }
 
   .dark body {
-    /* Deeper galaxy gradient for dark mode */
-    background-image: radial-gradient(at 0% 0%, hsla(217, 91%, 60%, 0.15) 0px, transparent 50%),
-                      radial-gradient(at 100% 0%, hsla(280, 80%, 60%, 0.1) 0px, transparent 50%);
+    background-image: radial-gradient(at 0% 0%, hsla(30, 100%, 55%, 0.08) 0px, transparent 50%),
+                      radial-gradient(at 100% 0%, hsla(220, 10%, 15%, 0.1) 0px, transparent 50%);
   }
 
   h1, h2, h3, h4 {

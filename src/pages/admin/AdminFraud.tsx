@@ -137,7 +137,7 @@ const AdminFraud = () => {
           <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">Real-time anomaly detection & security enforcement</p>
         </div>
         <div className="flex flex-wrap gap-4 items-center">
-           <div className="bg-orange-500/10 border border-orange-500/20 px-4 py-3 rounded-2xl hidden md:flex items-center gap-2 text-[9px] font-black text-orange-500 uppercase tracking-widest">
+           <div className="bg-primary/10 border border-primary/20 px-4 py-3 rounded-2xl hidden md:flex items-center gap-2 text-[9px] font-black text-primary uppercase tracking-widest">
              <ShieldAlert size={14} className="animate-pulse" /> Auto-Suspend Active
            </div>
            
@@ -162,16 +162,16 @@ const AdminFraud = () => {
             Scanning Transaction Patterns...
           </div>
         ) : alerts.filter(alert => alert.fraudAction !== "ignored").map((alert, i) => (
-          <div key={alert.id} className={`group rounded-[2.5rem] bg-card border ${alert.fraudAction === 'review' ? 'border-blue-500/50' : alert.fraudAction === 'blocked' ? 'border-red-500/50 opacity-50' : 'border-border'} p-8 hover:border-red-500/20 transition-all shadow-2xl overflow-hidden relative`}>
+          <div key={alert.id} className={`group rounded-[2.5rem] bg-card border ${alert.fraudAction === 'review' ? 'border-primary/50' : alert.fraudAction === 'blocked' ? 'border-red-500/50 opacity-50' : 'border-border'} p-8 hover:border-red-500/20 transition-all shadow-2xl overflow-hidden relative`}>
             {alert.fraudAction && (
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50" />
             )}
             <div className="absolute top-0 right-0 p-8 flex gap-3">
                <div className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border ${
-                 alert.fraudAction === 'review' ? 'bg-blue-500 text-white border-blue-500' :
-                 alert.fraudAction === 'blocked' ? 'bg-red-800 text-white border-red-800' :
-                 (alert.muktiScore || 100) < 40 ? 'bg-red-500 text-white border-red-500' : 
-                 (alert.muktiScore || 100) < 70 ? 'bg-orange-500 text-white border-orange-500' : 'bg-yellow-500 text-white border-yellow-500'
+                 alert.fraudAction === 'review' ? 'bg-primary text-primary-foreground border-primary' :
+                 alert.fraudAction === 'blocked' ? 'bg-red-800 text-primary-foreground border-red-800' :
+                 (alert.muktiScore || 100) < 40 ? 'bg-red-500 text-primary-foreground border-red-500' : 
+                 (alert.muktiScore || 100) < 70 ? 'bg-primary text-primary-foreground border-primary' : 'bg-yellow-500 text-primary-foreground border-yellow-500'
                }`}>
                  {alert.fraudAction === 'review' ? 'UNDER REVIEW' : alert.fraudAction === 'blocked' ? 'BLOCKED' : (alert.muktiScore || 100) < 40 ? 'CRITICAL' : (alert.muktiScore || 100) < 70 ? 'SUSPICIOUS' : 'MONITOR'}
                </div>
@@ -231,7 +231,7 @@ const AdminFraud = () => {
                       </div>
                       <button 
                         onClick={() => handleAction(alert.id, "unblock", alert.workerId)} 
-                        className="w-full h-12 rounded-xl bg-emerald-600 text-white font-black text-[10px] uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
+                        className="w-full h-12 rounded-xl bg-emerald-600 text-primary-foreground font-black text-[10px] uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
                       >
                         Unblock Worker
                       </button>
@@ -239,12 +239,12 @@ const AdminFraud = () => {
                   ) : (
                     <div className="space-y-3">
                       {alert.fraudAction !== 'review' && (
-                        <button onClick={() => handleAction(alert.id, "review", alert.workerId)} className="w-full h-12 rounded-xl bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 active:scale-95">
+                        <button onClick={() => handleAction(alert.id, "review", alert.workerId)} className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-black text-[10px] uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 active:scale-95">
                           Mark Under Review
                         </button>
                       )}
                       <div className="grid grid-cols-2 gap-3">
-                        <button onClick={() => handleAction(alert.id, "block", alert.workerId)} className="h-12 rounded-xl border border-red-500/30 text-red-500 font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all active:scale-95">
+                        <button onClick={() => handleAction(alert.id, "block", alert.workerId)} className="h-12 rounded-xl border border-red-500/30 text-red-500 font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-primary-foreground transition-all active:scale-95">
                           Block Source
                         </button>
                         <button onClick={() => handleAction(alert.id, "ignore", alert.workerId)} className="h-12 rounded-xl border border-border text-muted-foreground font-black text-[10px] uppercase tracking-widest hover:bg-secondary transition-all active:scale-95">

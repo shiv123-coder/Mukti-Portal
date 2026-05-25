@@ -198,7 +198,7 @@ const AdminRequests = () => {
         </div>
         <button 
           onClick={handleClearAll}
-          className="h-10 px-6 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/10"
+          className="h-10 px-6 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-primary-foreground transition-all shadow-lg shadow-red-500/10"
         >
           Purge All Requests
         </button>
@@ -206,7 +206,7 @@ const AdminRequests = () => {
 
       {loading ? (
         <div className="bg-card rounded-[3rem] border border-border p-20 flex flex-col items-center justify-center gap-4 shadow-xl">
-           <div className="h-10 w-10 animate-spin rounded-full border-4 border-orange-500 border-t-transparent" />
+           <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
            <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Scanning Request Queue...</p>
         </div>
       ) : requests.length === 0 ? (
@@ -222,12 +222,12 @@ const AdminRequests = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {requests.map((req) => (
-            <div key={req.id} className="group relative bg-card rounded-[2.5rem] border border-border p-8 hover:border-orange-500/30 transition-all shadow-2xl overflow-hidden font-black italic">
-              <div className="absolute -top-10 -right-10 h-32 w-32 bg-orange-500/5 rounded-full blur-3xl group-hover:bg-orange-500/10 transition-all duration-700" />
+            <div key={req.id} className="group relative bg-card rounded-[2.5rem] border border-border p-8 hover:border-primary/30 transition-all shadow-2xl overflow-hidden font-black italic">
+              <div className="absolute -top-10 -right-10 h-32 w-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-all duration-700" />
               
               <div className="mb-6 flex items-start justify-between relative z-10">
                 <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-2xl bg-secondary border border-border flex items-center justify-center text-orange-500 shadow-inner italic">
+                  <div className="h-12 w-12 rounded-2xl bg-secondary border border-border flex items-center justify-center text-primary shadow-inner italic">
                     <UserIcon size={22} />
                   </div>
                   <div>
@@ -237,7 +237,7 @@ const AdminRequests = () => {
                     </div>
                   </div>
                 </div>
-                <div className="bg-orange-500/10 text-orange-500 px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border border-orange-500/10">
+                <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border border-primary/10">
                   {req.source === 'profile' ? 'URGENT' : 'PENDING'}
                 </div>
               </div>
@@ -256,7 +256,7 @@ const AdminRequests = () => {
               <div className="space-y-3 relative z-10">
                 <button
                   onClick={() => navigate(`/admin/worker/${req.workerId}`)}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-secondary text-foreground/80 border border-border hover:bg-orange-500/10 hover:text-orange-400 hover:border-orange-500/20 transition-all active:scale-95"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-secondary text-foreground/80 border border-border hover:bg-primary/10 hover:text-primary hover:border-primary/20 transition-all active:scale-95"
                 >
                   <Eye size={15} /> <span className="text-[10px] uppercase tracking-widest font-black">View Profile</span>
                 </button>
@@ -269,7 +269,7 @@ const AdminRequests = () => {
                   </button>
                   <button 
                     onClick={() => handleAction(req.id, req.workerId, "approve", req.source)}
-                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-orange-600 text-white shadow-lg shadow-orange-600/20 hover:scale-[1.02] active:scale-95 transition-all"
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-primary-foreground shadow-lg shadow-orange-600/20 hover:scale-[1.02] active:scale-95 transition-all"
                   >
                     <ShieldCheck size={16} /> <span className="text-[10px] uppercase tracking-widest">Approve</span>
                   </button>
@@ -320,7 +320,7 @@ const AdminRequests = () => {
               <button
                 onClick={() => handleAction(rejectTarget.id, rejectTarget.workerId, "reject", rejectTarget.source, rejectReason)}
                 disabled={!rejectReason}
-                className="py-3 rounded-xl bg-red-500 text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-500/20 hover:bg-red-600 transition-all disabled:opacity-30 active:scale-95"
+                className="py-3 rounded-xl bg-red-500 text-primary-foreground text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-500/20 hover:bg-red-600 transition-all disabled:opacity-30 active:scale-95"
               >Confirm Rejection</button>
             </div>
           </div>

@@ -76,7 +76,7 @@ const AdminSettings = () => {
           <button onClick={handleReset} className="h-12 px-6 rounded-xl bg-secondary border border-border flex items-center gap-3 text-[10px] font-black text-muted-foreground uppercase tracking-widest hover:bg-secondary/80 transition-all active:scale-95">
             <RotateCcw size={16} /> Reset Default
           </button>
-          <button onClick={handleSave} className="h-12 px-8 rounded-xl bg-orange-600 text-white flex items-center gap-3 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-orange-600/20 hover:scale-[1.02] active:scale-95 transition-all italic">
+          <button onClick={handleSave} className="h-12 px-8 rounded-xl bg-primary text-primary-foreground flex items-center gap-3 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-orange-600/20 hover:scale-[1.02] active:scale-95 transition-all italic">
             <Save size={16} /> Save Changes
           </button>
         </div>
@@ -87,7 +87,7 @@ const AdminSettings = () => {
         <div className="space-y-8">
           <div className="rounded-[2.5rem] bg-card border border-border p-8 shadow-2xl relative overflow-hidden">
              <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 rounded-2xl bg-orange-600/10 text-orange-500 shadow-inner">
+                <div className="p-3 rounded-2xl bg-primary/10 text-primary shadow-inner">
                    <Shield size={24} />
                 </div>
                 <h3 className="text-xl font-black text-foreground italic uppercase">Trust & Fraud Logic</h3>
@@ -97,7 +97,7 @@ const AdminSettings = () => {
                 <div className="space-y-2">
                    <div className="flex justify-between text-[10px] font-black text-muted-foreground uppercase tracking-widest px-1">
                       <span>Minimum Review Gap</span>
-                      <span className="text-orange-500">{config.minReviewGap} Days</span>
+                      <span className="text-primary">{config.minReviewGap} Days</span>
                    </div>
                    <input 
                      type="range" min="1" max="30" value={config.minReviewGap} 
@@ -115,7 +115,7 @@ const AdminSettings = () => {
                           onClick={() => setConfig({...config, fraudSensitivity: level})}
                           className={`py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all active:scale-95 ${
                             config.fraudSensitivity === level 
-                            ? 'bg-orange-600 text-white shadow-lg italic' 
+                            ? 'bg-primary text-primary-foreground shadow-lg italic' 
                             : 'bg-secondary text-muted-foreground border border-border hover:bg-secondary/80'
                           }`}
                         >
@@ -132,9 +132,9 @@ const AdminSettings = () => {
                    </div>
                    <button 
                      onClick={() => setConfig({...config, enableML: !config.enableML})}
-                     className={`w-14 h-8 rounded-full transition-all relative ${config.enableML ? 'bg-orange-600' : 'bg-muted shadow-inner'}`}
+                     className={`w-14 h-8 rounded-full transition-all relative ${config.enableML ? 'bg-primary' : 'bg-muted shadow-inner'}`}
                    >
-                      <div className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-all shadow-md ${config.enableML ? 'left-7' : 'left-1'}`} />
+                      <div className={`absolute top-1 w-6 h-6 rounded-full bg-card transition-all shadow-md ${config.enableML ? 'left-7' : 'left-1'}`} />
                    </button>
                 </div>
              </div>
@@ -142,7 +142,7 @@ const AdminSettings = () => {
 
           <div className="rounded-[2.5rem] bg-card border border-border p-8 shadow-2xl relative overflow-hidden">
              <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 rounded-2xl bg-blue-600/10 text-blue-500 shadow-inner">
+                <div className="p-3 rounded-2xl bg-primary/10 text-primary shadow-inner">
                    <MessageSquare size={24} />
                 </div>
                 <h3 className="text-xl font-black text-foreground italic uppercase">NLP Content Engine</h3>
@@ -151,14 +151,14 @@ const AdminSettings = () => {
              <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 rounded-2xl bg-secondary border border-border shadow-inner">
                    <div className="flex items-center gap-3">
-                      <Zap size={20} className="text-blue-400" />
+                      <Zap size={20} className="text-primary" />
                       <div className="text-sm font-bold text-foreground uppercase tracking-wider">Semantic Analysis</div>
                    </div>
                    <button 
                      onClick={() => setConfig({...config, enableNLP: !config.enableNLP})}
-                     className={`w-14 h-8 rounded-full transition-all relative ${config.enableNLP ? 'bg-blue-600' : 'bg-muted shadow-inner'}`}
+                     className={`w-14 h-8 rounded-full transition-all relative ${config.enableNLP ? 'bg-primary' : 'bg-muted shadow-inner'}`}
                    >
-                      <div className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-all shadow-md ${config.enableNLP ? 'left-7' : 'left-1'}`} />
+                      <div className={`absolute top-1 w-6 h-6 rounded-full bg-card transition-all shadow-md ${config.enableNLP ? 'left-7' : 'left-1'}`} />
                    </button>
                 </div>
                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-1 leading-relaxed italic">Extracts skills, sentiment and issues automatically from raw review text during the verification handshake.</p>
