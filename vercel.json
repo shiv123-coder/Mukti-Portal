@@ -6,8 +6,7 @@
         },
         "backend": {
             "root": "backend",
-            "routePrefix": "/_/backend",
-            "entrypoint": "src/index.ts"
+            "routePrefix": "/_/backend"
         }
     }
 }
