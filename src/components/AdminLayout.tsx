@@ -141,24 +141,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             </div>
           )}
 
-          {/* Language Selector - Down One */}
-          {isSidebarOpen && (
-            <div className="flex items-center gap-1.5 bg-secondary/50 p-1 rounded-xl border border-border italic">
-              {(['en', 'hi', 'mr'] as const).map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => setLanguage(lang)}
-                  className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${
-                    language === lang 
-                    ? 'bg-orange-600 text-white shadow-md' 
-                    : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {lang}
-                </button>
-              ))}
-            </div>
-          )}
+          {/* Language Selector removed */}
 
           <button 
             onClick={logout}

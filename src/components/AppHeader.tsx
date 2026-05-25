@@ -158,12 +158,7 @@ const AppHeader = () => {
           )}
           <div className="h-6 w-px bg-white/5 hidden sm:block mx-1"></div>
           
-          <button
-            onClick={() => setLanguage(language === "en" ? "hi" : language === "hi" ? "mr" : "en")}
-            className="h-9 min-w-[3rem] px-2 rounded-xl bg-secondary border border-border text-foreground transition-all hover:bg-secondary/80 text-[10px] uppercase tracking-widest font-black"
-          >
-            {language}
-          </button>
+          {/* Language selector removed */}
           
           <button
             onClick={toggle}
