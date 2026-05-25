@@ -176,7 +176,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         type: 'Auth',
         priority: 'info'
       });
-    }
   }
 
   async function signInWithGoogle(role: UserRole, accessToken: string) {
