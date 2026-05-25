@@ -261,9 +261,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     try {
+      const token = await firebaseUser.getIdToken();
       fetch(`${API_BASE_URL}/api/worker/register`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` 
+        },
         body: JSON.stringify(firestoreUser),
       }).catch(err => console.warn("Backend sync failed (non-critical):", err));
     } catch (err) {

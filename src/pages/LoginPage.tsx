@@ -517,7 +517,7 @@ const LoginPage = () => {
                       <div className="flex items-start gap-3 mt-4">
                         <input type="checkbox" id="terms" checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} className="mt-1 accent-primary" />
                         <label htmlFor="terms" className="text-xs text-muted-foreground leading-relaxed">
-                          I agree to the <a href="#" className="text-primary hover:underline">Terms of Service</a> and <a href="#" className="text-primary hover:underline">Privacy Policy</a>.
+                          I agree to the <a href="/terms" target="_blank" rel="noreferrer" className="text-primary hover:underline">Terms of Service</a> and <a href="/privacy" target="_blank" rel="noreferrer" className="text-primary hover:underline">Privacy Policy</a>.
                         </label>
                       </div>
 

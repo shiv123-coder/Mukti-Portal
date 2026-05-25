@@ -45,6 +45,8 @@ const JobMap = lazy(() => import("@/pages/JobMap"));
 const AdminJobs = lazy(() => import("@/pages/admin/AdminJobs"));
 const AdminManagement = lazy(() => import("@/pages/admin/AdminManagement"));
 const PublicReport = lazy(() => import("@/pages/PublicReport"));
+const Terms = lazy(() => import("@/pages/Terms"));
+const Privacy = lazy(() => import("@/pages/Privacy"));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -94,6 +96,8 @@ const MainLayout = () => {
               <Route path="/leaderboard" element={<PageTransition><Leaderboard /></PageTransition>} />
               <Route path="/impact" element={<PageTransition><LiveImpact /></PageTransition>} />
               <Route path="/report/public/:reportId" element={<PageTransition><PublicReport /></PageTransition>} />
+              <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+              <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
 
               {/* Admin Routes */}
               <Route path="/admin/*" element={
