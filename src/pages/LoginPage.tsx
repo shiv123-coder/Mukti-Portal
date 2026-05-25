@@ -17,6 +17,8 @@ const LoginPage = () => {
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
   const [showPassword, setShowPassword] = useState(false);
   
+  const [selectedLoginRole, setSelectedLoginRole] = useState<"customer" | "worker" | null>(null);
+  
   // Login State
   const [loginPhone, setLoginPhone] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -48,21 +50,48 @@ const LoginPage = () => {
   const [otp, setOtp] = useState("");
   const [googleId, setGoogleId] = useState<string | null>(null);
   
-  const { user, login, signup, signInWithGoogle } = useAuth();
+  const { user, login, signup, signInWithGoogle, logout } = useAuth();
   const navigate = useNavigate();
   const navLocation = useLocation();
   const from = (navLocation.state as any)?.from?.pathname || null;
 
   useEffect(() => {
     if (user) {
-      if (from) {
-        navigate(from, { replace: true });
+      if (user.role === "admin") {
+        navigate("/admin/dashboard", { replace: true });
         return;
       }
-      const path = user.role === "admin" ? "/admin/dashboard" : (user.role === "worker" ? "/dashboard" : "/customer");
-      navigate(path, { replace: true });
+
+      if (authMode === "login" && selectedLoginRole) {
+        const hasWorkerAccess = user.role === "worker" || user.role === "both" || user.roles?.includes("worker");
+        const hasCustomerAccess = user.role === "customer" || user.role === "both" || user.roles?.includes("customer");
+
+        if (selectedLoginRole === "customer") {
+          if (hasCustomerAccess) {
+            navigate(from || "/customer", { replace: true });
+          } else {
+            setLoginError("This account does not have Customer access.");
+            logout();
+          }
+        } else if (selectedLoginRole === "worker") {
+          if (hasWorkerAccess) {
+            navigate(from || "/dashboard", { replace: true });
+          } else {
+            setLoginError("This account does not have Worker access.");
+            logout();
+          }
+        }
+      } else {
+        // Fallback for returning authenticated users without an active login form role selection
+        if (from) {
+          navigate(from, { replace: true });
+          return;
+        }
+        const path = user.role === "worker" ? "/dashboard" : "/customer";
+        navigate(path, { replace: true });
+      }
     }
-  }, [user, navigate, from]);
+  }, [user, navigate, from, authMode, selectedLoginRole, logout]);
 
   const handleGoogleSignInSuccess = async (tokenResponse: any) => {
     try {
@@ -241,15 +270,61 @@ const LoginPage = () => {
 
           <AnimatePresence mode="wait">
             {authMode === "login" ? (
+              !selectedLoginRole ? (
+                <motion.div 
+                  key="login-role"
+                  variants={slideUp}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="bg-card border border-border p-8 sm:p-10 rounded-[2rem] shadow-2xl"
+                >
+                  <div className="space-y-5">
+                    <div>
+                      <h2 className="text-3xl font-black text-foreground mb-2 tracking-tight">Welcome back</h2>
+                      <p className="text-sm text-muted-foreground">Select your role to log in.</p>
+                    </div>
+
+                    <button onClick={() => setSelectedLoginRole("worker")} className="group flex w-full items-center gap-5 rounded-2xl border border-input bg-background p-5 transition-all hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/5 active:scale-[0.98]">
+                      <div className="p-4 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+                        <Briefcase size={24} />
+                      </div>
+                      <div className="text-left flex-1">
+                        <div className="text-lg font-bold text-foreground">Login as Worker</div>
+                        <div className="text-xs text-muted-foreground mt-1">Access your worker dashboard.</div>
+                      </div>
+                      <ArrowRight size={18} className="text-muted-foreground opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </button>
+                    
+                    <button onClick={() => setSelectedLoginRole("customer")} className="group flex w-full items-center gap-5 rounded-2xl border border-input bg-background p-5 transition-all hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/5 active:scale-[0.98]">
+                      <div className="p-4 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+                        <User size={24} />
+                      </div>
+                      <div className="text-left flex-1">
+                        <div className="text-lg font-bold text-foreground">Login as Customer</div>
+                        <div className="text-xs text-muted-foreground mt-1">Manage your postings and hires.</div>
+                      </div>
+                      <ArrowRight size={18} className="text-muted-foreground opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
               <motion.div 
-                key="login"
+                key="login-form"
                 variants={slideUp}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
                 className="bg-card border border-border p-8 sm:p-10 rounded-[2rem] shadow-2xl"
               >
-                <h2 className="text-3xl font-black text-foreground mb-2 tracking-tight">Welcome back</h2>
+                <div className="flex items-center gap-3 mb-2">
+                  <button onClick={() => { setSelectedLoginRole(null); setLoginError(""); }} className="p-2 -ml-2 rounded-lg text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors">
+                    <ArrowLeft size={20} />
+                  </button>
+                  <h2 className="text-3xl font-black text-foreground tracking-tight">
+                    Login as {selectedLoginRole === "customer" ? "Customer" : "Worker"}
+                  </h2>
+                </div>
                 <p className="text-sm text-muted-foreground mb-8">Enter your credentials to access your account.</p>
                 
                 {loginError && (

@@ -1,4 +1,4 @@
-export type UserRole = "worker" | "customer" | "admin";
+export type UserRole = "worker" | "customer" | "admin" | "both";
 export type WorkerType = 0 | 1; // 0 = Fixed, 1 = Mobile
 
 export interface User {
@@ -13,6 +13,7 @@ export interface User {
   bio?: string;
   socialLinks?: string[];
   role: UserRole;
+  roles?: UserRole[];
   workerType?: WorkerType;
   skill?: string;
   location?: string;
