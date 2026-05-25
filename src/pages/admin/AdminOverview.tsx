@@ -54,129 +54,101 @@ const AdminOverview = () => {
   const [realChartData, setRealChartData] = useState<any[]>([]);
 
   useEffect(() => {
-    const qWorkers = query(collection(db, "users"), where("role", "==", "worker"));
-    const unsubWorkers = onSnapshot(qWorkers, (snap) => {
-      const verified = snap.docs.filter(d => d.data().status === 'verified').length;
-      setStats(prev => ({ ...prev, totalWorkers: snap.size, verifiedWorkers: verified }));
-    });
+    // 1. Single unified listener for ALL users to prevent multiple massive data downloads
+    const unsubAllUsers = onSnapshot(collection(db, "users"), (snap) => {
+      let workersCount = 0;
+      let verifiedCount = 0;
+      let customersCount = 0;
+      const skills: Record<string, number> = {};
 
-    const qCustomers = query(collection(db, "users"), where("role", "==", "customer"));
-    const unsubCustomers = onSnapshot(qCustomers, (snap) => {
-      setStats(prev => ({ ...prev, totalCustomers: snap.size }));
-    });
-
-    // === CHART DATA: Aggregate activity from ALL sources ===
-    const unsubReviews = onSnapshot(collection(db, "verifications"), (snap) => {
-      setStats(prev => ({ ...prev, totalReviews: snap.size }));
-    });
-
-    // Build chart from MULTIPLE collections for comprehensive velocity tracking
-    const buildChartData = () => {
       const last7Days = [...Array(7)].map((_, i) => {
         const d = new Date();
         d.setDate(d.getDate() - i);
-        return {
-          label: d.toLocaleDateString('en-US', { weekday: 'short' }),
-          dateStr: d.toDateString()
-        };
+        return { label: d.toLocaleDateString('en-US', { weekday: 'short' }), dateStr: d.toDateString(), signups: 0, verified: 0, requests: 0 };
       }).reverse();
 
-      const counts: Record<string, { signups: number; requests: number; verified: number }> = {};
-      last7Days.forEach(d => {
-        counts[d.dateStr] = { signups: 0, requests: 0, verified: 0 };
+      snap.docs.forEach(d => {
+        const data = d.data();
+        if (data.role === "worker") {
+          workersCount++;
+          if (data.status === "verified") verifiedCount++;
+          const s = data.skill || "Unspecified";
+          skills[s] = (skills[s] || 0) + 1;
+        } else if (data.role === "customer") {
+          customersCount++;
+        }
+
+        // Chart calculations
+        if (data.lastActive) {
+          const ts = (data.lastActive as Timestamp).toDate().toDateString();
+          const day = last7Days.find(day => day.dateStr === ts);
+          if (day) day.signups++;
+        }
+        if (data.status === 'verified' && data.lastUpdated) {
+          const ts = (data.lastUpdated as Timestamp).toDate().toDateString();
+          const day = last7Days.find(day => day.dateStr === ts);
+          if (day) day.verified++;
+        }
       });
 
-      // Source 1: All users — track sign-up activity via lastActive
-      const unsubAllUsers = onSnapshot(collection(db, "users"), (snap) => {
-        // Reset counts
-        last7Days.forEach(d => {
-          counts[d.dateStr] = { ...counts[d.dateStr], signups: 0, verified: 0 };
-        });
+      setStats(prev => ({
+        ...prev,
+        totalWorkers: workersCount,
+        verifiedWorkers: verifiedCount,
+        totalCustomers: customersCount
+      }));
 
-        snap.docs.forEach(d => {
-          const data = d.data();
-          // Count sign-ups
-          if (data.lastActive) {
-            const ts = (data.lastActive as Timestamp).toDate().toDateString();
-            if (counts[ts]) counts[ts].signups++;
-          }
-          // Count verifications
-          if (data.status === 'verified' && data.lastUpdated) {
-            const ts = (data.lastUpdated as Timestamp).toDate().toDateString();
-            if (counts[ts]) counts[ts].verified++;
-          }
-        });
-
-        updateChart();
-      });
-
-      // Source 2: Verification requests — track request activity
-      const unsubVReqs = onSnapshot(collection(db, "verification_requests"), (snap) => {
-        last7Days.forEach(d => {
-          counts[d.dateStr] = { ...counts[d.dateStr], requests: 0 };
-        });
-
-        snap.docs.forEach(d => {
-          const data = d.data();
-          if (data.timestamp) {
-            const ts = (data.timestamp as Timestamp).toDate().toDateString();
-            if (counts[ts]) counts[ts].requests++;
-          }
-        });
-
-        updateChart();
-      });
-
-      const updateChart = () => {
-        setRealChartData(last7Days.map(d => ({
-          name: d.label,
-          reviews: (counts[d.dateStr]?.signups || 0) + (counts[d.dateStr]?.requests || 0) + (counts[d.dateStr]?.verified || 0),
-          fraud: counts[d.dateStr]?.verified || 0
-        })));
-      };
-
-      return () => {
-        unsubAllUsers();
-        unsubVReqs();
-      };
-    };
-
-    const cleanupChart = buildChartData();
-
-    const fetchSkillData = async () => {
-      const q = query(collection(db, "users"), where("role", "==", "worker"));
-      const snap = await getDocs(q);
-      const skills: Record<string, number> = {};
-      snap.docs.forEach(doc => {
-        const s = doc.data().skill || "Unspecified";
-        skills[s] = (skills[s] || 0) + 1;
-      });
-      const formatted = Object.entries(skills).map(([name, count], i) => ({
-        name,
-        count,
-        color: ["#f97316", "#3b82f6", "#10b981", "#8b5cf6", "#ec4899"][i % 5]
+      const formattedSkills = Object.entries(skills).map(([name, count], i) => ({
+        name, count, color: ["#f97316", "#3b82f6", "#10b981", "#8b5cf6", "#ec4899"][i % 5]
       })).sort((a, b) => b.count - a.count).slice(0, 5);
-      setRealSkillData(formatted);
-    };
+      
+      setRealSkillData(formattedSkills);
 
-    fetchSkillData();
-
-    const unsubPending = onSnapshot(query(collection(db, "verification_requests"), where("status", "==", "pending")), (snap) => {
-      setStats(prev => ({ ...prev, pendingRequests: snap.size }));
+      // We still need the request counts for the chart, so we merge them from state if possible,
+      // but a better way is to set them globally in the chart data state.
+      setRealChartData(prev => {
+        return last7Days.map((d, i) => {
+          const prevRequests = prev[i]?.requests || 0;
+          return {
+            name: d.label,
+            dateStr: d.dateStr,
+            signups: d.signups,
+            verified: d.verified,
+            requests: prevRequests,
+            reviews: d.signups + prevRequests + d.verified,
+            fraud: d.verified
+          };
+        });
+      });
     });
 
-    const unsubSkillData = onSnapshot(query(collection(db, "users"), where("role", "==", "worker")), (snap) => {
-      const skills: Record<string, number> = {};
-      snap.docs.forEach(doc => {
-        const s = doc.data().skill || "Unspecified";
-        skills[s] = (skills[s] || 0) + 1;
+    const unsubVReqs = onSnapshot(collection(db, "verification_requests"), (snap) => {
+      let pending = 0;
+      const requestCounts: Record<string, number> = {};
+      
+      snap.docs.forEach(d => {
+        const data = d.data();
+        if (data.status === "pending") pending++;
+        if (data.timestamp) {
+          const ts = (data.timestamp as Timestamp).toDate().toDateString();
+          requestCounts[ts] = (requestCounts[ts] || 0) + 1;
+        }
       });
-      const formatted = Object.entries(skills).map(([name, count], i) => ({
-        name,
-        count,
-        color: ["#f97316", "#3b82f6", "#10b981", "#8b5cf6", "#ec4899"][i % 5]
-      })).sort((a, b) => b.count - a.count).slice(0, 5);
-      setRealSkillData(formatted);
+
+      setStats(prev => ({ ...prev, pendingRequests: pending }));
+
+      setRealChartData(prev => prev.map(d => {
+        const reqs = requestCounts[d.dateStr] || 0;
+        return {
+          ...d,
+          requests: reqs,
+          reviews: (d.signups || 0) + reqs + (d.verified || 0)
+        };
+      }));
+    });
+
+    const unsubReviews = onSnapshot(collection(db, "verifications"), (snap) => {
+      setStats(prev => ({ ...prev, totalReviews: snap.size }));
     });
 
     // ONE-TIME AUTOMATED RESET (Requested by Assistant to fix credentials issue)
@@ -189,12 +161,9 @@ const AdminOverview = () => {
     }
 
     return () => {
-      unsubWorkers();
-      unsubCustomers();
+      unsubAllUsers();
+      unsubVReqs();
       unsubReviews();
-      unsubPending();
-      unsubSkillData();
-      cleanupChart();
     };
   }, []);
 

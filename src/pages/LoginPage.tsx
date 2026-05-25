@@ -52,14 +52,17 @@ const LoginPage = () => {
     }
   }, [user, navigate, from]);
 
-  // === GOOGLE HANDLER ===
   const handleGoogleSignIn = async () => {
     try {
       console.log("Starting Google Sign-In with role:", role);
       await signInWithGoogle(role);
     } catch (err: any) {
       console.error("LoginPage Google Sign-In Error:", err);
-      // More descriptive alert
+      // Ignore errors caused by the user closing the popup or clicking multiple times
+      if (err.code === "auth/cancelled-popup-request" || err.code === "auth/popup-closed-by-user") {
+        return;
+      }
+      // More descriptive alert for actual errors
       alert(`Google Sign-In failed: ${err.message || "Unknown error"}`);
     }
   };

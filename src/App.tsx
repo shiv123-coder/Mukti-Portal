@@ -16,18 +16,19 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import AdminLayout from "@/components/AdminLayout";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
-// Lazy-load pages for better initial performance
-const LoginPage = lazy(() => import("@/pages/LoginPage"));
-const WorkerDashboard = lazy(() => import("@/pages/WorkerDashboard"));
+import LoginPage from "@/pages/LoginPage";
+import WorkerDashboard from "@/pages/WorkerDashboard";
+import CustomerDashboard from "@/pages/CustomerDashboard";
+import AdminOverview from "@/pages/admin/AdminOverview";
+
+// Lazy-load secondary pages for better initial performance
 const WorkerProfile = lazy(() => import("@/pages/WorkerProfile"));
 const QRScreen = lazy(() => import("@/pages/QRScreen"));
 const CustomerVerification = lazy(() => import("@/pages/CustomerVerification"));
 const CustomerActivity = lazy(() => import("@/pages/CustomerActivity"));
-const CustomerDashboard = lazy(() => import("@/pages/CustomerDashboard"));
 const LiveTracking = lazy(() => import("@/pages/LiveTracking"));
 const ReportPreview = lazy(() => import("@/pages/ReportPreview"));
 const EmployerVerificationPage = lazy(() => import("@/pages/EmployerVerificationPage"));
-const AdminOverview = lazy(() => import("@/pages/admin/AdminOverview"));
 const AdminWorkers = lazy(() => import("@/pages/admin/AdminWorkers"));
 const AdminCustomers = lazy(() => import("@/pages/admin/AdminCustomers"));
 const AdminFraud = lazy(() => import("@/pages/admin/AdminFraud"));
