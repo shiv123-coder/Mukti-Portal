@@ -981,6 +981,10 @@ app.get('/api/public-report/:workerId', async (req, res) => {
 
 app.use(globalErrorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Mukti-Backend running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Mukti-Backend running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
