@@ -40,6 +40,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (user) {
       console.log("Logged in as:", user.role);
+      alert(`Firebase says you are logged in as: ${user.role}`);
       
       // Prioritize the 'from' location from ProtectedRoute state
       if (from) {
@@ -56,6 +57,8 @@ const LoginPage = () => {
     try {
       console.log("Starting Google Sign-In with role:", role);
       await signInWithGoogle(role);
+      // Temporary debug alert
+      alert(`Firebase Google Auth SUCCESS! Checking redirect...`);
     } catch (err: any) {
       console.error("LoginPage Google Sign-In Error:", err);
       // Ignore errors caused by the user closing the popup or clicking multiple times
@@ -63,7 +66,7 @@ const LoginPage = () => {
         return;
       }
       // More descriptive alert for actual errors
-      alert(`Google Sign-In failed: ${err.message || "Unknown error"}`);
+      alert(`Google Sign-In failed: ${err.message || "Unknown error"} (Code: ${err.code})`);
     }
   };
 
