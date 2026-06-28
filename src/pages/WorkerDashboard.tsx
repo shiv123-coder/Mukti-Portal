@@ -12,7 +12,6 @@ import StarRating from "@/components/StarRating";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { db, auth } from "@/lib/firebase";
 import { collection, query, onSnapshot, orderBy, Timestamp, doc, updateDoc, addDoc, getDocs, serverTimestamp, where } from "firebase/firestore";
-import { generateCreditReport } from "@/utils/pdfReport";
 import { BackButton } from "@/components/BackButton";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -772,33 +771,26 @@ const WorkerDashboard = () => {
           <button
             id="report_download"
             onClick={async () => {
-              await generateCreditReport({
-                workerName: user.name,
-                phone: user.phone,
-                skill: user.skill || 'General',
-                location: user.location || '',
-                muktiScore,
-                confidence: displayData?.confidence || 'LOW',
-                totalJobs: displayData?.summary?.totalJobs || 0,
-                activeMonths: displayData?.summary?.activeMonths || 0,
-                avgRating,
-                incomeMin: displayData?.financial?.incomeRange?.min || 0,
-                incomeMax: displayData?.financial?.incomeRange?.max || 0,
-                safeEMI: displayData?.loan?.safeEMI || 0,
-                loanMin: displayData?.loan?.range?.min || 0,
-                loanMax: displayData?.loan?.range?.max || 0,
-                isVerified: true,
-                repeatCustomers: displayData?.summary?.repeatCustomers || 0,
-                topSkills: displayData?.performance?.topSkills || [user.skill || 'General'],
-                workerId: user.id,
-                recentJobs: verifications.slice(0, 4).map((v: any) => ({
-                  date: v.timestamp instanceof Date ? v.timestamp.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }) : 'Recent',
-                  category: v.workerSkill || v.service || user.skill || 'Service',
-                  rating: v.rating || 4,
-                  type: 'OTP + Geo'
-                })),
-              });
-              toast.success("Credit Report Downloaded!");
+              try {
+                const token = auth.currentUser ? await auth.currentUser.getIdToken() : '';
+                const response = await fetch(`${API_BASE_URL}/api/worker/${user.id}/report`, {
+                  headers: { Authorization: `Bearer ${token}` }
+                });
+                if (!response.ok) throw new Error('Failed to generate report');
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Mukti_Report_${user.name.replace(/\s/g, '_')}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                toast.success('Premium Trust Report Downloaded!');
+              } catch (err) {
+                toast.error('Failed to download report');
+                console.error(err);
+              }
             }}
             className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all group"
           >

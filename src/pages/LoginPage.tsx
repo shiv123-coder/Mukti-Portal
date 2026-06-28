@@ -20,7 +20,7 @@ const LoginPage = () => {
   const [selectedLoginRole, setSelectedLoginRole] = useState<"customer" | "worker" | null>(null);
   
   // Login State
-  const [loginPhone, setLoginPhone] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
 
@@ -126,10 +126,10 @@ const LoginPage = () => {
   const handleLoginSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setLoginError("");
-    if (loginPhone.length === 10 && loginPassword) {
+    if (loginEmail && loginPassword) {
       setLoadingAction(true);
       try {
-        await login(loginPhone, loginPassword);
+        await login(loginEmail, loginPassword);
       } catch (err: any) {
         setLoadingAction(false);
         if (err.code === "auth/user-not-found" || err.code === "auth/invalid-credential") {
@@ -338,16 +338,14 @@ const LoginPage = () => {
 
                 <form onSubmit={handleLoginSubmit} className="space-y-4" autoComplete="off">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider pl-1">Phone Number</label>
+                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider pl-1">Email Address</label>
                     <div className="relative group">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-medium text-muted-foreground">+91</span>
                       <input
-                        type="tel"
-                        maxLength={10}
-                        value={loginPhone}
-                        onChange={(e) => { setLoginPhone(e.target.value.replace(/\D/g, "")); setLoginError(""); }}
-                        className="w-full rounded-xl border border-input bg-background pl-12 pr-4 py-3.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
-                        placeholder="00000 00000"
+                        type="email"
+                        value={loginEmail}
+                        onChange={(e) => { setLoginEmail(e.target.value); setLoginError(""); }}
+                        className="w-full rounded-xl border border-input bg-background px-4 py-3.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10"
+                        placeholder="you@example.com"
                         autoFocus
                         required
                       />
@@ -373,7 +371,7 @@ const LoginPage = () => {
 
                   <button
                     type="submit"
-                    disabled={loginPhone.length !== 10 || !loginPassword || loadingAction}
+                    disabled={!loginEmail || !loginPassword || loadingAction}
                     className="w-full rounded-xl bg-foreground text-background py-3.5 text-sm font-bold shadow-lg transition-all hover:bg-foreground/90 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none mt-6"
                   >
                     {loadingAction ? <Loader2 size={18} className="animate-spin mx-auto" /> : "Log In"}

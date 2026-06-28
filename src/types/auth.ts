@@ -4,7 +4,7 @@ export type WorkerType = 0 | 1; // 0 = Fixed, 1 = Mobile
 export interface User {
   id: string;
   phone: string;
-  email?: string;
+  email: string;
   name: string;
   username?: string;
   gender?: string;
@@ -20,6 +20,7 @@ export interface User {
   photo?: string;
   otpVerified: boolean;
   lastActive: Date;
+  createdAt?: any;
   points?: number;
   badges?: string[];
   muktiScore?: number;

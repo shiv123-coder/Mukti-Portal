@@ -26,7 +26,7 @@ import { logActivity } from "@/utils/activityLogger";
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  login: (phone: string, password?: string) => Promise<void>;
+  login: (email: string, password?: string) => Promise<void>;
   signup: (userData: Partial<User>, password?: string) => Promise<void>;
   signInWithGoogle: (role: UserRole, accessToken: string) => Promise<any>;
   updateUser: (updates: Partial<User>) => Promise<void>;
@@ -39,7 +39,6 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
-const phoneToEmail = (phone: string) => `${phone}@mukti.com`;
 const cleanObject = (obj: any) => {
   const newObj = { ...obj };
   Object.keys(newObj).forEach(key => {
@@ -81,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               const lastOtp = data.lastOtpDate ? (data.lastOtpDate as Timestamp).toDate() : null;
               
               const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
-              const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL || firebaseUser.email === `${adminPhone}@mukti.com` || data.phone === adminPhone;
+              const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL || data.phone === adminPhone;
               
               setUser({
                 ...data,
@@ -150,10 +149,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  async function login(phone: string, password?: string) {
+  async function login(email: string, password?: string) {
     // Demo login removed
     if (!password) throw new Error("Password is required");
-    const result = await signInWithEmailAndPassword(auth, phoneToEmail(phone), password);
+    
+    let result;
+    try {
+      result = await signInWithEmailAndPassword(auth, email, password);
+    } catch (err: any) {
+      if (
+        (err.code === "auth/user-not-found" || err.code === "auth/invalid-credential") &&
+        email === import.meta.env.VITE_ADMIN_EMAIL &&
+        password === import.meta.env.VITE_ADMIN_PASSWORD
+      ) {
+        await signup({ email, phone: import.meta.env.VITE_ADMIN_PHONE, name: import.meta.env.VITE_ADMIN_NAME || "Admin", role: "admin" }, password);
+        return;
+      }
+      throw err;
+    }
     
     // Update device ID on successful login if it's a customer
     const userDoc = await getDoc(doc(db, "users", result.user.uid));
@@ -225,13 +238,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function signup(userData: Partial<User>, password?: string) {
     let firebaseUser;
     
-    if (!userData.phone || !userData.role || !userData.name) {
+    if (!userData.email || !userData.phone || !userData.role || !userData.name) {
       throw new Error("Missing required fields for signup");
     }
 
     try {
       if (!password) throw new Error("Password is required for signup");
-      const email = phoneToEmail(userData.phone);
+      const email = userData.email;
       
       const result = await createUserWithEmailAndPassword(auth, email, password);
       firebaseUser = result.user;
@@ -239,7 +252,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (err.code === "auth/email-already-in-use") {
         if (!password) throw new Error("Password is required");
         try {
-          const result = await signInWithEmailAndPassword(auth, phoneToEmail(userData.phone), password);
+          const result = await signInWithEmailAndPassword(auth, email, password);
           firebaseUser = result.user;
         } catch (loginErr: any) {
           if (loginErr.code === "auth/invalid-credential" || loginErr.code === "auth/wrong-password") {
@@ -253,7 +266,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
-    const isAdmin = userData.phone === adminPhone || phoneToEmail(userData.phone) === import.meta.env.VITE_ADMIN_EMAIL;
+    const isAdmin = userData.phone === adminPhone || userData.email === import.meta.env.VITE_ADMIN_EMAIL;
     const finalRole = isAdmin ? "admin" : userData.role;
 
     const firestoreUser = cleanObject({

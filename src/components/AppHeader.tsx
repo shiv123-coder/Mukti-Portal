@@ -1,4 +1,5 @@
 import { Sun, Moon, LogOut, LayoutDashboard, QrCode, FileText, UserCircle, Languages, WifiOff, Bell, ShieldCheck, UserCheck, History, PlusCircle, Trophy, Globe } from "lucide-react";
+import { NotificationPanel } from "./NotificationPanel";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "next-themes";
 
@@ -30,59 +31,7 @@ const AppHeader = () => {
   const isOnline = useOnlineStatus();
   const navigate = useNavigate();
   const location = useLocation();
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState<any[]>([]);
-
-  const navItems = user?.role === "worker" ? WORKER_NAV : CUSTOMER_NAV;
-
-  // Real-time notifications from Firebase
-  useEffect(() => {
-    if (!user) return;
-
-    if (user.role === 'worker') {
-      // Workers get notified about their verification status
-      const q = query(
-        collection(db, 'verification_requests'),
-        where('workerId', '==', user.id)
-      );
-      const unsub = onSnapshot(q, (snap) => {
-        const notifs = snap.docs.map(doc => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            type: data.status === 'approved' ? 'verified' : data.status === 'rejected' ? 'rejected' : 'pending',
-            title: data.status === 'approved' ? 'Identity Verified ✔' : data.status === 'rejected' ? 'Verification Rejected' : 'Request Under Review',
-            message: data.status === 'approved' ? 'Your identity has been verified by admin.' : data.status === 'rejected' ? `Reason: ${data.rejectionReason || 'Contact admin for details'}` : 'Your verification request is being processed.',
-            time: data.timestamp ? (data.timestamp as Timestamp).toDate().toLocaleDateString() : 'Recently',
-            icon: data.status === 'approved' ? 'shield' : data.status === 'rejected' ? 'alert' : 'clock'
-          };
-        });
-        setNotifications(notifs);
-      });
-      return () => unsub();
-    } else if (user.role === 'admin') {
-      // Admins get notified about new verification requests
-      const q = query(
-        collection(db, 'verification_requests'),
-        where('status', '==', 'pending')
-      );
-      const unsub = onSnapshot(q, (snap) => {
-        const notifs = snap.docs.map(doc => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            type: 'request',
-            title: `New Request: ${data.workerName || 'Worker'}`,
-            message: `${data.workerSkill || 'Worker'} from verification queue`,
-            time: data.timestamp ? (data.timestamp as Timestamp).toDate().toLocaleDateString() : 'Just now',
-            icon: 'plus'
-          };
-        });
-        setNotifications(notifs);
-      });
-      return () => unsub();
-    }
-  }, [user?.id, user?.role]);
+  // Notifications are now handled by NotificationPanel component
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border print:hidden">
@@ -169,52 +118,7 @@ const AppHeader = () => {
           </button>
           
           {user && (
-            <div className="relative">
-              <button
-                onClick={() => setShowNotifications(!showNotifications)}
-                className={cn(
-                  "h-9 w-9 flex items-center justify-center rounded-xl transition-all active:scale-95 relative border",
-                  showNotifications 
-                    ? "bg-primary border-primary text-primary-foreground shadow-lg shadow-primary-glow" 
-                    : isDark ? "bg-card/5 border-border text-muted-foreground hover:text-primary-foreground" : "bg-secondary border-border text-muted-foreground hover:text-foreground"
-                )}
-              >
-                <Bell size={18} />
-                {notifications.length > 0 && (
-                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary border-2 border-card text-[8px] font-black text-primary-foreground flex items-center justify-center">{notifications.length > 9 ? '9+' : notifications.length}</span>
-                )}
-              </button>
-              
-              {showNotifications && (
-                <div className="absolute right-0 mt-4 w-80 rounded-[2.5rem] bg-card border border-border shadow-3xl p-6 animate-in fade-in slide-in-from-top-4 duration-300 z-[100] backdrop-blur-2xl">
-                   <div className="flex items-center justify-between mb-6">
-                      <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-foreground italic">Notifications</h4>
-                      {notifications.length > 0 && (
-                        <span className="text-[8px] font-black text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/10">{notifications.length.toString().padStart(2, '0')} NEW</span>
-                      )}
-                   </div>
-                   <div className="space-y-4 max-h-72 overflow-y-auto">
-                      {notifications.length > 0 ? notifications.slice(0, 5).map(n => (
-                        <div key={n.id} className="flex gap-4 p-4 rounded-2xl bg-secondary/50 border border-border transition-all hover:border-primary/20 group">
-                           <div className={`p-2.5 rounded-xl h-fit group-hover:scale-110 transition-transform ${n.type === 'verified' ? 'bg-emerald-500/10 text-emerald-500' : n.type === 'rejected' ? 'bg-red-500/10 text-red-500' : 'bg-primary/10 text-primary'}`}>
-                             {n.type === 'verified' ? <ShieldCheck size={16} /> : n.type === 'rejected' ? <Bell size={16} /> : <PlusCircle size={16} />}
-                           </div>
-                           <div className="min-w-0">
-                              <div className="font-black text-sm text-foreground italic truncate uppercase tracking-tighter">{n.title}</div>
-                              <div className="text-[10px] font-bold text-muted-foreground mt-1 uppercase leading-relaxed opacity-80">{n.message}</div>
-                              <div className="text-[8px] font-bold text-muted-foreground mt-1 uppercase tracking-widest opacity-60">{n.time}</div>
-                           </div>
-                        </div>
-                      )) : (
-                        <div className="py-12 text-center bg-secondary/20 rounded-3xl border border-dashed border-border text-foreground">
-                           <Bell size={32} className="mx-auto text-muted-foreground mb-4 opacity-30" />
-                           <p className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em] italic opacity-60">No active notifications</p>
-                        </div>
-                      )}
-                   </div>
-                </div>
-              )}
-            </div>
+            <NotificationPanel userId={user.id} role={user.role} />
           )}
 
           {user && (

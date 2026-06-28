@@ -10,6 +10,8 @@ import NodeCache from 'node-cache';
 import { verifyToken, requireAdmin, AuthRequest } from './middleware/auth';
 import { globalErrorHandler } from './middleware/errorHandler';
 import { logAdminNotification } from './utils/logger';
+import { generatePdfReport, ReportData } from './utils/pdfGenerator';
+import crypto from 'crypto';
 
 dotenv.config();
 
@@ -170,6 +172,7 @@ const VerificationSchema = z.object({
 const RegisterSchema = z.object({
   id: z.string(),
   phone: z.string(),
+  email: z.string().email(),
   name: z.string(),
   role: z.enum(['worker', 'customer', 'admin']),
   skill: z.string().optional(),
@@ -230,7 +233,7 @@ app.post('/api/auth/google', async (req, res) => {
 
     const adminPhone = process.env.VITE_ADMIN_PHONE || '9370717823';
     const adminEmail = process.env.VITE_ADMIN_EMAIL || 'shivashankrmali7@gmail.com';
-    const isAdmin = email === adminEmail || email === `${adminPhone}@mukti.com` || userDocData?.phone === adminPhone || userDocData?.role === 'admin';
+    const isAdmin = email === adminEmail || userDocData?.phone === adminPhone || userDocData?.role === 'admin';
 
     if (isAdmin) {
       if (!userDocData || !userId) {
@@ -396,11 +399,50 @@ app.post('/api/verify', verifyToken, async (req: AuthRequest, res) => {
 
     const docRef = await database.collection('verifications').add(verificationDoc);
 
-    // 4. Update Worker Score (Simplified logic for demo)
+    // 4. Advanced Worker Scoring Logic
     const workerRef = database.collection('users').doc(data.workerId);
+    
+    // Fetch all past verifications for this worker to recalculate score
+    const allVerifsSnapshot = await database.collection('verifications')
+      .where('workerId', '==', data.workerId)
+      .get();
+      
+    const allVerifs = allVerifsSnapshot.docs.map(d => d.data());
+    
+    const count = allVerifs.length;
+    const avgRating = count > 0 ? allVerifs.reduce((acc, v) => acc + (v.rating || 0), 0) / count : 0;
+    const fraudPenalty = allVerifs.filter(v => v.fraudRisk === 'HIGH').length * 15;
+    
+    let score = 50; // Base identity score
+    
+    // Rating bonus/penalty
+    if (count > 0) {
+      if (avgRating >= 4.0) score += (avgRating - 3) * 10; // Max +20
+      else if (avgRating < 3.0) score -= (3 - avgRating) * 10; // Penalty for bad rating
+    }
+    
+    // Verification volume bonus (Max +20)
+    score += Math.min(count * 2, 20);
+    
+    // Fraud penalty
+    score -= fraudPenalty;
+    
+    // Bound score
+    score = Math.max(0, Math.min(100, Math.round(score)));
+
+    const scoreBreakdown = {
+      baseScore: 50,
+      ratingBonus: count > 0 && avgRating >= 4.0 ? Math.round((avgRating - 3) * 10) : 0,
+      volumeBonus: Math.min(count * 2, 20),
+      fraudPenalty,
+      finalScore: score
+    };
+
     await workerRef.update({
       lastActive: admin.firestore.FieldValue.serverTimestamp(),
-      verificationsCount: admin.firestore.FieldValue.increment(1)
+      verificationsCount: count,
+      muktiScore: score,
+      scoreBreakdown
     });
 
     res.json({
@@ -410,7 +452,9 @@ app.post('/api/verify', verifyToken, async (req: AuthRequest, res) => {
         fraud_risk,
         sentiment: sentiment_label,
         skills: extracted_skills
-      }
+      },
+      updatedScore: score,
+      scoreBreakdown
     });
 
   } catch (err: any) {
@@ -567,37 +611,79 @@ app.get('/api/worker/:id/report', verifyToken, async (req: AuthRequest, res) => 
     const worker = workerDoc.data();
     const verifications = verificationsSnapshot.docs.map(doc => doc.data());
 
-    // In a real app, use PDFKit here to generate a buffer and stream it.
-    // For now, we return the data structure that the frontend can render as a "Report View"
-    // or we can implement a basic PDF stream if needed.
+    // Calculate metrics
+    const totalJobs = verifications.length;
+    const avgRating = totalJobs > 0 ? verifications.reduce((acc, v) => acc + (v.rating || 0), 0) / totalJobs : 0;
+    const activeMonths = new Set(verifications.map(v => {
+      const date = v.timestamp?.toDate ? v.timestamp.toDate() : new Date(v.timestamp);
+      return `${date.getMonth()}-${date.getFullYear()}`;
+    })).size || (totalJobs > 0 ? 1 : 0);
+
+    const muktiScore = worker?.muktiScore || (totalJobs > 0 ? 60 + (avgRating * 5) : 50);
+    const confidence = muktiScore >= 70 ? 'HIGH' : muktiScore >= 40 ? 'MEDIUM' : 'LOW';
+    const fraudRisk = verifications.some(v => v.fraudRisk === 'HIGH') ? 'HIGH' : 'LOW';
+
+    let baseRate = 500;
+    const skillLower = (worker?.skill || "").toLowerCase();
+    if (skillLower.includes('maid')) baseRate = 300;
+    else if (skillLower.includes('plumber')) baseRate = 600;
+    else if (skillLower.includes('electrician')) baseRate = 800;
+
+    const realisticMonthlyIncome = totalJobs > 0 ? (totalJobs / activeMonths) * baseRate : 0;
+    const safeEMI = realisticMonthlyIncome * 0.35;
     
-    res.json({
-      title: "Credit-Ready Work Summary",
-      generatedAt: new Date().toISOString(),
-      worker: {
-        id: worker?.id,
-        name: worker?.name,
-        skill: worker?.skill,
-        phone: worker?.phone,
-        muktiScore: worker?.muktiScore || 85, // Placeholder
-      },
-      summary: {
-        totalJobs: verifications.length,
-        avgRating: verifications.reduce((acc, v) => acc + v.rating, 0) / (verifications.length || 1),
-        fraudRiskLevel: "LOW",
-        sentimentSummary: "Highly Positive",
-      },
-      history: verifications.map(v => ({
-        date: v.timestamp?.toDate ? v.timestamp.toDate() : v.timestamp,
-        customer: v.customerName,
+    const rid = `MKT-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
+
+    const reportData: ReportData = {
+      workerId,
+      workerName: worker?.name || 'Unknown',
+      phone: worker?.phone || '',
+      skill: worker?.skill || 'General Worker',
+      location: worker?.location || 'Unknown',
+      muktiScore,
+      confidence,
+      totalJobs,
+      activeMonths,
+      avgRating,
+      incomeMin: Math.floor(realisticMonthlyIncome * 0.8),
+      incomeMax: Math.ceil(realisticMonthlyIncome * 1.2),
+      safeEMI: Math.floor(safeEMI),
+      loanMin: Math.floor(safeEMI * 12),
+      loanMax: Math.ceil(safeEMI * 18),
+      isVerified: worker?.isVerifiedByAdmin || false,
+      fraudRisk,
+      rid,
+      recentJobs: verifications.map(v => ({
+        date: v.timestamp?.toDate ? v.timestamp.toDate().toLocaleDateString('en-IN') : new Date(v.timestamp).toLocaleDateString('en-IN'),
+        category: v.skills?.[0] || worker?.skill || 'Service',
         rating: v.rating,
-        skills: v.skills,
+        type: 'Verified'
       }))
-    });
+    };
+
+    // Save snapshot for QR code verification
+    try {
+      await database.collection('public_reports').doc(rid).set({
+        ...reportData,
+        generatedAt: new Date().toISOString(),
+        computed: {
+          fraudLevel: fraudRisk,
+          trustStack: { otp: true, geo: true, photo: totalJobs > 0, timestamp: true, repeat: false },
+          recentJobs: reportData.recentJobs
+        }
+      });
+    } catch (err) {
+      console.error('Failed to save public report snapshot:', err);
+    }
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="Worker_Report_${workerId}.pdf"`);
+    
+    generatePdfReport(reportData, res);
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to generate report data' });
+    res.status(500).json({ error: 'Failed to generate report pdf' });
   }
 });
 
@@ -628,6 +714,16 @@ app.post('/api/worker/verify-request', verifyToken, async (req: AuthRequest, res
         try {
           await db.collection('users').doc(workerId).update({ status: 'pending' });
           console.log(`Backend updated user ${workerId} status to pending`);
+          
+          // Notify the worker
+          await db.collection('notifications').add({
+            userId: workerId,
+            title: 'Verification Request Submitted',
+            message: 'Your identity verification request is now under review.',
+            read: false,
+            type: 'info',
+            timestamp: admin.firestore.FieldValue.serverTimestamp()
+          });
         } catch (uErr: any) {
           console.warn(`Backend could not update user status: ${uErr.message}`);
         }
@@ -785,6 +881,16 @@ app.post('/api/admin/process-request', verifyToken, requireAdmin, async (req: Au
           priority: action === 'approve' ? 'success' : 'danger',
           userId: workerId,
           userRole: 'worker'
+        });
+
+        // Notify the worker
+        await database.collection('notifications').add({
+          userId: workerId,
+          title: action === 'approve' ? 'Identity Verified ✔' : 'Verification Rejected',
+          message: action === 'approve' ? 'Your identity has been verified by admin.' : 'Your verification request was rejected. Please contact support.',
+          read: false,
+          type: action === 'approve' ? 'success' : 'alert',
+          timestamp: admin.firestore.FieldValue.serverTimestamp()
         });
       } catch (fbErr: any) {
         console.error('[FIREBASE-ADMIN-ERROR]:', fbErr.message);
@@ -1018,10 +1124,33 @@ app.put('/api/work-request/:id', verifyToken, async (req: AuthRequest, res) => {
         title: `Job ${updateData.status}`,
         description: `Job ${id} status changed to ${updateData.status} by ${updateData.workerName || 'Worker'}.`,
         type: 'Jobs',
-        priority: updateData.status === 'Completed' ? 'success' : (updateData.status === 'Accepted' ? 'info' : 'warning'),
+        priority: updateData.status === 'Completed' ? 'success' : (updateData.status === 'Accepted' || updateData.status === 'In Progress' ? 'info' : 'warning'),
         userId: updateData.workerId,
         userRole: 'worker'
       });
+
+      // Notify the customer
+      if (isFirebaseEnabled && db && !id.startsWith('local-')) {
+        try {
+          const docSnap = await db.collection('work_requests').doc(id).get();
+          if (docSnap.exists) {
+            const customerId = docSnap.data()?.customerId;
+            if (customerId) {
+              await db.collection('notifications').add({
+                userId: customerId,
+                title: `Job ${updateData.status === 'In Progress' ? 'Accepted' : updateData.status}`,
+                message: `Your job request has been ${updateData.status === 'In Progress' ? 'accepted' : updateData.status.toLowerCase()} by ${updateData.workerName || 'a worker'}.`,
+                read: false,
+                type: updateData.status === 'Completed' ? 'success' : 'info',
+                timestamp: admin.firestore.FieldValue.serverTimestamp()
+              });
+            }
+          }
+        } catch (err) {
+          console.warn('Failed to notify customer:', err);
+        }
+      }
+    }
     }
 
     res.json({ success: true, message: 'Work request updated' });

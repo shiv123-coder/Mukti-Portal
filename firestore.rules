@@ -30,19 +30,19 @@ service cloud.firestore {
     match /work_requests/{docId} {
       allow read: if request.auth != null;
       allow create: if request.auth != null && request.auth.uid == request.resource.data.customerId;
-      allow update: if request.auth != null && (request.auth.uid == resource.data.customerId || request.auth.uid == resource.data.acceptedBy || request.resource.data.acceptedBy == request.auth.uid || isAdmin()); 
+      allow update: if request.auth != null && (request.auth.uid == resource.data.customerId || request.auth.uid == resource.data.workerId || request.resource.data.workerId == request.auth.uid || isAdmin()); 
       allow delete: if request.auth != null && (request.auth.uid == resource.data.customerId || isAdmin());
     }
 
     // 5. Public Credit Report Snapshots (QR Code Verification)
     match /public_reports/{reportId} {
       allow read: if true;
-      allow create: if request.auth != null;
+      allow create: if false; // Only backend can create these via admin SDK
       allow update, delete: if false; 
     }
-    // 6. Admin Notifications
+    // 6. User and Admin Notifications
     match /notifications/{docId} {
-      allow read, update, delete: if isAdmin();
+      allow read, update, delete: if request.auth != null && (isAdmin() || request.auth.uid == resource.data.userId);
       allow create: if request.auth != null;
     }
   }

@@ -15,10 +15,15 @@ export const verifyToken = async (req: AuthRequest, res: Response, next: NextFun
   const token = authHeader.split('Bearer ')[1];
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(token);
+    // Harden: check if the token has been revoked
+    const decodedToken = await admin.auth().verifyIdToken(token, true);
     req.user = decodedToken;
     next();
-  } catch (error) {
+  } catch (error: any) {
+    if (error.code === 'auth/id-token-revoked') {
+      console.error('Token has been revoked');
+      return res.status(401).json({ error: 'Unauthorized: Token revoked. Please log in again.' });
+    }
     console.error('Token verification failed:', error);
     return res.status(401).json({ error: 'Unauthorized: Invalid token' });
   }

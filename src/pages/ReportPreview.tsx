@@ -23,7 +23,7 @@ import {
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, Cell, LineChart, Line } from "recharts";
 import { db } from "@/lib/firebase";
 import { collection, query, onSnapshot, orderBy, Timestamp, where, getDocs } from "firebase/firestore";
-import { generateCreditReport } from "@/utils/pdfReport";
+import { auth } from "@/lib/firebase";
 import { toast } from "sonner";
 import { calculateIncomeStats, parseBudgetToAmount } from "@/utils/financial";
 
@@ -314,35 +314,26 @@ const ReportPreview = () => {
             <button
               onClick={async () => {
                 if (user.isVerifiedByAdmin || isApproved || isDemoWorker) {
-                  const incomeMin = finStats.incomeRange.min;
-                  const incomeMax = finStats.incomeRange.max;
-                  await generateCreditReport({
-                    workerName: user.name,
-                    phone: user.phone,
-                    skill: user.skill || 'General',
-                    location: user.location || '',
-                    muktiScore: trustScore,
-                    confidence: trustLevel,
-                    totalJobs,
-                    activeMonths,
-                    avgRating,
-                    incomeMin: Math.round(incomeMin),
-                    incomeMax: Math.round(incomeMax),
-                    safeEMI: Math.round(finStats.safeEMI),
-                    loanMin: Math.round(finStats.loanRange.min),
-                    loanMax: Math.round(finStats.loanRange.max),
-                    isVerified: !!(user.isVerifiedByAdmin || isApproved),
-                    repeatCustomers,
-                    topSkills: [user.skill || 'General'],
-                    workerId: user.id,
-                    recentJobs: verifications.slice(0, 4).map((v: any) => ({
-                      date: v.timestamp instanceof Date ? v.timestamp.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }) : 'Recent',
-                      category: v.workerSkill || v.service || user.skill || 'Service',
-                      rating: v.rating || 4,
-                      type: 'OTP + Geo'
-                    })),
-                  });
-                  toast.success('Premium Trust Report Downloaded!');
+                  try {
+                    const token = auth.currentUser ? await auth.currentUser.getIdToken() : '';
+                    const response = await fetch(`${API_BASE_URL}/api/worker/${user.id}/report`, {
+                      headers: { Authorization: `Bearer ${token}` }
+                    });
+                    if (!response.ok) throw new Error('Failed to generate report');
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `Mukti_Report_${user.name.replace(/\s/g, '_')}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    toast.success('Premium Trust Report Downloaded!');
+                  } catch (err) {
+                    toast.error('Failed to download report');
+                    console.error(err);
+                  }
                 }
               }}
               disabled={!(user.isVerifiedByAdmin || isApproved || isDemoWorker)}
