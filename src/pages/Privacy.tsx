@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShieldCheck, MapPin, Database, Lock, Eye } from 'lucide-react';
-import { AppHeader } from '@/components/AppHeader';
+import AppHeader from '@/components/AppHeader';
 
 export default function Privacy() {
   return (

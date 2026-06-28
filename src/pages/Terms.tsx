@@ -1,6 +1,6 @@
 import React from 'react';
 import { Shield, BookOpen, AlertCircle, FileText, CheckCircle2 } from 'lucide-react';
-import { AppHeader } from '@/components/AppHeader';
+import AppHeader from '@/components/AppHeader';
 
 export default function Terms() {
   return (
