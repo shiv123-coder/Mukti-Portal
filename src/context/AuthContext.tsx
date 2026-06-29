@@ -80,7 +80,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               const lastOtp = data.lastOtpDate ? (data.lastOtpDate as Timestamp).toDate() : null;
               
               const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
-              const isAdmin = firebaseUser.email === import.meta.env.VITE_ADMIN_EMAIL || data.phone === adminPhone;
+              const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
+              const isAdmin = Boolean((adminEmail && firebaseUser.email === adminEmail) || (adminPhone && data.phone === adminPhone));
               
               setUser({
                 ...data,
@@ -266,7 +267,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     const adminPhone = import.meta.env.VITE_ADMIN_PHONE;
-    const isAdmin = userData.phone === adminPhone || userData.email === import.meta.env.VITE_ADMIN_EMAIL;
+    const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
+    const isAdmin = Boolean((adminEmail && userData.email === adminEmail) || (adminPhone && userData.phone === adminPhone));
     const finalRole = isAdmin ? "admin" : userData.role;
 
     const firestoreUser = cleanObject({
