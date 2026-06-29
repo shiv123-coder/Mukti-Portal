@@ -221,6 +221,22 @@ Fraud Detection
 </div>
 
 ---
+
+## 🎭 Application Roles & Demo Testing
+
+Mukti Portal supports multiple distinct user roles, each with a tailored experience:
+
+- **Admin (`admin`)**: Moderates users, views platform-wide analytics, and manages platform integrity.
+- **Worker (`worker`)**: Tracks their trust score, manages their profile, receives verifications, and builds creditability.
+- **Customer (`customer`)**: Posts work requests, browses workers, and verifies completed jobs.
+- **Dual Role (`both`)**: A user who operates as both a Worker and a Customer seamlessly.
+
+> [!TIP]
+> **Testing Cross-Role Workflows**
+> To properly test the interaction between different roles (or test the `both` dual role for self-booking fraud detection), you will need to log in using **two different web browsers** or use a **normal window alongside an incognito/private window** simultaneously.
+
+---
+
 ## 🔐 Security
 
 <div align="center">
