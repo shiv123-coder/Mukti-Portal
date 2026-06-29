@@ -33,7 +33,7 @@ const AppHeader = () => {
   const location = useLocation();
   // Notifications are now handled by NotificationPanel component
   let isWorkerView = user?.role === "worker";
-  let displayRole = user?.role;
+  let displayRole: string | undefined = user?.role;
 
   if (user?.role === "both") {
     if (location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/qr") || location.pathname.startsWith("/report")) {
