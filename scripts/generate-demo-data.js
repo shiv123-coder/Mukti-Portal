@@ -271,7 +271,7 @@ collections.notifications['notif_fraud_1'] = {
   title: 'Action Restricted',
   message: 'System flagged a self-booking attempt. You cannot accept your own work requests.',
   read: false,
-  createdAt: new Date().toISOString(),
+  timestamp: new Date().toISOString(),
   type: 'error',
   isDemo: true
 };
@@ -281,7 +281,7 @@ collections.notifications['notif_fraud_2'] = {
   title: 'Warning Issued',
   message: 'Repeated self-booking may result in account suspension.',
   read: false,
-  createdAt: new Date().toISOString(),
+  timestamp: new Date().toISOString(),
   type: 'warning',
   isDemo: true
 };
@@ -375,7 +375,7 @@ for (let i = 0; i < 100; i++) {
     title,
     message,
     read: faker.datatype.boolean(),
-    createdAt: faker.date.recent({days: 5}).toISOString(),
+    timestamp: faker.date.recent({days: 5}).toISOString(),
     type,
     isDemo: true
   };
@@ -389,7 +389,7 @@ for (let i = 0; i < 20; i++) {
     title: faker.person.jobTitle(),
     description: faker.lorem.paragraph(),
     location: faker.location.city(),
-    budget: faker.number.int({min: 1000, max: 10000}),
+    pay: faker.number.int({min: 1000, max: 10000}),
     postedBy: faker.helpers.arrayElement(allCustomers),
     status: faker.helpers.arrayElement(['open', 'closed', 'in_progress']),
     createdAt: faker.date.recent({days: 30}).toISOString(),
