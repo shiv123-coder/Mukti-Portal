@@ -1151,7 +1151,6 @@ app.put('/api/work-request/:id', verifyToken, async (req: AuthRequest, res) => {
         }
       }
     }
-    }
 
     res.json({ success: true, message: 'Work request updated' });
   } catch (err: any) {
