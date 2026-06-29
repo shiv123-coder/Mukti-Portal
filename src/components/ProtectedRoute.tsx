@@ -24,7 +24,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
+  let userHasAccess = true;
+  if (allowedRoles) {
+    if (user.role === "both") {
+       userHasAccess = allowedRoles.includes("customer" as any) || allowedRoles.includes("worker" as any) || allowedRoles.includes("both" as any);
+    } else {
+       userHasAccess = allowedRoles.includes(user.role);
+    }
+  }
+
+  if (!userHasAccess) {
     // If it's an admin hitting a non-admin route, send to admin dashboard
     if (user.role === "admin") {
       return <Navigate to="/admin/dashboard" replace />;
@@ -34,13 +43,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
   }
 
   // Intercept workers who haven't completed their professional onboarding
-  if (user.role === "worker" && !user.isProfileComplete && location.pathname !== "/onboarding") {
+  if ((user.role === "worker" || user.role === "both") && !user.isProfileComplete && location.pathname !== "/onboarding") {
     return <Navigate to="/onboarding" replace />;
   }
 
   // Prevent users with complete profiles from accessing the onboarding page
   if (location.pathname === "/onboarding" && user.isProfileComplete) {
-    const redirectPath = user.role === "worker" ? "/dashboard" : "/customer";
+    const redirectPath = (user.role === "worker" || user.role === "both") ? "/dashboard" : "/customer";
     return <Navigate to={redirectPath} replace />;
   }
 
