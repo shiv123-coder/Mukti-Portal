@@ -245,10 +245,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error("Missing required fields for signup");
     }
 
+    if (!password) throw new Error("Password is required for signup");
+    const email = userData.email;
+
     try {
-      if (!password) throw new Error("Password is required for signup");
-      const email = userData.email;
-      
       const result = await createUserWithEmailAndPassword(auth, email, password);
       firebaseUser = result.user;
     } catch (err: any) {
