@@ -246,6 +246,46 @@ const allWorkers = [verifiedWorkerId, pendingWorkerId, suspendedWorkerId, dualUs
 const allCustomers = [activeCustomerId, lowActivityCustomerId, dualUserId, ...fakeCustomerIds];
 const statuses = ['Pending', 'Accepted', 'In Progress', 'Completed', 'Rejected', 'Cancelled'];
 
+// Fraud / Self-dealing specific case
+const selfDealReqId = 'req_fraud_self_deal';
+collections.work_requests[selfDealReqId] = {
+  id: selfDealReqId,
+  customerId: dualUserId,
+  workerId: dualUserId, // Same user attempting to book themselves
+  status: 'Flagged',
+  title: 'Self Booking Fraud Attempt',
+  description: 'A test case where a dual user attempts to book themselves for false rating manipulation.',
+  location: 'Mumbai, Maharashtra',
+  location_coords: { lat: 19.0760, lng: 72.8777 },
+  date: new Date().toISOString(),
+  price: 5000,
+  createdAt: new Date().toISOString(),
+  isDemo: true,
+  isFraud: true
+};
+
+// Add explicit notification for this fraud
+collections.notifications['notif_fraud_1'] = {
+  id: 'notif_fraud_1',
+  userId: dualUserId,
+  title: 'Action Restricted',
+  message: 'System flagged a self-booking attempt. You cannot accept your own work requests.',
+  read: false,
+  createdAt: new Date().toISOString(),
+  type: 'error',
+  isDemo: true
+};
+collections.notifications['notif_fraud_2'] = {
+  id: 'notif_fraud_2',
+  userId: dualUserId,
+  title: 'Warning Issued',
+  message: 'Repeated self-booking may result in account suspension.',
+  read: false,
+  createdAt: new Date().toISOString(),
+  type: 'warning',
+  isDemo: true
+};
+
 for (let i = 0; i < 100; i++) {
   const id = 'req_' + i;
   const status = faker.helpers.arrayElement(statuses);
@@ -305,20 +345,38 @@ for (let i = 0; i < 30; i++) {
   };
 }
 
-// 6. Generate Notifications
+// 6. Generate Notifications tied to generic activities
 const allUsers = [...allWorkers, ...allCustomers, adminId];
 for (let i = 0; i < 100; i++) {
   const id = 'notif_' + i;
   const target = faker.helpers.arrayElement(allUsers);
+  const type = faker.helpers.arrayElement(['info', 'success', 'warning', 'error']);
   
+  let title = '';
+  let message = '';
+  
+  if (type === 'success') {
+    title = faker.helpers.arrayElement(['Work Completed', 'Payment Received', 'Profile Verified']);
+    message = 'Your recent activity has been successfully processed and recorded.';
+  } else if (type === 'info') {
+    title = faker.helpers.arrayElement(['New Work Request', 'Verification Pending', 'System Update']);
+    message = 'You have a new update regarding your recent actions on the platform.';
+  } else if (type === 'warning') {
+    title = faker.helpers.arrayElement(['Low Trust Score', 'Action Required', 'Missing Documents']);
+    message = 'Please review your profile to ensure all requirements are met.';
+  } else {
+    title = faker.helpers.arrayElement(['Request Rejected', 'Payment Failed', 'Flagged Activity']);
+    message = 'An issue occurred with your recent request. Please contact support if this persists.';
+  }
+
   collections.notifications[id] = {
     id,
     userId: target,
-    title: faker.lorem.words(3),
-    message: faker.lorem.sentence(),
+    title,
+    message,
     read: faker.datatype.boolean(),
     createdAt: faker.date.recent({days: 5}).toISOString(),
-    type: faker.helpers.arrayElement(['info', 'success', 'warning', 'error']),
+    type,
     isDemo: true
   };
 }
