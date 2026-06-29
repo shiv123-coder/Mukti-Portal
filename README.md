@@ -120,59 +120,70 @@ Financial Insights
 
 <div align="center">
 
-## ✨ Key Features
+## ✨ Key Features & Ecosystem
 
 <table>
 <tr>
-
 <td align="center" width="50%" valign="top">
 
-### 📲 Worker Dashboard
-
+### 📲 Worker Dashboard & Features
 Activity Tracking  
 Trust Score Monitoring  
 Reputation Insights  
+**PDF Report**: Generate formal work records  
+**WhatsApp Sharing**: Share profiles instantly  
 
 </td>
-
 <td align="center" width="50%" valign="top">
 
 ### 🔳 QR Verification
-
 Real-Time Validation  
 Fake-Proof Workflow  
 Secure Confirmations  
+Public Verification Profiles
 
 </td>
-
 </tr>
-
 <tr>
-
 <td align="center" width="50%" valign="top">
 
-### 📈 Trust Intelligence
-
-Reliability Scoring  
-Repeat Customer Analytics  
-Reputation Growth Tracking  
+### 📈 Trust & Intelligence
+**Rank / Leaderboard**: Gamified trust building  
+**Live Impact**: Real-time platform analytics  
+Reliability & Repeat Customer Scoring  
 
 </td>
-
 <td align="center" width="50%" valign="top">
 
-### 📄 Work Reports
-
-Verified Work Records  
-Monthly Analytics  
-Credit-Ready Reports  
+### 🏛️ Government Schemes Matcher
+AI-driven scheme recommendations  
+Match score based on income & work history  
+Direct integration with PM SVANidhi, e-Shram, etc.
 
 </td>
-
 </tr>
 </table>
 
 </div>
+
+---
+
+## 📱 Supported Devices & Platforms
+
+Mukti Portal is designed as a **Progressive Web App (PWA)**, meaning it works seamlessly across all devices:
+- **Mobile Devices**: Fully responsive, touch-friendly UI. Can be installed directly to the home screen.
+- **Desktop/Laptops**: Full dashboard experience optimized for larger screens.
+- **Offline Capabilities**: Service Workers cache essential assets for faster loading in low-connectivity areas.
+
+---
+
+## 🔔 Dynamic Notification System
+
+The platform includes a real-time notification engine that reacts to user interactions:
+- **Instant Welcome Alerts** upon registration.
+- **Verification Updates** when profiles are approved by admins.
+- **Role-Specific Prompts** guiding workers to verify their identity and customers to start hiring.
+- **Job Status Alerts** for verified work history updates.
 
 ---
 
