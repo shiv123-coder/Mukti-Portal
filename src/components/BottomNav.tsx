@@ -29,7 +29,20 @@ const BottomNav = () => {
 
   if (!user) return null;
 
-  const navItems = user.role === "worker" ? WORKER_NAV : CUSTOMER_NAV;
+  let isWorkerView = user.role === "worker";
+
+  if (user.role === "both") {
+    if (location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/qr") || location.pathname.startsWith("/report")) {
+      isWorkerView = true;
+    } else if (location.pathname.startsWith("/verify") || location.pathname.startsWith("/customer") || location.pathname.startsWith("/activity")) {
+      isWorkerView = false;
+    } else {
+      const stored = localStorage.getItem("lastView");
+      isWorkerView = stored === "worker";
+    }
+  }
+
+  const navItems = isWorkerView ? WORKER_NAV : CUSTOMER_NAV;
 
   return (
     <div className="fixed inset-x-0 bottom-6 z-50 px-6 md:hidden pb-safe print:hidden">

@@ -32,7 +32,34 @@ const AppHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
   // Notifications are now handled by NotificationPanel component
-  const navItems = user?.role === "worker" ? WORKER_NAV : CUSTOMER_NAV;
+  let isWorkerView = user?.role === "worker";
+  let displayRole = user?.role;
+
+  if (user?.role === "both") {
+    if (location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/qr") || location.pathname.startsWith("/report")) {
+      isWorkerView = true;
+      displayRole = "worker";
+    } else if (location.pathname.startsWith("/verify") || location.pathname.startsWith("/customer") || location.pathname.startsWith("/activity")) {
+      isWorkerView = false;
+      displayRole = "customer";
+    } else {
+      const stored = localStorage.getItem("lastView");
+      isWorkerView = stored === "worker";
+      displayRole = stored || "customer";
+    }
+  }
+
+  useEffect(() => {
+    if (user?.role === "both") {
+      if (location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/qr") || location.pathname.startsWith("/report")) {
+        localStorage.setItem("lastView", "worker");
+      } else if (location.pathname.startsWith("/verify") || location.pathname.startsWith("/customer") || location.pathname.startsWith("/activity")) {
+        localStorage.setItem("lastView", "customer");
+      }
+    }
+  }, [location.pathname, user?.role]);
+
+  const navItems = isWorkerView ? WORKER_NAV : CUSTOMER_NAV;
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border print:hidden">
@@ -94,7 +121,7 @@ const AppHeader = () => {
             <div className="hidden items-center gap-3 sm:flex">
               <div className="flex flex-col text-right">
                 <span className="text-xs font-black text-foreground italic tracking-tight">{user.name}</span>
-                <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mt-0.5 opacity-70">{user.role}</span>
+                <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mt-0.5 opacity-70">{displayRole}</span>
               </div>
               <div className="h-9 w-9 overflow-hidden rounded-xl border border-primary/30 bg-secondary shadow-lg shadow-primary-glow">
                 {user.photo ? (
