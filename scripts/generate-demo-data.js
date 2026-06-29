@@ -162,7 +162,7 @@ collections.users[suspendedWorkerId] = {
 const dualUserId = 'user_dual_role';
 collections.users[dualUserId] = {
   id: dualUserId,
-  email: 'shivashankrmali7@gmail.com',
+  email: 'dual_role_demo@gmail.com',
   name: 'Shiv Dual Role (Worker & Customer)',
   role: 'both',
   roles: ['worker', 'customer'],
