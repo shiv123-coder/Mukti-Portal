@@ -203,3 +203,12 @@ saved_models/
 
 mukti_portal_interview_questions.md
 mukti_portal_links.txt
+
+# ----------------------------------------------------------------
+#  13. Demo Environment Files
+# ----------------------------------------------------------------
+firestore-demo-seed.json
+storage-demo-assets/
+DEMO_CREDENTIALS.md
+service-account.json
+
