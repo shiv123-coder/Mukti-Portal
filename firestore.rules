@@ -37,8 +37,8 @@ service cloud.firestore {
     // 5. Public Credit Report Snapshots (QR Code Verification)
     match /public_reports/{reportId} {
       allow read: if true;
-      allow create: if false; // Only backend can create these via admin SDK
-      allow update, delete: if false; 
+      allow create, update: if request.auth != null && request.auth.uid == reportId;
+      allow delete: if false; 
     }
     // 6. User and Admin Notifications
     match /notifications/{docId} {

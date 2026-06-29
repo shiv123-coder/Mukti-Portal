@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, Cell, LineChart, Line } from "recharts";
 import { db } from "@/lib/firebase";
-import { collection, query, onSnapshot, orderBy, Timestamp, where, getDocs } from "firebase/firestore";
+import { collection, query, onSnapshot, orderBy, Timestamp, where, getDocs, setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { auth } from "@/lib/firebase";
 import { toast } from "sonner";
 import { calculateIncomeStats, parseBudgetToAmount } from "@/utils/financial";
@@ -313,10 +313,42 @@ const ReportPreview = () => {
             </div>
 
             <button
-              onClick={() => {
+              onClick={async () => {
                 if (user.isVerifiedByAdmin || isApproved || isDemoWorker) {
-                  window.print();
-                  toast.success('Premium Trust Report Downloaded!');
+                  try {
+                    const publicData = {
+                      workerName: user.name,
+                      skill: user.skill || 'General Worker',
+                      location: user.location || 'N/A',
+                      phone: user.phone || '',
+                      muktiScore: muktiScore,
+                      confidence: trustLevel,
+                      totalJobs: totalJobs,
+                      avgRating: avgRating,
+                      activeMonths: activeMonths,
+                      repeatCustomers: repeatCustomers,
+                      incomeMin: finStats.incomeRange.min,
+                      incomeMax: finStats.incomeRange.max,
+                      isVerified: isApproved,
+                      timestamp: serverTimestamp(),
+                      computed: {
+                        recentJobs: verifications.slice(0, 5).map(v => ({
+                          date: v.timestamp instanceof Date ? v.timestamp.toLocaleDateString() : new Date(v.timestamp).toLocaleDateString(),
+                          category: v.service || 'General',
+                          rating: v.rating || 4
+                        })),
+                        trustStack: {
+                           otp: true, geo: true, photo: totalJobs > 0, timestamp: true, repeat: repeatCustomers > 0
+                        }
+                      }
+                    };
+                    await setDoc(doc(db, "public_reports", user.id), publicData);
+                    window.print();
+                    toast.success('Premium Trust Report Downloaded!');
+                  } catch (err) {
+                    console.error("Failed to sync report data:", err);
+                    toast.error("Failed to generate official report");
+                  }
                 }
               }}
               disabled={!(user.isVerifiedByAdmin || isApproved || isDemoWorker)}
@@ -457,7 +489,7 @@ const ReportPreview = () => {
               </div>
 
               <div className="rounded-2xl border-2 border-border bg-muted/30 p-6 flex flex-col items-center justify-center text-center">
-                <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-2">Scan to Verify</label>
+                <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-2">Scan for Work History</label>
                 <div className="p-2 bg-white rounded-xl mb-2 shadow-sm border border-border/50 inline-block">
                   <QRCodeSVG 
                     value={`${window.location.origin}/report/public/${user.id}`}
@@ -469,7 +501,7 @@ const ReportPreview = () => {
                   />
                 </div>
                 <div className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-tight">
-                  Official Profile
+                  Full Job Record
                 </div>
               </div>
             </div>
