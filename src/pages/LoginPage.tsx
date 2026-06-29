@@ -6,7 +6,8 @@ import { Briefcase, User, AlertCircle, Eye, EyeOff, ShieldCheck, Zap, Sparkles, 
 import { useGoogleLogin } from "@react-oauth/google";
 import { motion, AnimatePresence } from "framer-motion";
 import { uploadProfileImage } from "@/utils/storage";
-
+import { db } from "@/lib/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 const slideUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
@@ -67,19 +68,21 @@ const LoginPage = () => {
         const hasCustomerAccess = user.role === "customer" || user.role === "both" || user.roles?.includes("customer");
 
         if (selectedLoginRole === "customer") {
-          if (hasCustomerAccess) {
+          const proceed = async () => {
+            if (!hasCustomerAccess) {
+              await updateDoc(doc(db, "users", user.id), { role: "both" });
+            }
             navigate(from || "/customer", { replace: true });
-          } else {
-            setLoginError("This account does not have Customer access.");
-            logout();
-          }
+          };
+          proceed();
         } else if (selectedLoginRole === "worker") {
-          if (hasWorkerAccess) {
+          const proceed = async () => {
+            if (!hasWorkerAccess) {
+              await updateDoc(doc(db, "users", user.id), { role: "both" });
+            }
             navigate(from || "/dashboard", { replace: true });
-          } else {
-            setLoginError("This account does not have Worker access.");
-            logout();
-          }
+          };
+          proceed();
         }
       } else {
         // Fallback for returning authenticated users without an active login form role selection

@@ -269,7 +269,9 @@ app.post('/api/auth/google', async (req, res) => {
       }
 
       if (selectedRole && userDocData.role !== selectedRole && userDocData.role !== 'both') {
-        return res.status(403).json({ error: `Account does not have access to the '${selectedRole}' role.` });
+        // Upgrade account to 'both' seamlessly
+        await db.collection('users').doc(userId as string).update({ role: 'both' });
+        userDocData.role = 'both';
       }
     }
 
