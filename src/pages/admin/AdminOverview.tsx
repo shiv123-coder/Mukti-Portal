@@ -60,11 +60,18 @@ const AdminOverview = () => {
         return { label: d.toLocaleDateString('en-US', { weekday: 'short' }), dateStr: d.toDateString(), signups: 0, verified: 0, requests: 0 };
       }).reverse();
 
+      const getDateStr = (val: any) => {
+        if (!val) return null;
+        if (typeof val?.toDate === 'function') return val.toDate().toDateString();
+        if (typeof val === 'string' || typeof val === 'number') return new Date(val).toDateString();
+        return null;
+      };
+
       snap.docs.forEach(d => {
         const data = d.data();
         if (data.role === "worker") {
           workersCount++;
-          if (data.status === "verified") verifiedCount++;
+          if (data.status === "verified" || data.isVerifiedByAdmin === true) verifiedCount++;
           const s = data.skill || "Unspecified";
           skills[s] = (skills[s] || 0) + 1;
         } else if (data.role === "customer") {
@@ -73,14 +80,18 @@ const AdminOverview = () => {
 
         // Chart calculations
         if (data.lastActive) {
-          const ts = (data.lastActive as Timestamp).toDate().toDateString();
-          const day = last7Days.find(day => day.dateStr === ts);
-          if (day) day.signups++;
+          const ts = getDateStr(data.lastActive);
+          if (ts) {
+            const day = last7Days.find(day => day.dateStr === ts);
+            if (day) day.signups++;
+          }
         }
-        if (data.status === 'verified' && data.lastUpdated) {
-          const ts = (data.lastUpdated as Timestamp).toDate().toDateString();
-          const day = last7Days.find(day => day.dateStr === ts);
-          if (day) day.verified++;
+        if ((data.status === 'verified' || data.isVerifiedByAdmin) && (data.lastUpdated || data.createdAt)) {
+          const ts = getDateStr(data.lastUpdated || data.createdAt);
+          if (ts) {
+            const day = last7Days.find(day => day.dateStr === ts);
+            if (day) day.verified++;
+          }
         }
       });
 
@@ -122,9 +133,17 @@ const AdminOverview = () => {
       snap.docs.forEach(d => {
         const data = d.data();
         if (data.status === "pending") pending++;
-        if (data.timestamp) {
-          const ts = (data.timestamp as Timestamp).toDate().toDateString();
-          requestCounts[ts] = (requestCounts[ts] || 0) + 1;
+        
+        // Use requestDate or createdAt or timestamp
+        const dateVal = data.timestamp || data.requestDate || data.createdAt;
+        if (dateVal) {
+          let tsStr = null;
+          if (typeof dateVal?.toDate === 'function') tsStr = dateVal.toDate().toDateString();
+          else if (typeof dateVal === 'string' || typeof dateVal === 'number') tsStr = new Date(dateVal).toDateString();
+          
+          if (tsStr) {
+            requestCounts[tsStr] = (requestCounts[tsStr] || 0) + 1;
+          }
         }
       });
 
