@@ -183,8 +183,12 @@ temp_*
 purge_*
 debug_*
 *refactor.cjs
+seed_notifications.cjs
 bun.lock
 bun.lockb
+vite.config.ts.timestamp-*
+mukti-portal@*
+vite
 *.bak
 *.backup
 *.old
