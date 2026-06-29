@@ -259,7 +259,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           firebaseUser = result.user;
         } catch (loginErr: any) {
           if (loginErr.code === "auth/invalid-credential" || loginErr.code === "auth/wrong-password") {
-            throw new Error("Phone number already registered. Please use the correct password or go to Log In.");
+            throw new Error("Email already registered. Please use the correct password or go to Log In.");
           }
           throw loginErr;
         }
