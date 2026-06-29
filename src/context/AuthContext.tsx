@@ -19,7 +19,8 @@ import {
   arrayUnion,
   Timestamp,
   serverTimestamp,
-  addDoc
+  addDoc,
+  collection
 } from "firebase/firestore";
 import { User, UserRole, WorkerType } from "@/types/auth";
 import { logActivity } from "@/utils/activityLogger";
