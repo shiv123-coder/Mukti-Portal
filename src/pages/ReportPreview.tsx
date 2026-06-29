@@ -312,28 +312,10 @@ const ReportPreview = () => {
             </div>
 
             <button
-              onClick={async () => {
+              onClick={() => {
                 if (user.isVerifiedByAdmin || isApproved || isDemoWorker) {
-                  try {
-                    const token = auth.currentUser ? await auth.currentUser.getIdToken() : '';
-                    const response = await fetch(`${API_BASE_URL}/api/worker/${user.id}/report`, {
-                      headers: { Authorization: `Bearer ${token}` }
-                    });
-                    if (!response.ok) throw new Error('Failed to generate report');
-                    const blob = await response.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `Mukti_Report_${user.name.replace(/\s/g, '_')}.pdf`;
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                    toast.success('Premium Trust Report Downloaded!');
-                  } catch (err) {
-                    toast.error('Failed to download report');
-                    console.error(err);
-                  }
+                  window.print();
+                  toast.success('Premium Trust Report Downloaded!');
                 }
               }}
               disabled={!(user.isVerifiedByAdmin || isApproved || isDemoWorker)}

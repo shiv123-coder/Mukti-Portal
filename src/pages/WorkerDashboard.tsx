@@ -773,26 +773,9 @@ const WorkerDashboard = () => {
         {(isApproved || user.isVerifiedByAdmin) && (
           <button
             id="report_download"
-            onClick={async () => {
-              try {
-                const token = auth.currentUser ? await auth.currentUser.getIdToken() : '';
-                const response = await fetch(`${API_BASE_URL}/api/worker/${user.id}/report`, {
-                  headers: { Authorization: `Bearer ${token}` }
-                });
-                if (!response.ok) throw new Error('Failed to generate report');
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `Mukti_Report_${user.name.replace(/\s/g, '_')}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-                toast.success('Premium Trust Report Downloaded!');
-              } catch (err) {
-                toast.error('Failed to download report');
-                console.error(err);
+            onClick={() => {
+              if (isApproved || user.isVerifiedByAdmin) {
+                navigate('/report');
               }
             }}
             className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all group"
