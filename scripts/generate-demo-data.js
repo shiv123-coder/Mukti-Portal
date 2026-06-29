@@ -399,6 +399,9 @@ for (let i = 0; i < 20; i++) {
 
 // Write to file
 const outputPath = path.join(__dirname, '..', 'firestore-demo-seed.json');
-fs.writeFileSync(outputPath, JSON.stringify(collections, null, 2));
+const formattedData = {
+  __collections__: collections
+};
+fs.writeFileSync(outputPath, JSON.stringify(formattedData, null, 2));
 
 console.log(`Successfully generated demo data at ${outputPath}`);
