@@ -182,6 +182,9 @@ $RECYCLE.BIN/
 temp_*
 purge_*
 debug_*
+*refactor.cjs
+bun.lock
+bun.lockb
 *.bak
 *.backup
 *.old
