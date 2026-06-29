@@ -3,6 +3,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { DEMO_VERIFICATIONS, MONTHLY_DATA, getAverageRating, DEMO_DASHBOARD_DATA, type MonthlyData } from "@/data/mockData";
 import { calculateTrustScore } from "@/utils/trustEngine";
+import { QRCodeSVG } from "qrcode.react";
 import { 
   ArrowLeft, 
   Download, 
@@ -442,15 +443,34 @@ const ReportPreview = () => {
               </div>
             </div>
 
-            {/* Trust Score Visual */}
-            <div className="rounded-2xl border-2 border-border bg-muted/30 p-8 flex flex-col items-center justify-center text-center">
-              <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-4">Trust Score Index</label>
-              <div className="relative mb-4">
-                <div className="text-4xl font-black text-primary">{trustScore}</div>
-                <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">SCORE</div>
+            {/* Trust Score Visual & QR Code */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-2xl border-2 border-border bg-muted/30 p-6 flex flex-col items-center justify-center text-center">
+                <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-4">Trust Score Index</label>
+                <div className="relative mb-4">
+                  <div className="text-4xl font-black text-primary">{trustScore}</div>
+                  <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">SCORE</div>
+                </div>
+                <div className={`text-sm font-black tracking-widest px-6 py-1.5 rounded-full ${trustBg} text-primary-foreground`}>
+                    {trustLevel} TRUST
+                </div>
               </div>
-              <div className={`text-sm font-black tracking-widest px-6 py-1.5 rounded-full ${trustBg} text-primary-foreground`}>
-                  {trustLevel} TRUST
+
+              <div className="rounded-2xl border-2 border-border bg-muted/30 p-6 flex flex-col items-center justify-center text-center">
+                <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-2">Scan to Verify</label>
+                <div className="p-2 bg-white rounded-xl mb-2 shadow-sm border border-border/50 inline-block">
+                  <QRCodeSVG 
+                    value={`${window.location.origin}/report/public/${user.id}`}
+                    size={70}
+                    level="H"
+                    includeMargin={false}
+                    fgColor="#000000"
+                    bgColor="#FFFFFF"
+                  />
+                </div>
+                <div className="text-[9px] font-black text-muted-foreground uppercase tracking-widest leading-tight">
+                  Official Profile
+                </div>
               </div>
             </div>
           </div>
