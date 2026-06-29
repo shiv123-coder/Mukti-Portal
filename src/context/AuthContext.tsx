@@ -19,6 +19,7 @@ import {
   arrayUnion,
   Timestamp,
   serverTimestamp,
+  addDoc
 } from "firebase/firestore";
 import { User, UserRole, WorkerType } from "@/types/auth";
 import { logActivity } from "@/utils/activityLogger";
@@ -290,6 +291,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await setDoc(doc(db, "users", firebaseUser.uid), firestoreUser);
       console.log("✅ Firestore registration successful");
+      
+      // Dynamic Initial Notifications
+      try {
+        const notifsRef = collection(db, "notifications");
+        await addDoc(notifsRef, {
+          userId: firebaseUser.uid,
+          title: "Welcome to Mukti Portal",
+          message: "Your profile has been created successfully. Explore the dashboard to get started.",
+          read: false,
+          timestamp: serverTimestamp(),
+          type: "info"
+        });
+
+        if (finalRole === "worker" || finalRole === "both") {
+          await addDoc(notifsRef, {
+            userId: firebaseUser.uid,
+            title: "Profile Verification Pending",
+            message: "Please complete your identity verification to start accepting jobs and building your Mukti Score.",
+            read: false,
+            timestamp: serverTimestamp(),
+            type: "warning"
+          });
+        }
+
+        if (finalRole === "customer" || finalRole === "both") {
+          await addDoc(notifsRef, {
+            userId: firebaseUser.uid,
+            title: "Ready to Hire",
+            message: "You can now search for verified workers in your area. Look for the 'Verified' badge for trusted professionals.",
+            read: false,
+            timestamp: serverTimestamp(),
+            type: "info"
+          });
+        }
+      } catch (notifErr) {
+        console.warn("Failed to create initial notifications:", notifErr);
+      }
     } catch (err) {
       console.error("❌ Firestore registration failed:", err);
     }
