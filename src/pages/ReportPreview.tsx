@@ -143,7 +143,7 @@ const ReportPreview = () => {
     };
   }, [user, isDemoWorker]);
 
-  if (!user || user.role !== "worker") {
+  if (!user || (user.role !== "worker" && user.role !== "both")) {
     navigate("/");
     return null;
   }

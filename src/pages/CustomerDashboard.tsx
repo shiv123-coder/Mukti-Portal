@@ -79,7 +79,7 @@ const CustomerDashboard = () => {
     return () => unsubscribe();
   }, [user]);
 
-  if (!user || user.role !== "customer") {
+  if (!user || (user.role !== "customer" && user.role !== "both")) {
     navigate("/");
     return null;
   }

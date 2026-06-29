@@ -126,7 +126,7 @@ const JobMap = () => {
     return () => unsub();
   }, []);
 
-  if (!user || user.role !== 'worker') {
+  if (!user || (user.role !== 'worker' && user.role !== 'both')) {
     navigate('/');
     return null;
   }

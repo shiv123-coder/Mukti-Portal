@@ -557,7 +557,7 @@ const WorkerDashboard = () => {
   }, [user, skillFilter, distanceFilter, searchTerm]);
 
   useEffect(() => {
-    if (!loading && (!user || user.role !== "worker")) {
+    if (!loading && (!user || (user.role !== "worker" && user.role !== "both"))) {
       navigate("/");
     }
   }, [user, loading, navigate]);
@@ -565,7 +565,7 @@ const WorkerDashboard = () => {
   if (loading || !user) {
     return <div className="flex h-screen w-full items-center justify-center bg-background text-foreground font-black italic">Loading Workspace...</div>;
   }
-  if (user.role !== "worker") return null;
+  if (user.role !== "worker" && user.role !== "both") return null;
 
   // Calculate simple relative time for Last Active
   const getRelativeTime = (date: any) => {

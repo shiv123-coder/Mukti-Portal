@@ -82,7 +82,7 @@ const QRScreen = () => {
     setIsExpired(false);
   };
 
-  if (!user || user.role !== "worker") {
+  if (!user || (user.role !== "worker" && user.role !== "both")) {
     navigate("/");
     return null;
   }
