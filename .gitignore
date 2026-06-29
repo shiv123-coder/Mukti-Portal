@@ -188,6 +188,8 @@ debug_*
 *.orig
 *.swp
 *.tmp
+frontend_errors.txt
+backend_errors.txt
 
 # ----------------------------------------------------------------
 #  12. Python ML Service — Model Artifacts
