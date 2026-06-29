@@ -189,6 +189,8 @@ bun.lockb
 vite.config.ts.timestamp-*
 mukti-portal@*
 vite
+*.env.example
+FIRESTORE_IMPORT_GUIDE.md
 *.bak
 *.backup
 *.old
