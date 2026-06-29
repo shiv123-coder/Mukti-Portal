@@ -32,6 +32,7 @@ const AppHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
   // Notifications are now handled by NotificationPanel component
+  const navItems = user?.role === "worker" ? WORKER_NAV : CUSTOMER_NAV;
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border print:hidden">
