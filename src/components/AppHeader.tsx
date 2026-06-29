@@ -151,7 +151,7 @@ const AppHeader = () => {
 
           {user && (
             <button
-              onClick={() => { logout(); navigate("/"); }}
+              onClick={async () => { await logout(); navigate("/"); }}
               className="h-9 w-9 flex items-center justify-center rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 transition-all hover:bg-red-500 hover:text-primary-foreground active:scale-95 shadow-lg shadow-red-500/5 group"
               aria-label="Logout"
             >
