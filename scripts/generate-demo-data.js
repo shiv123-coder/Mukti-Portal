@@ -159,6 +159,32 @@ collections.users[suspendedWorkerId] = {
   isDemo: true
 };
 
+const dualUserId = 'user_dual_role';
+collections.users[dualUserId] = {
+  id: dualUserId,
+  email: 'shivashankrmali7@gmail.com',
+  name: 'Shiv Dual Role (Worker & Customer)',
+  role: 'both',
+  roles: ['worker', 'customer'],
+  phone: '9999999997',
+  otpVerified: true,
+  workerType: 1,
+  skill: 'Electrician',
+  location: 'Mumbai, Maharashtra',
+  photo: IMAGES.workerProfile,
+  points: 400,
+  badges: ['Verified Identity'],
+  muktiScore: 70,
+  trustScore: 70,
+  isProfileComplete: true,
+  isVerifiedByAdmin: true,
+  customer_type: 0,
+  experienceYears: 4,
+  hourlyRate: 350,
+  lastActive: new Date().toISOString(),
+  createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
+  isDemo: true
+};
 
 // 2. Generate generic fake users
 const fakeWorkerIds = [];
@@ -216,8 +242,8 @@ for (let i = 0; i < 20; i++) {
 }
 
 // 3. Generate Work Requests
-const allWorkers = [verifiedWorkerId, pendingWorkerId, suspendedWorkerId, ...fakeWorkerIds];
-const allCustomers = [activeCustomerId, lowActivityCustomerId, ...fakeCustomerIds];
+const allWorkers = [verifiedWorkerId, pendingWorkerId, suspendedWorkerId, dualUserId, ...fakeWorkerIds];
+const allCustomers = [activeCustomerId, lowActivityCustomerId, dualUserId, ...fakeCustomerIds];
 const statuses = ['Pending', 'Accepted', 'In Progress', 'Completed', 'Rejected', 'Cancelled'];
 
 for (let i = 0; i < 100; i++) {
