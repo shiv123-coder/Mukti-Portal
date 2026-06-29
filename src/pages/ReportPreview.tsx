@@ -72,7 +72,7 @@ const ReportPreview = () => {
           return {
             id: doc.id,
             ...data,
-            timestamp: data.timestamp ? (data.timestamp as Timestamp).toDate() : new Date(),
+            timestamp: data.timestamp ? (typeof data.timestamp.toDate === 'function' ? data.timestamp.toDate() : new Date(data.timestamp)) : new Date(),
           };
         })
         .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
@@ -98,7 +98,7 @@ const ReportPreview = () => {
         const vList = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
-          timestamp: (doc.data().timestamp as Timestamp)?.toDate() || new Date(),
+          timestamp: doc.data().timestamp ? (typeof doc.data().timestamp.toDate === 'function' ? doc.data().timestamp.toDate() : new Date(doc.data().timestamp)) : new Date(),
         }));
         setVerificationsList(vList);
       } catch (fetchErr) {
@@ -125,7 +125,7 @@ const ReportPreview = () => {
           service: data.service,
           rating: data.rating || 4,
           amount: data.amount || (data.budget ? parseBudgetToAmount(data.budget) : 0),
-          timestamp: data.completedAt?.toDate?.() || data.createdAt?.toDate?.() || new Date(),
+          timestamp: data.completedAt ? (typeof data.completedAt.toDate === 'function' ? data.completedAt.toDate() : new Date(data.completedAt)) : data.createdAt ? (typeof data.createdAt.toDate === 'function' ? data.createdAt.toDate() : new Date(data.createdAt)) : new Date(),
           location: data.location || "Local",
           paymentStatus: "Paid",
           isRepeatCustomer: false,

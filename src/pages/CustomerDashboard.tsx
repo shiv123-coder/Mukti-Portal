@@ -65,7 +65,7 @@ const CustomerDashboard = () => {
           workerId: data.workerId || "",
           workerName: data.workerName || "Worker",
           service: data.service || "Service",
-          timestamp: data.timestamp ? (data.timestamp as Timestamp).toDate() : new Date(),
+          timestamp: data.timestamp ? (typeof data.timestamp.toDate === 'function' ? data.timestamp.toDate() : new Date(data.timestamp)) : new Date(),
           ...data
         };
       });

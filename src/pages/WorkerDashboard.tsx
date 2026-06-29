@@ -117,7 +117,7 @@ const WorkerDashboard = () => {
           return {
             id: doc.id,
             ...data,
-            timestamp: data.timestamp ? (data.timestamp as Timestamp).toDate() : new Date(),
+            timestamp: data.timestamp ? (typeof data.timestamp.toDate === 'function' ? data.timestamp.toDate() : new Date(data.timestamp)) : new Date(),
           };
         })
         .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
@@ -143,7 +143,7 @@ const WorkerDashboard = () => {
         const vList = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
-          timestamp: (doc.data().timestamp as Timestamp)?.toDate() || new Date(),
+          timestamp: doc.data().timestamp ? (typeof doc.data().timestamp.toDate === 'function' ? doc.data().timestamp.toDate() : new Date(doc.data().timestamp)) : new Date(),
         }));
         setVerificationsList(vList);
       } catch (fetchErr) {
@@ -426,7 +426,7 @@ const WorkerDashboard = () => {
           id: doc.id,
           ...data,
           distance: dist.toFixed(1),
-          timestamp: data.createdAt ? (data.createdAt as Timestamp).toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Just now"
+          timestamp: data.createdAt ? (typeof data.createdAt.toDate === 'function' ? data.createdAt.toDate() : new Date(data.createdAt)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Just now"
         } as (WorkRequest & { distance: string });
       }).filter(r => {
         // Prevent worker from seeing their own customer requests if dual-role
