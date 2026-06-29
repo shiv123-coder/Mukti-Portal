@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LayoutDashboard, QrCode, FileText, UserCircle, History, PlusCircle, Wallet, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
