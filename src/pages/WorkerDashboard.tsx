@@ -429,6 +429,9 @@ const WorkerDashboard = () => {
           timestamp: data.createdAt ? (data.createdAt as Timestamp).toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Just now"
         } as (WorkRequest & { distance: string });
       }).filter(r => {
+        // Prevent worker from seeing their own customer requests if dual-role
+        if (r.customerId === user.id) return false;
+
         // Only show searching/pending jobs or jobs assigned to this worker
         const isSearchable = r.status === "Searching" || r.status === "Pending";
         

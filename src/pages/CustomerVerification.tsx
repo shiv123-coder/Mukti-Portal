@@ -157,7 +157,12 @@ const CustomerVerification = () => {
       setStep("form");
       const fetchWorker = async (retryCount = 0) => {
         try {
-          const wDoc = await getDoc(doc(db, "users", urlWorkerId));
+          if (urlWorkerId === user?.id) {
+            setErrorMsg("You cannot verify yourself or review your own worker profile.");
+            setStep("error");
+            return;
+          }
+          const wDoc = await getDoc(doc(db, "users", urlWorkerId!));
           if (wDoc.exists()) {
             const workerData = wDoc.data();
             
@@ -238,6 +243,12 @@ const CustomerVerification = () => {
                     const sessionId = parts[parts.length - 1];
                     
                     if (workerId && sessionId) {
+                       if (workerId === user?.id) {
+                         toast.error("You cannot verify yourself!");
+                         setStep("error");
+                         setErrorMsg("Self-verification is not allowed.");
+                         return;
+                       }
                        toast.success("Identity Verified! Syncing details...");
                        navigate(`/verify/${workerId}/${sessionId}`);
                        return; // Exit loop
@@ -885,6 +896,10 @@ const CustomerVerification = () => {
       const q = query(collection(db, "users"), where("role", "==", "worker"), where("activeVerificationCode", "==", manualCode.toUpperCase()));
       const snap = await getDocs(q);
       if (!snap.empty) {
+        if (snap.docs[0].id === user?.id) {
+          toast.error("You cannot verify yourself!");
+          return;
+        }
         setCurrentWorker({ id: snap.docs[0].id, ...snap.docs[0].data() });
         setStep("form");
       } else {
