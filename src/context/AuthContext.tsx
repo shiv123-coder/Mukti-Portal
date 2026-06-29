@@ -181,8 +181,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           otpVerified: true // Set to true since they just logged in with password/google
         });
       }
-    }
-    const data = userDoc.exists() ? userDoc.data() : { role: 'user', name: 'User' };
       
       await logActivity({
         title: `${data.role === 'admin' ? 'Admin' : 'User'} Login`,
@@ -190,6 +188,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         type: 'Auth',
         priority: 'info'
       });
+    } else {
+      await signOut(auth);
+      throw new Error("User profile not found. Please create an account first.");
+    }
   }
 
   async function signInWithGoogle(role: UserRole, accessToken: string) {
